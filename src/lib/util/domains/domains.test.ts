@@ -32,7 +32,7 @@ describe('getDomainId', () => {
 	});
 
 	describe('when args is a valid string', () => {
-		it('should convert to and return a subnode hash', () => {
+		it('should convert to and return a subnode hash (domainId)', () => {
 			expect(getDomainId('wilder')).toBe(wilderDomainId);
 		});
 	});
