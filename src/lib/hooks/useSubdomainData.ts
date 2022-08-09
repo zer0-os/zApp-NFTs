@@ -20,16 +20,20 @@ export const useSubdomainData = (domainId: string): useSubdomainDataReturn => {
 	// SDK
 	const sdk = useZnsSdk();
 
-	// State
-	const [subdomainData, setSubdomainData] = useState<Domain[] | undefined>();
-
 	// Query
-	const { error, isError, isLoading, isSuccess } = useQuery(
+	const {
+		error,
+		isError,
+		isLoading,
+		isSuccess,
+		data: { subdomainData } = {},
+	} = useQuery(
 		`domain-subdomains-${domainId}`,
 		async () => {
 			try {
-				const subdomains = await sdk.getSubdomainsById(domainId);
-				setSubdomainData(subdomains);
+				const subdomainData = await sdk.getSubdomainsById(domainId);
+
+				return { subdomainData };
 			} catch (error: any) {
 				throw new Error(error);
 			}

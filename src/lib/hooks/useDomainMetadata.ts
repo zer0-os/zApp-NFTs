@@ -10,7 +10,7 @@ import { parseDomainMetadata } from '../util/metadata/metadata';
 import useZnsSdk from './useZnsSdk';
 
 export interface UseDomainMetadataReturn {
-	domainMetadata: Metadata;
+	domainMetadata?: Metadata | undefined;
 	error: any;
 	isError: boolean;
 	isLoading: boolean;
@@ -18,22 +18,28 @@ export interface UseDomainMetadataReturn {
 }
 
 export const useDomainMetadata = (uri: string): UseDomainMetadataReturn => {
+	// SDK
 	const sdk = useZnsSdk();
 
-	const [domainMetadata, setDomainMetadata] = useState<Metadata | undefined>();
-
 	// Query
-	const { error, isError, isLoading, isSuccess } = useQuery(
+	const {
+		error,
+		isError,
+		isLoading,
+		isSuccess,
+		data: { domainMetadata } = {},
+	} = useQuery(
 		`domain-metadata-${uri}`,
 		async () => {
 			try {
 				const raw = await sdk.utility.getMetadataFromUri(uri);
+
 				if (raw) {
-					const parsedData = parseDomainMetadata(raw);
-					setDomainMetadata(parsedData);
+					const domainMetadata = parseDomainMetadata(raw);
+					return { domainMetadata };
 				}
-			} catch (error: any) {
-				throw new Error(error);
+			} catch (error) {
+				return { domainMetadata: undefined };
 			}
 		},
 		{

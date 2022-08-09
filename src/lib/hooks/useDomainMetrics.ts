@@ -20,18 +20,19 @@ export const useDomainMetrics = (domainId: string): UseDomainMetricsReturn => {
 	// SDK
 	const sdk = useZnsSdk();
 
-	// State
-	const [domainMetrics, setDomainMetrics] = useState<
-		DomainMetrics | undefined
-	>();
-
 	// Query
-	const { error, isError, isLoading, isSuccess } = useQuery(
+	const {
+		error,
+		isError,
+		isLoading,
+		isSuccess,
+		data: domainMetrics,
+	} = useQuery(
 		`domain-metrics-${domainId}`,
 		async () => {
 			try {
-				const metricsData = await sdk.getDomainMetrics([domainId]);
-				setDomainMetrics(metricsData[domainId]);
+				const domainMetrics = await sdk.getDomainMetrics([domainId]);
+				return domainMetrics[domainId];
 			} catch (error: any) {
 				throw new Error(error);
 			}

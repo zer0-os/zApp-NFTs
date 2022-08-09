@@ -20,16 +20,22 @@ export const useDomain = (domainId: string): UseDomainReturn => {
 	// SDK
 	const sdk = useZnsSdk();
 
-	// State
-	const [domain, setDomain] = useState<Domain | undefined>();
-
 	// Query
-	const { error, isError, isLoading, isSuccess } = useQuery(
+	const {
+		error,
+		isError,
+		isLoading,
+		isSuccess,
+		data: { domain } = {},
+	} = useQuery(
 		`domain-${domainId}`,
 		async () => {
 			try {
-				const data = await sdk.getDomainById(domainId);
-				setDomain(data);
+				const domain = await sdk.getDomainById(domainId);
+
+				return {
+					domain,
+				};
 			} catch (error: any) {
 				throw new Error(error);
 			}
