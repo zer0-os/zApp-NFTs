@@ -4,8 +4,10 @@ import { useQuery } from 'react-query';
 //- Types Imports
 import { Metadata } from '../types/metadata';
 
-//- Library Imports
+//- Util Imports
 import { parseDomainMetadata } from '../util/metadata/metadata';
+
+//- Library Imports
 import useZnsSdk from './useZnsSdk';
 
 export interface UseDomainMetadataReturn {

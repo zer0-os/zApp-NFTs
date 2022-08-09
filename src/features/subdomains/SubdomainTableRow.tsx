@@ -10,7 +10,6 @@ import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { formatEthers, formatNumber } from '../../lib/util/number/number';
-import { usePaymentTokenInfo } from '../../lib/hooks/usePaymentTokenInfo';
 import { useBuyNowPrice } from '../../lib/hooks/useBuyNowPrice';
 
 type SubdomainTableRowProps = {

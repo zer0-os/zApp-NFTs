@@ -4,9 +4,6 @@ import { useQuery } from 'react-query';
 //- Hooks Imports
 import { useZnsSdk } from './useZnsSdk';
 
-//- Library Imports
-import { BuyNowListing } from '@zero-tech/zns-sdk/lib/zAuction';
-
 export interface UseBuyNowPriceReturn {
 	buyNowPrice: string;
 	error: any;
