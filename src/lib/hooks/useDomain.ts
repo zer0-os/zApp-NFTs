@@ -1,5 +1,4 @@
 //- React Imports
-import { useState } from 'react';
 import { useQuery } from 'react-query';
 
 //- Hooks Imports

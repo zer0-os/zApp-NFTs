@@ -1,5 +1,4 @@
 //- React Imports
-import { useState } from 'react';
 import { useQuery } from 'react-query';
 
 //- Hooks Imports
@@ -8,7 +7,7 @@ import { useZnsSdk } from './useZnsSdk';
 //- Library Imports
 import { Domain } from '@zero-tech/zns-sdk/lib/types';
 
-export interface useSubdomainDataReturn {
+export interface UseSubdomainDataReturn {
 	subdomainData: Domain[] | undefined;
 	error: any;
 	isError: boolean;
@@ -16,7 +15,7 @@ export interface useSubdomainDataReturn {
 	isSuccess: boolean;
 }
 
-export const useSubdomainData = (domainId: string): useSubdomainDataReturn => {
+export const useSubdomainData = (domainId: string): UseSubdomainDataReturn => {
 	// SDK
 	const sdk = useZnsSdk();
 
