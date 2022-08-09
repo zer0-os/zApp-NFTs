@@ -9,11 +9,18 @@ import { FC } from 'react';
 //- Types Imports
 import { AppProps } from './lib/types/app';
 
+//- Page Imports
+import ZNS from './pages/ZNS/ZNS';
+
 const App: FC<AppProps> = ({ provider, route }) => {
 	console.log('prov (marketplace-dapp):', provider);
 	console.log('route (marketplace-dapp):', route);
 
-	return <main>Marketplace dApp</main>;
+	return (
+		<main>
+			<ZNS route={route} />
+		</main>
+	);
 };
 
 export default App;
