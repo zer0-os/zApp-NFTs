@@ -26,9 +26,9 @@ const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	paymentTokenData,
 	onClick,
 }) => {
-	const { domainMetrics } = useDomainMetrics(domainId);
-	const { buyNowPrice } = useBuyNowPrice(domainId);
-	const { domainMetadata } = useDomainMetadata(domainMetadataUri);
+	const { data: domainMetrics } = useDomainMetrics(domainId);
+	const { data: buyNowPrice } = useBuyNowPrice(domainId);
+	const { data: domainMetadata } = useDomainMetadata(domainMetadataUri);
 	const handleItemClick = () => onClick(domainName);
 
 	return (

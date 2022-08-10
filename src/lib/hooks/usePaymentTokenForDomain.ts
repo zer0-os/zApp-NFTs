@@ -4,14 +4,14 @@ import { useQuery } from 'react-query';
 //- Hooks Imports
 import { useZnsSdk } from './useZnsSdk';
 
-export const useDomainData = (domainId: string) => {
+export const usePaymentTokenForDomain = (domainId: string) => {
 	// SDK
 	const sdk = useZnsSdk();
 
 	// Query
 	return useQuery(
-		`domain-data-${domainId}`,
-		async () => sdk.getDomainById(domainId),
+		`domain-payment-token-${domainId}`,
+		async () => sdk.zauction.getPaymentTokenForDomain(domainId),
 		{
 			retry: false,
 			refetchOnMount: false,

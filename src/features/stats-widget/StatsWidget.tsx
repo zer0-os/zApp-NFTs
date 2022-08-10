@@ -8,6 +8,7 @@ import { ethers } from 'ethers';
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { formatEthers, formatNumber } from '../../lib/util/number/number';
 import { usePaymentTokenInfo } from '../../lib/hooks/usePaymentTokenInfo';
+import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDomain';
 
 type StatsWidgetProps = {
 	domainId: string;
@@ -15,8 +16,9 @@ type StatsWidgetProps = {
 };
 
 const StatsWidget: FC<StatsWidgetProps> = ({ domainId, isNFTView }) => {
-	const { domainMetrics } = useDomainMetrics(domainId);
-	const { paymentTokenData } = usePaymentTokenInfo(domainId);
+	const { data: domainMetrics } = useDomainMetrics(domainId);
+	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
+	const { data: paymentTokenData } = usePaymentTokenInfo(paymentToken);
 
 	const metricsNFTView = () => {
 		return (

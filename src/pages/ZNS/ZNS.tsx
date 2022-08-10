@@ -3,11 +3,12 @@ import type { FC } from 'react';
 
 //- Hook Imports
 import { useSubdomainData } from '../../lib/hooks/useSubdomainData';
-import { useDomain } from '../../lib/hooks/useDomain';
+import { useDomainData } from '../../lib/hooks/useDomainData';
 import { usePaymentTokenInfo } from '../../lib/hooks/usePaymentTokenInfo';
+import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDomain';
 
 //- Features Imports
-import SubdomainTable from '../../features/subdomains/SubdomainTable';
+import SubdomainTable from '../../features/subdomain-table/SubdomainTable';
 import StatsWidget from '../../features/stats-widget/StatsWidget';
 
 //- Utils Imports
@@ -19,9 +20,13 @@ type ZNSProps = {
 
 const ZNS: FC<ZNSProps> = ({ route }) => {
 	const domainId = getDomainId(route);
-	const { domain } = useDomain(domainId);
-	const { subdomainData } = useSubdomainData(domainId);
-	const { paymentTokenData } = usePaymentTokenInfo(domainId);
+	const { data: domain } = useDomainData(domainId);
+	const { data: subdomainData } = useSubdomainData(domainId);
+	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
+	const { data: paymentTokenData } = usePaymentTokenInfo(paymentToken);
+
+	console.log(subdomainData);
+
 	const isSubdomainData = subdomainData?.length >= 1;
 	const isRoot = domain?.name === 'wilder';
 

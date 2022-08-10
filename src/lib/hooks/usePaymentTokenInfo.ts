@@ -4,56 +4,18 @@ import { useQuery } from 'react-query';
 //- Hooks Imports
 import { useZnsSdk } from './useZnsSdk';
 
-//- Library Imports
-import { TokenPriceInfo } from '@zero-tech/zns-sdk';
-
-export interface UsePaymentTokenInfoReturn {
-	paymentTokenData: TokenPriceInfo;
-	error: any;
-	isError: boolean;
-	isLoading: boolean;
-	isSuccess: boolean;
-}
-
-export const usePaymentTokenInfo = (
-	domainId: string,
-): UsePaymentTokenInfoReturn => {
+export const usePaymentTokenInfo = (token: string) => {
 	// SDK
 	const sdk = useZnsSdk();
 
 	// Query
-	const {
-		error,
-		isError,
-		isLoading,
-		isSuccess,
-		data: paymentTokenData,
-	} = useQuery(
-		`domain-payment-token-info-${domainId}`,
-		async () => {
-			const paymentToken = await sdk.zauction.getPaymentTokenForDomain(
-				domainId,
-			);
-
-			if (paymentToken) {
-				const paymentTokenData = await sdk.zauction.getPaymentTokenInfo(
-					paymentToken,
-				);
-				return paymentTokenData;
-			}
-		},
+	return useQuery(
+		`domain-payment-token-info-${token}`,
+		async () => sdk.zauction.getPaymentTokenInfo(token),
 		{
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
 		},
 	);
-
-	return {
-		paymentTokenData,
-		error,
-		isError,
-		isLoading,
-		isSuccess,
-	};
 };

@@ -4,43 +4,18 @@ import { useQuery } from 'react-query';
 //- Hooks Imports
 import { useZnsSdk } from './useZnsSdk';
 
-export interface UseBuyNowPriceReturn {
-	buyNowPrice: string;
-	error: any;
-	isError: boolean;
-	isLoading: boolean;
-	isSuccess: boolean;
-}
-
-export const useBuyNowPrice = (domainId: string): UseBuyNowPriceReturn => {
+export const useBuyNowPrice = (domainId: string) => {
 	// SDK
 	const sdk = useZnsSdk();
 
 	// Query
-	const {
-		error,
-		isError,
-		isLoading,
-		isSuccess,
-		data: buyNowPrice,
-	} = useQuery(
+	return useQuery(
 		`domain-buy-now-price-${domainId}`,
-		async () => {
-			const buyNowPrice = await sdk.zauction.getBuyNowPrice(domainId);
-			return buyNowPrice;
-		},
+		async () => sdk.zauction.getBuyNowPrice(domainId),
 		{
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
 		},
 	);
-
-	return {
-		buyNowPrice,
-		error,
-		isError,
-		isLoading,
-		isSuccess,
-	};
 };
