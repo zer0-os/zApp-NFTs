@@ -1,6 +1,5 @@
 //- React Imports
 import { FC } from 'react';
-import { useHistory } from 'react-router-dom';
 
 //- Library Imports
 import { ethers } from 'ethers';
@@ -13,28 +12,29 @@ import { formatEthers, formatNumber } from '../../lib/util/number/number';
 import { useBuyNowPrice } from '../../lib/hooks/useBuyNowPrice';
 
 type SubdomainTableCardProps = {
-	domain: Domain;
+	domainId: string;
+	domainName: string;
+	domainMetadataUri: string;
 	paymentTokenData: TokenPriceInfo;
+	onClick: (domainName: string) => void;
 };
 
 const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
-	domain,
+	domainId,
+	domainName,
+	domainMetadataUri,
 	paymentTokenData,
+	onClick,
 }) => {
-	const { push: goTo } = useHistory();
-	const { domainMetadata } = useDomainMetadata(domain?.metadataUri);
-	const { domainMetrics } = useDomainMetrics(domain?.id);
-	const { buyNowPrice } = useBuyNowPrice(domain?.id);
-
-	const onClick = () => {
-		goTo(`/${domain?.name}/nfts`);
-		console.log('onClick');
-	};
+	const { domainMetrics } = useDomainMetrics(domainId);
+	const { buyNowPrice } = useBuyNowPrice(domainId);
+	const { domainMetadata } = useDomainMetadata(domainMetadataUri);
+	const handleItemClick = () => onClick(domainName);
 
 	return (
-		<button style={{ background: 'none' }} onClick={onClick}>
+		<button style={{ background: 'none' }} onClick={handleItemClick}>
 			<div>{domainMetadata?.title} </div>
-			<div>0://{domain?.name}</div>
+			<div>0://{domainName}</div>
 			Top Bid
 			<div>
 				{domainMetrics?.highestBid

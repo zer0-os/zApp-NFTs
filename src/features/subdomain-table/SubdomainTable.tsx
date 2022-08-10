@@ -5,6 +5,7 @@
 
 //- React Imports
 import { FC, memo } from 'react';
+import { useHistory } from 'react-router-dom';
 
 //- Library Imports
 import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
@@ -28,16 +29,34 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 	subdomainData,
 	paymentTokenData,
 }) => {
+	const history = useHistory();
+
+	const onTableItemClick = (domainName: string) => {
+		history.push(`/${domainName}/nfts`);
+	};
+
 	return (
 		<AsyncTable
 			data={subdomainData}
 			itemKey="id"
 			columns={COLUMNS}
 			rowComponent={(data) => (
-				<SubdomainTableRow domain={data} paymentTokenData={paymentTokenData} />
+				<SubdomainTableRow
+					domainId={data?.id}
+					domainName={data?.name}
+					domainMetadataUri={data?.metadataUri}
+					paymentTokenData={paymentTokenData}
+					onClick={onTableItemClick}
+				/>
 			)}
 			gridComponent={(data) => (
-				<SubdomainTableCard domain={data} paymentTokenData={paymentTokenData} />
+				<SubdomainTableCard
+					domainId={data?.id}
+					domainName={data?.name}
+					domainMetadataUri={data?.metadataUri}
+					paymentTokenData={paymentTokenData}
+					onClick={onTableItemClick}
+				/>
 			)}
 			searchKey={{ key: 'name', name: 'message' }}
 		/>
