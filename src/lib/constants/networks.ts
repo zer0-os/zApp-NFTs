@@ -3,6 +3,12 @@ export enum Network {
 	RINKEBY = 4,
 }
 
+export enum NETWORK_TYPES {
+	MAINNET = 'MAINNET',
+	RINKEBY = 'RINKEBY',
+	LOCAL = 'LOCAL',
+}
+
 const ENV_NETWORK = process.env.REACT_APP_DEFAULT_NETWORK;
 export const DEFAULT_NETWORK = Network.RINKEBY;
 // export const DEFAULT_NETWORK: Network = (
