@@ -8,14 +8,14 @@ import { useZnsSdk } from './useZnsSdk';
 import { Domain } from '@zero-tech/zns-sdk/lib/types';
 
 export interface UseDomainReturn {
-	domain: Domain | undefined;
+	domain: Domain;
 	error: any;
 	isError: boolean;
 	isLoading: boolean;
 	isSuccess: boolean;
 }
 
-export const useDomain = (domainId: string): UseDomainReturn => {
+export const useDomainData = (domainId: string): UseDomainReturn => {
 	// SDK
 	const sdk = useZnsSdk();
 
@@ -25,19 +25,12 @@ export const useDomain = (domainId: string): UseDomainReturn => {
 		isError,
 		isLoading,
 		isSuccess,
-		data: { domain } = {},
+		data: domain,
 	} = useQuery(
-		`domain-${domainId}`,
+		`domain-data-${domainId}`,
 		async () => {
-			try {
-				const domain = await sdk.getDomainById(domainId);
-
-				return {
-					domain,
-				};
-			} catch (error: any) {
-				throw new Error(error);
-			}
+			const domain = await sdk.getDomainById(domainId);
+			return domain;
 		},
 		{
 			retry: false,

@@ -8,7 +8,7 @@ import { useZnsSdk } from './useZnsSdk';
 import { Domain } from '@zero-tech/zns-sdk/lib/types';
 
 export interface UseSubdomainDataReturn {
-	subdomainData: Domain[] | undefined;
+	subdomainData: Domain[];
 	error: any;
 	isError: boolean;
 	isLoading: boolean;
@@ -25,17 +25,12 @@ export const useSubdomainData = (domainId: string): UseSubdomainDataReturn => {
 		isError,
 		isLoading,
 		isSuccess,
-		data: { subdomainData } = {},
+		data: subdomainData,
 	} = useQuery(
 		`domain-subdomains-${domainId}`,
 		async () => {
-			try {
-				const subdomainData = await sdk.getSubdomainsById(domainId);
-
-				return { subdomainData };
-			} catch (error: any) {
-				throw new Error(error);
-			}
+			const subdomainData = await sdk.getSubdomainsById(domainId);
+			return subdomainData;
 		},
 		{
 			retry: false,

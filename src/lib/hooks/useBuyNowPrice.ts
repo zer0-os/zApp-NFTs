@@ -22,21 +22,12 @@ export const useBuyNowPrice = (domainId: string): UseBuyNowPriceReturn => {
 		isError,
 		isLoading,
 		isSuccess,
-		data: { buyNowPrice } = {},
+		data: buyNowPrice,
 	} = useQuery(
 		`domain-buy-now-price-${domainId}`,
 		async () => {
-			try {
-				const buyNowPrice = await sdk.zauction.getBuyNowPrice(domainId);
-
-				return {
-					buyNowPrice,
-				};
-			} catch (error: any) {
-				return {
-					buyNowPrice: null,
-				};
-			}
+			const buyNowPrice = await sdk.zauction.getBuyNowPrice(domainId);
+			return buyNowPrice;
 		},
 		{
 			retry: false,

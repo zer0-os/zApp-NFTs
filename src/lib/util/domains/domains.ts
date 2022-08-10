@@ -13,7 +13,7 @@ const getSubnodeHash = (parentHash: string, labelHash: string): string => {
 	return calculatedHash;
 };
 
-export const getDomainId = (name: string | undefined | null): string => {
+export const getDomainId = (name?: string | null): string => {
 	let hashReturn = rootDomainId;
 
 	if (name === '' || undefined || null) {

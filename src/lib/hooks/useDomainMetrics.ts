@@ -8,7 +8,7 @@ import { useZnsSdk } from './useZnsSdk';
 import { DomainMetrics } from '@zero-tech/zns-sdk/lib/types';
 
 export interface UseDomainMetricsReturn {
-	domainMetrics: DomainMetrics | undefined;
+	domainMetrics: DomainMetrics;
 	error: any;
 	isError: boolean;
 	isLoading: boolean;
@@ -29,12 +29,8 @@ export const useDomainMetrics = (domainId: string): UseDomainMetricsReturn => {
 	} = useQuery(
 		`domain-metrics-${domainId}`,
 		async () => {
-			try {
-				const domainMetrics = await sdk.getDomainMetrics([domainId]);
-				return domainMetrics[domainId];
-			} catch (error: any) {
-				throw new Error(error);
-			}
+			const domainMetrics = await sdk.getDomainMetrics([domainId]);
+			return domainMetrics[domainId];
 		},
 		{
 			retry: false,

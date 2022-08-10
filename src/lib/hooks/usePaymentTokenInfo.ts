@@ -27,23 +27,19 @@ export const usePaymentTokenInfo = (
 		isError,
 		isLoading,
 		isSuccess,
-		data: { paymentTokenData } = {},
+		data: paymentTokenData,
 	} = useQuery(
 		`domain-payment-token-info-${domainId}`,
 		async () => {
-			try {
-				const paymentToken = await sdk.zauction.getPaymentTokenForDomain(
-					domainId,
-				);
+			const paymentToken = await sdk.zauction.getPaymentTokenForDomain(
+				domainId,
+			);
 
-				if (paymentToken) {
-					const paymentTokenData = await sdk.zauction.getPaymentTokenInfo(
-						paymentToken,
-					);
-					return { paymentTokenData };
-				}
-			} catch (error: any) {
-				throw new Error(error);
+			if (paymentToken) {
+				const paymentTokenData = await sdk.zauction.getPaymentTokenInfo(
+					paymentToken,
+				);
+				return paymentTokenData;
 			}
 		},
 		{
