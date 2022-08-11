@@ -9,10 +9,13 @@ import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDoma
 
 //- Features Imports
 import SubdomainTable from '../../features/subdomain-table/SubdomainTable';
-import StatsWidget from '../../features/stats-widget/StatsWidget';
+import SubdomainViewStats from '../../features/stats/SubdomainViewStats';
+import NFTViewStats from '../../features/stats/NFTViewStats';
 
 //- Utils Imports
 import { getDomainId } from '../../lib/util/domains/domains';
+import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
+import { formatEthers, formatNumber } from '../../lib/util/number/number';
 
 type ZNSProps = {
 	route: string;
@@ -23,9 +26,8 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 	const { data: domain } = useDomainData(domainId);
 	const { data: subdomainData } = useSubdomainData(domainId);
 	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
-	const { data: paymentTokenData } = usePaymentTokenInfo(paymentToken);
-
-	console.log(subdomainData);
+	const { data: paymentTokenInfo } = usePaymentTokenInfo(paymentToken);
+	const { data: metrics } = useDomainMetrics(domainId);
 
 	const isSubdomainData = subdomainData?.length >= 1;
 	const isRoot = domain?.name === 'wilder';
@@ -44,14 +46,17 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 			)}
 			<br />
 			<br />
-			<div>
-				<StatsWidget domainId={domainId} isNFTView={!isSubdomainData} />
-			</div>
+
+			<SubdomainViewStats
+				metrics={metrics}
+				paymentTokenInfo={paymentTokenInfo}
+			/>
+
 			<br />
 			{isSubdomainData && (
 				<SubdomainTable
 					subdomainData={subdomainData}
-					paymentTokenData={paymentTokenData}
+					paymentTokenData={paymentTokenInfo}
 				/>
 			)}
 			{!isSubdomainData && <h1>NFT View</h1>}
