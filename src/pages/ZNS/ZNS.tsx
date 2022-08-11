@@ -33,9 +33,10 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 	const isSubdomainData = subdomainData?.length >= 1;
 	const isRoot = domain?.name === 'wilder';
 
+	// Preview Card and conditions WIP
 	return (
 		<div style={{ paddingTop: '100px' }}>
-			{!isRoot && (
+			{!isRoot && isSubdomainData && (
 				<PreviewCard
 					title={domainMetadata?.title}
 					description={domainMetadata?.description}
