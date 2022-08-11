@@ -6,15 +6,16 @@ import { useSubdomainData } from '../../lib/hooks/useSubdomainData';
 import { useDomainData } from '../../lib/hooks/useDomainData';
 import { usePaymentTokenInfo } from '../../lib/hooks/usePaymentTokenInfo';
 import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDomain';
+import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
 
 //- Features Imports
 import SubdomainTable from '../../features/subdomain-table/SubdomainTable';
 import SubdomainViewStats from '../../features/stats/SubdomainViewStats';
+import PreviewCard from '../../features/preview-card/DomainPreview';
 
 //- Utils Imports
 import { getDomainId } from '../../lib/util/domains/domains';
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
-import { formatEthers, formatNumber } from '../../lib/util/number/number';
 
 type ZNSProps = {
 	route: string;
@@ -27,21 +28,18 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
 	const { data: paymentTokenInfo } = usePaymentTokenInfo(paymentToken);
 	const { data: metrics } = useDomainMetrics(domainId);
+	const { data: domainMetadata } = useDomainMetadata(domain?.metadataUri);
 
 	const isSubdomainData = subdomainData?.length >= 1;
 	const isRoot = domain?.name === 'wilder';
 
-	const onClick = () => {
-		console.log('onClick');
-	};
-
 	return (
 		<div style={{ paddingTop: '100px' }}>
-			<div>Current Domain: {domain?.name}</div>
 			{!isRoot && (
-				<button style={{ background: 'purple' }} onClick={onClick}>
-					{'View Domain NFT ->'}
-				</button>
+				<PreviewCard
+					title={domainMetadata?.title}
+					description={domainMetadata?.description}
+				/>
 			)}
 			<br />
 			<br />
