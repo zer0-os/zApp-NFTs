@@ -1,4 +1,5 @@
 //- React Imports
+import { DomainMetricsCollection } from '@zero-tech/zns-sdk';
 import { useQuery } from 'react-query';
 
 //- Hooks Imports
@@ -12,8 +13,9 @@ export const useDomainMetrics = (domainId: string) => {
 	return useQuery(
 		`domain-metrics-${domainId}`,
 		async () => {
-			const domainMetrics = await sdk.getDomainMetrics([domainId]);
-			return domainMetrics[domainId];
+			const domainMetricsCollection: DomainMetricsCollection =
+				await sdk.getDomainMetrics([domainId]);
+			return domainMetricsCollection[domainId];
 		},
 		{
 			retry: false,
