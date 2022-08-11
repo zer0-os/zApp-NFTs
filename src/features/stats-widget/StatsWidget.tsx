@@ -4,6 +4,9 @@ import type { FC, ReactNode } from 'react';
 //- Components Improts
 import Card from 'zero-ui/src/components/Card';
 
+//- Style Imports
+import styles from './StatsWidget.module.scss';
+
 type Text = {
 	text?: string | ReactNode;
 	isLoading?: boolean;
@@ -20,14 +23,9 @@ type StatsWidgetProps = {
 };
 
 const StatsWidget: FC<StatsWidgetProps> = ({ stats }) => (
-	<div
-		style={{
-			display: 'flex',
-			justifyContent: 'space-between',
-		}}
-	>
+	<div className={styles.Stats}>
 		{stats.map((stat: Stat, index) => (
-			<div key={`stats-widget-${index}`} style={{ width: '32%' }}>
+			<div key={`stats-widget-${index}`}>
 				<Card title={stat.title} value={stat.value} bottomText={stat.text} />
 			</div>
 		))}
