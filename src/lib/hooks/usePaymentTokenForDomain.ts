@@ -11,7 +11,7 @@ export const usePaymentTokenForDomain = (domainId: string) => {
 	// Query
 	return useQuery(
 		`domain-payment-token-${domainId}`,
-		async () => sdk.zauction.getPaymentTokenForDomain(domainId),
+		async () => await sdk.zauction.getPaymentTokenForDomain(domainId),
 		{
 			retry: false,
 			refetchOnMount: false,

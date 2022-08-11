@@ -10,7 +10,6 @@ import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDoma
 //- Features Imports
 import SubdomainTable from '../../features/subdomain-table/SubdomainTable';
 import SubdomainViewStats from '../../features/stats/SubdomainViewStats';
-import NFTViewStats from '../../features/stats/NFTViewStats';
 
 //- Utils Imports
 import { getDomainId } from '../../lib/util/domains/domains';

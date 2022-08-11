@@ -22,7 +22,7 @@ type SubdomainTableProps = {
 
 export const COLUMNS: Column[] = [
 	{ id: 'domain', header: 'Domain', alignment: 'left' },
-	{ id: 'volume', header: 'Volume(all time)', alignment: 'left' },
+	{ id: 'volume', header: 'Volume(all time)', alignment: 'right' },
 ];
 
 const SubdomainTable: FC<SubdomainTableProps> = ({

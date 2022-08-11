@@ -21,7 +21,7 @@ const SubdomainViewStats: FC<SubdomainViewStatsProps> = ({
 	paymentTokenInfo,
 }) => {
 	const stats = [
-		{ title: 'Items In Domain', value: metrics?.items },
+		{ title: 'Items In Domain', value: formatNumber(metrics?.items) },
 		{
 			title: 'Floor Price',
 			value:

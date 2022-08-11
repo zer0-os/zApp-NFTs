@@ -18,7 +18,7 @@ type NFTViewStatsProps = {
 
 const NFTViewStats: FC<NFTViewStatsProps> = ({ metrics, paymentTokenInfo }) => {
 	const stats = [
-		{ title: 'Bids', value: metrics?.numberOfBids },
+		{ title: 'Bids', value: formatNumber(metrics?.numberOfBids) },
 		{
 			title: 'Last Sale',
 			value: metrics?.lastSale

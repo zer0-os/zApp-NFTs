@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 //- Library Imports
 import { ethers } from 'ethers';
-import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
+import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Hook Imports
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
@@ -37,7 +37,7 @@ const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 				<div>{domainMetadata?.title}</div>
 				<div>0://{domainName}</div>
 			</td>
-			<td>
+			<td style={{ textAlign: 'right' }}>
 				<div>
 					{domainMetrics?.volume.all
 						? formatEthers(domainMetrics?.volume.all)
