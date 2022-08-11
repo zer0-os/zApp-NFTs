@@ -7,15 +7,15 @@ import { useDomainData } from '../../lib/hooks/useDomainData';
 import { usePaymentTokenInfo } from '../../lib/hooks/usePaymentTokenInfo';
 import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDomain';
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
+import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 
 //- Features Imports
 import SubdomainTable from '../../features/subdomain-table/SubdomainTable';
 import SubdomainViewStats from '../../features/stats/SubdomainViewStats';
-import PreviewCard from '../../features/preview-card/DomainPreview';
+import PreviewCard from '../../features/preview-card/PreviewCard';
 
 //- Utils Imports
 import { getDomainId } from '../../lib/util/domains/domains';
-import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 
 type ZNSProps = {
 	route: string;
