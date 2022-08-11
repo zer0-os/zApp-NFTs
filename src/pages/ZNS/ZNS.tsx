@@ -39,6 +39,7 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 				<PreviewCard
 					title={domainMetadata?.title}
 					description={domainMetadata?.description}
+					href={`/${domain?.name}/nfts?view=true`}
 				/>
 			)}
 			<br />

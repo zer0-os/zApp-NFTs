@@ -1,24 +1,23 @@
 // React Imports
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 type PreviewCardProps = {
-	title: string;
-	description: string;
+	title?: string;
+	description?: string;
+	href?: string;
 };
 
-const PreviewCard: FC<PreviewCardProps> = ({ title, description }) => {
-	const onClick = () => {
-		console.log('onClick');
-	};
-
+const PreviewCard: FC<PreviewCardProps> = ({ title, description, href }) => {
 	return (
 		<>
-			<div>{title}</div>
-			<div>{description}</div>
-
-			<button style={{ background: 'purple' }} onClick={onClick}>
-				{'View Domain NFT ->'}
-			</button>
+			<h1>{title}</h1>
+			<p>{description}</p>
+			{href && (
+				<Link style={{ background: 'purple' }} to={href}>
+					{'View Domain NFT ->'}
+				</Link>
+			)}
 		</>
 	);
 };
