@@ -14,7 +14,7 @@ const PreviewCard: FC<PreviewCardProps> = ({ title, description, href }) => {
 			<h1>{title}</h1>
 			<p>{description}</p>
 			{href && (
-				<Link style={{ background: 'purple' }} to={href}>
+				<Link style={{ background: 'none', color: '#52cbff' }} to={href}>
 					{'View Domain NFT ->'}
 				</Link>
 			)}

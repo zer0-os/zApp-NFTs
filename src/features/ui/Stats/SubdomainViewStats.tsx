@@ -6,10 +6,10 @@ import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Features Imports
-import StatsWidget from '../../features/stats-widget/StatsWidget';
+import StatsWidget from '../StatsWidget/StatsWidget';
 
 //- Utils Imports
-import { formatEthers, formatNumber } from '../../lib/util/number/number';
+import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
 type SubdomainViewStatsProps = {
 	metrics: DomainMetrics;

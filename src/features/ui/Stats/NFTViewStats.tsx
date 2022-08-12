@@ -2,14 +2,14 @@
 import type { FC } from 'react';
 
 //- Features Imports
-import StatsWidget from '../../features/stats-widget/StatsWidget';
+import StatsWidget from '../StatsWidget/StatsWidget';
 
 //- Library Imports
 import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Utils Imports
-import { formatEthers, formatNumber } from '../../lib/util/number/number';
+import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
 type NFTViewStatsProps = {
 	metrics: DomainMetrics;

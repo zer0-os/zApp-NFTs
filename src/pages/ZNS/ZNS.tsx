@@ -1,5 +1,5 @@
 //- React Imports
-import type { FC } from 'react';
+import { FC } from 'react';
 
 //- Hook Imports
 import { useSubdomainData } from '../../lib/hooks/useSubdomainData';
@@ -8,11 +8,11 @@ import { usePaymentTokenInfo } from '../../lib/hooks/usePaymentTokenInfo';
 import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDomain';
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
+import { useViewNavigation } from '../../lib/hooks/useViewNavigation';
 
 //- Features Imports
-import SubdomainTable from '../../features/subdomain-table/SubdomainTable';
-import SubdomainViewStats from '../../features/stats/SubdomainViewStats';
-import PreviewCard from '../../features/preview-card/PreviewCard';
+import SubdomainView from '../../containers/subdomain-view/SubdomainView';
+import NFTView from '../../containers/nft-view/NFTView';
 
 //- Utils Imports
 import { getDomainId } from '../../lib/util/domains/domains';
@@ -29,36 +29,23 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 	const { data: paymentTokenInfo } = usePaymentTokenInfo(paymentToken);
 	const { data: metrics } = useDomainMetrics(domainId);
 	const { data: domainMetadata } = useDomainMetadata(domain?.metadataUri);
+	const { isNFTView } = useViewNavigation(subdomainData);
 
-	const isSubdomainData = subdomainData?.length >= 1;
-	const isRoot = domain?.name === 'wilder';
-
-	// Preview Card and conditions WIP
 	return (
 		<div style={{ paddingTop: '100px' }}>
-			{!isRoot && isSubdomainData && (
-				<PreviewCard
-					title={domainMetadata?.title}
-					description={domainMetadata?.description}
-					href={`/${domain?.name}/nfts?view=true`}
-				/>
-			)}
-			<br />
-			<br />
-
-			<SubdomainViewStats
-				metrics={metrics}
-				paymentTokenInfo={paymentTokenInfo}
-			/>
-
-			<br />
-			{isSubdomainData && (
-				<SubdomainTable
+			{!isNFTView && (
+				<SubdomainView
+					domain={domain}
+					domainMetadata={domainMetadata}
+					metrics={metrics}
+					paymentTokenInfo={paymentTokenInfo}
 					subdomainData={subdomainData}
-					paymentTokenData={paymentTokenInfo}
 				/>
 			)}
-			{!isSubdomainData && <h1>NFT View</h1>}
+
+			{isNFTView && (
+				<NFTView metrics={metrics} paymentTokenInfo={paymentTokenInfo} />
+			)}
 		</div>
 	);
 };
