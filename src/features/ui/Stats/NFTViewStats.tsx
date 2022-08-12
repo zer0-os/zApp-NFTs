@@ -6,19 +6,28 @@ import StatsWidget from '../StatsWidget/StatsWidget';
 
 //- Library Imports
 import { ethers } from 'ethers';
-import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
+import {
+	DomainBidEvent,
+	DomainMetrics,
+	TokenPriceInfo,
+} from '@zero-tech/zns-sdk';
 
 //- Utils Imports
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
 type NFTViewStatsProps = {
+	bids: DomainBidEvent[];
 	metrics: DomainMetrics;
 	paymentTokenInfo: TokenPriceInfo;
 };
 
-const NFTViewStats: FC<NFTViewStatsProps> = ({ metrics, paymentTokenInfo }) => {
+const NFTViewStats: FC<NFTViewStatsProps> = ({
+	bids,
+	metrics,
+	paymentTokenInfo,
+}) => {
 	const stats = [
-		{ title: 'Bids', value: formatNumber(metrics?.numberOfBids) },
+		{ title: 'Bids', value: (bids?.length || 0).toLocaleString() },
 		{
 			title: 'Last Sale',
 			value: metrics?.lastSale

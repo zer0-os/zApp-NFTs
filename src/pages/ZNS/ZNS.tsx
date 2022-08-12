@@ -10,7 +10,7 @@ import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { useViewNavigation } from '../../lib/hooks/useViewNavigation';
 
-//- Features Imports
+//- Container Imports
 import SubdomainView from '../../containers/subdomain-view/SubdomainView';
 import NFTView from '../../containers/nft-view/NFTView';
 
@@ -36,15 +36,19 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 			{!isNFTView && (
 				<SubdomainView
 					domain={domain}
-					domainMetadata={domainMetadata}
 					metrics={metrics}
-					paymentTokenInfo={paymentTokenInfo}
 					subdomainData={subdomainData}
+					domainMetadata={domainMetadata}
+					paymentTokenInfo={paymentTokenInfo}
 				/>
 			)}
 
 			{isNFTView && (
-				<NFTView metrics={metrics} paymentTokenInfo={paymentTokenInfo} />
+				<NFTView
+					domain={domain}
+					metrics={metrics}
+					paymentTokenInfo={paymentTokenInfo}
+				/>
 			)}
 		</div>
 	);

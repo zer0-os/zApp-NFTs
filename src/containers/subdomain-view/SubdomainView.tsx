@@ -14,18 +14,18 @@ import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 type SubdomainViewContainerProps = {
 	domain: Domain;
-	domainMetadata: Metadata;
 	metrics: DomainMetrics;
-	paymentTokenInfo: TokenPriceInfo;
 	subdomainData: Domain[];
+	domainMetadata: Metadata;
+	paymentTokenInfo: TokenPriceInfo;
 };
 
 const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
 	domain,
-	domainMetadata,
 	metrics,
-	paymentTokenInfo,
 	subdomainData,
+	domainMetadata,
+	paymentTokenInfo,
 }) => {
 	const isRoot = domain?.name === 'wilder';
 
