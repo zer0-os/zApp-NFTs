@@ -22,7 +22,9 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 	metrics,
 	paymentTokenInfo,
 }) => {
-	const { data: domainEvents } = useDomainEvents(domain?.id);
+	const { data: domainEvents, isLoading: isEventDataLoading } = useDomainEvents(
+		domain?.id,
+	);
 	const { bids } = useBidData(domainEvents);
 
 	return (
@@ -30,6 +32,8 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 			<h1>NFT View</h1>
 			<NFTViewStats
 				bids={bids}
+				// Todo: combine loading data
+				isLoading={isEventDataLoading}
 				metrics={metrics}
 				paymentTokenInfo={paymentTokenInfo}
 			/>

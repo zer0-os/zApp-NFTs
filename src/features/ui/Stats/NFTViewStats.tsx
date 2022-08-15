@@ -18,16 +18,21 @@ import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 type NFTViewStatsProps = {
 	bids: DomainBidEvent[];
 	metrics: DomainMetrics;
+	isLoading?: boolean;
 	paymentTokenInfo: TokenPriceInfo;
 };
 
 const NFTViewStats: FC<NFTViewStatsProps> = ({
 	bids,
 	metrics,
+	isLoading,
 	paymentTokenInfo,
 }) => {
 	const stats = [
-		{ title: 'Bids', value: (bids?.length || 0).toLocaleString() },
+		{
+			title: 'Bids',
+			value: !isLoading && (bids?.length || 0).toLocaleString(),
+		},
 		{
 			title: 'Last Sale',
 			value: metrics?.lastSale
