@@ -4,4 +4,7 @@
 export interface AppProps {
 	provider: any;
 	route: string;
+	user: {
+		account: string;
+	};
 }

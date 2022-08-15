@@ -22,12 +22,12 @@ import App from './App';
 
 const queryClient = new QueryClient();
 
-const Index = ({ provider, route }: AppProps) => (
+const Index = ({ provider, route, user }: AppProps) => (
 	<QueryClientProvider client={queryClient}>
 		<Web3Provider provider={provider}>
 			<ChainGate chainId={provider?._network?.chainId ?? 1}>
 				<ZnsSdkProvider provider={provider}>
-					<App provider={provider} route={route} />
+					<App provider={provider} route={route} user={user} />
 				</ZnsSdkProvider>
 			</ChainGate>
 		</Web3Provider>

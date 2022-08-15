@@ -13,6 +13,7 @@ import PreviewCard from '../../features/ui/PreviewCard/PreviewCard';
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 type SubdomainViewContainerProps = {
+	accountId: string;
 	domain: Domain;
 	metrics: DomainMetrics;
 	subdomainData: Domain[];
@@ -21,6 +22,7 @@ type SubdomainViewContainerProps = {
 };
 
 const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
+	accountId,
 	domain,
 	metrics,
 	subdomainData,
@@ -49,6 +51,7 @@ const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
 			<br />
 
 			<SubdomainTable
+				accountId={accountId}
 				subdomainData={subdomainData}
 				paymentTokenData={paymentTokenInfo}
 			/>

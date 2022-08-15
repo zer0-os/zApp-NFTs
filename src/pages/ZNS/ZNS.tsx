@@ -22,9 +22,10 @@ import { getDomainId } from '../../lib/util/domains/domains';
 
 type ZNSProps = {
 	route: string;
+	user: { account: string };
 };
 
-const ZNS: FC<ZNSProps> = ({ route }) => {
+const ZNS: FC<ZNSProps> = ({ route, user }) => {
 	const domainId = getDomainId(route);
 	const { data: domain } = useDomainData(domainId);
 	const { data: subdomainData } = useSubdomainData(domainId);
@@ -39,6 +40,7 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 			<div style={{ paddingTop: '100px' }}>
 				{!isNFTView && (
 					<SubdomainView
+						accountId={user.account}
 						domain={domain}
 						metrics={metrics}
 						subdomainData={subdomainData}

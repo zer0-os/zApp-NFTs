@@ -18,11 +18,13 @@ import { ModalType } from '../../lib/constants/modals';
 import { useModal } from '../../lib/hooks/useModal';
 
 type SubdomainTableProps = {
+	accountId: string;
 	subdomainData: Domain[];
 	paymentTokenData: TokenPriceInfo;
 };
 
 const SubdomainTable: FC<SubdomainTableProps> = ({
+	accountId,
 	subdomainData,
 	paymentTokenData,
 }) => {
@@ -36,15 +38,21 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 		}
 	};
 
-	const onButtonClick = (domainName: string, type: ModalType) => {
-		openModal({
-			modalType: type,
-			contentProps: {
-				domainName,
-				onClose: closeModal,
-			},
-		});
-	};
+	const onButtonClick = (domainName: string, type: ModalType) =>
+		type !== ModalType.CONNECT_WALLET_PROMPT
+			? openModal({
+					modalType: type,
+					contentProps: {
+						domainName: domainName,
+						onClose: closeModal,
+					},
+			  })
+			: openModal({
+					modalType: type,
+					contentProps: {
+						onClose: closeModal,
+					},
+			  });
 
 	return (
 		<>
@@ -56,8 +64,10 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 					<SubdomainTableRow
 						// todo: use itemKey
 						key={`${data?.id}`}
+						accountId={accountId}
 						domainId={data?.id}
 						domainName={data?.name}
+						domainOwner={data?.owner}
 						domainMetadataUri={data?.metadataUri}
 						paymentTokenData={paymentTokenData}
 						onRowClick={handleItemClick}
@@ -68,8 +78,10 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 					<SubdomainTableCard
 						// todo: use itemKey
 						key={`${data?.id}`}
+						accountId={accountId}
 						domainId={data?.id}
 						domainName={data?.name}
+						domainOwner={data?.owner}
 						domainMetadataUri={data?.metadataUri}
 						paymentTokenData={paymentTokenData}
 						onCardClick={handleItemClick}

@@ -18,8 +18,10 @@ import Button from 'zero-ui/src/components/Button/index';
 import { ModalType } from '../../lib/constants/modals';
 
 type SubdomainTableRowProps = {
+	accountId?: string;
 	domainId: string;
 	domainName: string;
+	domainOwner: string;
 	domainMetadataUri: string;
 	paymentTokenData: TokenPriceInfo;
 	onRowClick: (e?: any, domainName?: string) => void;
@@ -27,8 +29,10 @@ type SubdomainTableRowProps = {
 };
 
 const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
+	accountId,
 	domainId,
 	domainName,
+	domainOwner,
 	domainMetadataUri,
 	paymentTokenData,
 	onRowClick,
@@ -38,7 +42,13 @@ const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	const { data: buyNowPrice } = useBuyNowPrice(domainId);
 	const { data: domainMetadata } = useDomainMetadata(domainMetadataUri);
 
-	const actionType = buyNowPrice ? ModalType.BUY_NOW : ModalType.PLACE_BID;
+	const isOwnedByUser = accountId?.toLowerCase() === domainOwner.toLowerCase();
+
+	const actionType = !accountId
+		? ModalType.CONNECT_WALLET_PROMPT
+		: buyNowPrice
+		? ModalType.BUY_NOW
+		: ModalType.PLACE_BID;
 
 	return (
 		<>
@@ -70,10 +80,11 @@ const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 
 				<td>
 					<Button
-						onPress={() => onButtonClick(domainName, actionType)}
 						className="button"
+						onPress={() => onButtonClick(domainName, actionType)}
+						isDisabled={isOwnedByUser}
 					>
-						{actionType}
+						{buyNowPrice ? 'BUY' : 'BID'}
 					</Button>
 				</td>
 			</tr>

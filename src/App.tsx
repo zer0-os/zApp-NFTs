@@ -12,13 +12,13 @@ import { AppProps } from './lib/types/app';
 //- Page Imports
 import ZNS from './pages/ZNS/ZNS';
 
-const App: FC<AppProps> = ({ provider, route }) => {
+const App: FC<AppProps> = ({ provider, route, user }) => {
 	console.log('prov (marketplace-dapp):', provider);
 	console.log('route (marketplace-dapp):', route);
 
 	return (
 		<main>
-			<ZNS route={route} />
+			<ZNS route={route} user={user} />
 		</main>
 	);
 };
