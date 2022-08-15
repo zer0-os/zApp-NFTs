@@ -4,26 +4,26 @@
  */
 
 //- React Imports
-import { FC, memo } from 'react';
+import { FC, memo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 //- Library Imports
 import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Components Imports
-import AsyncTable, { Column } from 'zero-ui/src/components/AsyncTable';
+import AsyncTable from 'zero-ui/src/components/AsyncTable';
 import SubdomainTableCard from './SubdomainTableCard';
 import SubdomainTableRow from './SubdomainTableRow';
+import PlaceBid from '../modals/PlaceABid/PlaceBid';
+import BuyNow from '../modals/BuyNow/BuyNow';
+
+//- Constants Imports
+import { COLUMNS, ModalType } from './SubdomainTable.constants';
 
 type SubdomainTableProps = {
 	subdomainData: Domain[];
 	paymentTokenData: TokenPriceInfo;
 };
-
-export const COLUMNS: Column[] = [
-	{ id: 'domain', header: 'Domain', alignment: 'left' },
-	{ id: 'volume', header: 'Volume(all time)', alignment: 'right' },
-];
 
 const SubdomainTable: FC<SubdomainTableProps> = ({
 	subdomainData,
@@ -31,35 +31,75 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 }) => {
 	const history = useHistory();
 
-	const onTableItemClick = (domainName: string) => {
-		history.push(`/${domainName}/nfts`);
+	const [modal, setModal] = useState<{
+		isOpen: boolean;
+		domainName?: string;
+		type?: ModalType.BID | ModalType.BUY;
+	}>({
+		isOpen: false,
+	});
+
+	const handleItemClick = (event: any, domainName?: string) => {
+		const clickedButton = event?.target?.className?.indexOf('button') >= 0;
+		if (!clickedButton) {
+			history.push(`/${domainName}/nfts`);
+		}
+	};
+
+	const handleOpenModal = (domainName: string, type: ModalType) => {
+		setModal({
+			isOpen: true,
+			domainName,
+			type,
+		});
+	};
+
+	const handleCloseModal = () => {
+		setModal({
+			...modal,
+			isOpen: false,
+		});
 	};
 
 	return (
-		<AsyncTable
-			data={subdomainData}
-			itemKey="id"
-			columns={COLUMNS}
-			rowComponent={(data) => (
-				<SubdomainTableRow
-					domainId={data?.id}
-					domainName={data?.name}
-					domainMetadataUri={data?.metadataUri}
-					paymentTokenData={paymentTokenData}
-					onClick={onTableItemClick}
-				/>
+		<>
+			<AsyncTable
+				data={subdomainData}
+				itemKey="id"
+				columns={COLUMNS}
+				rowComponent={(data) => (
+					<SubdomainTableRow
+						// use itemKey
+						key={`${data?.id}`}
+						domainId={data?.id}
+						domainName={data?.name}
+						domainMetadataUri={data?.metadataUri}
+						paymentTokenData={paymentTokenData}
+						onRowClick={handleItemClick}
+						onButtonClick={handleOpenModal}
+					/>
+				)}
+				gridComponent={(data) => (
+					<SubdomainTableCard
+						// use itemKey
+						key={`${data?.id}`}
+						domainId={data?.id}
+						domainName={data?.name}
+						domainMetadataUri={data?.metadataUri}
+						paymentTokenData={paymentTokenData}
+						onCardClick={handleItemClick}
+						onButtonClick={handleOpenModal}
+					/>
+				)}
+				searchKey={{ key: 'name', name: 'message' }}
+			/>
+			{modal.isOpen && modal.type === ModalType.BID && (
+				<PlaceBid domainName={modal.domainName} onClose={handleCloseModal} />
 			)}
-			gridComponent={(data) => (
-				<SubdomainTableCard
-					domainId={data?.id}
-					domainName={data?.name}
-					domainMetadataUri={data?.metadataUri}
-					paymentTokenData={paymentTokenData}
-					onClick={onTableItemClick}
-				/>
+			{modal.isOpen && modal.type === ModalType.BUY && (
+				<BuyNow domainName={modal.domainName} onClose={handleCloseModal} />
 			)}
-			searchKey={{ key: 'name', name: 'message' }}
-		/>
+		</>
 	);
 };
 

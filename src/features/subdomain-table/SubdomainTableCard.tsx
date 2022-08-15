@@ -11,12 +11,19 @@ import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { formatEthers, formatNumber } from '../../lib/util/number/number';
 import { useBuyNowPrice } from '../../lib/hooks/useBuyNowPrice';
 
+//- Components Imports
+import Button from 'zero-ui/src/components/Button/index';
+
+//- Constants Imports
+import { ModalType } from './SubdomainTable.constants';
+
 type SubdomainTableCardProps = {
 	domainId: string;
 	domainName: string;
 	domainMetadataUri: string;
 	paymentTokenData: TokenPriceInfo;
-	onClick: (domainName: string) => void;
+	onCardClick: (e?: any, domainName?: string) => void;
+	onButtonClick: (domainName: string, type: ModalType) => void;
 };
 
 const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
@@ -24,15 +31,20 @@ const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	domainName,
 	domainMetadataUri,
 	paymentTokenData,
-	onClick,
+	onCardClick,
+	onButtonClick,
 }) => {
 	const { data: domainMetrics } = useDomainMetrics(domainId);
 	const { data: buyNowPrice } = useBuyNowPrice(domainId);
 	const { data: domainMetadata } = useDomainMetadata(domainMetadataUri);
-	const handleItemClick = () => onClick(domainName);
+
+	const actionType = buyNowPrice ? ModalType.BUY : ModalType.BID;
 
 	return (
-		<button style={{ background: 'none' }} onClick={handleItemClick}>
+		<button
+			style={{ background: 'none' }}
+			onClick={(e) => onCardClick(e, domainName)}
+		>
 			<div>{domainMetadata?.title} </div>
 			<div>0://{domainName}</div>
 			Top Bid
@@ -51,9 +63,12 @@ const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 					  )
 					: 0}{' '}
 			</div>
-			<button style={{ background: 'purple' }}>
-				{buyNowPrice ? 'Buy' : 'Bid'}
-			</button>
+			<Button
+				onPress={() => onButtonClick(domainName, actionType)}
+				className="button"
+			>
+				{actionType}
+			</Button>
 		</button>
 	);
 };
