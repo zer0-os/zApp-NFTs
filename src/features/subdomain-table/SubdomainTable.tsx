@@ -1,10 +1,5 @@
-/**
- * NOTE: You will need to `npm link` zUI before this repo
- * will build or run.
- */
-
 //- React Imports
-import { FC, memo, useState } from 'react';
+import { FC, memo } from 'react';
 import { useHistory } from 'react-router-dom';
 
 //- Library Imports
@@ -14,11 +9,13 @@ import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 import AsyncTable from 'zero-ui/src/components/AsyncTable';
 import SubdomainTableCard from './SubdomainTableCard';
 import SubdomainTableRow from './SubdomainTableRow';
-import PlaceBid from '../modals/PlaceABid/PlaceBid';
-import BuyNow from '../modals/BuyNow/BuyNow';
 
 //- Constants Imports
-import { COLUMNS, ModalType } from './SubdomainTable.constants';
+import { COLUMNS } from './SubdomainTable.constants';
+import { ModalType } from '../../lib/constants/modals';
+
+//- Hooks Imports
+import { useModal } from '../../lib/hooks/useModal';
 
 type SubdomainTableProps = {
 	subdomainData: Domain[];
@@ -30,14 +27,7 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 	paymentTokenData,
 }) => {
 	const history = useHistory();
-
-	const [modal, setModal] = useState<{
-		isOpen: boolean;
-		domainName?: string;
-		type?: ModalType.BID | ModalType.BUY;
-	}>({
-		isOpen: false,
-	});
+	const { openModal, closeModal } = useModal();
 
 	const handleItemClick = (event: any, domainName?: string) => {
 		const clickedButton = event?.target?.className?.indexOf('button') >= 0;
@@ -46,18 +36,13 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 		}
 	};
 
-	const handleOpenModal = (domainName: string, type: ModalType) => {
-		setModal({
-			isOpen: true,
-			domainName,
-			type,
-		});
-	};
-
-	const handleCloseModal = () => {
-		setModal({
-			...modal,
-			isOpen: false,
+	const onButtonClick = (domainName: string, type: ModalType) => {
+		openModal({
+			modalType: type,
+			contentProps: {
+				domainName,
+				onClose: closeModal,
+			},
 		});
 	};
 
@@ -69,36 +54,30 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 				columns={COLUMNS}
 				rowComponent={(data) => (
 					<SubdomainTableRow
-						// use itemKey
+						// todo: use itemKey
 						key={`${data?.id}`}
 						domainId={data?.id}
 						domainName={data?.name}
 						domainMetadataUri={data?.metadataUri}
 						paymentTokenData={paymentTokenData}
 						onRowClick={handleItemClick}
-						onButtonClick={handleOpenModal}
+						onButtonClick={onButtonClick}
 					/>
 				)}
 				gridComponent={(data) => (
 					<SubdomainTableCard
-						// use itemKey
+						// todo: use itemKey
 						key={`${data?.id}`}
 						domainId={data?.id}
 						domainName={data?.name}
 						domainMetadataUri={data?.metadataUri}
 						paymentTokenData={paymentTokenData}
 						onCardClick={handleItemClick}
-						onButtonClick={handleOpenModal}
+						onButtonClick={onButtonClick}
 					/>
 				)}
 				searchKey={{ key: 'name', name: 'message' }}
 			/>
-			{modal.isOpen && modal.type === ModalType.BID && (
-				<PlaceBid domainName={modal.domainName} onClose={handleCloseModal} />
-			)}
-			{modal.isOpen && modal.type === ModalType.BUY && (
-				<BuyNow domainName={modal.domainName} onClose={handleCloseModal} />
-			)}
 		</>
 	);
 };

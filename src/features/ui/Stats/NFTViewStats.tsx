@@ -1,5 +1,5 @@
 //- React Imports
-import type { FC } from 'react';
+import { FC } from 'react';
 
 //- Features Imports
 import StatsWidget from '../StatsWidget/StatsWidget';
@@ -40,10 +40,10 @@ const NFTViewStats: FC<NFTViewStatsProps> = ({
 				: 'No sales',
 			text:
 				metrics?.lowestSale && paymentTokenInfo?.price
-					? formatNumber(
+					? `$${formatNumber(
 							Number(ethers.utils.formatEther(metrics.lowestSale)) *
 								paymentTokenInfo.price,
-					  )
+					  )}`
 					: 0,
 		},
 		{
@@ -53,10 +53,10 @@ const NFTViewStats: FC<NFTViewStatsProps> = ({
 				: String(0),
 			text:
 				(metrics?.volume as any)?.all && paymentTokenInfo?.price
-					? formatNumber(
+					? `$${formatNumber(
 							Number(ethers.utils.formatEther(metrics.volume.all)) *
 								paymentTokenInfo.price,
-					  )
+					  )}`
 					: 0,
 		},
 	];

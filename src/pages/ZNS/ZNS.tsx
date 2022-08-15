@@ -10,6 +10,9 @@ import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { useViewNavigation } from '../../lib/hooks/useViewNavigation';
 
+//- Provider Imports
+import { ModalProvider } from '../../lib/providers/ModalProvider';
+
 //- Container Imports
 import SubdomainView from '../../containers/subdomain-view/SubdomainView';
 import NFTView from '../../containers/nft-view/NFTView';
@@ -32,25 +35,27 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 	const { isNFTView } = useViewNavigation(subdomainData);
 
 	return (
-		<div style={{ paddingTop: '100px' }}>
-			{!isNFTView && (
-				<SubdomainView
-					domain={domain}
-					metrics={metrics}
-					subdomainData={subdomainData}
-					domainMetadata={domainMetadata}
-					paymentTokenInfo={paymentTokenInfo}
-				/>
-			)}
+		<ModalProvider>
+			<div style={{ paddingTop: '100px' }}>
+				{!isNFTView && (
+					<SubdomainView
+						domain={domain}
+						metrics={metrics}
+						subdomainData={subdomainData}
+						domainMetadata={domainMetadata}
+						paymentTokenInfo={paymentTokenInfo}
+					/>
+				)}
 
-			{isNFTView && (
-				<NFTView
-					domain={domain}
-					metrics={metrics}
-					paymentTokenInfo={paymentTokenInfo}
-				/>
-			)}
-		</div>
+				{isNFTView && (
+					<NFTView
+						domain={domain}
+						metrics={metrics}
+						paymentTokenInfo={paymentTokenInfo}
+					/>
+				)}
+			</div>
+		</ModalProvider>
 	);
 };
 

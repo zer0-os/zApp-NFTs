@@ -15,7 +15,7 @@ import { useBuyNowPrice } from '../../lib/hooks/useBuyNowPrice';
 import Button from 'zero-ui/src/components/Button/index';
 
 //- Constants Imports
-import { ModalType } from './SubdomainTable.constants';
+import { ModalType } from '../../lib/constants/modals';
 
 type SubdomainTableCardProps = {
 	domainId: string;
@@ -38,7 +38,7 @@ const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	const { data: buyNowPrice } = useBuyNowPrice(domainId);
 	const { data: domainMetadata } = useDomainMetadata(domainMetadataUri);
 
-	const actionType = buyNowPrice ? ModalType.BUY : ModalType.BID;
+	const actionType = buyNowPrice ? ModalType.BUY_NOW : ModalType.PLACE_BID;
 
 	return (
 		<button

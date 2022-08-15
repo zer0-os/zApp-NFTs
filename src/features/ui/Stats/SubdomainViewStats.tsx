@@ -1,5 +1,5 @@
 //- React Imports
-import type { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
 //- Library Imports
 import { ethers } from 'ethers';
@@ -11,10 +11,10 @@ import StatsWidget from '../StatsWidget/StatsWidget';
 //- Utils Imports
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
-type SubdomainViewStatsProps = {
+interface SubdomainViewStatsProps {
 	metrics: DomainMetrics;
 	paymentTokenInfo: TokenPriceInfo;
-};
+}
 
 const SubdomainViewStats: FC<SubdomainViewStatsProps> = ({
 	metrics,
@@ -30,10 +30,10 @@ const SubdomainViewStats: FC<SubdomainViewStatsProps> = ({
 					: 'No sales',
 			text:
 				metrics?.lowestSale && paymentTokenInfo?.price
-					? formatNumber(
+					? `$${formatNumber(
 							Number(ethers.utils.formatEther(metrics.lowestSale)) *
 								paymentTokenInfo.price,
-					  )
+					  )}`
 					: 0,
 		},
 		{
@@ -46,10 +46,10 @@ const SubdomainViewStats: FC<SubdomainViewStatsProps> = ({
 					: String(0),
 			text:
 				(metrics?.volume as any)?.all && paymentTokenInfo?.price
-					? formatNumber(
+					? `$${formatNumber(
 							Number(ethers.utils.formatEther(metrics.volume.all)) *
 								paymentTokenInfo.price,
-					  )
+					  )}`
 					: 0,
 		},
 	];

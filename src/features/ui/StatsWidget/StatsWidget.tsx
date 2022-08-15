@@ -1,5 +1,5 @@
 //- React Imports
-import type { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
 //- Components Improts
 import Card from 'zero-ui/src/components/Card';
