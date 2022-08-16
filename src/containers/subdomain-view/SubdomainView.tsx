@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { Metadata } from '../../lib/types/metadata';
 
 //- Features Imports
-import SubdomainTable from '../../features/subdomain-table/SubdomainTable';
+import SubdomainTable from '../../features/subdomain-table/SubdomainTable/SubdomainTable';
 import SubdomainViewStats from '../../features/ui/Stats/SubdomainViewStats';
 import PreviewCard from '../../features/ui/PreviewCard/PreviewCard';
 
@@ -19,6 +19,7 @@ type SubdomainViewContainerProps = {
 	subdomainData: Domain[];
 	domainMetadata: Metadata;
 	paymentTokenInfo: TokenPriceInfo;
+	isSubdomainDataLoading?: boolean;
 };
 
 const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
@@ -28,6 +29,7 @@ const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
 	subdomainData,
 	domainMetadata,
 	paymentTokenInfo,
+	isSubdomainDataLoading,
 }) => {
 	const isRoot = domain?.name === 'wilder';
 
@@ -54,6 +56,7 @@ const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
 				accountId={accountId}
 				subdomainData={subdomainData}
 				paymentTokenData={paymentTokenInfo}
+				isSubdomainDataLoading={isSubdomainDataLoading}
 			/>
 		</>
 	);

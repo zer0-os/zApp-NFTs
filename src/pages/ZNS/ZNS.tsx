@@ -28,7 +28,8 @@ type ZNSProps = {
 const ZNS: FC<ZNSProps> = ({ route, user }) => {
 	const domainId = getDomainId(route);
 	const { data: domain } = useDomainData(domainId);
-	const { data: subdomainData } = useSubdomainData(domainId);
+	const { data: subdomainData, isLoading: isSubdomainDataLoading } =
+		useSubdomainData(domainId);
 	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
 	const { data: paymentTokenInfo } = usePaymentTokenInfo(paymentToken);
 	const { data: metrics } = useDomainMetrics(domainId);

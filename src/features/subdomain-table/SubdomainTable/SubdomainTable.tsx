@@ -1,5 +1,5 @@
 //- React Imports
-import { FC, memo } from 'react';
+import { FC, memo, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 //- Library Imports
@@ -7,29 +7,32 @@ import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Components Imports
 import AsyncTable from 'zero-ui/src/components/AsyncTable';
-import SubdomainTableCard from './SubdomainTableCard';
-import SubdomainTableRow from './SubdomainTableRow';
+import SubdomainTableCard from '../SubdomainTableCard/SubdomainTableCard';
+import SubdomainTableRow from '../SubdomainTableRow/SubdomainTableRow';
 
 //- Constants Imports
-import { COLUMNS } from './SubdomainTable.constants';
-import { ModalType } from '../../lib/constants/modals';
+import { COLUMNS } from '../SubdomainTable.constants';
+import { ModalType } from '../../../lib/constants/modals';
 
 //- Hooks Imports
-import { useModal } from '../../lib/hooks/useModal';
+import { useModal } from '../../../lib/hooks/useModal';
 
 type SubdomainTableProps = {
 	accountId: string;
 	subdomainData: Domain[];
 	paymentTokenData: TokenPriceInfo;
+	isSubdomainDataLoading?: boolean;
 };
 
 const SubdomainTable: FC<SubdomainTableProps> = ({
 	accountId,
 	subdomainData,
 	paymentTokenData,
+	isSubdomainDataLoading,
 }) => {
 	const history = useHistory();
 	const { openModal, closeModal } = useModal();
+	const [isGridView, setIsGridView] = useState<boolean>();
 
 	const handleItemClick = (event: any, domainName?: string) => {
 		const clickedButton = event?.target?.className?.indexOf('button') >= 0;
@@ -54,8 +57,25 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 					},
 			  });
 
+	const changeView = useCallback(
+		(isGridView: boolean) => {
+			setIsGridView(isGridView);
+		},
+		[setIsGridView],
+	);
+
 	return (
 		<>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'flex-end',
+					color: 'black',
+				}}
+			>
+				<button onClick={() => changeView(false)}>Row</button>
+				<button onClick={() => changeView(true)}>Grid</button>
+			</div>
 			<AsyncTable
 				data={subdomainData}
 				itemKey="id"
@@ -89,6 +109,8 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 					/>
 				)}
 				searchKey={{ key: 'name', name: 'message' }}
+				isGridView={isGridView}
+				isLoading={isSubdomainDataLoading}
 			/>
 		</>
 	);
