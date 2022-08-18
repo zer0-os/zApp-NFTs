@@ -7,7 +7,7 @@ import { Metadata } from '../../lib/types/metadata';
 //- Features Imports
 import SubdomainTable from '../../features/subdomain-table/SubdomainTable/SubdomainTable';
 import SubdomainViewStats from '../../features/ui/Stats/SubdomainViewStats';
-import PreviewCard from '../../features/ui/PreviewCard/PreviewCard';
+import NFTCard from '../../features/ui/NFTCard/NFTCard';
 
 //- Library Imports
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
@@ -36,7 +36,7 @@ const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
 	return (
 		<>
 			{!isRoot && (
-				<PreviewCard
+				<NFTCard
 					title={domainMetadata?.title}
 					description={domainMetadata?.description}
 					href={`/${domain?.name}/nfts?view=true`}

@@ -26,3 +26,13 @@ export const getDomainId = (name?: string | null): string => {
 	}
 	return hashReturn;
 };
+
+export const truncateAddress = (
+	address: string,
+	startingCharacters?: number,
+) => {
+	return `${address.substring(
+		0,
+		2 + (startingCharacters ?? 0),
+	)}...${address.substring(address.length - 4)}`;
+};

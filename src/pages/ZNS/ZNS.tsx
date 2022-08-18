@@ -54,6 +54,7 @@ const ZNS: FC<ZNSProps> = ({ route, user }) => {
 					<NFTView
 						domain={domain}
 						metrics={metrics}
+						domainMetadata={domainMetadata}
 						paymentTokenInfo={paymentTokenInfo}
 					/>
 				)}
