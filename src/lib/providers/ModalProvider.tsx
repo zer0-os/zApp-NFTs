@@ -2,7 +2,7 @@
 import { createContext, ReactNode, useState } from 'react';
 
 //- Component Imports
-import Modal from 'zero-ui/src/components/Modal';
+import Modal from '@zero-tech/zui/src/components/Modal';
 import PlaceBid from '../../features/modals/PlaceBid/PlaceBid';
 import BuyNow from '../../features/modals/BuyNow/BuyNow';
 import ConnectWalletPrompt from '../../features/modals/ConnectWalletPrompt/ConnectWalletPrompt';

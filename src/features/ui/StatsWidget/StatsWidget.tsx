@@ -2,7 +2,7 @@
 import { FC, ReactNode } from 'react';
 
 //- Components Improts
-import Card from 'zero-ui/src/components/Card';
+import Card from '@zero-tech/zui/src/components/Card';
 
 //- Style Imports
 import styles from './StatsWidget.module.scss';

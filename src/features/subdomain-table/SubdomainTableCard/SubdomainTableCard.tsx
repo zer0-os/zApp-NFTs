@@ -12,7 +12,7 @@ import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 
 //- Components Imports
-import Button from 'zero-ui/src/components/Button/index';
+import Button from '@zero-tech/zui/src/components/Button/index';
 import TableCard from '../../ui/TableCard/TableCard';
 
 //- Constants Imports

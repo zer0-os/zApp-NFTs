@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Components Imports
-import AsyncTable from 'zero-ui/src/components/AsyncTable';
+import AsyncTable from '@zero-tech/zui/src/components/AsyncTable/AsyncTable';
 import SubdomainTableCard from '../SubdomainTableCard/SubdomainTableCard';
 import SubdomainTableRow from '../SubdomainTableRow/SubdomainTableRow';
 

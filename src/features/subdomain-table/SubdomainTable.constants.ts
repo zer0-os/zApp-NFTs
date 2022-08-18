@@ -1,5 +1,5 @@
 //- Components Imports
-import { Column } from 'zero-ui/src/components/AsyncTable';
+import { Column } from '@zero-tech/zui/src/components/AsyncTable';
 
 export const COLUMNS: Column[] = [
 	{ id: 'domain', header: 'Domain', alignment: 'left' },
