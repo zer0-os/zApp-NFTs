@@ -10,15 +10,13 @@ import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { useViewNavigation } from '../../lib/hooks/useViewNavigation';
 
-//- Provider Imports
-import { ModalProvider } from '../../lib/providers/ModalProvider';
-
 //- Container Imports
 import SubdomainView from '../../containers/subdomain-view/SubdomainView';
 import NFTView from '../../containers/nft-view/NFTView';
 
 //- Utils Imports
 import { getDomainId } from '../../lib/util/domains/domains';
+import { useModalSelect } from '../../lib/hooks/useModalSelect';
 
 type ZNSProps = {
 	route: string;
@@ -28,38 +26,38 @@ type ZNSProps = {
 const ZNS: FC<ZNSProps> = ({ route, user }) => {
 	const domainId = getDomainId(route);
 	const { data: domain } = useDomainData(domainId);
-	const { data: subdomainData, isLoading: isSubdomainDataLoading } =
-		useSubdomainData(domainId);
+	const { data: subdomainData } = useSubdomainData(domainId);
 	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
 	const { data: paymentTokenInfo } = usePaymentTokenInfo(paymentToken);
 	const { data: metrics } = useDomainMetrics(domainId);
 	const { data: domainMetadata } = useDomainMetadata(domain?.metadataUri);
 	const { isNFTView } = useViewNavigation(subdomainData);
+	const { handleModal } = useModalSelect();
 
 	return (
-		<ModalProvider>
-			<div style={{ paddingTop: '100px' }}>
-				{!isNFTView && (
-					<SubdomainView
-						accountId={user.account}
-						domain={domain}
-						metrics={metrics}
-						subdomainData={subdomainData}
-						domainMetadata={domainMetadata}
-						paymentTokenInfo={paymentTokenInfo}
-					/>
-				)}
+		<div style={{ paddingTop: '100px' }}>
+			{!isNFTView && (
+				<SubdomainView
+					accountId={user.account}
+					domain={domain}
+					metrics={metrics}
+					subdomainData={subdomainData}
+					domainMetadata={domainMetadata}
+					paymentTokenInfo={paymentTokenInfo}
+					openModal={handleModal}
+				/>
+			)}
 
-				{isNFTView && (
-					<NFTView
-						domain={domain}
-						metrics={metrics}
-						domainMetadata={domainMetadata}
-						paymentTokenInfo={paymentTokenInfo}
-					/>
-				)}
-			</div>
-		</ModalProvider>
+			{isNFTView && (
+				<NFTView
+					domain={domain}
+					metrics={metrics}
+					domainMetadata={domainMetadata}
+					paymentTokenInfo={paymentTokenInfo}
+					openModal={handleModal}
+				/>
+			)}
+		</div>
 	);
 };
 

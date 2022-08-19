@@ -6,17 +6,14 @@ import StatsWidget from '../StatsWidget/StatsWidget';
 
 //- Library Imports
 import { ethers } from 'ethers';
-import {
-	DomainBidEvent,
-	DomainMetrics,
-	TokenPriceInfo,
-} from '@zero-tech/zns-sdk';
+import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
+import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
 
 //- Utils Imports
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
 type NFTViewStatsProps = {
-	bids: DomainBidEvent[];
+	bids: Bid[];
 	metrics: DomainMetrics;
 	isLoading?: boolean;
 	paymentTokenInfo: TokenPriceInfo;

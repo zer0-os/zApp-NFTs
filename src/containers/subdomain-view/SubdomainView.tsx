@@ -9,6 +9,9 @@ import SubdomainTable from '../../features/subdomain-table/SubdomainTable/Subdom
 import SubdomainViewStats from '../../features/ui/Stats/SubdomainViewStats';
 import NFTCard from '../../features/ui/NFTCard/NFTCard';
 
+//- Constants Imports
+import { ModalType } from '../../lib/constants/modals';
+
 //- Library Imports
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
@@ -20,6 +23,7 @@ type SubdomainViewContainerProps = {
 	domainMetadata: Metadata;
 	paymentTokenInfo: TokenPriceInfo;
 	isSubdomainDataLoading?: boolean;
+	openModal: (domainName?: string, type?: ModalType) => void;
 };
 
 const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
@@ -30,6 +34,7 @@ const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
 	domainMetadata,
 	paymentTokenInfo,
 	isSubdomainDataLoading,
+	openModal,
 }) => {
 	const isRoot = domain?.name === 'wilder';
 
@@ -57,6 +62,7 @@ const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
 				subdomainData={subdomainData}
 				paymentTokenData={paymentTokenInfo}
 				isSubdomainDataLoading={isSubdomainDataLoading}
+				openModal={openModal}
 			/>
 		</>
 	);

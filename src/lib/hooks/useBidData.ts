@@ -1,24 +1,21 @@
 //- React Imports
-import { useMemo } from 'react';
+import { useQuery } from 'react-query';
 
-//- Library Imports
-import { DomainBidEvent, DomainEventType } from '@zero-tech/zns-sdk';
+//- Hooks Imports
+import { useZnsSdk } from './useZnsSdk';
 
-//- Types Imports
-import { DomainEvents } from '../../lib/types/events';
+export const useBidData = (domainId?: string) => {
+	// SDK
+	const sdk = useZnsSdk();
 
-type UseBidDataReturn = {
-	bids: DomainBidEvent[];
-};
-
-export const useBidData = (domainEvents: DomainEvents[]): UseBidDataReturn => {
-	const bids: DomainBidEvent[] = useMemo(() => {
-		return domainEvents?.filter(
-			(e: DomainEvents) => e.type === DomainEventType.bid,
-		) as DomainBidEvent[];
-	}, [domainEvents]);
-
-	return {
-		bids,
-	};
+	// Query
+	return useQuery(
+		`domain-bids-data-${domainId}`,
+		async () => await sdk.zauction.listBids(domainId),
+		{
+			retry: false,
+			refetchOnMount: false,
+			refetchOnWindowFocus: false,
+		},
+	);
 };

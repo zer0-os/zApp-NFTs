@@ -6,6 +6,7 @@ import HistoryList from '../../features/ui/HistoryList/HistoryList';
 import TokenHashInfo from '../../features/ui/Stats/TokenHashInfo';
 import NFTViewStats from '../../features/ui/Stats/NFTViewStats';
 import NFTCard from '../../features/ui/NFTCard/NFTCard';
+import Actions from '../../features/actions/Actions/Actions';
 
 //- Hooks Imports
 import { useDomainEvents } from '../../lib/hooks/useDomainEvents';
@@ -15,16 +16,20 @@ import { useBidData } from '../../lib/hooks/useBidData';
 import { Metadata } from '../../lib/types/metadata';
 
 //- Utils Imports
-import { sortEventsByTimestamp } from './NFTView.util';
+import { getHighestBid, sortEventsByTimestamp } from './NFTView.util';
 
 //- Library Imports
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
+
+//- Constants Imports
+import { ModalType } from '../../lib/constants/modals';
 
 type NFTViewContainerProps = {
 	domain: Domain;
 	metrics: DomainMetrics;
 	domainMetadata: Metadata;
 	paymentTokenInfo: TokenPriceInfo;
+	openModal: (domainName?: string, type?: ModalType) => void;
 };
 
 const NFTViewContainer: FC<NFTViewContainerProps> = ({
@@ -32,13 +37,17 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 	metrics,
 	domainMetadata,
 	paymentTokenInfo,
+	openModal,
 }) => {
+	const { data: bids } = useBidData(domain?.id);
 	const { data: domainEvents, isLoading: isEventDataLoading } = useDomainEvents(
 		domain?.id,
 	);
-	const { bids } = useBidData(domainEvents);
-
+	const isOwnedByUser =
+		domain?.owner?.toLowerCase() === domain?.minter?.toLowerCase();
+	const isBiddable = !isOwnedByUser || Boolean(domainMetadata?.isBiddable);
 	const sortedDomainEvents = sortEventsByTimestamp(domainEvents);
+	const highestBid = getHighestBid(bids);
 
 	return (
 		<>
@@ -50,9 +59,19 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 				isNFTView
 			/>
 
+			<Actions
+				domainName={domain?.name}
+				bidData={bids}
+				highestBid={highestBid}
+				isOwnedByUser={isOwnedByUser}
+				isBiddable={isBiddable}
+				paymentTokenInfo={paymentTokenInfo}
+				onButtonClick={openModal}
+			/>
+
+			{/* todo: combine loading data */}
 			<NFTViewStats
 				bids={bids}
-				// Todo: combine loading data
 				isLoading={isEventDataLoading}
 				metrics={metrics}
 				paymentTokenInfo={paymentTokenInfo}

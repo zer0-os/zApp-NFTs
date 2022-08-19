@@ -1,8 +1,12 @@
 //- Library Imports
 import { DomainEventType } from '@zero-tech/zns-sdk';
+import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
 
 //- Types Imports
 import { DomainEvents } from '../../lib/types/events';
+
+//- Utils Imports
+import { formatEthers } from '../../lib/util/number/number';
 
 export const sortEventsByTimestamp = (
 	events: DomainEvents[],
@@ -21,3 +25,11 @@ export const sortEventsByTimestamp = (
 		return asc ? bVal - aVal : aVal - bVal;
 	});
 };
+
+export const getHighestBid = (bids: Bid[]) =>
+	Math.max.apply(
+		null,
+		bids?.length > 0
+			? bids?.map((bid) => Number(formatEthers(bid.amount)))
+			: [null],
+	);

@@ -22,6 +22,7 @@ type SubdomainTableProps = {
 	subdomainData: Domain[];
 	paymentTokenData: TokenPriceInfo;
 	isSubdomainDataLoading?: boolean;
+	openModal: (domainName: string, type: ModalType) => void;
 };
 
 const SubdomainTable: FC<SubdomainTableProps> = ({
@@ -29,9 +30,9 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 	subdomainData,
 	paymentTokenData,
 	isSubdomainDataLoading,
+	openModal,
 }) => {
 	const history = useHistory();
-	const { openModal, closeModal } = useModal();
 	const [isGridView, setIsGridView] = useState<boolean>();
 
 	const handleItemClick = (event: any, domainName?: string) => {
@@ -40,22 +41,6 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 			history.push(`/${domainName}/nfts`);
 		}
 	};
-
-	const onButtonClick = (domainName: string, type: ModalType) =>
-		type !== ModalType.CONNECT_WALLET_PROMPT
-			? openModal({
-					modalType: type,
-					contentProps: {
-						domainName: domainName,
-						onClose: closeModal,
-					},
-			  })
-			: openModal({
-					modalType: type,
-					contentProps: {
-						onClose: closeModal,
-					},
-			  });
 
 	const changeView = useCallback(
 		(isGridView: boolean) => {
@@ -91,7 +76,7 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 						domainMetadataUri={data?.metadataUri}
 						paymentTokenData={paymentTokenData}
 						onRowClick={handleItemClick}
-						onButtonClick={onButtonClick}
+						onButtonClick={openModal}
 					/>
 				)}
 				gridComponent={(data) => (
@@ -105,7 +90,7 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 						domainMetadataUri={data?.metadataUri}
 						paymentTokenData={paymentTokenData}
 						onCardClick={handleItemClick}
-						onButtonClick={onButtonClick}
+						onButtonClick={openModal}
 					/>
 				)}
 				searchKey={{ key: 'name', name: 'message' }}

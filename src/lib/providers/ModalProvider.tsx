@@ -5,6 +5,7 @@ import { createContext, ReactNode, useState } from 'react';
 import Modal from '@zero-tech/zui/src/components/Modal';
 import PlaceBid from '../../features/modals/PlaceBid/PlaceBid';
 import BuyNow from '../../features/modals/BuyNow/BuyNow';
+import ViewBids from '../../features/modals/ViewBids/ViewBids';
 import ConnectWalletPrompt from '../../features/modals/ConnectWalletPrompt/ConnectWalletPrompt';
 
 // Modal Type Imports
@@ -51,6 +52,12 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
 				)}
 				{modalContent?.modalType === ModalType.BUY_NOW && (
 					<BuyNow
+						domainName={modalContent.contentProps.domainName}
+						onClose={closeModal}
+					/>
+				)}
+				{modalContent?.modalType === ModalType.VIEW_BIDS && (
+					<ViewBids
 						domainName={modalContent.contentProps.domainName}
 						onClose={closeModal}
 					/>
