@@ -12,13 +12,13 @@ type ActionsProps = { actions: ActionBlock[] };
 const ActionsList = ({ actions }: ActionsProps) => {
 	return (
 		<ul className={styles.Container}>
-			{actions.map((action: ActionBlock) => (
+			{actions.map((action: ActionBlock, index: number) => (
 				<li key={action.dataTestId}>
 					<Action
 						label={action.label}
 						amountToken={action.amountToken}
 						amountUsd={action.amountUsd}
-						buttonComponent={() => action.buttonComponent()}
+						buttonComponent={() => action.buttonComponent(index !== 0)}
 					/>
 				</li>
 			))}

@@ -10,13 +10,18 @@ import Actions from '../../features/actions/Actions/Actions';
 
 //- Hooks Imports
 import { useDomainEvents } from '../../lib/hooks/useDomainEvents';
+import { useBuyNowPrice } from '../../lib/hooks/useBuyNowPrice';
 import { useBidData } from '../../lib/hooks/useBidData';
 
 //- Types Imports
 import { Metadata } from '../../lib/types/metadata';
 
 //- Utils Imports
-import { getHighestBid, sortEventsByTimestamp } from './NFTView.util';
+import {
+	getHighestBid,
+	getUserBids,
+	sortEventsByTimestamp,
+} from './NFTView.util';
 
 //- Library Imports
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
@@ -25,6 +30,7 @@ import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 import { ModalType } from '../../lib/constants/modals';
 
 type NFTViewContainerProps = {
+	accountId: string;
 	domain: Domain;
 	metrics: DomainMetrics;
 	domainMetadata: Metadata;
@@ -33,6 +39,7 @@ type NFTViewContainerProps = {
 };
 
 const NFTViewContainer: FC<NFTViewContainerProps> = ({
+	accountId,
 	domain,
 	metrics,
 	domainMetadata,
@@ -40,14 +47,16 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 	openModal,
 }) => {
 	const { data: bids } = useBidData(domain?.id);
+	const { data: buyNowPrice } = useBuyNowPrice(domain?.id);
 	const { data: domainEvents, isLoading: isEventDataLoading } = useDomainEvents(
 		domain?.id,
 	);
 	const isOwnedByUser =
-		domain?.owner?.toLowerCase() === domain?.minter?.toLowerCase();
+		domain?.owner?.toLowerCase() === accountId.toLowerCase();
 	const isBiddable = !isOwnedByUser || Boolean(domainMetadata?.isBiddable);
 	const sortedDomainEvents = sortEventsByTimestamp(domainEvents);
 	const highestBid = getHighestBid(bids);
+	const userBid = getUserBids(accountId, bids);
 
 	return (
 		<>
@@ -60,11 +69,14 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 			/>
 
 			<Actions
+				accountId={accountId}
 				domainName={domain?.name}
 				bidData={bids}
-				highestBid={highestBid}
 				isOwnedByUser={isOwnedByUser}
 				isBiddable={isBiddable}
+				buyNowPrice={buyNowPrice}
+				highestBid={highestBid}
+				userBid={userBid}
 				paymentTokenInfo={paymentTokenInfo}
 				onButtonClick={openModal}
 			/>

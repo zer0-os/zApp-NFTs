@@ -50,6 +50,7 @@ const ZNS: FC<ZNSProps> = ({ route, user }) => {
 
 			{isNFTView && (
 				<NFTView
+					accountId={user.account}
 					domain={domain}
 					metrics={metrics}
 					domainMetadata={domainMetadata}

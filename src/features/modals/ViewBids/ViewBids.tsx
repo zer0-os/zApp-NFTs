@@ -6,7 +6,7 @@ export type ViewBidsProps = {
 	onClose: () => void;
 };
 
-export const ViewBids: FC<ViewBidsProps> = ({ domainName, onClose }) => (
+const ViewBids: FC<ViewBidsProps> = ({ domainName, onClose }) => (
 	<>View Bids - {domainName}</>
 );
 

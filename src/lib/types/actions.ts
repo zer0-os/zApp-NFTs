@@ -1,5 +1,8 @@
 export enum ACTION_TYPES {
 	Bid,
+	SetBuyNow,
+	BuyNow,
+	UserBid,
 }
 
 export type ActionBlock = {
@@ -9,5 +12,5 @@ export type ActionBlock = {
 	isVisible: boolean;
 	dataTestId: string;
 	shouldShowBorder?: boolean;
-	buttonComponent: () => JSX.Element;
+	buttonComponent: (isTextButton?: boolean) => JSX.Element;
 };

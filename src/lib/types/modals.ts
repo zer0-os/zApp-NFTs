@@ -2,7 +2,9 @@
 import { ConnectWalletPromptProps } from '../../features/modals/ConnectWalletPrompt/ConnectWalletPrompt';
 import { PlaceBidProps } from '../../features/modals/PlaceBid/PlaceBid';
 import { BuyNowProps } from '../../features/modals/BuyNow/BuyNow';
+import { SetBuyNowProps } from '../../features/modals/SetBuyNow/SetBuyNow';
 import { ViewBidsProps } from '../../features/modals/ViewBids/ViewBids';
+import { CancelBidProps } from '../../features/modals/CancelBid/CancelBid';
 
 //- Constants Imports
 import { ModalType } from '../../lib/constants/modals';
@@ -16,7 +18,11 @@ export type PlaceBidContentProps = Omit<PlaceBidProps, 'closeModal'>;
 
 export type BuyNowContentProps = Omit<BuyNowProps, 'closeModal'>;
 
+export type SetBuyNowContentProps = Omit<SetBuyNowProps, 'closeModal'>;
+
 export type ViewBidsContentProps = Omit<ViewBidsProps, 'closeModal'>;
+
+export type CancelBidContentProps = Omit<CancelBidProps, 'closeModal'>;
 
 type ConnectWalletPromptContent = {
 	modalType: ModalType.CONNECT_WALLET_PROMPT;
@@ -33,16 +39,28 @@ type BuyNowContent = {
 	contentProps: BuyNowContentProps;
 };
 
+type SetBuyNowContent = {
+	modalType: ModalType.SET_BUY_NOW;
+	contentProps: SetBuyNowContentProps;
+};
+
 type ViewBidsContent = {
 	modalType: ModalType.VIEW_BIDS;
 	contentProps: ViewBidsContentProps;
+};
+
+type CancelBidContent = {
+	modalType: ModalType.CANCEL_BID;
+	contentProps: CancelBidContentProps;
 };
 
 export type ModalContent =
 	| ConnectWalletPromptContent
 	| PlaceBidContent
 	| BuyNowContent
-	| ViewBidsContent;
+	| SetBuyNowContent
+	| ViewBidsContent
+	| CancelBidContent;
 
 export type ModalContextProps = {
 	openModal: (content: ModalContent) => void;

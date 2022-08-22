@@ -6,7 +6,7 @@ export type BuyNowProps = {
 	onClose: () => void;
 };
 
-export const BuyNow: FC<BuyNowProps> = ({ domainName, onClose }) => (
+const BuyNow: FC<BuyNowProps> = ({ domainName, onClose }) => (
 	<>Buy Now - {domainName}</>
 );
 

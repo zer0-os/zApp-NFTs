@@ -6,7 +6,7 @@ export type PlaceBidProps = {
 	onClose: () => void;
 };
 
-export const PlaceBid: FC<PlaceBidProps> = ({ domainName, onClose }) => (
+const PlaceBid: FC<PlaceBidProps> = ({ domainName, onClose }) => (
 	<>Place Bid - {domainName}</>
 );
 
