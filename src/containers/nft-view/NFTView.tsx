@@ -56,7 +56,8 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 	const isBiddable = !isOwnedByUser || Boolean(domainMetadata?.isBiddable);
 	const sortedDomainEvents = sortEventsByTimestamp(domainEvents);
 	const highestBid = getHighestBid(bids);
-	const userBid = getUserBids(accountId, bids);
+	const userBids = getUserBids(accountId, bids);
+	const highgestUserBid = getHighestBid(userBids);
 
 	return (
 		<>
@@ -76,7 +77,7 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 				isBiddable={isBiddable}
 				buyNowPrice={buyNowPrice}
 				highestBid={highestBid}
-				userBid={userBid}
+				highestUserBid={highgestUserBid}
 				paymentTokenInfo={paymentTokenInfo}
 				onButtonClick={openModal}
 			/>

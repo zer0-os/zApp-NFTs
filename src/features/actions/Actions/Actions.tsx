@@ -1,5 +1,4 @@
 //- Library Imports
-import { ethers } from 'ethers';
 import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
 
 //- Components Imports
@@ -24,7 +23,7 @@ type ActionsProps = {
 	isBiddable: boolean;
 	buyNowPrice?: string | number;
 	highestBid?: number;
-	userBid?: number;
+	highestUserBid?: number;
 	paymentTokenInfo?: TokenPriceInfo;
 	onButtonClick: (domainName?: string, type?: ModalType) => void;
 };
@@ -45,7 +44,7 @@ const Actions = ({
 	isBiddable,
 	buyNowPrice,
 	highestBid,
-	userBid,
+	highestUserBid,
 	paymentTokenInfo,
 	onButtonClick,
 }: ActionsProps) => {
@@ -54,7 +53,7 @@ const Actions = ({
 	//
 	const isBuyNow =
 		Boolean(buyNowPrice) && !isOwnedByUser && Boolean(domainName);
-	const isUserBid = !isOwnedByUser && Boolean(userBid);
+	const isUserBid = !isOwnedByUser && Boolean(highestUserBid);
 	const isSetBuyNow = isOwnedByUser && Boolean(domainName);
 	const isViewBids =
 		isOwnedByUser !== undefined && isBiddable && bidData?.length > 0;
@@ -153,10 +152,10 @@ const Actions = ({
 		},
 		[ACTION_TYPES.UserBid]: {
 			label: `Your Bid (${paymentTokenInfo?.name})`,
-			amountToken: userBid ? userBid : '-',
+			amountToken: highestUserBid ? highestUserBid : '-',
 			amountUsd:
-				userBid && paymentTokenInfo?.price
-					? `$${formatNumber(Number(userBid) * paymentTokenInfo.price)}`
+				highestUserBid && paymentTokenInfo?.price
+					? `$${formatNumber(Number(highestUserBid) * paymentTokenInfo.price)}`
 					: '',
 			isVisible: isUserBid,
 			dataTestId: TEST_ID.USER_BID,
