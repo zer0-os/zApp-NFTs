@@ -6,16 +6,16 @@ import { ethers } from 'ethers';
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Hook Imports
-import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
-import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
-import { formatEthers, formatNumber } from '../../../lib/util/number/number';
-import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
+import { useDomainMetadata } from '../../../../lib/hooks/useDomainMetadata';
+import { useDomainMetrics } from '../../../../lib/hooks/useDomainMetrics';
+import { formatEthers, formatNumber } from '../../../../lib/util/number/number';
+import { useBuyNowPrice } from '../../../../lib/hooks/useBuyNowPrice';
 
 //- Components Imports
 import Button from '@zero-tech/zui/src/components/Button/index';
 
 //- Constants Imports
-import { ModalType } from '../../../lib/constants/modals';
+import { ModalType } from '../../../../lib/constants/modals';
 
 type SubdomainTableRowProps = {
 	accountId?: string;

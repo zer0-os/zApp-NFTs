@@ -4,10 +4,10 @@ import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Components Imports
 import Button from '@zero-tech/zui/src/components/Button';
-import Action from '../../ui/Action/Action';
+import Action from '../Action/Action';
 
 //- Constants Imports
-import { ModalType } from '../../../lib/constants/modals';
+import { ModalType } from '../../../../lib/constants/modals';
 import { Titles, Labels, Buttons, DataTestId } from './Actions.constants';
 
 //- Utils Imports
@@ -17,7 +17,7 @@ import {
 	getUsdConversion,
 	getVisibleActions,
 } from './Actions.utils';
-import { formatNumber } from '../../../lib/util/number/number';
+import { formatNumber } from '../../../../lib/util/number/number';
 
 //- Types Imports
 import { ActionBlock, ActionTypes } from './Actions.types';
@@ -36,16 +36,6 @@ type ActionsProps = {
 	paymentTokenInfo?: TokenPriceInfo;
 	onButtonClick: (domainName?: string, type?: ModalType) => void;
 };
-
-const actionButton = (
-	isTextButton: boolean,
-	label: string,
-	onClick: () => void,
-) => (
-	<Button variant={isTextButton ? 'text' : 'primary'} onPress={onClick}>
-		{label}
-	</Button>
-);
 
 const Actions = ({
 	domainName,

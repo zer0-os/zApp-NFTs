@@ -2,11 +2,11 @@
 import { FC } from 'react';
 
 //- Components Imports
-import HistoryList from '../../features/ui/HistoryList/HistoryList';
-import TokenHashInfo from '../../features/ui/Stats/TokenHashInfo';
-import NFTViewStats from '../../features/ui/Stats/NFTViewStats';
-import NFTCard from '../../features/ui/NFTCard/NFTCard';
-import Actions from '../../features/actions/Actions/Actions';
+import HistoryList from './history/HistoryList/HistoryList';
+import TokenHashInfo from '../ui/Stats/TokenHashInfo';
+import NFTViewStats from '../ui/Stats/NFTViewStats';
+import NFTCard from '../ui/NFTCard/NFTCard';
+import Actions from './actions/Actions/Actions';
 
 //- Hooks Imports
 import { useDomainEvents } from '../../lib/hooks/useDomainEvents';

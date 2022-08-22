@@ -11,8 +11,8 @@ import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { useViewNavigation } from '../../lib/hooks/useViewNavigation';
 
 //- Container Imports
-import SubdomainView from '../../containers/subdomain-view/SubdomainView';
-import NFTView from '../../containers/nft-view/NFTView';
+import SubdomainView from '../../features/subdomain-view/SubdomainView';
+import NFTView from '../../features/nft-view/NFTView';
 
 //- Utils Imports
 import { getDomainId } from '../../lib/util/domains/domains';

@@ -5,9 +5,9 @@ import { FC } from 'react';
 import { Metadata } from '../../lib/types/metadata';
 
 //- Features Imports
-import SubdomainTable from '../../features/subdomain-table/SubdomainTable/SubdomainTable';
-import SubdomainViewStats from '../../features/ui/Stats/SubdomainViewStats';
-import NFTCard from '../../features/ui/NFTCard/NFTCard';
+import SubdomainTable from './subdomain-table/SubdomainTable/SubdomainTable';
+import SubdomainViewStats from '../ui/Stats/SubdomainViewStats';
+import NFTCard from '../ui/NFTCard/NFTCard';
 
 //- Constants Imports
 import { ModalType } from '../../lib/constants/modals';

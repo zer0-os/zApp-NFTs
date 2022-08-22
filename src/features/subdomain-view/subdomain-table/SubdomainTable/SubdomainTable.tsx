@@ -12,10 +12,10 @@ import SubdomainTableRow from '../SubdomainTableRow/SubdomainTableRow';
 
 //- Constants Imports
 import { COLUMNS } from '../SubdomainTable.constants';
-import { ModalType } from '../../../lib/constants/modals';
+import { ModalType } from '../../../../lib/constants/modals';
 
 //- Hooks Imports
-import { useModal } from '../../../lib/hooks/useModal';
+import { useModal } from '../../../../lib/hooks/useModal';
 
 type SubdomainTableProps = {
 	accountId: string;

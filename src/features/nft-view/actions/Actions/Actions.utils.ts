@@ -2,7 +2,7 @@
 import { ActionBlock, ActionTypes } from './Actions.types';
 
 //- Utils Imports
-import { formatNumber } from '../../../lib/util/number/number';
+import { formatNumber } from '../../../../lib/util/number/number';
 
 export const getOrderedActions = (
 	isOwnedByUser: boolean,

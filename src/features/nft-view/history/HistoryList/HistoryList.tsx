@@ -8,7 +8,7 @@ import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 import HistoryItem from '../HistoryItem/HistoryItem';
 
 //- Types Imports
-import { DomainEvents } from '../../../lib/types/events';
+import { DomainEvents } from '../../../../lib/types/events';
 
 type HistoryListProps = {
 	events: DomainEvents[];
