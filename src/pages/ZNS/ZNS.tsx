@@ -32,7 +32,7 @@ const ZNS: FC<ZNSProps> = ({ route, user }) => {
 	const { data: metrics } = useDomainMetrics(domainId);
 	const { data: domainMetadata } = useDomainMetadata(domain?.metadataUri);
 	const { isNFTView } = useViewNavigation(subdomainData);
-	const { handleModal } = useModalSelect();
+	const { handleModal } = useModalSelect(user?.account);
 
 	return (
 		<div style={{ paddingTop: '100px' }}>

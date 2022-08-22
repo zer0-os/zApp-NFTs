@@ -8,24 +8,28 @@ type UseModalSelectReturn = {
 	handleModal: () => void;
 };
 
-export const useModalSelect = (): UseModalSelectReturn => {
+export const useModalSelect = (accountId?: string): UseModalSelectReturn => {
 	const { openModal, closeModal } = useModal();
 
-	const handleModal = (domainName?: string, type?: ModalType) =>
-		type !== ModalType.CONNECT_WALLET_PROMPT
-			? openModal({
-					modalType: type,
-					contentProps: {
-						domainName: domainName,
-						onClose: closeModal,
-					},
-			  })
-			: openModal({
-					modalType: type,
-					contentProps: {
-						onClose: closeModal,
-					},
-			  });
+	// todo: handle modal will need expanding when modal content is added
+	const handleModal = (domainName?: string, type?: ModalType) => {
+		type &&
+			accountId &&
+			openModal({
+				modalType: type,
+				contentProps: {
+					domainName: domainName,
+					onClose: closeModal,
+				},
+			});
+		!accountId &&
+			openModal({
+				modalType: ModalType.CONNECT_WALLET_PROMPT,
+				contentProps: {
+					onClose: closeModal,
+				},
+			});
+	};
 
 	return { handleModal };
 };

@@ -21,7 +21,7 @@ import {
 	getHighestBid,
 	getUserBids,
 	sortEventsByTimestamp,
-} from './NFTView.util';
+} from './NFTView.utils';
 
 //- Library Imports
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
@@ -70,7 +70,6 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 			/>
 
 			<Actions
-				accountId={accountId}
 				domainName={domain?.name}
 				bidData={bids}
 				isOwnedByUser={isOwnedByUser}

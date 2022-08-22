@@ -1,8 +1,8 @@
-export enum ACTION_TYPES {
-	Bid,
-	SetBuyNow,
-	BuyNow,
-	UserBid,
+export enum ActionTypes {
+	BID,
+	SET_BUY_NOW,
+	BUY_NOW,
+	USER_BID,
 }
 
 export type ActionBlock = {

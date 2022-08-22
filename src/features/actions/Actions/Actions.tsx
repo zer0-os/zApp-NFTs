@@ -1,22 +1,31 @@
 //- Library Imports
 import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
+import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Components Imports
-import { TokenPriceInfo } from '@zero-tech/zns-sdk';
-import ActionsList from '../../../features/ui/ActionList/ActionList';
 import Button from '@zero-tech/zui/src/components/Button';
+import Action from '../../ui/Action/Action';
 
 //- Constants Imports
 import { ModalType } from '../../../lib/constants/modals';
+import { Titles, Labels, Buttons, DataTestId } from './Actions.constants';
 
 //- Utils Imports
+import {
+	getButtonVariable,
+	getOrderedActions,
+	getUsdConversion,
+	getVisibleActions,
+} from './Actions.utils';
 import { formatNumber } from '../../../lib/util/number/number';
 
 //- Types Imports
-import { ActionBlock, ACTION_TYPES } from '../../../lib/types/actions';
+import { ActionBlock, ActionTypes } from './Actions.types';
+
+// Styles
+import styles from './Actions.module.scss';
 
 type ActionsProps = {
-	accountId?: string;
 	domainName?: string;
 	bidData?: Bid[];
 	isOwnedByUser: boolean;
@@ -28,16 +37,17 @@ type ActionsProps = {
 	onButtonClick: (domainName?: string, type?: ModalType) => void;
 };
 
-export const TEST_ID = {
-	CONTAINER: 'actions-container',
-	BUY_NOW: 'actions-buy-now',
-	SET_BUY_NOW: 'actions-set-buy-now',
-	BID: 'actions-bid',
-	USER_BID: 'actions-user-bid',
-};
+const actionButton = (
+	isTextButton: boolean,
+	label: string,
+	onClick: () => void,
+) => (
+	<Button variant={isTextButton ? 'text' : 'primary'} onPress={onClick}>
+		{label}
+	</Button>
+);
 
 const Actions = ({
-	accountId,
 	domainName,
 	bidData,
 	isOwnedByUser,
@@ -48,9 +58,6 @@ const Actions = ({
 	paymentTokenInfo,
 	onButtonClick,
 }: ActionsProps) => {
-	//
-	// todo: serious tidy up and extraction required
-	//
 	const isBuyNow =
 		Boolean(buyNowPrice) && !isOwnedByUser && Boolean(domainName);
 	const isUserBid = !isOwnedByUser && Boolean(highestUserBid);
@@ -58,142 +65,109 @@ const Actions = ({
 	const isViewBids =
 		isOwnedByUser !== undefined && isBiddable && bidData?.length > 0;
 
-	const actions: { [action in ACTION_TYPES]: ActionBlock } = {
-		[ACTION_TYPES.BuyNow]: {
-			label: `Buy Now (${paymentTokenInfo?.name})`,
+	const actions: { [action in ActionTypes]: ActionBlock } = {
+		[ActionTypes.BUY_NOW]: {
+			label: `${Titles.BUY_NOW} (${paymentTokenInfo?.name})`,
 			amountToken: formatNumber(buyNowPrice),
-			amountUsd:
-				buyNowPrice && paymentTokenInfo?.price
-					? `$${formatNumber(Number(buyNowPrice) * paymentTokenInfo.price)}`
-					: 'No buy now set',
+			amountUsd: getUsdConversion(
+				buyNowPrice,
+				paymentTokenInfo?.price,
+				Labels.NO_BUY_NOW,
+			),
 			isVisible: isBuyNow,
-			dataTestId: TEST_ID.BUY_NOW,
+			dataTestId: DataTestId.BUY_NOW,
 			buttonComponent: (isTextButton?: boolean) => (
 				<Button
-					variant={isTextButton ? 'text' : 'primary'}
-					onPress={() =>
-						onButtonClick(
-							domainName,
-							accountId ? ModalType.BUY_NOW : ModalType.CONNECT_WALLET_PROMPT,
-						)
-					}
+					variant={getButtonVariable(isTextButton)}
+					onPress={() => onButtonClick(domainName, ModalType.BUY_NOW)}
 				>
-					Buy Now
+					{Buttons.BUY_NOW}
 				</Button>
 			),
 		},
-		[ACTION_TYPES.SetBuyNow]: {
-			label: `Set Buy Now (${paymentTokenInfo?.name})`,
+		[ActionTypes.SET_BUY_NOW]: {
+			label: `${Titles.BUY_NOW} (${paymentTokenInfo?.name})`,
 			amountToken: buyNowPrice ? formatNumber(buyNowPrice) : '-',
-			amountUsd:
-				buyNowPrice && paymentTokenInfo?.price
-					? `$${formatNumber(Number(buyNowPrice) * paymentTokenInfo.price)}`
-					: 'No buy now set',
+			amountUsd: getUsdConversion(
+				buyNowPrice,
+				paymentTokenInfo?.price,
+				Labels.NO_BUY_NOW,
+			),
 			isVisible: isSetBuyNow,
-			dataTestId: TEST_ID.SET_BUY_NOW,
+			dataTestId: DataTestId.SET_BUY_NOW,
 			buttonComponent: (isTextButton?: boolean) => (
 				<Button
-					variant={isTextButton ? 'text' : 'primary'}
-					onPress={() =>
-						onButtonClick(
-							domainName,
-							accountId
-								? ModalType.SET_BUY_NOW
-								: ModalType.CONNECT_WALLET_PROMPT,
-						)
-					}
+					variant={getButtonVariable(isTextButton)}
+					onPress={() => onButtonClick(domainName, ModalType.SET_BUY_NOW)}
 				>
-					{buyNowPrice ? 'Edit Buy Now' : 'Set Buy Now'}
+					{buyNowPrice ? Buttons.EDIT_BUY_NOW : Buttons.SET_BUY_NOW}
 				</Button>
 			),
 		},
-		[ACTION_TYPES.Bid]: {
-			label: `Highest Bid (${paymentTokenInfo?.name})`,
+		[ActionTypes.BID]: {
+			label: `${Titles.HIGHEST_BID} (${paymentTokenInfo?.name})`,
 			amountToken: highestBid > 0 ? highestBid : '-',
-			amountUsd:
-				highestBid > 0 && paymentTokenInfo?.price
-					? `$${formatNumber(highestBid * paymentTokenInfo.price)}`
-					: 'No bids placed',
+			amountUsd: getUsdConversion(
+				highestBid,
+				paymentTokenInfo?.price,
+				Labels.NO_BIDS_PLACED,
+			),
 			isVisible: isBiddable || isViewBids,
-			dataTestId: TEST_ID.BID,
+			dataTestId: DataTestId.BID,
 			buttonComponent: (isTextButton?: boolean) => {
 				if (isOwnedByUser && !isViewBids) return <></>;
 
 				return !isOwnedByUser ? (
 					<Button
-						variant={isTextButton ? 'text' : 'primary'}
-						onPress={() =>
-							onButtonClick(
-								domainName,
-								accountId
-									? ModalType.PLACE_BID
-									: ModalType.CONNECT_WALLET_PROMPT,
-							)
-						}
+						variant={getButtonVariable(isTextButton)}
+						onPress={() => onButtonClick(domainName, ModalType.PLACE_BID)}
 					>
-						Place A Bid
+						{Buttons.PLACE_A_BID}
 					</Button>
 				) : (
 					<Button
-						variant={isTextButton ? 'text' : 'primary'}
-						onPress={() =>
-							onButtonClick(
-								domainName,
-								accountId
-									? ModalType.VIEW_BIDS
-									: ModalType.CONNECT_WALLET_PROMPT,
-							)
-						}
+						variant={getButtonVariable(isTextButton)}
+						onPress={() => onButtonClick(domainName, ModalType.VIEW_BIDS)}
 					>
-						View Bids
+						{Buttons.VIEW_ALL_BIDS}
 					</Button>
 				);
 			},
 		},
-		[ACTION_TYPES.UserBid]: {
-			label: `Your Bid (${paymentTokenInfo?.name})`,
+		[ActionTypes.USER_BID]: {
+			label: `${Titles.YOUR_BID} (${paymentTokenInfo?.name})`,
 			amountToken: highestUserBid ? highestUserBid : '-',
-			amountUsd:
-				highestUserBid && paymentTokenInfo?.price
-					? `$${formatNumber(Number(highestUserBid) * paymentTokenInfo.price)}`
-					: '',
+			amountUsd: getUsdConversion(highestBid, paymentTokenInfo?.price),
 			isVisible: isUserBid,
-			dataTestId: TEST_ID.USER_BID,
+			dataTestId: DataTestId.USER_BID,
 			buttonComponent: (isTextButton?: boolean) => (
 				<Button
-					variant={isTextButton ? 'text' : 'primary'}
-					onPress={() =>
-						onButtonClick(
-							domainName,
-							accountId
-								? ModalType.CANCEL_BID
-								: ModalType.CONNECT_WALLET_PROMPT,
-						)
-					}
+					variant={getButtonVariable(isTextButton)}
+					onPress={() => onButtonClick(domainName, ModalType.CANCEL_BID)}
 				>
-					Cancel Bid
+					{Buttons.CANCEL_BID}
 				</Button>
 			),
 		},
 	};
 
-	const orderedActions = isOwnedByUser
-		? [
-				actions[ACTION_TYPES.Bid],
-				actions[ACTION_TYPES.BuyNow],
-				actions[ACTION_TYPES.SetBuyNow],
-		  ]
-		: [
-				actions[ACTION_TYPES.BuyNow],
-				actions[ACTION_TYPES.Bid],
-				actions[ACTION_TYPES.UserBid],
-		  ];
+	const orderedActions = getOrderedActions(isOwnedByUser, actions);
+	const visibleActions = getVisibleActions(orderedActions);
 
-	const visibleActions = orderedActions.filter((action: ActionBlock) =>
-		Boolean(action.isVisible),
+	return (
+		<ul className={styles.Container}>
+			{visibleActions.map((action: ActionBlock, index: number) => (
+				<li key={action.dataTestId}>
+					<Action
+						label={action.label}
+						amountToken={action.amountToken}
+						amountUsd={action.amountUsd}
+						buttonComponent={() => action.buttonComponent(index !== 0)}
+					/>
+				</li>
+			))}
+		</ul>
 	);
-
-	return <ActionsList actions={visibleActions} />;
 };
 
 export default Actions;
