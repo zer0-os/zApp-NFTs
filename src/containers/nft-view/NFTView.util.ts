@@ -36,7 +36,7 @@ export const getHighestBid = (bids: Bid[]) =>
 
 export const getUserBids = (accountId: string, bids?: Bid[]) => {
 	const userBids = bids?.filter(
-		(b) => b.bidder.toLowerCase() === accountId.toLowerCase(),
+		(b) => b.bidder.toLowerCase() === accountId?.toLowerCase(),
 	);
 	return getHighestBid(userBids);
 };

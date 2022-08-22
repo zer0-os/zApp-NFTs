@@ -2,16 +2,20 @@
 import { FC } from 'react';
 
 //- Library Imports
-import moment from 'moment';
+import { TokenPriceInfo } from '@zero-tech/zns-sdk';
+
+//- Component Imports
+import HistoryItem from '../HistoryItem/HistoryItem';
 
 //- Types Imports
 import { DomainEvents } from '../../../lib/types/events';
 
 type HistoryListProps = {
 	events: DomainEvents[];
+	paymentToken: TokenPriceInfo;
 };
 
-const HistoryList: FC<HistoryListProps> = ({ events }) => {
+const HistoryList: FC<HistoryListProps> = ({ events, paymentToken }) => {
 	return (
 		<section>
 			<h4>History</h4>
@@ -20,9 +24,7 @@ const HistoryList: FC<HistoryListProps> = ({ events }) => {
 				<ul style={{ listStyle: 'none', padding: '0' }}>
 					{events?.map((item: DomainEvents, i: number) => (
 						<div key={i}>
-							{/* todo: handle type and copy - add history list item component */}
-							Type: {item.type} Time:{' '}
-							<>{moment(Number(item.timestamp) * 1000).fromNow()}</>
+							<HistoryItem item={item} paymentToken={paymentToken} />
 						</div>
 					))}
 				</ul>

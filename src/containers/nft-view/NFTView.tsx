@@ -52,7 +52,7 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 		domain?.id,
 	);
 	const isOwnedByUser =
-		domain?.owner?.toLowerCase() === accountId.toLowerCase();
+		domain?.owner?.toLowerCase() === accountId?.toLowerCase();
 	const isBiddable = !isOwnedByUser || Boolean(domainMetadata?.isBiddable);
 	const sortedDomainEvents = sortEventsByTimestamp(domainEvents);
 	const highestBid = getHighestBid(bids);
@@ -91,7 +91,10 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 
 			<TokenHashInfo domain={domain} />
 
-			<HistoryList events={sortedDomainEvents} />
+			<HistoryList
+				events={sortedDomainEvents}
+				paymentToken={paymentTokenInfo}
+			/>
 		</>
 	);
 };
