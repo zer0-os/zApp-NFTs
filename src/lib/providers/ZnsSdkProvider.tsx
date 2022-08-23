@@ -1,59 +1,75 @@
 //- React Imports
-import { createContext, FC, ReactNode, useMemo } from "react";
+import { createContext, FC, ReactNode, useMemo } from 'react';
 
 //- Library Imports
-import { providers } from "ethers";
+import { providers } from 'ethers';
+import { chainIdToNetworkType } from '../../lib/helpers/network';
+import * as zns from '@zero-tech/zns-sdk';
 
-import * as zns from "@zero-tech/zns-sdk";
-
+//- Constants Imports
 import {
-  DEFAULT_NETWORK,
-  Network,
-  NETWORK_CONFIGS,
-} from "../constants/networks";
+	DEFAULT_NETWORK,
+	Network,
+	NETWORK_CONFIGS,
+	NETWORK_TYPES,
+} from '../constants/networks';
 
 interface ZnsSdkProviderProps {
-  provider?: providers.Web3Provider;
-  children: ReactNode;
+	provider?: providers.Web3Provider;
+	chainId?: number;
+	children: ReactNode;
 }
 
 const defaultConfig = zns.configuration.rinkebyConfiguration;
 
 // @TODO: not sure if this is the best way to create default context
 export const ZnsSdkContext = createContext(
-  zns.createInstance(
-    defaultConfig(
-      new providers.JsonRpcProvider(NETWORK_CONFIGS[DEFAULT_NETWORK].rpcUrl)
-    )
-  )
+	zns.createInstance(
+		defaultConfig(
+			new providers.JsonRpcProvider(NETWORK_CONFIGS[DEFAULT_NETWORK].rpcUrl),
+		),
+	),
 );
 
 const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
-  provider: providerProps,
-  children,
+	provider: providerProps,
+	chainId,
+	children,
 }: ZnsSdkProviderProps) => {
-  const sdk = useMemo(() => {
-    const provider =
-      providerProps ??
-      new providers.JsonRpcProvider(NETWORK_CONFIGS[DEFAULT_NETWORK].rpcUrl);
+	const sdk = useMemo(() => {
+		const provider =
+			providerProps ??
+			new providers.JsonRpcProvider(NETWORK_CONFIGS[DEFAULT_NETWORK].rpcUrl);
 
-    // We know that the chain ID will be a valid network because
-    // ChainGate will prevent this provider from rendering if
-    // the chain matches an unsupported network
-    const network: Network = provider?._network?.chainId ?? 4;
+		// We know that the chain ID will be a valid network because
+		// ChainGate will prevent this provider from rendering if
+		// the chain matches an unsupported network
+		const network = chainIdToNetworkType(
+			provider?._network?.chainId ?? DEFAULT_NETWORK,
+		);
 
-    // Only supporting two networks so can use ternary
-    const znsConfig =
-      network === Network.MAINNET
-        ? zns.configuration.mainnetConfiguration
-        : zns.configuration.rinkebyConfiguration;
+		switch (network) {
+			case NETWORK_TYPES.MAINNET: {
+				return zns.createInstance(
+					zns.configuration.mainnetConfiguration(provider),
+				);
+			}
 
-    return zns.createInstance(znsConfig(provider));
-  }, [providerProps]);
+			case NETWORK_TYPES.RINKEBY: {
+				return zns.createInstance(
+					zns.configuration.rinkebyConfiguration(provider),
+				);
+			}
 
-  return (
-    <ZnsSdkContext.Provider value={sdk}>{children}</ZnsSdkContext.Provider>
-  );
+			default: {
+				throw new Error('SDK isn´t available for this chainId');
+			}
+		}
+	}, [providerProps, chainId]);
+
+	return (
+		<ZnsSdkContext.Provider value={sdk}>{children}</ZnsSdkContext.Provider>
+	);
 };
 
 export default ZnsSdkProvider;

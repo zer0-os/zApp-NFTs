@@ -44,7 +44,6 @@
 	},
 	"dependencies": {
 		"@ethersproject/units": "^5.6.1",
-		"@zero-tech/zfi-sdk": "0.2.0",
 		"@zero-tech/zns-sdk": "0.6.1",
 		"classnames": "^2.3.1",
 		"moment": "^2.29.4",

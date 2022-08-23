@@ -1,6 +1,12 @@
 export enum Network {
-  MAINNET = 1,
-  RINKEBY = 4,
+	MAINNET = 1,
+	RINKEBY = 4,
+}
+
+export enum NETWORK_TYPES {
+	MAINNET = 'MAINNET',
+	RINKEBY = 'RINKEBY',
+	LOCAL = 'LOCAL',
 }
 
 const ENV_NETWORK = process.env.REACT_APP_DEFAULT_NETWORK;
@@ -12,17 +18,19 @@ export const DEFAULT_NETWORK = Network.RINKEBY;
 // ) as Network;
 
 interface NetworkConfig {
-  rpcUrl: string;
-  subgraphUrl: string;
+	rpcUrl: string;
 }
 
+export const RPC_URLS: { [chainId: number]: string } = {
+	1: process.env.REACT_APP_INFURA_URL as string,
+	4: process.env.REACT_APP_INFURA_URL as string,
+};
+
 export const NETWORK_CONFIGS: { [network in Network]: NetworkConfig } = {
-  [Network.MAINNET]: {
-    rpcUrl: "https://mainnet.infura.io/v3/77c3d733140f4c12a77699e24cb30c27",
-    subgraphUrl: "https://api.thegraph.com/subgraphs/name/zer0-os/zfi",
-  },
-  [Network.RINKEBY]: {
-    rpcUrl: "https://rinkeby.infura.io/v3/fa959ead3761429bafa6995a4b25397e",
-    subgraphUrl: "https://api.thegraph.com/subgraphs/name/zer0-os/zfi-rinkeby",
-  },
+	[Network.MAINNET]: {
+		rpcUrl: RPC_URLS[1],
+	},
+	[Network.RINKEBY]: {
+		rpcUrl: RPC_URLS[4],
+	},
 };
