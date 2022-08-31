@@ -5,6 +5,7 @@ import { BuyNowProps } from '../../features/modals/BuyNow/BuyNow';
 import { SetBuyNowProps } from '../../features/modals/SetBuyNow/SetBuyNow';
 import { ViewBidsProps } from '../../features/modals/ViewBids/ViewBids';
 import { CancelBidProps } from '../../features/modals/CancelBid/CancelBid';
+import { CreateTokenProps } from '../../features/modals/CreateToken';
 
 //- Constants Imports
 import { ModalType } from '../../lib/constants/modals';
@@ -23,6 +24,8 @@ export type SetBuyNowContentProps = Omit<SetBuyNowProps, 'closeModal'>;
 export type ViewBidsContentProps = Omit<ViewBidsProps, 'closeModal'>;
 
 export type CancelBidContentProps = Omit<CancelBidProps, 'closeModal'>;
+
+export type CreateTokenContentProps = Omit<CreateTokenProps, 'closeModal'>;
 
 type ConnectWalletPromptContent = {
 	modalType: ModalType.CONNECT_WALLET_PROMPT;
@@ -54,13 +57,19 @@ type CancelBidContent = {
 	contentProps: CancelBidContentProps;
 };
 
+type CreateTokenContent = {
+	modalType: ModalType.CREATE_TOKEN;
+	contentProps: CreateTokenContentProps;
+};
+
 export type ModalContent =
 	| ConnectWalletPromptContent
 	| PlaceBidContent
 	| BuyNowContent
 	| SetBuyNowContent
 	| ViewBidsContent
-	| CancelBidContent;
+	| CancelBidContent
+	| CreateTokenContent;
 
 export type ModalContextProps = {
 	openModal: (content: ModalContent) => void;

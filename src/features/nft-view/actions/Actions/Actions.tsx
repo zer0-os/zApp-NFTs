@@ -3,7 +3,7 @@ import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Components Imports
-import Button from '@zero-tech/zui/src/components/Button';
+import { Button } from '@zero-tech/zui/src/components/Button';
 import Action from '../Action/Action';
 
 //- Constants Imports

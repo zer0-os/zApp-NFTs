@@ -2,13 +2,14 @@
 import { createContext, ReactNode, useState } from 'react';
 
 //- Component Imports
-import Modal from '@zero-tech/zui/src/components/Modal';
+import { Modal } from '@zero-tech/zui/src/components/Modal';
 import PlaceBid from '../../features/modals/PlaceBid/PlaceBid';
 import BuyNow from '../../features/modals/BuyNow/BuyNow';
 import ViewBids from '../../features/modals/ViewBids/ViewBids';
 import SetBuyNow from '../../features/modals/SetBuyNow/SetBuyNow';
 import CancelBid from '../../features/modals/CancelBid/CancelBid';
 import ConnectWalletPrompt from '../../features/modals/ConnectWalletPrompt/ConnectWalletPrompt';
+import { CreateToken } from '../../features/modals/CreateToken/CreateToken';
 
 // Modal Type Imports
 import * as modalTypes from '../types/modals';
@@ -72,6 +73,12 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
 				)}
 				{modalContent?.modalType === ModalType.CANCEL_BID && (
 					<CancelBid
+						domainName={modalContent.contentProps.domainName}
+						onClose={closeModal}
+					/>
+				)}
+				{modalContent?.modalType === ModalType.CREATE_TOKEN && (
+					<CreateToken
 						domainName={modalContent.contentProps.domainName}
 						onClose={closeModal}
 					/>

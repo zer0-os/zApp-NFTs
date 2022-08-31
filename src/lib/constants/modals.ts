@@ -5,4 +5,5 @@ export enum ModalType {
 	VIEW_BIDS,
 	SET_BUY_NOW,
 	CANCEL_BID,
+	CREATE_TOKEN,
 }

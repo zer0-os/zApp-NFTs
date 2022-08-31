@@ -12,7 +12,8 @@ import { AppProps } from './lib/types/app';
 //- Page Imports
 import ZNS from './pages/ZNS/ZNS';
 
-//- Library Imports
+//- Provider Imports
+import { ZUIProvider } from '@zero-tech/zui/src/ZUIProvider';
 import { ModalProvider } from './lib/providers/ModalProvider';
 
 const App: FC<AppProps> = ({ provider, route, user }) => {
@@ -21,9 +22,11 @@ const App: FC<AppProps> = ({ provider, route, user }) => {
 
 	return (
 		<main>
-			<ModalProvider>
-				<ZNS route={route} user={user} />
-			</ModalProvider>
+			<ZUIProvider>
+				<ModalProvider>
+					<ZNS route={route} user={user} />
+				</ModalProvider>
+			</ZUIProvider>
 		</main>
 	);
 };
