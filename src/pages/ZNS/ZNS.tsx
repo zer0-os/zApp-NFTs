@@ -16,14 +16,12 @@ import NFTView from '../../features/nft-view/NFTView';
 
 //- Utils Imports
 import { getDomainId } from '../../lib/util/domains/domains';
-import { useModalSelect } from '../../lib/hooks/useModalSelect';
 
 type ZNSProps = {
 	route: string;
-	user: { account: string };
 };
 
-const ZNS: FC<ZNSProps> = ({ route, user }) => {
+const ZNS: FC<ZNSProps> = ({ route }) => {
 	const domainId = getDomainId(route);
 	const { data: domain } = useDomainData(domainId);
 	const { data: subdomainData } = useSubdomainData(domainId);
@@ -32,30 +30,25 @@ const ZNS: FC<ZNSProps> = ({ route, user }) => {
 	const { data: metrics } = useDomainMetrics(domainId);
 	const { data: domainMetadata } = useDomainMetadata(domain?.metadataUri);
 	const { isNFTView } = useViewNavigation(subdomainData);
-	const { handleModal } = useModalSelect(user?.account);
 
 	return (
-		<div style={{ paddingTop: '100px' }}>
+		<div style={{ padding: '200px' }}>
 			{!isNFTView && (
 				<SubdomainView
-					accountId={user.account}
 					domain={domain}
 					metrics={metrics}
 					subdomainData={subdomainData}
 					domainMetadata={domainMetadata}
 					paymentTokenInfo={paymentTokenInfo}
-					openModal={handleModal}
 				/>
 			)}
 
 			{isNFTView && (
 				<NFTView
-					accountId={user.account}
 					domain={domain}
 					metrics={metrics}
 					domainMetadata={domainMetadata}
 					paymentTokenInfo={paymentTokenInfo}
-					openModal={handleModal}
 				/>
 			)}
 		</div>

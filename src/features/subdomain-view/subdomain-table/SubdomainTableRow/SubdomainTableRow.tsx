@@ -11,44 +11,28 @@ import { useDomainMetrics } from '../../../../lib/hooks/useDomainMetrics';
 import { formatEthers, formatNumber } from '../../../../lib/util/number/number';
 import { useBuyNowPrice } from '../../../../lib/hooks/useBuyNowPrice';
 
-//- Components Imports
-import Button from '@zero-tech/zui/src/components/Button/index';
-
-//- Constants Imports
-import { ModalType } from '../../../../lib/constants/modals';
+//- Component Imports
+import { PlaceBidButton } from '../../../../features/place-bid';
+import { BuyNowButton } from '../../../../features/buy-now';
 
 type SubdomainTableRowProps = {
-	accountId?: string;
 	domainId: string;
 	domainName: string;
-	domainOwner: string;
 	domainMetadataUri: string;
 	paymentTokenData: TokenPriceInfo;
 	onRowClick: (e?: any, domainName?: string) => void;
-	onButtonClick: (domainName: string, type: ModalType) => void;
 };
 
 const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
-	accountId,
 	domainId,
 	domainName,
-	domainOwner,
 	domainMetadataUri,
 	paymentTokenData,
 	onRowClick,
-	onButtonClick,
 }) => {
 	const { data: domainMetrics } = useDomainMetrics(domainId);
 	const { data: buyNowPrice } = useBuyNowPrice(domainId);
 	const { data: domainMetadata } = useDomainMetadata(domainMetadataUri);
-
-	const isOwnedByUser = accountId?.toLowerCase() === domainOwner.toLowerCase();
-
-	const actionType = !accountId
-		? ModalType.CONNECT_WALLET_PROMPT
-		: buyNowPrice
-		? ModalType.BUY_NOW
-		: ModalType.PLACE_BID;
 
 	return (
 		<>
@@ -79,13 +63,7 @@ const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 				</td>
 
 				<td style={{ display: 'flex', justifyContent: 'flex-end' }}>
-					<Button
-						className="button"
-						onPress={() => onButtonClick(domainName, actionType)}
-						isDisabled={isOwnedByUser}
-					>
-						{buyNowPrice ? 'BUY' : 'BID'}
-					</Button>
+					{buyNowPrice ? <BuyNowButton /> : <PlaceBidButton />}
 				</td>
 			</tr>
 		</>

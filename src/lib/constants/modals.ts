@@ -1,5 +1,5 @@
 export enum ModalType {
-	CONNECT_WALLET_PROMPT,
+	CONNECT_WALLET,
 	PLACE_BID,
 	BUY_NOW,
 	VIEW_BIDS,

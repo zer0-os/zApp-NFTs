@@ -1,5 +1,5 @@
 //- React Imports
-import { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 //- Styles Imports
 import styles from './TableCard.module.scss';
@@ -15,13 +15,13 @@ type TableCardProps = {
 	onClick?: (event?: any) => void;
 };
 
-const TableCard = ({
+const TableCard: FC<TableCardProps> = ({
 	children,
 	header,
 	subHeader,
 	className,
 	onClick,
-}: TableCardProps) => {
+}) => {
 	return (
 		<div className={cx(styles.TableCardContainer, className)} onClick={onClick}>
 			<div className={styles.Footer}>

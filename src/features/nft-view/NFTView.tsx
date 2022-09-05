@@ -9,9 +9,13 @@ import NFTCard from '../ui/NFTCard/NFTCard';
 import Actions from './actions/Actions/Actions';
 
 //- Hooks Imports
+import useWeb3 from '../../lib/hooks/useWeb3';
 import { useDomainEvents } from '../../lib/hooks/useDomainEvents';
 import { useBuyNowPrice } from '../../lib/hooks/useBuyNowPrice';
 import { useBidData } from '../../lib/hooks/useBidData';
+
+//- Library Imports
+import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Types Imports
 import { Metadata } from '../../lib/types/metadata';
@@ -23,40 +27,30 @@ import {
 	sortEventsByTimestamp,
 } from './NFTView.utils';
 
-//- Library Imports
-import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
-
-//- Constants Imports
-import { ModalType } from '../../lib/constants/modals';
-
 type NFTViewContainerProps = {
-	accountId: string;
 	domain: Domain;
 	metrics: DomainMetrics;
 	domainMetadata: Metadata;
 	paymentTokenInfo: TokenPriceInfo;
-	openModal: (domainName?: string, type?: ModalType) => void;
 };
 
 const NFTViewContainer: FC<NFTViewContainerProps> = ({
-	accountId,
 	domain,
 	metrics,
 	domainMetadata,
 	paymentTokenInfo,
-	openModal,
 }) => {
+	const { account } = useWeb3();
 	const { data: bids } = useBidData(domain?.id);
 	const { data: buyNowPrice } = useBuyNowPrice(domain?.id);
 	const { data: domainEvents, isLoading: isEventDataLoading } = useDomainEvents(
 		domain?.id,
 	);
-	const isOwnedByUser =
-		domain?.owner?.toLowerCase() === accountId?.toLowerCase();
+	const isOwnedByUser = domain?.owner?.toLowerCase() === account?.toLowerCase();
 	const isBiddable = !isOwnedByUser || Boolean(domainMetadata?.isBiddable);
 	const sortedDomainEvents = sortEventsByTimestamp(domainEvents);
 	const highestBid = getHighestBid(bids);
-	const userBids = getUserBids(accountId, bids);
+	const userBids = getUserBids(account, bids);
 	const highgestUserBid = getHighestBid(userBids);
 
 	return (
@@ -78,7 +72,6 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 				highestBid={highestBid}
 				highestUserBid={highgestUserBid}
 				paymentTokenInfo={paymentTokenInfo}
-				onButtonClick={openModal}
 			/>
 
 			{/* todo: combine loading data */}

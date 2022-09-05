@@ -3,16 +3,18 @@ import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Components Imports
-import Button from '@zero-tech/zui/src/components/Button';
 import Action from '../Action/Action';
+import { BuyNowButton } from '../../../../features/buy-now';
+import { SetBuyNowButton } from '../../../../features/set-buy-now';
+import { PlaceBidButton } from '../../../../features/place-bid';
+import { ViewBidsButton } from '../../../../features/view-bids';
+import { CancelBidButton } from '../../../../features/cancel-bid';
 
 //- Constants Imports
-import { ModalType } from '../../../../lib/constants/modals';
-import { Titles, Labels, Buttons, DataTestId } from './Actions.constants';
+import { Titles, Labels, DataTestId } from './Actions.constants';
 
 //- Utils Imports
 import {
-	getButtonVariable,
 	getOrderedActions,
 	getUsdConversion,
 	getVisibleActions,
@@ -34,7 +36,6 @@ type ActionsProps = {
 	highestBid?: number;
 	highestUserBid?: number;
 	paymentTokenInfo?: TokenPriceInfo;
-	onButtonClick: (domainName?: string, type?: ModalType) => void;
 };
 
 const Actions = ({
@@ -46,7 +47,6 @@ const Actions = ({
 	highestBid,
 	highestUserBid,
 	paymentTokenInfo,
-	onButtonClick,
 }: ActionsProps) => {
 	const isBuyNow =
 		Boolean(buyNowPrice) && !isOwnedByUser && Boolean(domainName);
@@ -66,14 +66,7 @@ const Actions = ({
 			),
 			isVisible: isBuyNow,
 			dataTestId: DataTestId.BUY_NOW,
-			buttonComponent: (isTextButton?: boolean) => (
-				<Button
-					variant={getButtonVariable(isTextButton)}
-					onPress={() => onButtonClick(domainName, ModalType.BUY_NOW)}
-				>
-					{Buttons.BUY_NOW}
-				</Button>
-			),
+			buttonComponent: (isTextButton?: boolean) => <BuyNowButton />,
 		},
 		[ActionTypes.SET_BUY_NOW]: {
 			label: `${Titles.BUY_NOW} (${paymentTokenInfo?.name})`,
@@ -85,14 +78,7 @@ const Actions = ({
 			),
 			isVisible: isSetBuyNow,
 			dataTestId: DataTestId.SET_BUY_NOW,
-			buttonComponent: (isTextButton?: boolean) => (
-				<Button
-					variant={getButtonVariable(isTextButton)}
-					onPress={() => onButtonClick(domainName, ModalType.SET_BUY_NOW)}
-				>
-					{buyNowPrice ? Buttons.EDIT_BUY_NOW : Buttons.SET_BUY_NOW}
-				</Button>
-			),
+			buttonComponent: (isTextButton?: boolean) => <SetBuyNowButton />,
 		},
 		[ActionTypes.BID]: {
 			label: `${Titles.HIGHEST_BID} (${paymentTokenInfo?.name})`,
@@ -107,21 +93,7 @@ const Actions = ({
 			buttonComponent: (isTextButton?: boolean) => {
 				if (isOwnedByUser && !isViewBids) return <></>;
 
-				return !isOwnedByUser ? (
-					<Button
-						variant={getButtonVariable(isTextButton)}
-						onPress={() => onButtonClick(domainName, ModalType.PLACE_BID)}
-					>
-						{Buttons.PLACE_A_BID}
-					</Button>
-				) : (
-					<Button
-						variant={getButtonVariable(isTextButton)}
-						onPress={() => onButtonClick(domainName, ModalType.VIEW_BIDS)}
-					>
-						{Buttons.VIEW_ALL_BIDS}
-					</Button>
-				);
+				return !isOwnedByUser ? <PlaceBidButton /> : <ViewBidsButton />;
 			},
 		},
 		[ActionTypes.USER_BID]: {
@@ -130,14 +102,7 @@ const Actions = ({
 			amountUsd: getUsdConversion(highestBid, paymentTokenInfo?.price),
 			isVisible: isUserBid,
 			dataTestId: DataTestId.USER_BID,
-			buttonComponent: (isTextButton?: boolean) => (
-				<Button
-					variant={getButtonVariable(isTextButton)}
-					onPress={() => onButtonClick(domainName, ModalType.CANCEL_BID)}
-				>
-					{Buttons.CANCEL_BID}
-				</Button>
-			),
+			buttonComponent: (isTextButton?: boolean) => <CancelBidButton />,
 		},
 	};
 
