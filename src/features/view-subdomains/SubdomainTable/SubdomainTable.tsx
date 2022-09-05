@@ -25,7 +25,7 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 	isSubdomainDataLoading,
 }) => {
 	const history = useHistory();
-	const [isGridView, setIsGridView] = useState<boolean>();
+	const [isGridView, setIsGridView] = useState<boolean>(true);
 
 	const handleItemClick = (event: any, domainName?: string) => {
 		const clickedButton = event?.target?.className?.indexOf('button') >= 0;
