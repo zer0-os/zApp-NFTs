@@ -11,7 +11,8 @@ import { ViewBidsButton } from '../../../../features/view-bids';
 import { CancelBidButton } from '../../../../features/cancel-bid';
 
 //- Constants Imports
-import { Titles, Labels, DataTestId } from './Actions.constants';
+import { DataTestId, Messages } from './Actions.constants';
+import { Labels } from '../../../../lib/constants/labels';
 
 //- Utils Imports
 import {
@@ -57,52 +58,54 @@ const Actions = ({
 
 	const actions: { [action in ActionTypes]: ActionBlock } = {
 		[ActionTypes.BUY_NOW]: {
-			label: `${Titles.BUY_NOW} (${paymentTokenInfo?.name})`,
+			label: `${Labels.BUY_NOW} (${paymentTokenInfo?.name})`,
 			amountToken: formatNumber(buyNowPrice),
 			amountUsd: getUsdConversion(
 				buyNowPrice,
 				paymentTokenInfo?.price,
-				Labels.NO_BUY_NOW,
+				Messages.NO_BUY_NOW,
 			),
 			isVisible: isBuyNow,
 			dataTestId: DataTestId.BUY_NOW,
-			buttonComponent: (isTextButton?: boolean) => <BuyNowButton />,
+			buttonComponent: <BuyNowButton />,
 		},
 		[ActionTypes.SET_BUY_NOW]: {
-			label: `${Titles.BUY_NOW} (${paymentTokenInfo?.name})`,
+			label: `${Labels.BUY_NOW} (${paymentTokenInfo?.name})`,
 			amountToken: buyNowPrice ? formatNumber(buyNowPrice) : '-',
 			amountUsd: getUsdConversion(
 				buyNowPrice,
 				paymentTokenInfo?.price,
-				Labels.NO_BUY_NOW,
+				Messages.NO_BUY_NOW,
 			),
 			isVisible: isSetBuyNow,
 			dataTestId: DataTestId.SET_BUY_NOW,
-			buttonComponent: (isTextButton?: boolean) => <SetBuyNowButton />,
+			buttonComponent: <SetBuyNowButton />,
 		},
 		[ActionTypes.BID]: {
-			label: `${Titles.HIGHEST_BID} (${paymentTokenInfo?.name})`,
+			label: `${Labels.HIGHEST_BID} (${paymentTokenInfo?.name})`,
 			amountToken: highestBid > 0 ? highestBid : '-',
 			amountUsd: getUsdConversion(
 				highestBid,
 				paymentTokenInfo?.price,
-				Labels.NO_BIDS_PLACED,
+				Messages.NO_BIDS_PLACED,
 			),
 			isVisible: isBiddable || isViewBids,
 			dataTestId: DataTestId.BID,
-			buttonComponent: (isTextButton?: boolean) => {
-				if (isOwnedByUser && !isViewBids) return <></>;
-
-				return !isOwnedByUser ? <PlaceBidButton /> : <ViewBidsButton />;
-			},
+			buttonComponent: !isOwnedByUser ? (
+				<PlaceBidButton />
+			) : !isViewBids ? (
+				<></>
+			) : (
+				<ViewBidsButton />
+			),
 		},
 		[ActionTypes.USER_BID]: {
-			label: `${Titles.YOUR_BID} (${paymentTokenInfo?.name})`,
+			label: `${Labels.YOUR_BID} (${paymentTokenInfo?.name})`,
 			amountToken: highestUserBid ? highestUserBid : '-',
 			amountUsd: getUsdConversion(highestBid, paymentTokenInfo?.price),
 			isVisible: isUserBid,
 			dataTestId: DataTestId.USER_BID,
-			buttonComponent: (isTextButton?: boolean) => <CancelBidButton />,
+			buttonComponent: <CancelBidButton />,
 		},
 	};
 
@@ -111,13 +114,13 @@ const Actions = ({
 
 	return (
 		<ul className={styles.Container}>
-			{visibleActions.map((action: ActionBlock, index: number) => (
+			{visibleActions.map((action: ActionBlock) => (
 				<li key={action.dataTestId}>
 					<Action
 						label={action.label}
 						amountToken={action.amountToken}
 						amountUsd={action.amountUsd}
-						buttonComponent={() => action.buttonComponent(index !== 0)}
+						buttonComponent={action.buttonComponent}
 					/>
 				</li>
 			))}

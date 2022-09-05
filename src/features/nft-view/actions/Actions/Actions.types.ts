@@ -1,3 +1,6 @@
+//- React Imports
+import { ReactNode } from 'react';
+
 export enum ActionTypes {
 	BID,
 	SET_BUY_NOW,
@@ -12,5 +15,5 @@ export type ActionBlock = {
 	isVisible: boolean;
 	dataTestId: string;
 	shouldShowBorder?: boolean;
-	buttonComponent: (isTextButton?: boolean) => JSX.Element;
+	buttonComponent: ReactNode;
 };
