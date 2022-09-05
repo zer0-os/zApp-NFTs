@@ -64,7 +64,7 @@ const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 					</span>
 				</div>
 				<div className={styles.ButtonContainer}>
-					{buyNowPrice ? <BuyNowButton /> : <PlaceBidButton />}
+					{buyNowPrice ? <BuyNowButton /> : <PlaceBidButton isRoot />}
 				</div>
 			</div>
 		</TableCard>

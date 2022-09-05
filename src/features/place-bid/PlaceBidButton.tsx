@@ -4,4 +4,10 @@ import { FC } from 'react';
 //- Components Imports
 import { PlaceBidModal } from './PlaceBidModal';
 
-export const PlaceBidButton: FC = () => <PlaceBidModal trigger={'Bid'} />;
+type PlaceBidButtonProps = {
+	isRoot?: boolean;
+};
+
+export const PlaceBidButton: FC<PlaceBidButtonProps> = ({ isRoot }) => (
+	<PlaceBidModal trigger={isRoot ? 'Bid' : 'Place A Bid'} />
+);

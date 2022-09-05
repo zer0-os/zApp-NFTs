@@ -3,10 +3,10 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 //- Utils Imports
-import { truncateAddress } from '../../../lib/util/domains/domains';
+import { truncateAddress } from '../../lib/util/domains/domains';
 
 //- Constants Imports
-import { AddressTitle, ButtonTitle } from './NFTCard.constants';
+import { AddressTitle, ButtonTitle } from './DomainPreview.constants';
 
 type PreviewCardProps = {
 	title?: string;
@@ -30,7 +30,7 @@ const ViewContainerNFTCard: FC<PreviewCardProps> = ({
 	isNFTView,
 }) => {
 	return (
-		<>
+		<div style={{ margin: '16px 0' }}>
 			{title && <h1>{title}</h1>}
 
 			{isNFTView && creator && owner && (
@@ -59,7 +59,7 @@ const ViewContainerNFTCard: FC<PreviewCardProps> = ({
 					{ButtonTitle.VIEW_DOMAIN_NFT}
 				</Link>
 			)}
-		</>
+		</div>
 	);
 };
 

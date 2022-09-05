@@ -10,7 +10,7 @@ export const useBidData = (domainId?: string) => {
 
 	// Query
 	return useQuery(
-		`domain-bids-data-${domainId}`,
+		`domain-bids-${domainId}`,
 		async () => await sdk.zauction.listBids(domainId),
 		{
 			retry: false,

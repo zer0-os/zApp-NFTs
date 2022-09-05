@@ -32,9 +32,10 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 	const { isNFTView } = useViewNavigation(subdomainData);
 
 	return (
-		<div style={{ padding: '200px' }}>
+		<div style={{ padding: '100px' }}>
 			{!isNFTView && (
 				<Domains
+					route={route}
 					domain={domain}
 					metrics={metrics}
 					subdomainData={subdomainData}

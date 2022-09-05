@@ -63,7 +63,7 @@ const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 				</td>
 
 				<td style={{ display: 'flex', justifyContent: 'flex-end' }}>
-					{buyNowPrice ? <BuyNowButton /> : <PlaceBidButton />}
+					{buyNowPrice ? <BuyNowButton /> : <PlaceBidButton isRoot />}
 				</td>
 			</tr>
 		</>

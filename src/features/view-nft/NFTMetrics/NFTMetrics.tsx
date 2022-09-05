@@ -1,33 +1,40 @@
 //- React Imports
 import { FC } from 'react';
 
+//- Features Imports
+import StatsList from '../../ui/StatsList/StatsList';
+
 //- Library Imports
 import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
-
-//- Features Imports
-import StatsWidget from '../StatsWidget/StatsWidget';
+import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
 
 //- Utils Imports
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
-interface SubdomainViewStatsProps {
+type NFTMetricsProps = {
+	bids: Bid[];
 	metrics: DomainMetrics;
+	isLoading?: boolean;
 	paymentTokenInfo: TokenPriceInfo;
-}
+};
 
-const SubdomainViewStats: FC<SubdomainViewStatsProps> = ({
+const NFTMetrics: FC<NFTMetricsProps> = ({
+	bids,
 	metrics,
+	isLoading,
 	paymentTokenInfo,
 }) => {
 	const stats = [
-		{ title: 'Items In Domain', value: formatNumber(metrics?.items) },
 		{
-			title: 'Floor Price',
-			value:
-				metrics?.lowestSale && paymentTokenInfo?.name
-					? `${formatEthers(metrics.lowestSale)} ${paymentTokenInfo.name}`
-					: 'No sales',
+			title: 'Bids',
+			value: !isLoading && (bids?.length || 0).toLocaleString(),
+		},
+		{
+			title: 'Last Sale',
+			value: metrics?.lastSale
+				? `${formatEthers(metrics.lastSale)} WILD`
+				: 'No sales',
 			text:
 				metrics?.lowestSale && paymentTokenInfo?.price
 					? `$${formatNumber(
@@ -38,12 +45,9 @@ const SubdomainViewStats: FC<SubdomainViewStatsProps> = ({
 		},
 		{
 			title: 'Volume',
-			value:
-				(metrics?.volume as any)?.all && paymentTokenInfo?.name
-					? `${formatEthers((metrics.volume as any).all)} ${
-							paymentTokenInfo.name
-					  }`
-					: String(0),
+			value: (metrics?.volume as any)?.all
+				? `${formatEthers((metrics.volume as any).all)} WILD`
+				: String(0),
 			text:
 				(metrics?.volume as any)?.all && paymentTokenInfo?.price
 					? `$${formatNumber(
@@ -54,7 +58,7 @@ const SubdomainViewStats: FC<SubdomainViewStatsProps> = ({
 		},
 	];
 
-	return <StatsWidget stats={stats} />;
+	return <StatsList stats={stats} />;
 };
 
-export default SubdomainViewStats;
+export default NFTMetrics;

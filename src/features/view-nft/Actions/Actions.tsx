@@ -1,18 +1,22 @@
 //- Library Imports
 import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
-import { TokenPriceInfo } from '@zero-tech/zns-sdk';
+import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Components Imports
 import Action from '../Action/Action';
-import { BuyNowButton } from '../../../../features/buy-now';
-import { SetBuyNowButton } from '../../../../features/set-buy-now';
-import { PlaceBidButton } from '../../../../features/place-bid';
-import { ViewBidsButton } from '../../../../features/view-bids';
-import { CancelBidButton } from '../../../../features/cancel-bid';
+import { BuyNowButton } from '../../buy-now';
+import { SetBuyNowButton } from '../../set-buy-now';
+import { PlaceBidButton } from '../../place-bid';
+import { ViewBidsButton } from '../../view-bids';
+import { CancelBidButton } from '../../cancel-bid';
 
 //- Constants Imports
 import { DataTestId, Messages } from './Actions.constants';
-import { Labels } from '../../../../lib/constants/labels';
+import { Labels } from '../../../lib/constants/labels';
+
+//- Hooks Imports
+import useWeb3 from '../../../lib/hooks/useWeb3';
+import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 
 //- Utils Imports
 import {
@@ -20,41 +24,42 @@ import {
 	getUsdConversion,
 	getVisibleActions,
 } from './Actions.utils';
-import { formatNumber } from '../../../../lib/util/number/number';
+import { formatNumber } from '../../../lib/util/number/number';
+import { getHighestBid, getUserBids } from '../../../lib/util/bids/bids';
 
 //- Types Imports
 import { ActionBlock, ActionTypes } from './Actions.types';
+import { Metadata } from '../../../lib/types/metadata';
 
 // Styles
 import styles from './Actions.module.scss';
 
 type ActionsProps = {
-	domainName?: string;
-	bidData?: Bid[];
-	isOwnedByUser: boolean;
-	isBiddable: boolean;
-	buyNowPrice?: string | number;
-	highestBid?: number;
-	highestUserBid?: number;
+	domain?: Domain;
+	domainMetadata?: Metadata;
+	bids?: Bid[];
 	paymentTokenInfo?: TokenPriceInfo;
 };
 
 const Actions = ({
-	domainName,
-	bidData,
-	isOwnedByUser,
-	isBiddable,
-	buyNowPrice,
-	highestBid,
-	highestUserBid,
+	domain,
+	domainMetadata,
+	bids,
 	paymentTokenInfo,
 }: ActionsProps) => {
-	const isBuyNow =
-		Boolean(buyNowPrice) && !isOwnedByUser && Boolean(domainName);
+	const { account } = useWeb3();
+	const { data: buyNowPrice } = useBuyNowPrice(domain?.id);
+	const userBids = getUserBids(account, bids);
+	const highestBid = getHighestBid(bids);
+	const highestUserBid = getHighestBid(userBids);
+	const isOwnedByUser = domain?.owner?.toLowerCase() === account?.toLowerCase();
+	const isBiddable = !isOwnedByUser || Boolean(domainMetadata?.isBiddable);
 	const isUserBid = !isOwnedByUser && Boolean(highestUserBid);
-	const isSetBuyNow = isOwnedByUser && Boolean(domainName);
+	const isSetBuyNow = isOwnedByUser && Boolean(domain?.name);
+	const isBuyNow =
+		Boolean(buyNowPrice) && !isOwnedByUser && Boolean(domain?.name);
 	const isViewBids =
-		isOwnedByUser !== undefined && isBiddable && bidData?.length > 0;
+		isOwnedByUser !== undefined && isBiddable && bids?.length > 0;
 
 	const actions: { [action in ActionTypes]: ActionBlock } = {
 		[ActionTypes.BUY_NOW]: {

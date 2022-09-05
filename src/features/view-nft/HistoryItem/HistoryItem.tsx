@@ -1,5 +1,5 @@
 //- Types Imports
-import { DomainEvents } from '../../../../lib/types/events';
+import { DomainEvent } from '../../../lib/types/events';
 
 //- Library Imports
 import moment from 'moment';
@@ -14,11 +14,11 @@ import {
 } from '@zero-tech/zns-sdk';
 
 //- Utils Imports
-import { truncateAddress } from '../../../../lib/util/domains/domains';
-import { formatEthers } from '../../../../lib/util/number/number';
+import { truncateAddress } from '../../../lib/util/domains/domains';
+import { formatEthers } from '../../../lib/util/number/number';
 
 type HistoryItemProps = {
-	item: DomainEvents;
+	item: DomainEvent;
 	paymentToken: TokenPriceInfo;
 };
 

@@ -5,7 +5,7 @@ import { FC, ReactNode } from 'react';
 import { Card } from '@zero-tech/zui/src/components';
 
 //- Style Imports
-import styles from './StatsWidget.module.scss';
+import styles from './StatsList.module.scss';
 
 type Text = {
 	text?: string | ReactNode;
@@ -18,18 +18,18 @@ type Stat = {
 	text?: string | number | Text;
 };
 
-type StatsWidgetProps = {
+type StatsListProps = {
 	stats: Stat[];
 };
 
-const StatsWidget: FC<StatsWidgetProps> = ({ stats }) => (
+const StatsList: FC<StatsListProps> = ({ stats }) => (
 	<div className={styles.Stats}>
 		{stats.map((stat: Stat, index) => (
-			<div key={`stats-widget-${index}`}>
+			<div key={`stat-${index}`}>
 				<Card title={stat.title} value={stat.value} bottomText={stat.text} />
 			</div>
 		))}
 	</div>
 );
 
-export default StatsWidget;
+export default StatsList;

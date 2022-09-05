@@ -30,7 +30,7 @@ describe('getHashFromIPFSUrl', () => {
 	});
 
 	it('should handle URLs with no IPFS hash', () => {
-		expect(getHashFromIPFSUrl('https://ipfs.fleek.co/')).toBe('');
+		expect(getHashFromIPFSUrl('https://ipfs.fleek.co/')).toBe(undefined);
 	});
 
 	it('should handle nested IPFS content', () => {
@@ -54,9 +54,13 @@ describe('getHashFromIPFSUrl', () => {
 	// More info - https://docs.ipfs.io/concepts/content-addressing/#cid-conversion
 	it('should handle URLs containing Qm but invalid CIDv0 length', () => {
 		const invalidCID = HASH.slice(0, 42);
-		expect(getHashFromIPFSUrl('test.com/Qm/' + invalidCID)).toBe('');
-		expect(getHashFromIPFSUrl('Qm.com/' + invalidCID)).toBe('');
-		expect(getHashFromIPFSUrl('test.com/' + invalidCID + '/Qm')).toBe('');
-		expect(getHashFromIPFSUrl('ipfs.com/Qmg/' + invalidCID + '/test')).toBe('');
+		expect(getHashFromIPFSUrl('test.com/Qm/' + invalidCID)).toBe(undefined);
+		expect(getHashFromIPFSUrl('Qm.com/' + invalidCID)).toBe(undefined);
+		expect(getHashFromIPFSUrl('test.com/' + invalidCID + '/Qm')).toBe(
+			undefined,
+		);
+		expect(getHashFromIPFSUrl('ipfs.com/Qmg/' + invalidCID + '/test')).toBe(
+			undefined,
+		);
 	});
 });

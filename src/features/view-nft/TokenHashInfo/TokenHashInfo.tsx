@@ -5,7 +5,7 @@ import { FC, useMemo } from 'react';
 import { Domain } from '@zero-tech/zns-sdk';
 
 //- Features Imports
-import StatsWidget from '../StatsWidget/StatsWidget';
+import StatsList from '../../ui/StatsList/StatsList';
 
 //- Utils Imports
 import { truncateAddress } from '../../../lib/util/domains/domains';
@@ -16,13 +16,7 @@ type TokenHashInfoProps = {
 };
 
 const TokenHashInfo: FC<TokenHashInfoProps> = ({ domain }) => {
-	const ipfsHash = useMemo(() => {
-		if (domain) {
-			return getHashFromIPFSUrl(domain?.metadataUri);
-		}
-
-		return '';
-	}, [domain]);
+	const ipfsHash = domain ? getHashFromIPFSUrl(domain?.metadataUri) : '';
 
 	const stats = [
 		{
@@ -39,7 +33,7 @@ const TokenHashInfo: FC<TokenHashInfoProps> = ({ domain }) => {
 
 	return (
 		<div style={{ marginTop: '16px' }}>
-			<StatsWidget stats={stats} />
+			<StatsList stats={stats} />
 		</div>
 	);
 };

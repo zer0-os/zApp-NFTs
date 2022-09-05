@@ -5,14 +5,15 @@ import { FC } from 'react';
 import { Metadata } from '../../lib/types/metadata';
 
 //- Features Imports
-import SubdomainTable from '../../features/subdomain-view/SubdomainTable/SubdomainTable';
-import SubdomainViewStats from '../../features/ui/Stats/SubdomainViewStats';
-import NFTCard from '../../features/ui/NFTCard/NFTCard';
+import SubdomainTable from '../../features/view-subdomains/SubdomainTable/SubdomainTable';
+import SubdomainMetrics from '../../features/view-subdomains/SubdomainMetrics/SubdomainMetrics';
+import DomainPreview from '../../features/domain-preview/DomainPreview';
 
 //- Library Imports
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 type DomainsContainerProps = {
+	route: string;
 	domain: Domain;
 	metrics: DomainMetrics;
 	subdomainData: Domain[];
@@ -22,6 +23,7 @@ type DomainsContainerProps = {
 };
 
 const DomainsContainer: FC<DomainsContainerProps> = ({
+	route,
 	domain,
 	metrics,
 	subdomainData,
@@ -29,26 +31,19 @@ const DomainsContainer: FC<DomainsContainerProps> = ({
 	paymentTokenInfo,
 	isSubdomainDataLoading,
 }) => {
-	const isRoot = domain?.name === 'wilder';
+	const isRoot = route === 'wilder';
 
 	return (
 		<>
 			{!isRoot && (
-				<NFTCard
+				<DomainPreview
 					title={domainMetadata?.title}
 					description={domainMetadata?.description}
 					href={`/${domain?.name}/nfts?view=true`}
 				/>
 			)}
-			<br />
-			<br />
 
-			<SubdomainViewStats
-				metrics={metrics}
-				paymentTokenInfo={paymentTokenInfo}
-			/>
-
-			<br />
+			<SubdomainMetrics metrics={metrics} paymentTokenInfo={paymentTokenInfo} />
 
 			<SubdomainTable
 				subdomainData={subdomainData}

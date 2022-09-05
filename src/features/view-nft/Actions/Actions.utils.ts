@@ -2,7 +2,18 @@
 import { ActionBlock, ActionTypes } from './Actions.types';
 
 //- Utils Imports
-import { formatNumber } from '../../../../lib/util/number/number';
+import { formatNumber } from '../../../lib/util/number/number';
+
+// const actions = {
+// 	owner: [ActionTypes.BID, ActionTypes.BUY_NOW, ActionTypes.SET_BUY_NOW],
+// 	viewer: [ActionTypes.BUY_NOW, ActionTypes.BID, ActionTypes.USER_BID],
+// };
+
+// export const getOrderedActions = (isOwnedByUser: boolean) =>
+// 	isOwnedByUser ? actions['owner'] : actions['viewer'];
+
+// export const getVisibleActions = (actions: ActionBlock[]) =>
+// 	actions.filter((action) => Boolean(action.isVisible));
 
 export const getOrderedActions = (
 	isOwnedByUser: boolean,

@@ -2,7 +2,7 @@
 import { useQuery } from 'react-query';
 
 //- Types Imports
-import { DomainEvents } from '../../lib/types/events';
+import { DomainEvent } from '../../lib/types/events';
 
 //- Hooks Imports
 import { useZnsSdk } from './useZnsSdk';
@@ -13,9 +13,9 @@ export const useDomainEvents = (domainId: string) => {
 
 	// Query
 	return useQuery(
-		`domain-events-data-${domainId}`,
+		`domain-events-${domainId}`,
 		async () =>
-			(domainId && (await sdk.getDomainEvents(domainId))) as DomainEvents[],
+			(domainId && (await sdk.getDomainEvents(domainId))) as DomainEvent[],
 		{
 			retry: false,
 			refetchOnMount: false,

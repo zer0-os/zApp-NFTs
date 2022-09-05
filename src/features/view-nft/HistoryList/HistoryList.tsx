@@ -8,21 +8,26 @@ import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 import HistoryItem from '../HistoryItem/HistoryItem';
 
 //- Types Imports
-import { DomainEvents } from '../../../../lib/types/events';
+import { DomainEvent } from '../../../lib/types/events';
+
+//- Utils Imports
+import { sortEventsByTimestamp } from './HistoryList.utils';
 
 type HistoryListProps = {
-	events: DomainEvents[];
+	events: DomainEvent[];
 	paymentToken: TokenPriceInfo;
 };
 
 const HistoryList: FC<HistoryListProps> = ({ events, paymentToken }) => {
+	const sortedDomainEvents = sortEventsByTimestamp(events);
+
 	return (
 		<section>
 			<h4>History</h4>
 
-			{events?.length > 0 && (
+			{sortedDomainEvents?.length > 0 && (
 				<ul style={{ listStyle: 'none', padding: '0' }}>
-					{events?.map((item: DomainEvents, i: number) => (
+					{sortedDomainEvents?.map((item: DomainEvent, i: number) => (
 						<div key={i}>
 							<HistoryItem item={item} paymentToken={paymentToken} />
 						</div>
