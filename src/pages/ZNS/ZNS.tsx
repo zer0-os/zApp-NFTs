@@ -11,8 +11,8 @@ import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { useViewNavigation } from '../../lib/hooks/useViewNavigation';
 
 //- Container Imports
-import SubdomainView from '../../features/subdomain-view/SubdomainView';
-import NFTView from '../../features/nft-view/NFTView';
+import Domains from '../Domains/Domains';
+import NFT from '../NFT/NFT';
 
 //- Utils Imports
 import { getDomainId } from '../../lib/util/domains/domains';
@@ -34,7 +34,7 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 	return (
 		<div style={{ padding: '200px' }}>
 			{!isNFTView && (
-				<SubdomainView
+				<Domains
 					domain={domain}
 					metrics={metrics}
 					subdomainData={subdomainData}
@@ -44,7 +44,7 @@ const ZNS: FC<ZNSProps> = ({ route }) => {
 			)}
 
 			{isNFTView && (
-				<NFTView
+				<NFT
 					domain={domain}
 					metrics={metrics}
 					domainMetadata={domainMetadata}

@@ -2,11 +2,11 @@
 import { FC } from 'react';
 
 //- Components Imports
-import HistoryList from './history/HistoryList/HistoryList';
-import TokenHashInfo from '../ui/Stats/TokenHashInfo';
-import NFTViewStats from '../ui/Stats/NFTViewStats';
-import NFTCard from '../ui/NFTCard/NFTCard';
-import Actions from './actions/Actions/Actions';
+import HistoryList from '../../features/nft-view/history/HistoryList/HistoryList';
+import TokenHashInfo from '../../features/ui/Stats/TokenHashInfo';
+import NFTViewStats from '../../features/ui/Stats/NFTViewStats';
+import NFTCard from '../../features/ui/NFTCard/NFTCard';
+import Actions from '../../features/nft-view/actions/Actions/Actions';
 
 //- Hooks Imports
 import useWeb3 from '../../lib/hooks/useWeb3';
@@ -21,20 +21,16 @@ import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 import { Metadata } from '../../lib/types/metadata';
 
 //- Utils Imports
-import {
-	getHighestBid,
-	getUserBids,
-	sortEventsByTimestamp,
-} from './NFTView.utils';
+import { getHighestBid, getUserBids, sortEventsByTimestamp } from './NFT.utils';
 
-type NFTViewContainerProps = {
+type NFTContainerProps = {
 	domain: Domain;
 	metrics: DomainMetrics;
 	domainMetadata: Metadata;
 	paymentTokenInfo: TokenPriceInfo;
 };
 
-const NFTViewContainer: FC<NFTViewContainerProps> = ({
+const NFTContainer: FC<NFTContainerProps> = ({
 	domain,
 	metrics,
 	domainMetadata,
@@ -92,4 +88,4 @@ const NFTViewContainer: FC<NFTViewContainerProps> = ({
 	);
 };
 
-export default NFTViewContainer;
+export default NFTContainer;

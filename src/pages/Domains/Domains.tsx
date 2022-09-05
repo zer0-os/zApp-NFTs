@@ -5,14 +5,14 @@ import { FC } from 'react';
 import { Metadata } from '../../lib/types/metadata';
 
 //- Features Imports
-import SubdomainTable from './subdomain-table/SubdomainTable/SubdomainTable';
-import SubdomainViewStats from '../ui/Stats/SubdomainViewStats';
-import NFTCard from '../ui/NFTCard/NFTCard';
+import SubdomainTable from '../../features/subdomain-view/SubdomainTable/SubdomainTable';
+import SubdomainViewStats from '../../features/ui/Stats/SubdomainViewStats';
+import NFTCard from '../../features/ui/NFTCard/NFTCard';
 
 //- Library Imports
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-type SubdomainViewContainerProps = {
+type DomainsContainerProps = {
 	domain: Domain;
 	metrics: DomainMetrics;
 	subdomainData: Domain[];
@@ -21,7 +21,7 @@ type SubdomainViewContainerProps = {
 	isSubdomainDataLoading?: boolean;
 };
 
-const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
+const DomainsContainer: FC<DomainsContainerProps> = ({
 	domain,
 	metrics,
 	subdomainData,
@@ -59,4 +59,4 @@ const SubdomainViewContainer: FC<SubdomainViewContainerProps> = ({
 	);
 };
 
-export default SubdomainViewContainer;
+export default DomainsContainer;

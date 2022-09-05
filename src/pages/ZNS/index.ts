@@ -1,1 +1,1 @@
-export * from "./ZNS";
+export * from './ZNS';
