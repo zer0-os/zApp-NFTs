@@ -49,8 +49,6 @@ const NFTContainer: FC<NFTContainerProps> = ({
 	const userBids = getUserBids(account, bids);
 	const highgestUserBid = getHighestBid(userBids);
 
-	console.log('owned', isOwnedByUser);
-
 	return (
 		<>
 			<NFTCard
