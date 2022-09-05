@@ -11,7 +11,7 @@ export const useDomainMetrics = (domainId: string) => {
 
 	// Query
 	return useQuery(
-		`domain-metrics-${domainId}`,
+		['domain-metrics', domainId],
 		async () => {
 			const domainMetricsCollection: DomainMetricsCollection =
 				await sdk.getDomainMetrics([domainId]);

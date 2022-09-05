@@ -10,7 +10,7 @@ export const useBuyNowPrice = (domainId: string) => {
 
 	// Query
 	return useQuery(
-		`domain-buy-now-price-${domainId}`,
+		['domain-buy-now-price', domainId],
 		async () => domainId && (await sdk.zauction.getBuyNowPrice(domainId)),
 		{
 			retry: false,

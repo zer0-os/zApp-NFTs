@@ -13,9 +13,9 @@ export const useDomainEvents = (domainId: string) => {
 
 	// Query
 	return useQuery(
-		`domain-events-${domainId}`,
+		['domain-events', domainId],
 		async () =>
-			(domainId && (await sdk.getDomainEvents(domainId))) as DomainEvent[],
+			domainId && ((await sdk.getDomainEvents(domainId)) as DomainEvent[]),
 		{
 			retry: false,
 			refetchOnMount: false,

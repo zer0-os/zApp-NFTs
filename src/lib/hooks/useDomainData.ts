@@ -10,7 +10,7 @@ export const useDomainData = (domainId: string) => {
 
 	// Query
 	return useQuery(
-		`domain-${domainId}`,
+		['domain', domainId],
 		async () => await sdk.getDomainById(domainId),
 		{
 			retry: false,
