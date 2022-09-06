@@ -1,8 +1,17 @@
 //- React Imports
 import React, { FC } from 'react';
 
-export const TokenSummary: FC = () => (
-	<div>
+//- Component Imports
+import { FormFooter } from '../FormFooter/FormFooter';
+
+interface TokenSummaryProps {
+	onSubmit: () => void;
+	onClose: () => void;
+}
+
+export const TokenSummary: FC<TokenSummaryProps> = ({ onSubmit, onClose }) => (
+	<>
 		<p>Insert summary content here...</p>
-	</div>
+		<FormFooter action="Confirm" onSubmit={onSubmit} onCancel={onClose} />
+	</>
 );

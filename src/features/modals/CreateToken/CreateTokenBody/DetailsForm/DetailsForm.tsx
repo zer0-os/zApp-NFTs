@@ -7,15 +7,16 @@ import { Form, Formik } from 'formik';
 import styles from './DetailsForm.module.scss';
 
 //- Component Imports
-import { WrappedInput } from '../../WrappedInput/WrappedInput';
 import {
 	MediaInput,
 	MediaType,
 } from '@zero-tech/zui/src/components/MediaInput';
 
+import { WrappedInput } from '../../WrappedInput/WrappedInput';
+import { FormFooter } from '../FormFooter/FormFooter';
+
 //- Type Imports
 import { DetailsFormSubmit } from '../../CreateToken.types';
-import { Button } from '@zero-tech/zui/src/components/Button';
 
 const validationSchema = Yup.object().shape({
 	name: Yup.string().required('This field is required'),
@@ -25,9 +26,14 @@ const validationSchema = Yup.object().shape({
 interface DetailsFormProps {
 	values: DetailsFormSubmit;
 	onSubmit: (values: DetailsFormSubmit) => void;
+	onClose: () => void;
 }
 
-export const DetailsForm: FC<DetailsFormProps> = ({ values, onSubmit }) => {
+export const DetailsForm: FC<DetailsFormProps> = ({
+	values,
+	onSubmit,
+	onClose,
+}) => {
 	const [mediaType, setMediaType] = useState<MediaType | undefined>();
 	const [previewUrl, setPreviewUrl] = useState('');
 
@@ -43,7 +49,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ values, onSubmit }) => {
 	): void => {
 		setFieldValue('avatar', image);
 		setMediaType(mediaType);
-		setPreviewUrl(previewUrl)
+		setPreviewUrl(previewUrl);
 	};
 
 	return (
@@ -80,28 +86,27 @@ export const DetailsForm: FC<DetailsFormProps> = ({ values, onSubmit }) => {
 						<div className={styles.DetailsFormColumn}>
 							<div>
 								<WrappedInput
+									label="What is the name of your token?"
 									value={values.name}
 									placeholder="Enter name..."
-									info=""
+									info="Points for creativity."
 									hasError={!!errors.name}
 									helperText={errors.name}
-									onChange={(value) => setFieldValue("name", value)}
+									onChange={(value) => setFieldValue('name', value)}
 								/>
 							</div>
 							<WrappedInput
+								label="What is your token symbol?"
 								value={values.symbol}
 								placeholder="Enter symbol..."
 								info="Bitcoin's symbol is BTC. This short name will appear on the exhanges and is no more than 5 characters."
 								hasError={!!errors.symbol}
 								helperText={errors.symbol}
-								onChange={(value) => setFieldValue("symbol", value)}
+								onChange={(value) => setFieldValue('symbol', value)}
 							/>
 						</div>
 					</div>
-					<div className={styles.DetailsFormFooter}>
-						<Button className={styles.DetailsFormFooterCancel} variant='negative'>Cancel</Button>
-						<Button onPress={submitForm}>Next</Button>
-					</div>
+					<FormFooter onSubmit={submitForm} onCancel={onClose} />
 				</Form>
 			)}
 		</Formik>

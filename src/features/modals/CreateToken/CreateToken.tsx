@@ -11,7 +11,7 @@ import { CreateTokenHeader } from './CreateTokenHeader/CreateTokenHeader';
 
 //- Type Imports
 import { Step } from '@zero-tech/zui/src/components/StepBar/StepBar.types';
-import { DetailsFormSubmit } from './CreateToken.types';
+import { DetailsFormSubmit, TokenomicsFormSubmit } from './CreateToken.types';
 
 const steps: Step[] = [
 	{
@@ -43,11 +43,27 @@ export const CreateToken: FC<CreateTokenProps> = ({ domainName, onClose }) => {
 		symbol: '',
 	});
 
+	const [tokenomics, setTokenomics] = useState<TokenomicsFormSubmit>({
+		tokenCount: 0,
+		initialWalletAddress: '',
+		adminWalletAddress: '',
+	});
+
 	const handleDetailsSubmit = (values: DetailsFormSubmit): void => {
 		setTitle(`Create "${values.name}" Token`);
 		setDetails(values);
 		setStepId(steps[1].id);
-	}
+	};
+
+	const handleTokenomicsSubmit = (values: TokenomicsFormSubmit): void => {
+		setTokenomics(values);
+		setStepId(steps[2].id);
+	};
+
+	const handleLaunchSubmit = (): void => {
+		// TODO - wire up launch action once sdk integrated.
+		onClose();
+	};
 
 	return (
 		<Wizard.Container className={styles.CreateToken}>
@@ -59,7 +75,15 @@ export const CreateToken: FC<CreateTokenProps> = ({ domainName, onClose }) => {
 				onClose={onClose}
 				onChangeStep={(step: Step) => setStepId(step.id)}
 			/>
-			<CreateTokenBody stepId={stepId} detailsFormValues={details} onDetailsSubmit={handleDetailsSubmit} />
+			<CreateTokenBody
+				stepId={stepId}
+				detailsFormValues={details}
+				onDetailsSubmit={handleDetailsSubmit}
+				tokenomicsFormValues={tokenomics}
+				onTokenomicsSubmit={handleTokenomicsSubmit}
+				onLaunchSubmit={handleLaunchSubmit}
+				onClose={onClose}
+			/>
 		</Wizard.Container>
 	);
 };

@@ -3,3 +3,9 @@ export interface DetailsFormSubmit {
 	name: string;
 	symbol: string;
 }
+
+export interface TokenomicsFormSubmit {
+	tokenCount: number;
+	initialWalletAddress: string;
+	adminWalletAddress: string;
+}

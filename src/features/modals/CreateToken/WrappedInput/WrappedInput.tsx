@@ -9,6 +9,7 @@ import { InfoTooltip } from '@zero-tech/zui/src/components/InfoTooltip';
 import { Input } from '@zero-tech/zui/src/components/Input';
 
 export type WrappedInputProps = {
+	label: string;
 	value: string;
 	placeholder: string;
 	info: string;
@@ -18,6 +19,7 @@ export type WrappedInputProps = {
 };
 
 export const WrappedInput: FC<WrappedInputProps> = ({
+	label,
 	value,
 	placeholder,
 	info,
@@ -27,9 +29,15 @@ export const WrappedInput: FC<WrappedInputProps> = ({
 }) => (
 	<>
 		<div className={styles.WrappedInputContainer}>
-			<p>How many tokens do you want to create?</p>
+			<p>{label}</p>
 			<InfoTooltip content={info} />
 		</div>
-		<Input value={value} placeholder={placeholder} error={hasError} helperText={helperText} onChange={onChange} />
+		<Input
+			value={value}
+			placeholder={placeholder}
+			error={hasError}
+			helperText={helperText}
+			onChange={onChange}
+		/>
 	</>
 );
