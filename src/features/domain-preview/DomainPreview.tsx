@@ -9,7 +9,10 @@ import { truncateAddress } from '../../lib/util/domains/domains';
 import { MemberTitle } from './DomainPreview.constants';
 
 //- Styles Imports
+import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
+
+const cx = classNames.bind(styles);
 
 type PreviewCardProps = {
 	title?: string;
@@ -36,34 +39,52 @@ const ViewContainerNFTCard: FC<PreviewCardProps> = ({
 		{ title: MemberTitle.CREATOR, address: creator },
 		{ title: MemberTitle.OWNER, address: owner },
 	];
-	console.log(isNFTView !== undefined);
 
 	return (
 		<div className={styles.Container}>
-			{title && <h1 className={styles.Title}>{title}</h1>}
+			{/* todo: media asset component */}
+			<div
+				className={cx(styles.Banner, {
+					isNFTView: isNFTView,
+				})}
+			></div>
 
-			{isNFTView && creator && owner && (
-				<ul className={styles.MemberContainer}>
-					{members.map((member) => (
-						<li key={member.title} className={styles.MemberItem}>
-							<span className={styles.MemberTitle}>{member.title}</span>
-							<span className={styles.MemberAddress}>
-								{truncateAddress(member.address)}
-							</span>
-						</li>
-					))}
-				</ul>
-			)}
+			<div
+				className={cx(styles.Content, {
+					isNFTView: isNFTView,
+				})}
+			>
+				{/* todo: media asset component */}
+				{!isNFTView && <div className={styles.Icon}></div>}
+				<div className={styles.TextContainer}>
+					{title && <h1 className={styles.Title}>{title}</h1>}
 
-			{description && <p className={styles.Description}>{description}</p>}
+					{/* todo: member component */}
+					{isNFTView && creator && owner && (
+						<ul className={styles.MemberContainer}>
+							{members.map((member) => (
+								<li key={member.title} className={styles.MemberItem}>
+									<span className={styles.MemberTitle}>{member.title}</span>
+									<span className={styles.MemberAddress}>
+										{truncateAddress(member.address)}
+									</span>
+								</li>
+							))}
+						</ul>
+					)}
 
-			{href && (
-				<div className={styles.LinkContainer}>
-					<Link className={styles.Link} to={href}>
-						{'View Domain NFT ->'}
-					</Link>
+					{description && <p className={styles.Description}>{description}</p>}
+
+					{href && (
+						<div className={styles.LinkContainer}>
+							{/* todo: arrow link component */}
+							<Link className={styles.Link} to={href}>
+								{'View Domain NFT ->'}
+							</Link>
+						</div>
+					)}
 				</div>
-			)}
+			</div>
 		</div>
 	);
 };
