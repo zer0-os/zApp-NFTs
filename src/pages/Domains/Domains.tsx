@@ -31,7 +31,7 @@ const DomainsContainer: FC<DomainsContainerProps> = ({
 	paymentTokenInfo,
 	isSubdomainDataLoading,
 }) => {
-	const isRoot = route === 'wilder';
+	const isRoot = route.split('.').length === 1 && !route.includes('.');
 
 	return (
 		<>
