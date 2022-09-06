@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { truncateAddress } from '../../lib/util/domains/domains';
 
 //- Constants Imports
-import { AddressTitle, ButtonTitle } from './DomainPreview.constants';
+import { AddressTitle } from './DomainPreview.constants';
 
 type PreviewCardProps = {
 	title?: string;
@@ -56,7 +56,7 @@ const ViewContainerNFTCard: FC<PreviewCardProps> = ({
 
 			{href && (
 				<Link style={{ background: 'none', color: '#52cbff' }} to={href}>
-					{ButtonTitle.VIEW_DOMAIN_NFT}
+					{'View Domain NFT ->'}
 				</Link>
 			)}
 		</div>
