@@ -8,7 +8,7 @@ import { BasicModalProps } from '../../lib/types/ui';
 import { Modal } from '@zero-tech/zui/src/components';
 
 //- Container Imports
-import CancelBid from './CancelBid';
+import { CancelBid } from './CancelBid';
 
 export interface CancelBidModalProps extends BasicModalProps {}
 

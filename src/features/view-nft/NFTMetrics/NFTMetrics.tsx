@@ -2,7 +2,7 @@
 import { FC } from 'react';
 
 //- Features Imports
-import StatsList from '../../ui/StatsList/StatsList';
+import { StatsList } from '../../ui/StatsList/StatsList';
 
 //- Library Imports
 import { ethers } from 'ethers';
@@ -21,7 +21,7 @@ type NFTMetricsProps = {
 	paymentTokenInfo: TokenPriceInfo;
 };
 
-const NFTMetrics: FC<NFTMetricsProps> = ({
+export const NFTMetrics: FC<NFTMetricsProps> = ({
 	domainId,
 	metrics,
 	isLoading,
@@ -63,5 +63,3 @@ const NFTMetrics: FC<NFTMetricsProps> = ({
 
 	return <StatsList stats={stats} />;
 };
-
-export default NFTMetrics;

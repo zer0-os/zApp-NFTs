@@ -14,7 +14,7 @@ import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 //- Component Imports
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
-import TableCard from '../../ui/TableCard/TableCard';
+import { TableCard } from '../../ui/TableCard/TableCard';
 
 //-Styles Imports
 import styles from './SubdomainTableCard.module.scss';
@@ -27,7 +27,7 @@ type SubdomainTableCardProps = {
 	onCardClick: (e?: any, domainName?: string) => void;
 };
 
-const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
+export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	domainId,
 	domainName,
 	domainMetadataUri,
@@ -70,5 +70,3 @@ const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		</TableCard>
 	);
 };
-
-export default SubdomainTableCard;

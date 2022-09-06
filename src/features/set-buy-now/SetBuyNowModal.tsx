@@ -8,7 +8,7 @@ import { BasicModalProps } from '../../lib/types/ui';
 import { Modal } from '@zero-tech/zui/src/components';
 
 //- Container Imports
-import SetBuyNow from './SetBuyNow';
+import { SetBuyNow } from './SetBuyNow';
 
 export interface SetBuyNowModalProps extends BasicModalProps {}
 

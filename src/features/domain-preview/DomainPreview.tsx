@@ -8,7 +8,7 @@ import { truncateAddress } from '../../lib/util/domains/domains';
 //- Constants Imports
 import { AddressTitle } from './DomainPreview.constants';
 
-type PreviewCardProps = {
+type DomainPreviewProps = {
 	title?: string;
 	description?: string;
 	icon?: string;
@@ -19,7 +19,7 @@ type PreviewCardProps = {
 	isNFTView?: boolean;
 };
 
-const ViewContainerNFTCard: FC<PreviewCardProps> = ({
+export const DomainPreview: FC<DomainPreviewProps> = ({
 	title,
 	description,
 	icon,
@@ -62,5 +62,3 @@ const ViewContainerNFTCard: FC<PreviewCardProps> = ({
 		</div>
 	);
 };
-
-export default ViewContainerNFTCard;

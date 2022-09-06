@@ -31,7 +31,7 @@ export const ZnsSdkContext = createContext(
 	),
 );
 
-const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
+export const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
 	provider: providerProps,
 	chainId,
 	children,
@@ -71,5 +71,3 @@ const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
 		<ZnsSdkContext.Provider value={sdk}>{children}</ZnsSdkContext.Provider>
 	);
 };
-
-export default ZnsSdkProvider;

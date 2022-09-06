@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Component Imports
-import HistoryItem from '../HistoryItem/HistoryItem';
+import { HistoryItem } from '../HistoryItem/HistoryItem';
 
 //- Types Imports
 import { DomainEvent } from '../../../lib/types/events';
@@ -21,7 +21,10 @@ type HistoryListProps = {
 	paymentToken: TokenPriceInfo;
 };
 
-const HistoryList: FC<HistoryListProps> = ({ domainId, paymentToken }) => {
+export const HistoryList: FC<HistoryListProps> = ({
+	domainId,
+	paymentToken,
+}) => {
 	const { data: domainEvents } = useDomainEvents(domainId);
 	const sortedDomainEvents = sortEventsByTimestamp(domainEvents);
 
@@ -41,5 +44,3 @@ const HistoryList: FC<HistoryListProps> = ({ domainId, paymentToken }) => {
 		</section>
 	);
 };
-
-export default HistoryList;

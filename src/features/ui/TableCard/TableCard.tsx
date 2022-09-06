@@ -15,7 +15,7 @@ type TableCardProps = {
 	onClick?: (event?: any) => void;
 };
 
-const TableCard: FC<TableCardProps> = ({
+export const TableCard: FC<TableCardProps> = ({
 	children,
 	header,
 	subHeader,
@@ -32,5 +32,3 @@ const TableCard: FC<TableCardProps> = ({
 		</div>
 	);
 };
-
-export default TableCard;

@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import { parseDomainMetadata } from '../util/metadata/metadata';
 
 //- Library Imports
-import useZnsSdk from './useZnsSdk';
+import { useZnsSdk } from './useZnsSdk';
 
 export const useDomainMetadata = (uri: string) => {
 	const sdk = useZnsSdk();

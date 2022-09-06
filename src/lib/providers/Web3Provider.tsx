@@ -19,7 +19,7 @@ export const Web3Context = createContext({
 /**
  * Exposes wallet information received by zOS to all children.
  */
-const Web3Provider: FC<Web3ProviderProps> = ({
+export const Web3Provider: FC<Web3ProviderProps> = ({
 	account,
 	chainId,
 	connectWallet,
@@ -39,5 +39,3 @@ const Web3Provider: FC<Web3ProviderProps> = ({
 		</Web3Context.Provider>
 	);
 };
-
-export default Web3Provider;

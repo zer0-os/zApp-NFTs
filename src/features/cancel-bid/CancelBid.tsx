@@ -2,12 +2,12 @@
 import { FC } from 'react';
 
 //- Hooks Imports
-import useWeb3 from '../../lib/hooks/useWeb3';
+import { useWeb3 } from '../../lib/hooks/useWeb3';
 
 //- Components Imports
 import { ConnectWallet } from '../../features/ui/ConnectWallet';
 
-const CancelBid: FC = () => {
+export const CancelBid: FC = () => {
 	const { account } = useWeb3();
 
 	const content = account ? (
@@ -18,5 +18,3 @@ const CancelBid: FC = () => {
 
 	return content;
 };
-
-export default CancelBid;

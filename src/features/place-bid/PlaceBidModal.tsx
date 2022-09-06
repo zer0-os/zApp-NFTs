@@ -8,7 +8,7 @@ import { BasicModalProps } from '../../lib/types/ui';
 import { Modal } from '@zero-tech/zui/src/components';
 
 //- Container Imports
-import PlaceBid from './PlaceBid';
+import { PlaceBid } from './PlaceBid';
 
 export interface PlaceBidModalProps extends BasicModalProps {}
 

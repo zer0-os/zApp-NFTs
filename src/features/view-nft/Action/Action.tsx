@@ -11,7 +11,7 @@ type ActionProps = {
 	buttonComponent: ReactNode;
 };
 
-const Action = ({
+export const Action = ({
 	label,
 	amountToken,
 	amountUsd,
@@ -24,5 +24,3 @@ const Action = ({
 		<div className={styles.Button}>{buttonComponent}</div>
 	</div>
 );
-
-export default Action;

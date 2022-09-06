@@ -13,13 +13,13 @@ import { AppProps } from './lib/types/app';
 import { useDataContainer } from './lib/hooks/useDataContainer';
 
 //- Container Imports
-import Domains from './pages/Domains/Domains';
-import NFT from './pages/NFT/NFT';
+import { Domains } from './pages/Domains/Domains';
+import { NFT } from './pages/NFT/NFT';
 
 //- Utils Imports
 import { getDomainId } from './lib/util/domains/domains';
 
-const App: FC<AppProps> = ({ provider, route }) => {
+export const App: FC<AppProps> = ({ provider, route }) => {
 	console.log('prov (marketplace-dapp):', provider);
 	console.log('route (marketplace-dapp):', route);
 
@@ -60,5 +60,3 @@ const App: FC<AppProps> = ({ provider, route }) => {
 		</main>
 	);
 };
-
-export default App;

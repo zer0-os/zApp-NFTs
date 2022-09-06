@@ -11,18 +11,18 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { AppProps } from './lib/types/app';
 
 //- Utils Imports
-import ChainGate from './lib/util/ChainGate';
+import { ChainGate } from './lib/util/ChainGate';
 
 //- Provider Imports
-import Web3Provider from './lib/providers/Web3Provider';
-import ZnsSdkProvider from './lib/providers/ZnsSdkProvider';
+import { Web3Provider } from './lib/providers/Web3Provider';
+import { ZnsSdkProvider } from './lib/providers/ZnsSdkProvider';
 
 //- Container Imports
-import App from './App';
+import { App } from './App';
 
 const queryClient = new QueryClient();
 
-const Index = ({ provider, route, web3 }: AppProps) => (
+export const Index = ({ provider, route, web3 }: AppProps) => (
 	<QueryClientProvider client={queryClient}>
 		<Web3Provider
 			provider={provider}
@@ -38,5 +38,3 @@ const Index = ({ provider, route, web3 }: AppProps) => (
 		</Web3Provider>
 	</QueryClientProvider>
 );
-
-export default Index;

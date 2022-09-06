@@ -23,7 +23,7 @@ type SubdomainTableRowProps = {
 	onRowClick: (e?: any, domainName?: string) => void;
 };
 
-const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
+export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	domainId,
 	domainName,
 	domainMetadataUri,
@@ -69,5 +69,3 @@ const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 		</>
 	);
 };
-
-export default SubdomainTableRow;

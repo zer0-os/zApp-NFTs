@@ -2,7 +2,7 @@
 import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Components Imports
-import Action from '../Action/Action';
+import { Action } from '../Action/Action';
 import { BuyNowButton } from '../../buy-now';
 import { SetBuyNowButton } from '../../set-buy-now';
 import { PlaceBidButton } from '../../place-bid';
@@ -14,7 +14,7 @@ import { DataTestId, Messages } from './Actions.constants';
 import { Labels } from '../../../lib/constants/labels';
 
 //- Hooks Imports
-import useWeb3 from '../../../lib/hooks/useWeb3';
+import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 import { useBidData } from '../../../lib/hooks/useBidData';
 
@@ -40,7 +40,7 @@ type ActionsProps = {
 	paymentTokenInfo?: TokenPriceInfo;
 };
 
-const Actions = ({
+export const Actions = ({
 	domain,
 	domainMetadata,
 	paymentTokenInfo,
@@ -131,5 +131,3 @@ const Actions = ({
 		</ul>
 	);
 };
-
-export default Actions;

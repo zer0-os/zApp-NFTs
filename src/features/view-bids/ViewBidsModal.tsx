@@ -8,7 +8,7 @@ import { BasicModalProps } from '../../lib/types/ui';
 import { Modal } from '@zero-tech/zui/src/components';
 
 //- Container Imports
-import ViewBids from './ViewBids';
+import { ViewBids } from './ViewBids';
 
 export interface ViewBidsModalProps extends BasicModalProps {}
 
