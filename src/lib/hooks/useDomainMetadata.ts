@@ -8,10 +8,8 @@ import { parseDomainMetadata } from '../util/metadata/metadata';
 import useZnsSdk from './useZnsSdk';
 
 export const useDomainMetadata = (uri: string) => {
-	// SDK
 	const sdk = useZnsSdk();
 
-	// Query
 	return useQuery(
 		['domain-metadata', uri],
 		async () => {

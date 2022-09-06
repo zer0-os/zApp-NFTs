@@ -8,10 +8,8 @@ import { DomainEvent } from '../../lib/types/events';
 import { useZnsSdk } from './useZnsSdk';
 
 export const useDomainEvents = (domainId: string) => {
-	// SDK
 	const sdk = useZnsSdk();
 
-	// Query
 	return useQuery(
 		['domain-events', domainId],
 		async () =>

@@ -5,10 +5,8 @@ import { useQuery } from 'react-query';
 import { useZnsSdk } from './useZnsSdk';
 
 export const usePaymentTokenInfo = (token: string) => {
-	// SDK
 	const sdk = useZnsSdk();
 
-	// Query
 	return useQuery(
 		['domain-payment-token-info', token],
 		async () => await sdk.zauction.getPaymentTokenInfo(token),

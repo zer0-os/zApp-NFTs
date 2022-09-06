@@ -6,10 +6,8 @@ import { useQuery } from 'react-query';
 import { useZnsSdk } from './useZnsSdk';
 
 export const useDomainMetrics = (domainId: string) => {
-	// SDK
 	const sdk = useZnsSdk();
 
-	// Query
 	return useQuery(
 		['domain-metrics', domainId],
 		async () => {

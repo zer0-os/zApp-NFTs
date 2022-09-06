@@ -5,10 +5,8 @@ import { useQuery } from 'react-query';
 import { useZnsSdk } from './useZnsSdk';
 
 export const useSubdomainData = (domainId: string) => {
-	// SDK
 	const sdk = useZnsSdk();
 
-	// Query
 	return useQuery(
 		['domain-subdomains', domainId],
 		async () => await sdk.getSubdomainsById(domainId),

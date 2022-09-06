@@ -5,10 +5,8 @@ import { useQuery } from 'react-query';
 import { useZnsSdk } from './useZnsSdk';
 
 export const useBidData = (domainId: string) => {
-	// SDK
 	const sdk = useZnsSdk();
 
-	// Query
 	return useQuery(
 		['domain-bids', domainId],
 		async () => await sdk.zauction.listBids(domainId),
