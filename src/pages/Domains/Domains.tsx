@@ -1,15 +1,11 @@
-//- React Imports
 import { FC } from 'react';
 
-//- Types Imports
 import { Metadata } from '../../lib/types/metadata';
 
-//- Features Imports
 import { SubdomainTable } from '../../features/view-subdomains/SubdomainTable/SubdomainTable';
 import { SubdomainMetrics } from '../../features/view-subdomains/SubdomainMetrics/SubdomainMetrics';
 import { DomainPreview } from '../../features/domain-preview/DomainPreview';
 
-//- Library Imports
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 type DomainsProps = {

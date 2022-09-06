@@ -1,10 +1,7 @@
-//- React Imports
 import { FC, ReactNode } from 'react';
 
-//- Components Improts
 import { Card } from '@zero-tech/zui/src/components';
 
-//- Style Imports
 import styles from './StatsList.module.scss';
 
 type Text = {

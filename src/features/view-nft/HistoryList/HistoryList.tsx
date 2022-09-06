@@ -1,19 +1,13 @@
-//- React Imports
 import { FC } from 'react';
 
-//- Library Imports
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-//- Component Imports
 import { HistoryItem } from '../HistoryItem/HistoryItem';
 
-//- Types Imports
 import { DomainEvent } from '../../../lib/types/events';
 
-//- Hooks Imports
 import { useDomainEvents } from '../../../lib/hooks/useDomainEvents';
 
-//- Utils Imports
 import { sortEventsByTimestamp } from './HistoryList.utils';
 
 type HistoryListProps = {

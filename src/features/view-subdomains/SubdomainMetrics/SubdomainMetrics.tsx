@@ -1,14 +1,10 @@
-//- React Imports
 import { FC } from 'react';
 
-//- Library Imports
 import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-//- Features Imports
 import { StatsList } from '../../ui/StatsList/StatsList';
 
-//- Utils Imports
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
 interface SubdomainMetricsProps {

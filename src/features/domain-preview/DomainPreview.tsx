@@ -1,11 +1,8 @@
-// React Imports
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-//- Utils Imports
 import { truncateAddress } from '../../lib/util/domains/domains';
 
-//- Constants Imports
 import { AddressTitle } from './DomainPreview.constants';
 
 type DomainPreviewProps = {

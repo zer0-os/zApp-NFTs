@@ -1,4 +1,3 @@
-//- Components Imports
 import { ModalProps } from '@zero-tech/zui/src/components/Modal';
 
 export interface BasicModalProps {

@@ -1,7 +1,5 @@
-//- Types Imports
 import { DomainEvent } from '../../../lib/types/events';
 
-//- Library Imports
 import moment from 'moment';
 import {
 	DomainBidEvent,
@@ -13,7 +11,6 @@ import {
 	TokenPriceInfo,
 } from '@zero-tech/zns-sdk';
 
-//- Utils Imports
 import { truncateAddress } from '../../../lib/util/domains/domains';
 import { formatEthers } from '../../../lib/util/number/number';
 

@@ -1,7 +1,5 @@
-//- Library Imports
 import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-//- Components Imports
 import { Action } from '../Action/Action';
 import { BuyNowButton } from '../../buy-now';
 import { SetBuyNowButton } from '../../set-buy-now';
@@ -9,16 +7,13 @@ import { PlaceBidButton } from '../../place-bid';
 import { ViewBidsButton } from '../../view-bids';
 import { CancelBidButton } from '../../cancel-bid';
 
-//- Constants Imports
 import { DataTestId, Messages } from './Actions.constants';
 import { Labels } from '../../../lib/constants/labels';
 
-//- Hooks Imports
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 import { useBidData } from '../../../lib/hooks/useBidData';
 
-//- Utils Imports
 import {
 	getOrderedActions,
 	getUsdConversion,
@@ -27,11 +22,9 @@ import {
 import { formatNumber } from '../../../lib/util/number/number';
 import { getHighestBid, getUserBids } from '../../../lib/util/bids/bids';
 
-//- Types Imports
 import { ActionBlock, ActionTypes } from './Actions.types';
 import { Metadata } from '../../../lib/types/metadata';
 
-// Styles
 import styles from './Actions.module.scss';
 
 type ActionsProps = {

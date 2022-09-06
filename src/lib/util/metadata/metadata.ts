@@ -1,7 +1,5 @@
-//- Library Imports
 import { DomainMetadata } from '@zero-tech/zns-sdk/lib/types';
 
-//- Types Imports
 import { Metadata } from '../../types/metadata';
 
 export const parseDomainMetadata = (

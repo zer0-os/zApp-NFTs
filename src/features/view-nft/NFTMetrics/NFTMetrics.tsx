@@ -1,17 +1,12 @@
-//- React Imports
 import { FC } from 'react';
 
-//- Features Imports
 import { StatsList } from '../../ui/StatsList/StatsList';
 
-//- Library Imports
 import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-//- Hooks Imports
 import { useBidData } from '../../../lib/hooks/useBidData';
 
-//- Utils Imports
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
 type NFTMetricsProps = {

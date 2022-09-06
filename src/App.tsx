@@ -1,22 +1,12 @@
-/**
- * NOTE: You will need to `npm link` zUI before this repo
- * will build or run.
- */
-
-//- React Imports
 import { FC } from 'react';
 
-//- Types Imports
 import { AppProps } from './lib/types/app';
 
-//- Hook Imports
 import { useDataContainer } from './lib/hooks/useDataContainer';
 
-//- Container Imports
 import { Domains } from './pages/Domains/Domains';
 import { NFT } from './pages/NFT/NFT';
 
-//- Utils Imports
 import { getDomainId } from './lib/util/domains/domains';
 
 export const App: FC<AppProps> = ({ provider, route }) => {

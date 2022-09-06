@@ -1,10 +1,7 @@
-//- React Imports
 import { FC } from 'react';
 
-//- Hooks Imports
 import { useWeb3 } from '../../lib/hooks/useWeb3';
 
-//- Components Imports
 import { ConnectWallet } from '../ui/ConnectWallet';
 
 export const SetBuyNow: FC = () => {

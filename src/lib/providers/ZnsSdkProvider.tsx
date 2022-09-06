@@ -1,12 +1,9 @@
-//- React Imports
 import { createContext, FC, ReactNode, useMemo } from 'react';
 
-//- Library Imports
 import { providers } from 'ethers';
 import { chainIdToNetworkType } from '../../lib/helpers/network';
 import * as zns from '@zero-tech/zns-sdk';
 
-//- Constants Imports
 import {
 	DEFAULT_NETWORK,
 	Network,

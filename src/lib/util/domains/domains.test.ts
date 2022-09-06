@@ -1,7 +1,5 @@
-//- Utils Imports
 import { getDomainId, truncateAddress } from './domains';
 
-//- Mocks Imports
 import { rootDomainId, wilderDomainId } from './mocks';
 
 //////////////////////

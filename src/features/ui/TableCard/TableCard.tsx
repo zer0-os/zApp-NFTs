@@ -1,7 +1,5 @@
-//- React Imports
 import type { FC, ReactNode } from 'react';
 
-//- Styles Imports
 import styles from './TableCard.module.scss';
 import classNames from 'classnames/bind';
 
