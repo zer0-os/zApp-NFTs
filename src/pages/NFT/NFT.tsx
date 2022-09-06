@@ -8,10 +8,6 @@ import NFTMetrics from '../../features/view-nft/NFTMetrics/NFTMetrics';
 import DomainPreview from '../../features/domain-preview/DomainPreview';
 import Actions from '../../features/view-nft/Actions/Actions';
 
-//- Hooks Imports
-import { useDomainEvents } from '../../lib/hooks/useDomainEvents';
-import { useBidData } from '../../lib/hooks/useBidData';
-
 //- Library Imports
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 

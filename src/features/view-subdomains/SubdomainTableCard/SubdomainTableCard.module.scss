@@ -12,22 +12,22 @@
 		flex-direction: column;
 
 		label {
-			font-size: #{typography.$size-tiny};
-			color: #{colors.$grey-lighter-2};
+			font-size: typography.$size-tiny;
+			color: colors.$grey-lighter-2;
 		}
 	}
 
 	.Crypto {
 		margin-top: 2px;
-		font-size: #{typography.$size-small};
-		font-weight: #{typography.$font-weight-bold};
+		font-size: typography.$size-small;
+		font-weight: typography.$font-weight-bold;
 		line-height: 16px;
-		color: #{colors.$text-primary};
+		color: colors.$text-primary;
 	}
 
 	.Fiat {
-		font-size: #{typography.$size-tiny};
-		color: #{colors.$grey-lighter-2};
+		font-size: typography.$size-tiny;
+		color: colors.$grey-lighter-2;
 		margin-top: 2px;
 	}
 }

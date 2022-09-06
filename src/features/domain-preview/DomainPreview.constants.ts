@@ -1,4 +1,4 @@
-export const AddressTitle = {
+export const MemberTitle = {
 	CREATOR: 'Creator',
 	OWNER: 'Owner',
 };

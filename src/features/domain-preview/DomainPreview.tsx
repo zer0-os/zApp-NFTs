@@ -6,7 +6,10 @@ import { Link } from 'react-router-dom';
 import { truncateAddress } from '../../lib/util/domains/domains';
 
 //- Constants Imports
-import { AddressTitle } from './DomainPreview.constants';
+import { MemberTitle } from './DomainPreview.constants';
+
+//- Styles Imports
+import styles from './DomainPreview.module.scss';
 
 type PreviewCardProps = {
 	title?: string;
@@ -29,35 +32,37 @@ const ViewContainerNFTCard: FC<PreviewCardProps> = ({
 	creator,
 	isNFTView,
 }) => {
+	const members = [
+		{ title: MemberTitle.CREATOR, address: creator },
+		{ title: MemberTitle.OWNER, address: owner },
+	];
+	console.log(isNFTView !== undefined);
+
 	return (
-		<div style={{ margin: '16px 0' }}>
-			{title && <h1>{title}</h1>}
+		<div className={styles.Container}>
+			{title && <h1 className={styles.Title}>{title}</h1>}
 
 			{isNFTView && creator && owner && (
-				<ul style={{ display: 'flex', padding: '0', listStyle: 'none' }}>
-					<li style={{ display: 'flex', flexDirection: 'column' }}>
-						<span>{AddressTitle.CREATOR}</span>
-						<span>{truncateAddress(creator)}</span>
-					</li>
-					<li
-						style={{
-							display: 'flex',
-							marginLeft: '32px',
-							flexDirection: 'column',
-						}}
-					>
-						<span>{AddressTitle.OWNER}</span>
-						<span>{truncateAddress(owner)}</span>
-					</li>
+				<ul className={styles.MemberContainer}>
+					{members.map((member) => (
+						<li key={member.title} className={styles.MemberItem}>
+							<span className={styles.MemberTitle}>{member.title}</span>
+							<span className={styles.MemberAddress}>
+								{truncateAddress(member.address)}
+							</span>
+						</li>
+					))}
 				</ul>
 			)}
 
-			{description && <p>{description}</p>}
+			{description && <p className={styles.Description}>{description}</p>}
 
 			{href && (
-				<Link style={{ background: 'none', color: '#52cbff' }} to={href}>
-					{'View Domain NFT ->'}
-				</Link>
+				<div className={styles.LinkContainer}>
+					<Link className={styles.Link} to={href}>
+						{'View Domain NFT ->'}
+					</Link>
+				</div>
 			)}
 		</div>
 	);

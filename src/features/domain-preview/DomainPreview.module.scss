@@ -1,0 +1,51 @@
+@use '../../../../zUI/src/styles/colors';
+@use '../../../../zUI/src/styles/typography';
+
+.Container {
+	padding: 1.5rem 0;
+
+	.Title {
+		font-size: typography.$size-xlarge;
+		margin: 0;
+	}
+
+	.Description {
+		margin: 0.5rem 0 0 0;
+	}
+
+	.MemberContainer {
+		display: flex;
+		padding: 0;
+		margin: 1.5rem 0 0 0;
+		list-style: none;
+
+		> *:not(:first-child) {
+			margin-left: 2rem;
+		}
+
+		.MemberItem {
+			display: flex;
+			flex-direction: column;
+
+			.MemberTitle {
+				color: colors.$purple-lightest;
+				font-size: typography.$size-tiny;
+				margin-bottom: 0.125rem;
+			}
+
+			.MemberAddress {
+				font-size: typography.$size-medium;
+				margin-bottom: 1rem;
+			}
+		}
+	}
+
+	.LinkContainer {
+		margin-top: 1rem;
+
+		.Link {
+			color: colors.$blue;
+			font-size: typography.$size-tiny;
+		}
+	}
+}

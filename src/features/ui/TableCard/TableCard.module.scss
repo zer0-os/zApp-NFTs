@@ -4,22 +4,22 @@
 @use '../../../../../zUI/src/styles/borders';
 
 .TableCardContainer {
-	border: 1px solid #{colors.$mine-shaft};
-	border-radius: calc(#{borders.$radius-primary} / 2) !important;
+	border: 1px solid colors.$mine-shaft;
+	border-radius: calc(borders.$radius-primary / 2) !important;
 
 	.Footer {
 		padding: 16px;
 
 		h5 {
 			margin: 0;
-			color: #{colors.$text-primary};
-			font-size: #{typography.$size-small};
-			font-weight: #{typography.$font-weight-bold};
+			color: colors.$text-primary;
+			font-size: typography.$size-small;
+			font-weight: typography.$font-weight-bold;
 		}
 
 		.Subheader {
-			font-size: #{typography.$size-tiny};
-			color: #{colors.$grey-lighter-2};
+			font-size: typography.$size-tiny;
+			color: colors.$grey-lighter-2;
 			word-break: break-all;
 		}
 

@@ -7,19 +7,19 @@
 		flex-direction: column;
 
 		&.Label {
-			color: #{colors.$purple-lightest};
-			font-size: #{typography.$size-tiny};
+			color: colors.$purple-lightest;
+			font-size: typography.$size-tiny;
 		}
 
 		&.TokenValue {
 			margin-top: 2px;
-			font-weight: #{typography.$font-weight-demi-bold};
+			font-weight: typography.$font-weight-demi-bold;
 			font-size: #{typography.$size-large};
 		}
 
 		&.AmountUsd {
-			color: #{colors.$grey-lighter-2};
-			font-size: #{typography.$size-tiny};
+			color: colors.$grey-lighter-2;
+			font-size: typography.$size-tiny;
 		}
 	}
 
