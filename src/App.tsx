@@ -16,7 +16,7 @@ import ZNS from './pages/ZNS/ZNS';
 import { ZUIProvider } from '@zero-tech/zui/src/ZUIProvider';
 import { ModalProvider } from './lib/providers/ModalProvider';
 
-const App: FC<AppProps> = ({ provider, route, user }) => {
+export const App: FC<AppProps> = ({ provider, route, user }) => {
 	console.log('prov (marketplace-dapp):', provider);
 	console.log('route (marketplace-dapp):', route);
 
@@ -30,5 +30,3 @@ const App: FC<AppProps> = ({ provider, route, user }) => {
 		</main>
 	);
 };
-
-export default App;

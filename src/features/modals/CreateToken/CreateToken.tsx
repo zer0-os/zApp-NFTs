@@ -36,8 +36,12 @@ export type CreateTokenProps = {
 export const CreateToken: FC<CreateTokenProps> = ({ domainName, onClose }) => {
 	const [stepId, setStepId] = useState(steps[0].id);
 	const [title, setTitle] = useState('Create Token');
-	const [subtitle, setSubtitle] = useState(domainName);
-	const [details, setDetails] = useState<DetailsFormSubmit>();
+
+	const [details, setDetails] = useState<DetailsFormSubmit>({
+		avatar: null,
+		name: '',
+		symbol: '',
+	});
 
 	const handleDetailsSubmit = (values: DetailsFormSubmit): void => {
 		setTitle(`Create "${values.name}" Token`);
@@ -49,13 +53,13 @@ export const CreateToken: FC<CreateTokenProps> = ({ domainName, onClose }) => {
 		<Wizard.Container className={styles.CreateToken}>
 			<CreateTokenHeader
 				title={title}
-				subtitle={subtitle}
+				subtitle={domainName}
 				stepId={stepId}
 				steps={steps}
 				onClose={onClose}
 				onChangeStep={(step: Step) => setStepId(step.id)}
 			/>
-			<CreateTokenBody stepId={stepId} onDetailsSubmit={handleDetailsSubmit} />
+			<CreateTokenBody stepId={stepId} detailsFormValues={details} onDetailsSubmit={handleDetailsSubmit} />
 		</Wizard.Container>
 	);
 };

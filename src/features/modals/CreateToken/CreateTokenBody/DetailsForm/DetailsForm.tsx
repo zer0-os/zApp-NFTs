@@ -23,10 +23,11 @@ const validationSchema = Yup.object().shape({
 });
 
 interface DetailsFormProps {
+	values: DetailsFormSubmit;
 	onSubmit: (values: DetailsFormSubmit) => void;
 }
 
-export const DetailsForm: FC<DetailsFormProps> = ({ onSubmit }) => {
+export const DetailsForm: FC<DetailsFormProps> = ({ values, onSubmit }) => {
 	const [mediaType, setMediaType] = useState<MediaType | undefined>();
 	const [previewUrl, setPreviewUrl] = useState('');
 
@@ -47,11 +48,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onSubmit }) => {
 
 	return (
 		<Formik
-			initialValues={{
-				avatar: null,
-				name: '',
-				symbol: '',
-			}}
+			initialValues={values}
 			onSubmit={onSubmit}
 			validationSchema={validationSchema}
 		>
@@ -61,7 +58,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onSubmit }) => {
 						<div className={styles.DetailsFormColumn}>
 							<MediaInput
 								className={styles.DetailsFormMediaInput}
-								title="Upload Token Avatar..."
+								title="Upload token avatar..."
 								subtitle="(Optional)"
 								mediaType={mediaType}
 								previewUrl={previewUrl}
