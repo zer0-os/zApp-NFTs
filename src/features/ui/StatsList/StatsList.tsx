@@ -22,16 +22,12 @@ type StatsListProps = {
 	stats: Stat[];
 };
 
-const StatsList: FC<StatsListProps> = ({ stats }) => (
-	<div className={styles.Stats}>
+export const StatsList: FC<StatsListProps> = ({ stats }) => (
+	<ul className={styles.Stats} style={{ listStyle: 'none', padding: '0' }}>
 		{stats.map((stat: Stat, index) => (
-			<ul style={{ listStyle: 'none', padding: '0' }}>
-				<li key={`stat-${index}`}>
-					<Card title={stat.title} value={stat.value} bottomText={stat.text} />
-				</li>
-			</ul>
+			<li key={`stat-${index}`}>
+				<Card title={stat.title} value={stat.value} bottomText={stat.text} />
+			</li>
 		))}
-	</div>
+	</ul>
 );
-
-export default StatsList;
