@@ -1,0 +1,15 @@
+.DetailsFormRow {
+	display: flex;
+}
+
+.DetailsFormColumn {
+	display: flex;
+	flex-direction: column;
+}
+
+.DetailsFormMediaInput {
+	height: 224px;
+	width: 224px;
+	min-width: 224px;
+	margin-right: 24px;
+}
