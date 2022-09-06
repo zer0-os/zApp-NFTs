@@ -2,7 +2,7 @@
 import React, { FC } from 'react';
 
 //- Style Imports
-import './CreateTokenHeader.scss';
+import styles from './CreateTokenHeader.module.scss';
 
 //- Component Imports
 import { IconCross } from '@zero-tech/zui/src/components/Icons';
@@ -27,14 +27,14 @@ export const CreateTokenHeader: FC<CreateTokenHeaderProps> = ({
 	onClose,
 	onChangeStep,
 }) => (
-	<div className="create-token-header">
+	<div className={styles.CreateTokenHeader}>
 		<Wizard.Header
 			header={title}
 			headerInfo="Create a token currency for a domain or DAO. The standard is the ERC-20 token standard."
 			subHeader={subtitle}
 			sectionDivider={false}
 		>
-			<div className="create-token-header-close" onClick={onClose}>
+			<div className={styles.CreateTokenHeaderClose} onClick={onClose}>
 				<IconCross size={24} />
 			</div>
 			<StepBar
