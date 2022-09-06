@@ -4,8 +4,8 @@ import { AppProps } from './lib/types/app';
 
 import { useDataContainer } from './lib/hooks/useDataContainer';
 
-import { Domains } from './pages/Domains/Domains';
-import { NFT } from './pages/NFT/NFT';
+import { Domains } from './pages/Domains';
+import { NFT } from './pages/NFT';
 
 import { getDomainId } from './lib/util/domains/domains';
 
