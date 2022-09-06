@@ -1,0 +1,15 @@
+.Container {
+	width: 100%;
+	padding: 1rem;
+
+	text-align: center;
+
+	p {
+		padding: 0 1rem 1rem 1rem;
+	}
+
+	> * {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}

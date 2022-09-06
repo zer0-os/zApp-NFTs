@@ -1,0 +1,14 @@
+@use '../../../../../zUI/src/styles/colors';
+
+.Container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2.5rem;
+	padding: 0;
+	list-style: none;
+
+	.Border {
+		border-right: 1px solid #{colors.$mine-shaft};
+		padding-right: 2.5rem;
+	}
+}
