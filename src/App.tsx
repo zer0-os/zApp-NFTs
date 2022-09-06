@@ -10,13 +10,7 @@ import { FC } from 'react';
 import { AppProps } from './lib/types/app';
 
 //- Hook Imports
-import { useSubdomainData } from './lib/hooks/useSubdomainData';
-import { useDomainData } from './lib/hooks/useDomainData';
-import { usePaymentTokenInfo } from './lib/hooks/usePaymentTokenInfo';
-import { usePaymentTokenForDomain } from './lib/hooks/usePaymentTokenForDomain';
-import { useDomainMetadata } from './lib/hooks/useDomainMetadata';
-import { useDomainMetrics } from './lib/hooks/useDomainMetrics';
-import { useViewNavigation } from './lib/hooks/useViewNavigation';
+import { useDataContainer } from './lib/hooks/useDataContainer';
 
 //- Container Imports
 import Domains from './pages/Domains/Domains';
@@ -30,13 +24,15 @@ const App: FC<AppProps> = ({ provider, route }) => {
 	console.log('route (marketplace-dapp):', route);
 
 	const domainId = getDomainId(route);
-	const { data: domain } = useDomainData(domainId);
-	const { data: subdomainData } = useSubdomainData(domainId);
-	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
-	const { data: paymentTokenInfo } = usePaymentTokenInfo(paymentToken);
-	const { data: metrics } = useDomainMetrics(domainId);
-	const { data: domainMetadata } = useDomainMetadata(domain?.metadataUri);
-	const { isNFTView } = useViewNavigation(subdomainData);
+
+	const {
+		domain,
+		subdomainData,
+		paymentTokenInfo,
+		metrics,
+		domainMetadata,
+		isNFTView,
+	} = useDataContainer(domainId);
 
 	return (
 		<main>
