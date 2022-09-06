@@ -25,9 +25,11 @@ type StatsListProps = {
 const StatsList: FC<StatsListProps> = ({ stats }) => (
 	<div className={styles.Stats}>
 		{stats.map((stat: Stat, index) => (
-			<div key={`stat-${index}`}>
-				<Card title={stat.title} value={stat.value} bottomText={stat.text} />
-			</div>
+			<ul style={{ listStyle: 'none', padding: '0' }}>
+				<li key={`stat-${index}`}>
+					<Card title={stat.title} value={stat.value} bottomText={stat.text} />
+				</li>
+			</ul>
 		))}
 	</div>
 );
