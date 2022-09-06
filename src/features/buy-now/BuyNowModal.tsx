@@ -12,12 +12,8 @@ import BuyNow from './BuyNow';
 
 export interface BuyNowModalProps extends BasicModalProps {}
 
-export const BuyNowModal: FC<BuyNowModalProps> = ({
-	open,
-	trigger,
-	onOpenChange,
-}) => (
-	<Modal onOpenChange={onOpenChange} trigger={trigger} open={open}>
+export const BuyNowModal: FC<BuyNowModalProps> = ({ ...modalProps }) => (
+	<Modal {...modalProps}>
 		<BuyNow />
 	</Modal>
 );

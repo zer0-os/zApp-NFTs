@@ -12,12 +12,8 @@ import CancelBid from './CancelBid';
 
 export interface CancelBidModalProps extends BasicModalProps {}
 
-export const CancelBidModal: FC<CancelBidModalProps> = ({
-	open,
-	trigger,
-	onOpenChange,
-}) => (
-	<Modal onOpenChange={onOpenChange} trigger={trigger} open={open}>
+export const CancelBidModal: FC<CancelBidModalProps> = ({ ...modalProps }) => (
+	<Modal {...modalProps}>
 		<CancelBid />
 	</Modal>
 );

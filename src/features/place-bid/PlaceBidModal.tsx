@@ -12,12 +12,8 @@ import PlaceBid from './PlaceBid';
 
 export interface PlaceBidModalProps extends BasicModalProps {}
 
-export const PlaceBidModal: FC<PlaceBidModalProps> = ({
-	open,
-	trigger,
-	onOpenChange,
-}) => (
-	<Modal onOpenChange={onOpenChange} trigger={trigger} open={open}>
+export const PlaceBidModal: FC<PlaceBidModalProps> = ({ ...modalProps }) => (
+	<Modal {...modalProps}>
 		<PlaceBid />
 	</Modal>
 );

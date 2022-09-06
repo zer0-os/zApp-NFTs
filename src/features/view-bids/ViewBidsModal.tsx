@@ -12,12 +12,8 @@ import ViewBids from './ViewBids';
 
 export interface ViewBidsModalProps extends BasicModalProps {}
 
-export const ViewBidsModal: FC<ViewBidsModalProps> = ({
-	open,
-	trigger,
-	onOpenChange,
-}) => (
-	<Modal onOpenChange={onOpenChange} trigger={trigger} open={open}>
+export const ViewBidsModal: FC<ViewBidsModalProps> = ({ ...modalProps }) => (
+	<Modal {...modalProps}>
 		<ViewBids />
 	</Modal>
 );
