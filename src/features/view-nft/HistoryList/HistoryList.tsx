@@ -10,16 +10,20 @@ import HistoryItem from '../HistoryItem/HistoryItem';
 //- Types Imports
 import { DomainEvent } from '../../../lib/types/events';
 
+//- Hooks Imports
+import { useDomainEvents } from '../../../lib/hooks/useDomainEvents';
+
 //- Utils Imports
 import { sortEventsByTimestamp } from './HistoryList.utils';
 
 type HistoryListProps = {
-	events: DomainEvent[];
+	domainId: string;
 	paymentToken: TokenPriceInfo;
 };
 
-const HistoryList: FC<HistoryListProps> = ({ events, paymentToken }) => {
-	const sortedDomainEvents = sortEventsByTimestamp(events);
+const HistoryList: FC<HistoryListProps> = ({ domainId, paymentToken }) => {
+	const { data: domainEvents } = useDomainEvents(domainId);
+	const sortedDomainEvents = sortEventsByTimestamp(domainEvents);
 
 	return (
 		<section>

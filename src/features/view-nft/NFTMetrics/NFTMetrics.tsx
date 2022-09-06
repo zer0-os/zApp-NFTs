@@ -7,24 +7,27 @@ import StatsList from '../../ui/StatsList/StatsList';
 //- Library Imports
 import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
-import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
+
+//- Hooks Imports
+import { useBidData } from '../../../lib/hooks/useBidData';
 
 //- Utils Imports
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
 type NFTMetricsProps = {
-	bids: Bid[];
+	domainId: string;
 	metrics: DomainMetrics;
 	isLoading?: boolean;
 	paymentTokenInfo: TokenPriceInfo;
 };
 
 const NFTMetrics: FC<NFTMetricsProps> = ({
-	bids,
+	domainId,
 	metrics,
 	isLoading,
 	paymentTokenInfo,
 }) => {
+	const { data: bids } = useBidData(domainId);
 	const stats = [
 		{
 			title: 'Bids',

@@ -31,11 +31,6 @@ const NFTContainer: FC<NFTContainerProps> = ({
 	domainMetadata,
 	paymentTokenInfo,
 }) => {
-	const { data: bids } = useBidData(domain?.id);
-	const { data: domainEvents, isLoading: isEventDataLoading } = useDomainEvents(
-		domain?.id,
-	);
-
 	return (
 		<>
 			<DomainPreview
@@ -47,23 +42,20 @@ const NFTContainer: FC<NFTContainerProps> = ({
 			/>
 
 			<Actions
-				bids={bids}
 				domain={domain}
 				domainMetadata={domainMetadata}
 				paymentTokenInfo={paymentTokenInfo}
 			/>
 
-			{/* todo: combine loading data */}
 			<NFTMetrics
-				bids={bids}
-				isLoading={isEventDataLoading}
+				domainId={domain?.id}
 				metrics={metrics}
 				paymentTokenInfo={paymentTokenInfo}
 			/>
 
 			<TokenHashInfo domain={domain} />
 
-			<HistoryList events={domainEvents} paymentToken={paymentTokenInfo} />
+			<HistoryList domainId={domain?.id} paymentToken={paymentTokenInfo} />
 		</>
 	);
 };

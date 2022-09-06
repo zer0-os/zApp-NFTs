@@ -1,5 +1,4 @@
 //- Library Imports
-import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
 import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 //- Components Imports
@@ -17,6 +16,7 @@ import { Labels } from '../../../lib/constants/labels';
 //- Hooks Imports
 import useWeb3 from '../../../lib/hooks/useWeb3';
 import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
+import { useBidData } from '../../../lib/hooks/useBidData';
 
 //- Utils Imports
 import {
@@ -37,18 +37,17 @@ import styles from './Actions.module.scss';
 type ActionsProps = {
 	domain?: Domain;
 	domainMetadata?: Metadata;
-	bids?: Bid[];
 	paymentTokenInfo?: TokenPriceInfo;
 };
 
 const Actions = ({
 	domain,
 	domainMetadata,
-	bids,
 	paymentTokenInfo,
 }: ActionsProps) => {
 	const { account } = useWeb3();
 	const { data: buyNowPrice } = useBuyNowPrice(domain?.id);
+	const { data: bids } = useBidData(domain?.id);
 	const userBids = getUserBids(account, bids);
 	const highestBid = getHighestBid(bids);
 	const highestUserBid = getHighestBid(userBids);
