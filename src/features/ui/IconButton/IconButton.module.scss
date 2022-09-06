@@ -1,0 +1,46 @@
+@use '../../../../../zUI/src/styles/borders';
+@use '../../../../../zUI/src/styles/colors';
+@use '../../../../../zUI/src/styles/animations';
+
+.IconButton {
+	display: flex;
+	position: relative;
+	padding: 0;
+	color: colors.$blue;
+	background-color: colors.$black;
+	border: none;
+	cursor: pointer;
+	border-radius: calc(borders.$radius-primary/ 2);
+	transition: all animations.$time-medium ease-in-out;
+	z-index: 1;
+
+	&::after {
+		content: ' ';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		height: 0px;
+		width: 0px;
+		border-radius: calc(borders.$radius-primary / 2);
+		z-index: -2;
+		transition: box-shadow animations.$time-medium ease-in-out;
+	}
+
+	&:hover {
+		text-shadow: colors.$text-glow-primary;
+		background: colors.$purple-15;
+
+		&::after {
+			background: colors.$purple-15;
+		}
+	}
+
+	&.selectedIcon {
+		color: colors.$text-primary;
+		background: colors.$purple-15;
+
+		&::after {
+			box-shadow: 0 0 20px 13px rgba(colors.$white, 0.5);
+		}
+	}
+}

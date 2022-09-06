@@ -9,9 +9,17 @@ import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 import { AsyncTable } from '@zero-tech/zui/src/components';
 import SubdomainTableCard from '../SubdomainTableCard/SubdomainTableCard';
 import SubdomainTableRow from '../SubdomainTableRow/SubdomainTableRow';
+import { IconButton } from '../../../features/ui/IconButton/IconButton';
 
 //- Constants Imports
 import { COLUMNS } from '../SubdomainTable.constants';
+
+//- Assets Imports
+import { IconGrid } from './Icons/IconGrid';
+import { IconList } from './Icons/IconList';
+
+//- Styles Imports
+import styles from './SubdomainTable.module.scss';
 
 type SubdomainTableProps = {
 	subdomainData: Domain[];
@@ -43,16 +51,20 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 
 	return (
 		<>
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'flex-end',
-					color: 'black',
-				}}
-			>
-				<button onClick={() => changeView(false)}>Row</button>
-				<button onClick={() => changeView(true)}>Grid</button>
+			{/* todo: leave or add to table  */}
+			<div className={styles.Buttons}>
+				<IconButton
+					isToggled={!isGridView}
+					onClick={() => changeView(false)}
+					icon={<IconList />}
+				/>
+				<IconButton
+					isToggled={isGridView}
+					onClick={() => changeView(true)}
+					icon={<IconGrid />}
+				/>
 			</div>
+
 			<AsyncTable
 				data={subdomainData}
 				itemKey="id"
