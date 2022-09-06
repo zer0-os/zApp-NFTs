@@ -12,12 +12,12 @@ export const useDomainEvents = (domainId: string) => {
 
 	return useQuery(
 		['domain-events', domainId],
-		async () =>
-			domainId && ((await sdk.getDomainEvents(domainId)) as DomainEvent[]),
+		async () => (await sdk.getDomainEvents(domainId)) as DomainEvent[],
 		{
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
+			enabled: Boolean(domainId),
 		},
 	);
 };
