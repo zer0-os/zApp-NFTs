@@ -18,7 +18,7 @@ type DomainsContainerProps = {
 	isSubdomainDataLoading?: boolean;
 };
 
-export const DomainsContainer: FC<DomainsContainerProps> = ({
+export const Domains: FC<DomainsContainerProps> = ({
 	isRoot,
 	domain,
 	metrics,
