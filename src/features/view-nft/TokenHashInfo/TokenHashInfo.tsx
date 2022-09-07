@@ -11,6 +11,8 @@ import StatsList from '../../ui/StatsList/StatsList';
 import { truncateAddress } from '../../../lib/util/domains/domains';
 import { getHashFromIPFSUrl } from '../../../lib/util/ipfs.ts/ipfs';
 
+import styles from './TokenHashInfo.module.scss';
+
 type TokenHashInfoProps = {
 	domain: Domain;
 };
@@ -32,7 +34,7 @@ const TokenHashInfo: FC<TokenHashInfoProps> = ({ domain }) => {
 	];
 
 	return (
-		<div style={{ marginTop: '16px' }}>
+		<div className={styles.Container}>
 			<StatsList stats={stats} />
 		</div>
 	);
