@@ -1,10 +1,7 @@
-//- React Imports
 import { FC, ReactNode } from 'react';
 
-//- Components Improts
 import { Card } from '@zero-tech/zui/src/components';
 
-//- Style Imports
 import styles from './StatsList.module.scss';
 
 type Text = {
@@ -22,7 +19,7 @@ type StatsListProps = {
 	stats: Stat[];
 };
 
-const StatsList: FC<StatsListProps> = ({ stats }) => (
+export const StatsList: FC<StatsListProps> = ({ stats }) => (
 	<ul className={styles.Stats}>
 		{stats.map((stat: Stat, index) => (
 			<li key={`stat-${index}`}>
@@ -31,5 +28,3 @@ const StatsList: FC<StatsListProps> = ({ stats }) => (
 		))}
 	</ul>
 );
-
-export default StatsList;

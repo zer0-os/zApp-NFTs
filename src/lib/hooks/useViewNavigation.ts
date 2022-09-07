@@ -1,8 +1,6 @@
-//- React Imports
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-//- Library Imports
 import { Domain } from '@zero-tech/zns-sdk';
 
 type UseBrowserNavigationReturn = {

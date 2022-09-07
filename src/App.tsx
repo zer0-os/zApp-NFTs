@@ -1,31 +1,20 @@
-/**
- * NOTE: You will need to `npm link` zUI before this repo
- * will build or run.
- */
-
-//- React Imports
 import { FC } from 'react';
 
-//- Types Imports
 import { AppProps } from './lib/types/app';
 
-//- Hook Imports
 import { useDataContainer } from './lib/hooks/useDataContainer';
 
-//- Container Imports
-import Domains from './pages/Domains/Domains';
-import NFT from './pages/NFT/NFT';
+import { Domains } from './pages/Domains';
+import { NFT } from './pages/NFT';
 
-//- Utils Imports
 import { getDomainId } from './lib/util/domains/domains';
 
-//- Styles Imports
 import classNames from 'classnames/bind';
 import styles from './App.module.scss';
 
 const cx = classNames.bind(styles);
 
-const App: FC<AppProps> = ({ provider, route }) => {
+export const App: FC<AppProps> = ({ provider, route }) => {
 	console.log('prov (marketplace-dapp):', provider);
 	console.log('route (marketplace-dapp):', route);
 
@@ -69,5 +58,3 @@ const App: FC<AppProps> = ({ provider, route }) => {
 		</main>
 	);
 };
-
-export default App;

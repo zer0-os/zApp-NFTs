@@ -6,7 +6,7 @@ interface ChainGateProps {
 	children: ReactNode;
 }
 
-const ChainGate: FC<ChainGateProps> = ({ chainId, children }) => {
+export const ChainGate: FC<ChainGateProps> = ({ chainId, children }) => {
 	const isSupportedNetwork = Object.values(Network).includes(chainId);
 
 	if (!isSupportedNetwork) {
@@ -20,5 +20,3 @@ const ChainGate: FC<ChainGateProps> = ({ chainId, children }) => {
 
 	return <>{children}</>;
 };
-
-export default ChainGate;

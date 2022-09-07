@@ -1,4 +1,3 @@
-//- Lib Imports
 import { ethers } from 'ethers';
 
 export const formatNumber = (number: number | string) => {

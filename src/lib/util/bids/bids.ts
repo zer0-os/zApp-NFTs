@@ -1,7 +1,5 @@
-//- Library Imports
 import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
 
-//- Utils Imports
 import { formatEthers } from '../../../lib/util/number/number';
 
 export const getHighestBid = (bids: Bid[]) =>

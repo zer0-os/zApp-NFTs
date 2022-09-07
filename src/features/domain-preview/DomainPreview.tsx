@@ -1,20 +1,17 @@
-// React Imports
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-//- Utils Imports
 import { truncateAddress } from '../../lib/util/domains/domains';
 
-//- Constants Imports
 import { MemberTitle } from './DomainPreview.constants';
 
-//- Styles Imports
 import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
 
 const cx = classNames.bind(styles);
 
-type PreviewCardProps = {
+
+type DomainPreviewProps = {
 	title?: string;
 	description?: string;
 	icon?: string;
@@ -25,7 +22,7 @@ type PreviewCardProps = {
 	isNFTView?: boolean;
 };
 
-const ViewContainerNFTCard: FC<PreviewCardProps> = ({
+export const DomainPreview: FC<DomainPreviewProps> = ({
 	title,
 	description,
 	icon,
@@ -88,5 +85,3 @@ const ViewContainerNFTCard: FC<PreviewCardProps> = ({
 		</div>
 	);
 };
-
-export default ViewContainerNFTCard;

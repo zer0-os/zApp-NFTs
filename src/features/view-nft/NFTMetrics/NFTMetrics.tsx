@@ -1,17 +1,12 @@
-//- React Imports
 import { FC } from 'react';
 
-//- Features Imports
-import StatsList from '../../ui/StatsList/StatsList';
+import { StatsList } from '../../ui/StatsList/StatsList';
 
-//- Library Imports
 import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-//- Hooks Imports
 import { useBidData } from '../../../lib/hooks/useBidData';
 
-//- Utils Imports
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
 type NFTMetricsProps = {
@@ -21,7 +16,7 @@ type NFTMetricsProps = {
 	paymentTokenInfo: TokenPriceInfo;
 };
 
-const NFTMetrics: FC<NFTMetricsProps> = ({
+export const NFTMetrics: FC<NFTMetricsProps> = ({
 	domainId,
 	metrics,
 	isLoading,
@@ -63,5 +58,3 @@ const NFTMetrics: FC<NFTMetricsProps> = ({
 
 	return <StatsList stats={stats} />;
 };
-
-export default NFTMetrics;

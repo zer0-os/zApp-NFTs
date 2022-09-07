@@ -1,17 +1,13 @@
-//- React Imports
 import { FC } from 'react';
 
-//- Library Imports
 import { ethers } from 'ethers';
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-//- Hook Imports
 import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 
-//- Component Imports
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
 
@@ -25,7 +21,7 @@ type SubdomainTableRowProps = {
 	onRowClick: (e?: any, domainName?: string) => void;
 };
 
-const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
+export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	domainId,
 	domainName,
 	domainMetadataUri,
@@ -66,5 +62,3 @@ const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 		</tr>
 	);
 };
-
-export default SubdomainTableRow;

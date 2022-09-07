@@ -1,4 +1,3 @@
-//- Components Imports
 import { Column } from '@zero-tech/zui/src/components/AsyncTable';
 
 export const COLUMNS: Column[] = [

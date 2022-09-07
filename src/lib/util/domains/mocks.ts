@@ -1,4 +1,3 @@
-//- Library Imports
 import { ethers } from 'ethers';
 
 export const rootDomainId = ethers.constants.HashZero;

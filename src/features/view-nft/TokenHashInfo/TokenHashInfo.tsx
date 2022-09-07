@@ -1,13 +1,9 @@
-//- React Imports
 import { FC, useMemo } from 'react';
 
-//- Library Imports
 import { Domain } from '@zero-tech/zns-sdk';
 
-//- Features Imports
-import StatsList from '../../ui/StatsList/StatsList';
+import { StatsList } from '../../ui/StatsList/StatsList';
 
-//- Utils Imports
 import { truncateAddress } from '../../../lib/util/domains/domains';
 import { getHashFromIPFSUrl } from '../../../lib/util/ipfs.ts/ipfs';
 
@@ -17,7 +13,7 @@ type TokenHashInfoProps = {
 	domain: Domain;
 };
 
-const TokenHashInfo: FC<TokenHashInfoProps> = ({ domain }) => {
+export const TokenHashInfo: FC<TokenHashInfoProps> = ({ domain }) => {
 	const ipfsHash = domain ? getHashFromIPFSUrl(domain?.metadataUri) : '';
 
 	const stats = [
@@ -39,5 +35,3 @@ const TokenHashInfo: FC<TokenHashInfoProps> = ({ domain }) => {
 		</div>
 	);
 };
-
-export default TokenHashInfo;

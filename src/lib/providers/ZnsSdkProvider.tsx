@@ -1,12 +1,9 @@
-//- React Imports
 import { createContext, FC, ReactNode, useMemo } from 'react';
 
-//- Library Imports
 import { providers } from 'ethers';
 import { chainIdToNetworkType } from '../../lib/helpers/network';
 import * as zns from '@zero-tech/zns-sdk';
 
-//- Constants Imports
 import {
 	DEFAULT_NETWORK,
 	Network,
@@ -31,7 +28,7 @@ export const ZnsSdkContext = createContext(
 	),
 );
 
-const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
+export const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
 	provider: providerProps,
 	chainId,
 	children,
@@ -71,5 +68,3 @@ const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
 		<ZnsSdkContext.Provider value={sdk}>{children}</ZnsSdkContext.Provider>
 	);
 };
-
-export default ZnsSdkProvider;

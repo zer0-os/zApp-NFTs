@@ -1,18 +1,14 @@
-//- React Imports
-import { FC, memo, useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-//- Library Imports
 import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-//- Components Imports
 import { AsyncTable } from '@zero-tech/zui/src/components';
-import SubdomainTableCard from '../SubdomainTableCard/SubdomainTableCard';
-import SubdomainTableRow from '../SubdomainTableRow/SubdomainTableRow';
 import { IconButton } from '../../../features/ui/IconButton/IconButton';
 import { SearchBar } from './SearchBar/SearchBar';
+import { SubdomainTableCard } from '../SubdomainTableCard/SubdomainTableCard';
+import { SubdomainTableRow } from '../SubdomainTableRow/SubdomainTableRow';
 
-//- Constants Imports
 import { COLUMNS } from '../SubdomainTable.constants';
 
 //- Assets Imports
@@ -28,7 +24,7 @@ type SubdomainTableProps = {
 	isSubdomainDataLoading?: boolean;
 };
 
-const SubdomainTable: FC<SubdomainTableProps> = ({
+export const SubdomainTable: FC<SubdomainTableProps> = ({
 	subdomainData,
 	paymentTokenData,
 	isSubdomainDataLoading,
@@ -107,5 +103,3 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 		</>
 	);
 };
-
-export default memo(SubdomainTable);

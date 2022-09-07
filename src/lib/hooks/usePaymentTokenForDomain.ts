@@ -1,7 +1,5 @@
-//- React Imports
 import { useQuery } from 'react-query';
 
-//- Hooks Imports
 import { useZnsSdk } from './useZnsSdk';
 
 export const usePaymentTokenForDomain = (domainId: string) => {

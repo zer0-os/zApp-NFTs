@@ -1,7 +1,5 @@
-//- Library Imports
 import { DomainEventType } from '@zero-tech/zns-sdk';
 
-//- Types Imports
 import { DomainEvent } from '../../../lib/types/events';
 
 export const sortEventsByTimestamp = (
