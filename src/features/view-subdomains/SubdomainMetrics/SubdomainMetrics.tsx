@@ -1,14 +1,10 @@
-//- React Imports
 import { FC } from 'react';
 
-//- Library Imports
 import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-//- Features Imports
-import StatsList from '../../ui/StatsList/StatsList';
+import { StatsList } from '../../ui/StatsList/StatsList';
 
-//- Utils Imports
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
 interface SubdomainMetricsProps {
@@ -16,7 +12,7 @@ interface SubdomainMetricsProps {
 	paymentTokenInfo: TokenPriceInfo;
 }
 
-const SubdomainMetrics: FC<SubdomainMetricsProps> = ({
+export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({
 	metrics,
 	paymentTokenInfo,
 }) => {
@@ -56,5 +52,3 @@ const SubdomainMetrics: FC<SubdomainMetricsProps> = ({
 
 	return <StatsList stats={stats} />;
 };
-
-export default SubdomainMetrics;

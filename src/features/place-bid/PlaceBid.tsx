@@ -1,13 +1,10 @@
-//- React Imports
 import { FC } from 'react';
 
-//- Hooks Imports
-import useWeb3 from '../../lib/hooks/useWeb3';
+import { useWeb3 } from '../../lib/hooks/useWeb3';
 
-//- Components Imports
 import { ConnectWallet } from '../ui/ConnectWallet';
 
-const PlaceBid: FC = () => {
+export const PlaceBid: FC = () => {
 	const { account } = useWeb3();
 
 	const content = account ? (
@@ -18,5 +15,3 @@ const PlaceBid: FC = () => {
 
 	return content;
 };
-
-export default PlaceBid;

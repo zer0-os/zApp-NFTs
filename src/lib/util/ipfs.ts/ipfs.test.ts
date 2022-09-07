@@ -1,7 +1,5 @@
-//- Utils Imports
 import { getHashFromIPFSUrl } from './ipfs';
 
-//- Mocks Imports
 import { HASH } from './mocks';
 
 ////////////////////////////

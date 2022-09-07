@@ -1,7 +1,5 @@
-//- Utils Imports
 import { parseDomainMetadata } from './metadata';
 
-//- Mocks Imports
 import * as mocks from './mocks';
 
 /////////////////////////////

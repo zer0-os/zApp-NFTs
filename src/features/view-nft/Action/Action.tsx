@@ -1,7 +1,5 @@
-//- React Imports
 import { ReactNode } from 'react';
 
-//- Styles Imports
 import styles from './Action.module.scss';
 
 type ActionProps = {
@@ -11,7 +9,7 @@ type ActionProps = {
 	buttonComponent: ReactNode;
 };
 
-const Action = ({
+export const Action = ({
 	label,
 	amountToken,
 	amountUsd,
@@ -24,5 +22,3 @@ const Action = ({
 		<div className={styles.Button}>{buttonComponent}</div>
 	</div>
 );
-
-export default Action;

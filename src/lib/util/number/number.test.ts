@@ -1,7 +1,5 @@
-//- Utils Imports
 import { formatEthers, formatNumber } from './number';
 
-//- Mocks Imports
 import { mockMetricsData } from './mocks';
 
 //////////////////////
