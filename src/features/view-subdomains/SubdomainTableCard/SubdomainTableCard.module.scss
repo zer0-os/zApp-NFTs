@@ -21,7 +21,7 @@
 		margin-top: 2px;
 		font-size: typography.$size-small;
 		font-weight: typography.$font-weight-bold;
-		line-height: 16px;
+		line-height: 1rem;
 		color: colors.$text-primary;
 	}
 
@@ -37,6 +37,6 @@
 	justify-content: flex-end;
 
 	.Button {
-		padding: 0 8px;
+		padding: 0 0.5rem;
 	}
 }
