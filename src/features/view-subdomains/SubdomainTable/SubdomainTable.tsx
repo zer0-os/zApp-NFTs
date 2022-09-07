@@ -10,6 +10,7 @@ import { AsyncTable } from '@zero-tech/zui/src/components';
 import SubdomainTableCard from '../SubdomainTableCard/SubdomainTableCard';
 import SubdomainTableRow from '../SubdomainTableRow/SubdomainTableRow';
 import { IconButton } from '../../../features/ui/IconButton/IconButton';
+import { SearchBar } from './SearchBar/SearchBar';
 
 //- Constants Imports
 import { COLUMNS } from '../SubdomainTable.constants';
@@ -51,18 +52,26 @@ const SubdomainTable: FC<SubdomainTableProps> = ({
 
 	return (
 		<>
-			{/* todo: leave or add to table  */}
-			<div className={styles.Buttons}>
-				<IconButton
-					isToggled={!isGridView}
-					onClick={() => changeView(false)}
-					icon={<IconList />}
-				/>
-				<IconButton
-					isToggled={isGridView}
-					onClick={() => changeView(true)}
-					icon={<IconGrid />}
-				/>
+			{/* todo: leave or add controls to table component */}
+			<div className={styles.Controls}>
+				<div className={styles.SearchBarContainer}>
+					<SearchBar
+						placeholder={'Search by domain name'}
+						onChange={() => {}}
+					/>
+				</div>
+				<div className={styles.IconButtons}>
+					<IconButton
+						isToggled={!isGridView}
+						onClick={() => changeView(false)}
+						icon={<IconList />}
+					/>
+					<IconButton
+						isToggled={isGridView}
+						onClick={() => changeView(true)}
+						icon={<IconGrid />}
+					/>
+				</div>
 			</div>
 
 			<AsyncTable

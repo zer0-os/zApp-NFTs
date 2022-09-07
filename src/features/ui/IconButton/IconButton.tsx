@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 type IconButtonProps = {
 	isTogglable?: boolean;
 	isToggled?: boolean;
-	onClick: () => void;
+	onClick?: () => void;
 	icon: React.ReactNode;
 };
 
@@ -25,7 +25,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
 
 	const handleClick = () => {
 		setIsSelected(!isSelected);
-		onClick();
+		onClick && onClick();
 	};
 
 	return (
