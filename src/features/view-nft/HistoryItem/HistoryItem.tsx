@@ -14,6 +14,8 @@ import {
 import { truncateAddress } from '../../../lib/util/domains/domains';
 import { formatEthers } from '../../../lib/util/number/number';
 
+import styles from './HistoryItem.module.scss';
+
 type HistoryItemProps = {
 	item: DomainEvent;
 	paymentToken: TokenPriceInfo;
@@ -25,13 +27,7 @@ export const HistoryItem = ({ item, paymentToken }: HistoryItemProps) => {
 			item = item as DomainBidEvent;
 
 			return (
-				<li
-					style={{
-						display: 'flex',
-						justifyContent: 'space-between',
-						marginBottom: '16px',
-					}}
-				>
+				<li className={styles.Container}>
 					<div>
 						<b>
 							<a
@@ -57,13 +53,7 @@ export const HistoryItem = ({ item, paymentToken }: HistoryItemProps) => {
 			item = item as DomainMintEvent;
 
 			return (
-				<li
-					style={{
-						display: 'flex',
-						justifyContent: 'space-between',
-						marginBottom: '16px',
-					}}
-				>
+				<li className={styles.Container}>
 					<div>
 						<b>
 							<a
@@ -86,13 +76,7 @@ export const HistoryItem = ({ item, paymentToken }: HistoryItemProps) => {
 			item = item as DomainTransferEvent;
 
 			return (
-				<li
-					style={{
-						display: 'flex',
-						justifyContent: 'space-between',
-						marginBottom: '16px',
-					}}
-				>
+				<li className={styles.Container}>
 					<div>
 						<b>
 							<a
@@ -124,13 +108,7 @@ export const HistoryItem = ({ item, paymentToken }: HistoryItemProps) => {
 			item = item as DomainSaleEvent;
 
 			return (
-				<li
-					style={{
-						display: 'flex',
-						justifyContent: 'space-between',
-						marginBottom: '16px',
-					}}
-				>
+				<li className={styles.Container}>
 					<div>
 						<b>
 							<a
@@ -170,13 +148,7 @@ export const HistoryItem = ({ item, paymentToken }: HistoryItemProps) => {
 			item = item as DomainBuyNowSaleEvent;
 
 			return (
-				<li
-					style={{
-						display: 'flex',
-						justifyContent: 'space-between',
-						marginBottom: '16px',
-					}}
-				>
+				<li className={styles.Container}>
 					<div>
 						<b>
 							<a

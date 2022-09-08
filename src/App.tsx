@@ -9,11 +9,17 @@ import { NFT } from './pages/NFT';
 
 import { getDomainId } from './lib/util/domains/domains';
 
+import classNames from 'classnames/bind';
+import styles from './App.module.scss';
+
+const cx = classNames.bind(styles);
+
 export const App: FC<AppProps> = ({ provider, route }) => {
 	console.log('prov (marketplace-dapp):', provider);
 	console.log('route (marketplace-dapp):', route);
 
 	const domainId = getDomainId(route);
+	const isRoot = route.split('.').length === 1 && !route.includes('.');
 
 	const {
 		domain,
@@ -25,28 +31,30 @@ export const App: FC<AppProps> = ({ provider, route }) => {
 	} = useDataContainer(domainId);
 
 	return (
-		<main>
-			<div style={{ padding: '100px 150px' }}>
-				{!isNFTView && (
-					<Domains
-						route={route}
-						domain={domain}
-						metrics={metrics}
-						subdomainData={subdomainData}
-						domainMetadata={domainMetadata}
-						paymentTokenInfo={paymentTokenInfo}
-					/>
-				)}
+		<main
+			className={cx(styles.Main, {
+				isRoot: isRoot,
+			})}
+		>
+			{!isNFTView && (
+				<Domains
+					isRoot={isRoot}
+					domain={domain}
+					metrics={metrics}
+					subdomainData={subdomainData}
+					domainMetadata={domainMetadata}
+					paymentTokenInfo={paymentTokenInfo}
+				/>
+			)}
 
-				{isNFTView && (
-					<NFT
-						domain={domain}
-						metrics={metrics}
-						domainMetadata={domainMetadata}
-						paymentTokenInfo={paymentTokenInfo}
-					/>
-				)}
-			</div>
+			{isNFTView && (
+				<NFT
+					domain={domain}
+					metrics={metrics}
+					domainMetadata={domainMetadata}
+					paymentTokenInfo={paymentTokenInfo}
+				/>
+			)}
 		</main>
 	);
 };
