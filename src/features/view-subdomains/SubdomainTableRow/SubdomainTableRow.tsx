@@ -11,6 +11,8 @@ import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
 
+import styles from './SubdomainTableRow.module.scss';
+
 type SubdomainTableRowProps = {
 	domainId: string;
 	domainName: string;
@@ -31,37 +33,32 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	const { data: domainMetadata } = useDomainMetadata(domainMetadataUri);
 
 	return (
-		<>
-			<tr
-				onClick={(e) => onRowClick(e, domainName)}
-				style={{ cursor: 'pointer' }}
-			>
-				<td>
-					<div>{domainMetadata?.title}</div>
-					<div>0://{domainName}</div>
-				</td>
-				<td style={{ textAlign: 'right' }}>
-					<div>
-						{domainMetrics?.volume.all
-							? formatEthers(domainMetrics?.volume.all)
-							: 0}{' '}
-						{paymentTokenData?.name}
-					</div>
-					<div>
-						$
-						{domainMetrics?.volume.all
-							? formatNumber(
-									Number(ethers.utils.formatEther(domainMetrics?.volume.all)) *
-										paymentTokenData?.price,
-							  )
-							: 0}{' '}
-					</div>
-				</td>
+		<tr onClick={(e) => onRowClick(e, domainName)} className={styles.Container}>
+			<td>
+				<div>{domainMetadata?.title}</div>
+				<div>0://{domainName}</div>
+			</td>
+			<td className={styles.Metrics}>
+				<div>
+					{domainMetrics?.volume.all
+						? formatEthers(domainMetrics?.volume.all)
+						: 0}{' '}
+					{paymentTokenData?.name}
+				</div>
+				<div>
+					$
+					{domainMetrics?.volume.all
+						? formatNumber(
+								Number(ethers.utils.formatEther(domainMetrics?.volume.all)) *
+									paymentTokenData?.price,
+						  )
+						: 0}{' '}
+				</div>
+			</td>
 
-				<td style={{ display: 'flex', justifyContent: 'flex-end' }}>
-					{buyNowPrice ? <BuyNowButton /> : <PlaceBidButton isRoot />}
-				</td>
-			</tr>
-		</>
+			<td className={styles.Button}>
+				{buyNowPrice ? <BuyNowButton /> : <PlaceBidButton isRoot />}
+			</td>
+		</tr>
 	);
 };

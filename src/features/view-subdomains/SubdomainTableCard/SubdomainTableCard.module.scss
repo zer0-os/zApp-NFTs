@@ -12,22 +12,22 @@
 		flex-direction: column;
 
 		label {
-			font-size: #{typography.$size-tiny};
-			color: #{colors.$grey-lighter-2};
+			font-size: typography.$size-tiny;
+			color: colors.$grey-lighter-2;
 		}
 	}
 
 	.Crypto {
 		margin-top: 2px;
-		font-size: #{typography.$size-small};
-		font-weight: #{typography.$font-weight-bold};
-		line-height: 16px;
-		color: #{colors.$text-primary};
+		font-size: typography.$size-small;
+		font-weight: typography.$font-weight-bold;
+		line-height: 1rem;
+		color: colors.$text-primary;
 	}
 
 	.Fiat {
-		font-size: #{typography.$size-tiny};
-		color: #{colors.$grey-lighter-2};
+		font-size: typography.$size-tiny;
+		color: colors.$grey-lighter-2;
 		margin-top: 2px;
 	}
 }
@@ -37,6 +37,6 @@
 	justify-content: flex-end;
 
 	.Button {
-		padding: 0 8px;
+		padding: 0 0.5rem;
 	}
 }

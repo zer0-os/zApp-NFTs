@@ -1,0 +1,18 @@
+@use '../../../../../zUI/src/styles/colors';
+
+.Container {
+	cursor: pointer;
+
+	&:hover {
+		background: colors.$purple-10;
+	}
+
+	.Metrics {
+		text-align: right;
+	}
+
+	.Button {
+		display: flex;
+		justify-content: flex-end;
+	}
+}

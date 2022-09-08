@@ -8,8 +8,8 @@ import { DomainPreview } from '../../features/domain-preview/DomainPreview';
 
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-type DomainsProps = {
-	route: string;
+type DomainsContainerProps = {
+	isRoot: boolean;
 	domain: Domain;
 	metrics: DomainMetrics;
 	subdomainData: Domain[];
@@ -18,8 +18,8 @@ type DomainsProps = {
 	isSubdomainDataLoading?: boolean;
 };
 
-export const Domains: FC<DomainsProps> = ({
-	route,
+export const Domains: FC<DomainsContainerProps> = ({
+	isRoot,
 	domain,
 	metrics,
 	subdomainData,
@@ -27,8 +27,6 @@ export const Domains: FC<DomainsProps> = ({
 	paymentTokenInfo,
 	isSubdomainDataLoading,
 }) => {
-	const isRoot = route.split('.').length === 1 && !route.includes('.');
-
 	return (
 		<>
 			{!isRoot && (

@@ -10,6 +10,8 @@ import { useDomainEvents } from '../../../lib/hooks/useDomainEvents';
 
 import { sortEventsByTimestamp } from './HistoryList.utils';
 
+import styles from './HistoryList.module.scss';
+
 type HistoryListProps = {
 	domainId: string;
 	paymentToken: TokenPriceInfo;
@@ -27,7 +29,7 @@ export const HistoryList: FC<HistoryListProps> = ({
 			<h4>History</h4>
 
 			{sortedDomainEvents?.length > 0 && (
-				<ul style={{ listStyle: 'none', padding: '0' }}>
+				<ul className={styles.Container}>
 					{sortedDomainEvents?.map((item: DomainEvent, i: number) => (
 						<div key={i}>
 							<HistoryItem item={item} paymentToken={paymentToken} />

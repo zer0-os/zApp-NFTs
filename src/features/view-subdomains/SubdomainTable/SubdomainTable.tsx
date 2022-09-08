@@ -4,10 +4,19 @@ import { useHistory } from 'react-router-dom';
 import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 import { AsyncTable } from '@zero-tech/zui/src/components';
+import { IconButton } from '../../../features/ui/IconButton/IconButton';
+import { SearchBar } from './SearchBar/SearchBar';
 import { SubdomainTableCard } from '../SubdomainTableCard/SubdomainTableCard';
 import { SubdomainTableRow } from '../SubdomainTableRow/SubdomainTableRow';
 
 import { COLUMNS } from '../SubdomainTable.constants';
+
+//- Assets Imports
+import { IconGrid } from './Icons/IconGrid';
+import { IconList } from './Icons/IconList';
+
+//- Styles Imports
+import styles from './SubdomainTable.module.scss';
 
 type SubdomainTableProps = {
 	subdomainData: Domain[];
@@ -39,16 +48,28 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({
 
 	return (
 		<>
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'flex-end',
-					color: 'black',
-				}}
-			>
-				<button onClick={() => changeView(false)}>Row</button>
-				<button onClick={() => changeView(true)}>Grid</button>
+			{/* todo: leave or add controls to table component */}
+			<div className={styles.Controls}>
+				<div className={styles.SearchBarContainer}>
+					<SearchBar
+						placeholder={'Search by domain name'}
+						onChange={() => {}}
+					/>
+				</div>
+				<div className={styles.IconButtons}>
+					<IconButton
+						isToggled={!isGridView}
+						onClick={() => changeView(false)}
+						icon={<IconList />}
+					/>
+					<IconButton
+						isToggled={isGridView}
+						onClick={() => changeView(true)}
+						icon={<IconGrid />}
+					/>
+				</div>
 			</div>
+
 			<AsyncTable
 				data={subdomainData}
 				itemKey="id"

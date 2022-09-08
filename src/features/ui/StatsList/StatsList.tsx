@@ -20,7 +20,7 @@ type StatsListProps = {
 };
 
 export const StatsList: FC<StatsListProps> = ({ stats }) => (
-	<ul className={styles.Stats} style={{ listStyle: 'none', padding: '0' }}>
+	<ul className={styles.Stats}>
 		{stats.map((stat: Stat, index) => (
 			<li key={`stat-${index}`}>
 				<Card title={stat.title} value={stat.value} bottomText={stat.text} />
