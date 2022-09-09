@@ -6,7 +6,6 @@ import * as zns from '@zero-tech/zns-sdk';
 
 import {
 	DEFAULT_NETWORK,
-	Network,
 	NETWORK_CONFIGS,
 	NETWORK_TYPES,
 } from '../constants/networks';
@@ -30,7 +29,6 @@ export const ZnsSdkContext = createContext(
 
 export const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
 	provider: providerProps,
-	chainId,
 	children,
 }: ZnsSdkProviderProps) => {
 	const sdk = useMemo(() => {
@@ -62,7 +60,7 @@ export const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
 				throw new Error('SDK isn´t available for this chainId');
 			}
 		}
-	}, [providerProps, chainId]);
+	}, [providerProps]);
 
 	return (
 		<ZnsSdkContext.Provider value={sdk}>{children}</ZnsSdkContext.Provider>
