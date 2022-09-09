@@ -10,6 +10,7 @@ import styles from './DomainPreview.module.scss';
 
 const cx = classNames.bind(styles);
 
+
 type DomainPreviewProps = {
 	title?: string;
 	description?: string;
@@ -24,6 +25,8 @@ type DomainPreviewProps = {
 export const DomainPreview: FC<DomainPreviewProps> = ({
 	title,
 	description,
+	icon,
+	banner,
 	href,
 	owner,
 	creator,
