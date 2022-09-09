@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 
 import { Domain } from '@zero-tech/zns-sdk';
 
