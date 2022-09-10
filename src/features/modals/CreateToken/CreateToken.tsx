@@ -16,15 +16,15 @@ import { DetailsFormSubmit, TokenomicsFormSubmit } from './CreateToken.types';
 const steps: Step[] = [
 	{
 		id: 'details',
-		title: 'Details',
+		title: '1/3 Details',
 	},
 	{
 		id: 'tokenomics',
-		title: 'Tokenomics',
+		title: '2/3 Tokenomics',
 	},
 	{
 		id: 'launch',
-		title: 'Launch',
+		title: '3/3 Launch',
 	},
 ];
 

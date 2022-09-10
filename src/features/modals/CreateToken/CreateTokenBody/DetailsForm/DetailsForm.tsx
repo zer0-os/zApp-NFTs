@@ -5,6 +5,8 @@ import { Form, Formik } from 'formik';
 
 //- Style Imports
 import styles from './DetailsForm.module.scss';
+import classNames from 'classnames/bind';
+const cx = classNames.bind(styles);
 
 //- Component Imports
 import {
@@ -83,8 +85,8 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 								}
 							/>
 						</div>
-						<div className={styles.DetailsFormColumn}>
-							<div>
+						<div className={cx(styles.DetailsFormColumn, styles.DetailsFormColumnTwo)}>
+							<div className={styles.DetailsFormName}>
 								<WrappedInput
 									label="What is the name of your token?"
 									value={values.name}

@@ -2,8 +2,12 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 40px;
+	margin-top: 80px;
 	grid-gap: 24px;
 	gap: 24px;
 	flex-wrap: wrap;
+
+	button {
+		width: 124px;
+	}
 }

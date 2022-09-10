@@ -8,8 +8,16 @@
 }
 
 .DetailsFormMediaInput {
-	height: 224px;
-	width: 224px;
-	min-width: 224px;
+	height: 200px;
+	width: 200px;
 	margin-right: 24px;
+	border-radius: 8px !important;
+}
+
+.DetailsFormColumnTwo {
+	width: 100%;
+
+	.DetailsFormName p {
+		margin-top: 0;
+	}
 }

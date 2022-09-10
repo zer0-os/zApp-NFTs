@@ -29,7 +29,7 @@ export const WrappedInput: FC<WrappedInputProps> = ({
 }) => (
 	<>
 		<div className={styles.WrappedInputContainer}>
-			<p>{label}</p>
+			<p className={styles.WrappedInputLabel}>{label}</p>
 			<InfoTooltip content={info} />
 		</div>
 		<Input
