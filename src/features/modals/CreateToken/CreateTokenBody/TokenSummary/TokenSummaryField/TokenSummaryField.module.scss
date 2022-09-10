@@ -1,0 +1,17 @@
+@use '../../../../../../../../zUI/src/styles/colors';
+
+.TokenSummaryField {
+	display: flex;
+	flex-direction: column;
+
+	.TokenSummaryFieldLabel {
+		font-size: 0.75rem;
+		color: #{colors.$grey-lighter-2};
+		margin: 0;
+	}
+
+	.TokenSummaryFieldValue {
+		font-size: 1rem;
+		margin-top: 0;
+	}
+}

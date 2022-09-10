@@ -1,11 +1,14 @@
 //- React Imports
 import React, { FC } from 'react';
-import { DetailsFormSubmit, TokenomicsFormSubmit } from '../CreateToken.types';
 
 //- Component Imports
 import { DetailsForm } from './DetailsForm/DetailsForm';
 import { TokenomicsForm } from './TokenomicsForm/TokenomicsForm';
 import { TokenSummary } from './TokenSummary/TokenSummary';
+
+//- Type Imports
+import { DetailsFormSubmit, TokenomicsFormSubmit } from '../CreateToken.types';
+import { MediaType } from '@zero-tech/zui/src/components/MediaInput';
 
 type CreateTokenBodyProps = {
 	stepId: string;
@@ -13,6 +16,11 @@ type CreateTokenBodyProps = {
 	onDetailsSubmit: (values: DetailsFormSubmit) => void;
 	tokenomicsFormValues: TokenomicsFormSubmit;
 	onTokenomicsSubmit: (values: TokenomicsFormSubmit) => void;
+	onMediaInputChange: (
+		mediaType: MediaType,
+		previewUrl: string,
+		image: Buffer,
+	) => void;
 	onLaunchSubmit: () => void;
 	onClose: () => void;
 };
@@ -23,6 +31,7 @@ export const CreateTokenBody: FC<CreateTokenBodyProps> = ({
 	onDetailsSubmit,
 	tokenomicsFormValues,
 	onTokenomicsSubmit,
+	onMediaInputChange,
 	onLaunchSubmit,
 	onClose,
 }) => {
@@ -44,6 +53,19 @@ export const CreateTokenBody: FC<CreateTokenBodyProps> = ({
 				/>
 			);
 		case 'launch':
-			return <TokenSummary onSubmit={onLaunchSubmit} onClose={onClose} />;
+			return (
+				<TokenSummary
+					mediaType={detailsFormValues.mediaType}
+					previewUrl={detailsFormValues.previewUrl}
+					tokenName={detailsFormValues.name}
+					symbol={detailsFormValues.symbol}
+					totalSupply={tokenomicsFormValues.tokenCount}
+					initialWalletAddress={tokenomicsFormValues.initialWalletAddress}
+					adminAddress={tokenomicsFormValues.adminWalletAddress}
+					onMediaInputChange={onMediaInputChange}
+					onSubmit={onLaunchSubmit}
+					onClose={onClose}
+				/>
+			);
 	}
 };

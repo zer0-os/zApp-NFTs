@@ -12,6 +12,7 @@ import { CreateTokenHeader } from './CreateTokenHeader/CreateTokenHeader';
 //- Type Imports
 import { Step } from '@zero-tech/zui/src/components/StepBar/StepBar.types';
 import { DetailsFormSubmit, TokenomicsFormSubmit } from './CreateToken.types';
+import { MediaType } from '@zero-tech/zui/src/components/MediaInput';
 
 const steps: Step[] = [
 	{
@@ -38,6 +39,8 @@ export const CreateToken: FC<CreateTokenProps> = ({ domainName, onClose }) => {
 	const [title, setTitle] = useState('Create Token');
 
 	const [details, setDetails] = useState<DetailsFormSubmit>({
+		mediaType: undefined,
+		previewUrl: '',
 		avatar: null,
 		name: '',
 		symbol: '',
@@ -58,6 +61,19 @@ export const CreateToken: FC<CreateTokenProps> = ({ domainName, onClose }) => {
 	const handleTokenomicsSubmit = (values: TokenomicsFormSubmit): void => {
 		setTokenomics(values);
 		setStepId(steps[2].id);
+	};
+
+	const handleMediaInputChange = (
+		mediaType: MediaType,
+		previewUrl: string,
+		image: Buffer,
+	): void => {
+		setDetails({
+			...details,
+			mediaType: mediaType,
+			previewUrl: previewUrl,
+			avatar: image,
+		});
 	};
 
 	const handleLaunchSubmit = (): void => {
@@ -81,6 +97,7 @@ export const CreateToken: FC<CreateTokenProps> = ({ domainName, onClose }) => {
 				onDetailsSubmit={handleDetailsSubmit}
 				tokenomicsFormValues={tokenomics}
 				onTokenomicsSubmit={handleTokenomicsSubmit}
+				onMediaInputChange={handleMediaInputChange}
 				onLaunchSubmit={handleLaunchSubmit}
 				onClose={onClose}
 			/>

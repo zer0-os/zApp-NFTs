@@ -1,0 +1,27 @@
+.TokenSummaryRow {
+	display: flex;
+
+	.TokenSummaryColumn {
+		display: flex;
+		flex-direction: column;
+
+		.TokenSummaryHeading {
+			margin-top: 0;
+		}
+
+		.TokenSummaryMediaInput {
+			height: 200px;
+			width: 200px;
+			margin-right: 24px;
+			border-radius: 8px !important;
+		}
+
+		.TokenSummaryName {
+			margin-right: 40px;
+		}
+
+		.TokenSummaryInitialWalletAddress {
+			margin-right: 34px;
+		}
+	}
+}
