@@ -58,7 +58,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 			onSubmit={onSubmit}
 			validationSchema={validationSchema}
 		>
-			{({ values, errors, setFieldValue, submitForm }) => (
+			{({ values, errors, touched, setFieldValue, submitForm }) => (
 				<Form>
 					<div className={styles.DetailsFormRow}>
 						<div className={styles.DetailsFormColumn}>
@@ -90,8 +90,8 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 									value={values.name}
 									placeholder="Enter name..."
 									info="Points for creativity."
-									hasError={!!errors.name}
-									helperText={errors.name}
+									hasError={touched.name && !!errors.name}
+									helperText={touched.name && errors.name}
 									onChange={(value) => setFieldValue('name', value)}
 								/>
 							</div>
@@ -100,8 +100,8 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 								value={values.symbol}
 								placeholder="Enter symbol..."
 								info="Bitcoin's symbol is BTC. This short name will appear on the exhanges and is no more than 5 characters."
-								hasError={!!errors.symbol}
-								helperText={errors.symbol}
+								hasError={touched.symbol && !!errors.symbol}
+								helperText={touched.symbol && errors.symbol}
 								onChange={(value) => setFieldValue('symbol', value)}
 							/>
 						</div>
