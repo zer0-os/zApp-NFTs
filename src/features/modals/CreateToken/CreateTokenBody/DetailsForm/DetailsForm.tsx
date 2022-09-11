@@ -110,7 +110,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 							/>
 						</div>
 					</div>
-					<FormFooter onSubmit={submitForm} onCancel={onClose} />
+					<FormFooter className={styles.DetailsFormFooter} onSubmit={submitForm} onCancel={onClose} />
 				</Form>
 			)}
 		</Formik>

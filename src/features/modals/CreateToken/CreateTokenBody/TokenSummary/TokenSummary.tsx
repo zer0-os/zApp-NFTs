@@ -76,6 +76,6 @@ export const TokenSummary: FC<TokenSummaryProps> = ({
 				</div>
 			</div>
 		</div>
-		<FormFooter action="Confirm" onSubmit={onSubmit} onCancel={onClose} />
+		<FormFooter className={styles.TokenSummaryFooter} action="Confirm" onSubmit={onSubmit} onCancel={onClose} />
 	</>
 );

@@ -2,6 +2,9 @@
 import React, { FC } from 'react';
 import { Form, Formik } from 'formik';
 
+//- Style Imports
+import styles from "./TokenomicsForm.module.scss";
+
 //- Component Imports
 import { FormFooter } from '../FormFooter/FormFooter';
 
@@ -23,7 +26,7 @@ export const TokenomicsForm: FC<TokenomicsFormProps> = ({
 		{({ submitForm }) => (
 			<Form>
 				<p>Insert tokenomics content here...</p>
-				<FormFooter onSubmit={submitForm} onCancel={onClose} />
+				<FormFooter className={styles.TokenomicsFormFooter} onSubmit={submitForm} onCancel={onClose} />
 			</Form>
 		)}
 	</Formik>

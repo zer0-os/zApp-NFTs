@@ -1,5 +1,6 @@
 .TokenSummaryRow {
 	display: flex;
+	margin-top: 10px;
 
 	.TokenSummaryColumn {
 		display: flex;
@@ -24,4 +25,8 @@
 			margin-right: 34px;
 		}
 	}
+}
+
+.TokenSummaryFooter {
+	margin-top: 16px;
 }
