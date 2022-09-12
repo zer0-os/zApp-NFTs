@@ -1,0 +1,23 @@
+@use '../../../../../zUI/src/styles/colors';
+
+.Container {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	.ButtonContainer {
+		margin: 2rem 0 1rem 0;
+
+		.Button {
+			display: flex;
+			justify-content: center;
+			margin: 0 auto;
+		}
+	}
+
+	.Error {
+		padding: 1rem;
+		background: rgba(255, 0, 0, 0.2);
+		border-radius: 0.5rem;
+	}
+}
