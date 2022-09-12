@@ -12,4 +12,10 @@ module.exports = {
 			},
 		],
 	],
+	plugins: [
+		[
+			'transform-rename-import',
+			{ original: '^(.+?)\\.scss$', replacement: '$1.css' },
+		],
+	],
 };
