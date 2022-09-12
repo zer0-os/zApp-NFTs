@@ -1,6 +1,6 @@
-@use '../../../../zUI/src/styles/borders';
-@use '../../../../zUI/src/styles/colors';
-@use '../../../../zUI/src/styles/typography';
+@import '../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+@import '../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
 	display: flex;
@@ -11,8 +11,8 @@
 		width: 100%;
 		height: 15rem;
 		object-fit: cover;
-		background: colors.$purple-10;
-		border-radius: calc(borders.$radius-primary / 2);
+		background: $purple-10;
+		border-radius: calc($radius-primary / 2);
 
 		&.isNFTView {
 			width: 100%;
@@ -22,7 +22,7 @@
 			img {
 				border-radius: 0;
 				cursor: pointer;
-				border-radius: calc(borders.$radius-primary / 2);
+				border-radius: calc($radius-primary / 2);
 			}
 		}
 	}
@@ -40,16 +40,16 @@
 			width: 7.5rem;
 			margin-left: 0.5rem;
 			border-radius: 50%;
-			background: colors.$purple-10;
+			background: $purple-10;
 			object-fit: cover;
-			box-shadow: 0 0 1rem rgba(colors.$black, 0.5);
+			box-shadow: 0 0 1rem rgba($black, 0.5);
 		}
 
 		.TextContainer {
 			margin-top: 1.5rem;
 
 			.Title {
-				font-size: typography.$size-xlarge;
+				font-size: $size-large;
 				margin: 0;
 			}
 
@@ -72,13 +72,13 @@
 					flex-direction: column;
 
 					.MemberTitle {
-						color: colors.$purple-lightest;
-						font-size: typography.$size-tiny;
+						color: $purple-lightest;
+						font-size: $size-tiny;
 						margin-bottom: 0.125rem;
 					}
 
 					.MemberAddress {
-						font-size: typography.$size-medium;
+						font-size: $size-medium;
 						margin-bottom: 1rem;
 					}
 				}
@@ -88,8 +88,8 @@
 				margin-top: 1rem;
 
 				.Link {
-					color: colors.$blue;
-					font-size: typography.$size-tiny;
+					color: $blue;
+					font-size: $size-tiny;
 				}
 			}
 		}

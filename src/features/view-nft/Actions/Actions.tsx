@@ -1,6 +1,6 @@
 import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-import { Action } from '../Action/Action';
+import { Action } from '..';
 import { BuyNowButton } from '../../buy-now';
 import { SetBuyNowButton } from '../../set-buy-now';
 import { PlaceBidButton } from '../../place-bid';

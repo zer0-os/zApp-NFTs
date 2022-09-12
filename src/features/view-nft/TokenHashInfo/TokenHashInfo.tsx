@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 
 import { Domain } from '@zero-tech/zns-sdk';
 
-import { StatsList } from '../../ui/StatsList/StatsList';
+import { StatsList } from '../../ui/StatsList';
 
 import { truncateAddress } from '../../../lib/util/domains/domains';
 import { getHashFromIPFSUrl } from '../../../lib/util/ipfs.ts/ipfs';

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { StatsList } from '../../ui/StatsList/StatsList';
+import { StatsList } from '../../ui/StatsList';
 
 import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';

@@ -1,17 +1,17 @@
-@use '../../../../../zUI/src/styles/borders';
-@use '../../../../../zUI/src/styles/colors';
-@use '../../../../../zUI/src/styles/animations';
+@import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_animations.scss';
 
 .IconButton {
 	display: flex;
 	position: relative;
 	padding: 0;
-	color: colors.$blue;
-	background-color: colors.$black;
+	color: $blue;
+	background-color: $black;
 	border: none;
 	cursor: pointer;
-	border-radius: calc(borders.$radius-primary/ 2);
-	transition: all animations.$time-medium ease-in-out;
+	border-radius: calc($radius-primary/ 2);
+	transition: all $time-medium ease-in-out;
 	z-index: 1;
 
 	&::after {
@@ -21,26 +21,26 @@
 		left: 50%;
 		height: 0;
 		width: 0;
-		border-radius: calc(borders.$radius-primary / 2);
+		border-radius: calc($radius-primary / 2);
 		z-index: -2;
-		transition: box-shadow animations.$time-medium ease-in-out;
+		transition: box-shadow $time-medium ease-in-out;
 	}
 
 	&:hover {
-		text-shadow: colors.$text-glow-primary;
-		background: colors.$purple-15;
+		text-shadow: $text-glow-primary;
+		background: $purple-15;
 
 		&::after {
-			background: colors.$purple-15;
+			background: $purple-15;
 		}
 	}
 
 	&.selectedIcon {
-		color: colors.$text-primary;
-		background: colors.$purple-15;
+		color: $text-primary;
+		background: $purple-15;
 
 		&::after {
-			box-shadow: 0 0 20px 13px rgba(colors.$white, 0.5);
+			box-shadow: 0 0 20px 13px rgba($white, 0.5);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-@use '../../../../../zUI/src/styles/colors';
+@import '../../../../node_modules/@zero-tech/zui/styles/colors.scss';
 
 .Container {
 	display: flex;
@@ -9,7 +9,7 @@
 	list-style: none;
 
 	.Border {
-		border-right: 1px solid colors.$mine-shaft;
+		border-right: 1px solid $mine-shaft;
 		padding-right: 2.5rem;
 	}
 }

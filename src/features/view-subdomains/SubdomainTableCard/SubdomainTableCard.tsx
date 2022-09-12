@@ -10,7 +10,7 @@ import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
-import { TableCard } from '../../ui/TableCard/TableCard';
+import { TableCard } from '../../ui/TableCard';
 
 import styles from './SubdomainTableCard.module.scss';
 
