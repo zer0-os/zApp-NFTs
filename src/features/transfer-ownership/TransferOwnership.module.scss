@@ -2,15 +2,49 @@
 @import '../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
-	width: 640px;
-}
+	width: 580px;
+	padding: 3rem;
 
-.ErrorMessage {
-	display: block;
-	margin-top: 0.75rem;
+	.DetailsContainer {
+		display: flex;
+		word-break: break-word;
+		gap: 1.5rem;
 
-	color: $helitrope;
-	font-size: $size-small;
-	font-weight: $font-weight-bold;
-	text-align: center;
+		// todo: temporary
+		.Media {
+			height: 260px;
+			width: 260px;
+			flex-shrink: 0;
+			border: 1px solid grey;
+			border-radius: 0.5rem;
+		}
+
+		.Details {
+			display: flex;
+			flex-direction: column;
+			margin-top: 1rem;
+			padding: 0;
+
+			h1 {
+				margin: 0;
+				font-size: $size-large;
+				font-weight: $font-weight-bold;
+			}
+
+			span {
+				color: $blue;
+				margin-top: 4px;
+			}
+		}
+	}
+
+	.ErrorMessage {
+		display: block;
+		margin-top: 0.75rem;
+
+		color: $helitrope;
+		font-size: $size-small;
+		font-weight: $font-weight-bold;
+		text-align: center;
+	}
 }

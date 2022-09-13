@@ -33,7 +33,7 @@ export const FormInputs: FC<FormInputsProps> = ({
 
 	const handleChange = (val: string) => {
 		setInputValue(val);
-		setHelperText('');
+		setHelperText(undefined);
 	};
 
 	return (

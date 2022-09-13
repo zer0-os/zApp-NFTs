@@ -11,6 +11,7 @@ import { DomainPreview } from '../../features/domain-preview';
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 import { Metadata } from '../../lib/types/metadata';
+import { TransferOwnershipModal } from '../../features/transfer-ownership';
 
 type NFTProps = {
 	domain: Domain;
@@ -46,6 +47,15 @@ export const NFT: FC<NFTProps> = ({
 				metrics={metrics}
 				paymentTokenInfo={paymentTokenInfo}
 			/>
+
+			{domain && domainMetadata && (
+				<TransferOwnershipModal
+					domainId={domain.id}
+					domainTitle={domainMetadata.title}
+					domainCreator={domain.minter}
+					open
+				/>
+			)}
 
 			<TokenHashInfo domain={domain} />
 

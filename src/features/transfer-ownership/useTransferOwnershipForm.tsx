@@ -14,9 +14,9 @@ export const useTransferOwnershipForm = (domainId: string) => {
 	const sdk = useZnsSdk();
 	const { account, provider } = useWeb3();
 
-	const [walletAddress, setWalletAddress] = useState<string | undefined>();
-	const [error, setError] = useState<string | undefined>();
-	const [helperText, setHelperText] = useState<string>('');
+	const [walletAddress, setWalletAddress] = useState<string>();
+	const [error, setError] = useState<string>();
+	const [helperText, setHelperText] = useState<string>();
 	const [step, setStep] = useState<TransferOwnershipFormStep>(
 		TransferOwnershipFormStep.FORM_INPUT,
 	);
@@ -30,6 +30,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 	/**
 	 * Checks wallet address is valid and progresses to the next step.
 	 */
+	// todo: improve helperText/setHelperText
 	const onConfirmAddressInput = (inputAdrressValue: string) => {
 		setError(undefined);
 
@@ -53,9 +54,9 @@ export const useTransferOwnershipForm = (domainId: string) => {
 		(async () => {
 			setStep(TransferOwnershipFormStep.TRANSACTION_APPROVAL);
 			setError(undefined);
+
 			try {
 				try {
-					// hook
 					const tx = await sdk.transferDomainOwnership(
 						walletAddress,
 						domainId,
