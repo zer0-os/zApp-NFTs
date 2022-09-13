@@ -1,7 +1,7 @@
 {
-	"name": "marketplace-dapp",
-	"version": "0.1.0",
-	"description": "zns marketplace app for zos",
+	"name": "@zero-tech/zapp-nfts",
+	"version": "0.1.4",
+	"description": "zns nft marketplace app for zos",
 	"main": "dist/index.js",
 	"scripts": {
 		"clean": "rimraf dist && npx mkdirp dist",
