@@ -1,25 +1,21 @@
 import { FC, ReactNode } from 'react';
 
-import {
-	useTransferOwnershipForm,
-	TransferOwnershipFormStep as Step,
-} from './useTransferOwnershipForm';
+import { useTransferOwnershipForm } from './useTransferOwnershipForm';
 
-import {
-	Complete,
-	Confirm,
-	Processing,
-	WaitingForWallet,
-} from './TransferOwnershipFormSteps';
 import { FormInputs } from '../ui/FormInputs';
-import { Wizard } from '@zero-tech/zui/src/components';
+import { Confirm, Complete, Transaction } from './FormSteps';
+import { Wizard } from '@zero-tech/zui/components';
+
+import { TransferOwnershipFormStep as Step } from './TransferOwnership.constants';
 
 interface TransferOwnershipProps {
 	domainId: string;
+	onClose: () => void;
 }
 
 export const TransferOwnershipForm: FC<TransferOwnershipProps> = ({
 	domainId,
+	onClose,
 }) => {
 	const {
 		step,
@@ -31,10 +27,9 @@ export const TransferOwnershipForm: FC<TransferOwnershipProps> = ({
 	} = useTransferOwnershipForm(domainId);
 
 	let content: ReactNode;
-	console.log(error);
 
 	switch (step) {
-		case Step.ADDRESS_INPUT:
+		case Step.FORM_INPUT:
 			content = (
 				<FormInputs
 					action={'transfer'}
@@ -49,16 +44,22 @@ export const TransferOwnershipForm: FC<TransferOwnershipProps> = ({
 			);
 			break;
 		case Step.CONFIRM:
-			content = <Confirm onConfirm={onConfirmTransfer} errorMessage={error} />;
+			content = (
+				<Confirm
+					onConfirm={onConfirmTransfer}
+					onClose={onClose}
+					errorMessage={error}
+				/>
+			);
 			break;
-		case Step.WAITING_FOR_WALLET:
-			content = <WaitingForWallet />;
+		case Step.TRANSACTION_APPROVAL:
+			content = <Transaction />;
 			break;
-		case Step.PROCESSING:
-			content = <Processing />;
+		case Step.TRANSACTION_IN_PROGRESS:
+			content = <Transaction isTransferring />;
 			break;
 		case Step.COMPLETE:
-			content = <Complete />;
+			content = <Complete onClose={onClose} />;
 			break;
 	}
 

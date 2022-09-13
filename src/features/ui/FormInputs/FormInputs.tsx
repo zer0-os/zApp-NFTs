@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
 
-import Input from '@zero-tech/zui/src/components/Input/Input';
-import { Button } from '@zero-tech/zui/src/components';
+import { Button, Input } from '@zero-tech/zui/components';
 
 import styles from './FormInputs.module.scss';
 

@@ -1,5 +1,5 @@
-@use '../../../../zUI/src/styles/colors';
-@use '../../../../zUI/src/styles/typography';
+@import '../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
 	width: 640px;
@@ -9,8 +9,8 @@
 	display: block;
 	margin-top: 0.75rem;
 
-	color: #{colors.$helitrope};
-	font-size: #{typography.$size-small};
-	font-weight: #{typography.$font-weight-bold};
+	color: $helitrope;
+	font-size: $size-small;
+	font-weight: $font-weight-bold;
 	text-align: center;
 }

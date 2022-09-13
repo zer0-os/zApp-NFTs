@@ -5,13 +5,7 @@ import { useWeb3 } from '../../lib/hooks/useWeb3';
 import { isValidEthAddress } from '../../lib/util/address/address';
 import { TransactionErrors } from '../../lib/constants/messages';
 
-export enum TransferOwnershipFormStep {
-	ADDRESS_INPUT,
-	CONFIRM,
-	WAITING_FOR_WALLET,
-	PROCESSING,
-	COMPLETE,
-}
+import { TransferOwnershipFormStep } from './TransferOwnership.constants';
 
 /**
  * Drives the logic behind the transfer ownership form.
@@ -24,7 +18,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 	const [error, setError] = useState<string | undefined>();
 	const [helperText, setHelperText] = useState<string>('');
 	const [step, setStep] = useState<TransferOwnershipFormStep>(
-		TransferOwnershipFormStep.ADDRESS_INPUT,
+		TransferOwnershipFormStep.FORM_INPUT,
 	);
 
 	const isOwnersAddress = (inputAdrressValue: string) =>
@@ -57,7 +51,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 	 */
 	const onConfirmTransfer = () => {
 		(async () => {
-			setStep(TransferOwnershipFormStep.WAITING_FOR_WALLET);
+			setStep(TransferOwnershipFormStep.TRANSACTION_APPROVAL);
 			setError(undefined);
 			try {
 				try {
@@ -68,7 +62,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 						provider.getSigner(),
 					);
 					try {
-						setStep(TransferOwnershipFormStep.PROCESSING);
+						setStep(TransferOwnershipFormStep.TRANSACTION_IN_PROGRESS);
 						await tx.wait();
 						setStep(TransferOwnershipFormStep.COMPLETE);
 					} catch {
