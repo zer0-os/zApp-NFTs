@@ -2,9 +2,11 @@ import { FC } from 'react';
 
 import { Metadata } from '../../lib/types/metadata';
 
-import { SubdomainTable } from '../../features/view-subdomains/SubdomainTable/SubdomainTable';
-import { SubdomainMetrics } from '../../features/view-subdomains/SubdomainMetrics/SubdomainMetrics';
-import { DomainPreview } from '../../features/domain-preview/DomainPreview';
+import {
+	SubdomainMetrics,
+	SubdomainTable,
+} from '../../features/view-subdomains';
+import { DomainPreview } from '../../features/domain-preview';
 
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 

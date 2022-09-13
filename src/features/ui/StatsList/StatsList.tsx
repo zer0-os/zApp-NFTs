@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import { Card } from '@zero-tech/zui/src/components';
+import { Card } from '@zero-tech/zui/components';
 
 import styles from './StatsList.module.scss';
 

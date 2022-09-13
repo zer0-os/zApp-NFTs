@@ -1,4 +1,4 @@
-import { ModalProps } from '@zero-tech/zui/src/components/Modal';
+import { ModalProps } from '@zero-tech/zui/components/Modal';
 
 export interface BasicModalProps {
 	open?: ModalProps['open'];

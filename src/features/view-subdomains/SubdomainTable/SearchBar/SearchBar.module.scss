@@ -1,25 +1,25 @@
-@use '../../../../../../zUI/src/styles/animations';
-@use '../../../../../../zUI/src/styles/borders';
-@use '../../../../../../zUI/src/styles/colors';
-@use '../../../../../../zUI/src/styles/typography';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_animations.scss';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
 	display: flex;
 	position: relative;
-	border-radius: borders.$radius-primary;
+	border-radius: $radius-primary;
 
 	input {
-		font-size: typography.$size-default;
+		font-size: $size-default;
 		width: 100%;
 		height: 2rem;
 		background: inherit;
 		border-radius: 2rem;
 		padding: 0 1.5rem 0 2.5rem;
-		border: 1px solid colors.$mine-shaft;
+		border: 1px solid $mine-shaft;
 		outline: none;
 		text-align: left;
-		color: colors.$grey-lighter-2;
-		transition: all animations.$time-short linear;
+		color: $grey-lighter-2;
+		transition: all $time-short linear;
 
 		&::placeholder {
 			opacity: 1;
@@ -28,7 +28,7 @@
 		&:hover,
 		&:active,
 		&:focus {
-			border: 1px solid colors.$purple-50;
+			border: 1px solid $purple-50;
 		}
 	}
 
