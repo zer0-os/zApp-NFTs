@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 import { useZnsSdk } from '../../lib/hooks/useZnsSdk';
 import { useWeb3 } from '../../lib/hooks/useWeb3';
