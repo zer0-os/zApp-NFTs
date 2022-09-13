@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-import { StatsList } from '../../ui/StatsList/StatsList';
+import { StatsList } from '../../ui/StatsList';
 
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 

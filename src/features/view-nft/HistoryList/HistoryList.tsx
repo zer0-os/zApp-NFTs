@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-import { HistoryItem } from '../HistoryItem/HistoryItem';
+import { HistoryItem } from '..';
 
 import { DomainEvent } from '../../../lib/types/events';
 

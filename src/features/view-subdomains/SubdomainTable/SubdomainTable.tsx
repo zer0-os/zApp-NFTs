@@ -3,17 +3,16 @@ import { useHistory } from 'react-router-dom';
 
 import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-import { AsyncTable } from '@zero-tech/zui/src/components';
-import { IconButton } from '../../../features/ui/IconButton/IconButton';
-import { SearchBar } from './SearchBar/SearchBar';
-import { SubdomainTableCard } from '../SubdomainTableCard/SubdomainTableCard';
-import { SubdomainTableRow } from '../SubdomainTableRow/SubdomainTableRow';
+import { AsyncTable } from '@zero-tech/zui/components';
+import { IconButton } from '../../../features/ui/IconButton';
+import { SearchBar } from './SearchBar';
+import { SubdomainTableCard } from '../SubdomainTableCard';
+import { SubdomainTableRow } from '../SubdomainTableRow';
 
 import { COLUMNS } from '../SubdomainTable.constants';
 
 //- Assets Imports
-import { IconGrid } from './Icons/IconGrid';
-import { IconList } from './Icons/IconList';
+import { IconGrid, IconList } from './Icons';
 
 //- Styles Imports
 import styles from './SubdomainTable.module.scss';

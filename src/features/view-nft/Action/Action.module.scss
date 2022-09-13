@@ -1,5 +1,5 @@
-@use '../../../../../zUI/src/styles/typography';
-@use '../../../../../zUI/src/styles/colors';
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
 	> span {
@@ -7,19 +7,19 @@
 		flex-direction: column;
 
 		&.Label {
-			color: colors.$purple-lightest;
-			font-size: typography.$size-tiny;
+			color: $purple-lightest;
+			font-size: $size-tiny;
 		}
 
 		&.TokenValue {
 			margin-top: 2px;
-			font-weight: typography.$font-weight-demi-bold;
-			font-size: #{typography.$size-large};
+			font-weight: $font-weight-demi-bold;
+			font-size: $size-large;
 		}
 
 		&.AmountUsd {
-			color: colors.$grey-lighter-2;
-			font-size: typography.$size-tiny;
+			color: $grey-lighter-2;
+			font-size: $size-tiny;
 		}
 	}
 

@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { BasicModalProps } from '../../lib/types/ui';
 
-import { Modal } from '@zero-tech/zui/src/components';
+import { Modal } from '@zero-tech/zui/components';
 
 import { CancelBid } from './CancelBid';
 

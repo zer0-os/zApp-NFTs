@@ -2,7 +2,7 @@
 import { FC } from 'react';
 
 //- Component Imports
-import { IconButton } from '../../../../features/ui/IconButton/IconButton';
+import { IconButton } from '../../../../features/ui/IconButton';
 import { IconSearch } from '../Icons/IconSearch';
 
 //- Style Imports
