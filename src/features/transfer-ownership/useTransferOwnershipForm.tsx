@@ -60,23 +60,28 @@ export const useTransferOwnershipForm = (domainId: string) => {
 			setStep(TransferOwnershipFormStep.WAITING_FOR_WALLET);
 			setError(undefined);
 			try {
-				const tx = await sdk.transferDomainOwnership(
-					walletAddress,
-					domainId,
-					provider.getSigner(),
-				);
-
 				try {
-					setStep(TransferOwnershipFormStep.PROCESSING);
-					await tx.wait();
-					setStep(TransferOwnershipFormStep.COMPLETE);
+					// hook
+					const tx = await sdk.transferDomainOwnership(
+						walletAddress,
+						domainId,
+						provider.getSigner(),
+					);
+					try {
+						setStep(TransferOwnershipFormStep.PROCESSING);
+						await tx.wait();
+						setStep(TransferOwnershipFormStep.COMPLETE);
+					} catch {
+						setStep(TransferOwnershipFormStep.CONFIRM);
+						throw TransactionErrors.POST_WALLET;
+					}
 				} catch {
-					setStep(TransferOwnershipFormStep.ADDRESS_INPUT);
-					throw TransactionErrors.POST_WALLET;
+					setStep(TransferOwnershipFormStep.CONFIRM);
+					throw TransactionErrors.PRE_WALLET;
 				}
 			} catch (e: any) {
 				setError(e.message);
-				setStep(TransferOwnershipFormStep.ADDRESS_INPUT);
+				setStep(TransferOwnershipFormStep.CONFIRM);
 			}
 		})();
 	};
@@ -85,6 +90,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 		step,
 		error,
 		helperText,
+		setHelperText,
 		onConfirmAddressInput,
 		onConfirmTransfer,
 	};

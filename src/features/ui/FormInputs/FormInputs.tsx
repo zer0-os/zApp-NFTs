@@ -5,17 +5,12 @@ import { Button } from '@zero-tech/zui/src/components';
 
 import styles from './FormInputs.module.scss';
 
-export interface Message {
-	text: string;
-	isError?: boolean;
-}
-
 export interface FormInputsProps {
 	action: 'transfer';
 	label?: string;
 	error?: boolean;
-	message?: Message;
 	helperText?: string;
+	setHelperText?: (text: string) => void;
 	placeholder?: string;
 	instructionText?: string;
 	isTransactionPending?: boolean;
@@ -26,8 +21,8 @@ export const FormInputs: FC<FormInputsProps> = ({
 	action,
 	label,
 	error,
-	message,
 	helperText,
+	setHelperText,
 	placeholder,
 	instructionText,
 	isTransactionPending,
@@ -37,9 +32,13 @@ export const FormInputs: FC<FormInputsProps> = ({
 
 	const onSubmit = () => onSubmitProps(inputValue);
 
+	const handleChange = (val: string) => {
+		setInputValue(val);
+		setHelperText('');
+	};
+
 	return (
 		<div className={styles.Container}>
-			{message && <span className={styles.Error}>{message.text}</span>}
 			{instructionText && <p>{instructionText}</p>}
 			<Input
 				value={inputValue}
@@ -48,9 +47,7 @@ export const FormInputs: FC<FormInputsProps> = ({
 				helperText={helperText}
 				placeholder={placeholder}
 				isDisabled={isTransactionPending}
-				onChange={(val: string) => {
-					setInputValue(val);
-				}}
+				onChange={handleChange}
 			/>
 			<div className={styles.ButtonContainer}>
 				<Button
