@@ -9,7 +9,7 @@ export interface DetailsFormSubmit {
 }
 
 export interface TokenomicsFormSubmit {
-	tokenCount: number;
+	tokenCount: string;
 	initialWalletAddress: string;
 	adminWalletAddress: string;
 }

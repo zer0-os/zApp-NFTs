@@ -18,7 +18,7 @@ interface TokenSummaryProps {
 	previewUrl: string;
 	tokenName: string;
 	symbol: string;
-	totalSupply: number;
+	totalSupply: string;
 	initialWalletAddress: string;
 	adminAddress: string;
 	onMediaInputChange: (

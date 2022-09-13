@@ -47,7 +47,7 @@ export const CreateToken: FC<CreateTokenProps> = ({ domainName, onClose }) => {
 	});
 
 	const [tokenomics, setTokenomics] = useState<TokenomicsFormSubmit>({
-		tokenCount: 0,
+		tokenCount: '',
 		initialWalletAddress: '',
 		adminWalletAddress: '',
 	});
