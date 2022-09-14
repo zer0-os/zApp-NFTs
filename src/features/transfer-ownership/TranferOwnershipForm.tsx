@@ -41,7 +41,7 @@ export const TransferOwnershipForm: FC<TransferOwnershipFormProps> = ({
 		case Step.CONFIRM:
 			content = (
 				<Confirm
-					errorMessage={error?.message}
+					errorMessage={error}
 					onClose={onClose}
 					onConfirm={onConfirmTransaction}
 				/>

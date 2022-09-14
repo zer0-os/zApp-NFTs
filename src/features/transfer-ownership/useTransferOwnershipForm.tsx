@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { TransferError } from './TransferOwnership.types';
-import { ErrorType, Step } from './TransferOwnership.constants';
+import { Step } from './TransferOwnership.constants';
 import { isValid, handleInputError } from './TransferOwnership.utils';
 
 import { useZnsSdk } from '../../lib/hooks/useZnsSdk';
@@ -15,7 +14,7 @@ import { ContractTransaction } from 'ethers';
 export const useTransferOwnershipForm = (domainId: string) => {
 	const sdk = useZnsSdk();
 	const { account, provider } = useWeb3();
-	const [error, setError] = useState<TransferError>();
+	const [error, setError] = useState<string>();
 	const [step, setStep] = useState<Step>(Step.DETAILS);
 	const [walletAddress, setWalletAddress] = useState<string>();
 
@@ -29,10 +28,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 			setStep(Step.CONFIRM);
 			setWalletAddress(address);
 		} else {
-			setError({
-				message: handleInputError(address, account),
-				type: ErrorType.INPUT,
-			});
+			setError(handleInputError(address, account));
 		}
 	};
 
@@ -63,7 +59,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 				}
 				setStep(Step.COMPLETE);
 			} catch (e: any) {
-				setError({ message: e.message, type: ErrorType.TRANSACTION });
+				setError(e.message);
 				setStep(Step.CONFIRM);
 			}
 		})();

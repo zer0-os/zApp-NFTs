@@ -1,15 +1,12 @@
 import { FC } from 'react';
 
-import { TransferError } from '../TransferOwnership.types';
-import { ErrorType } from '../TransferOwnership.constants';
-
 import { FormInputs, FormDetails } from '../../ui';
 
 interface TransferOwnershipProps {
 	domainName: string;
 	domainTitle: string;
 	domainCreator: string;
-	error: TransferError;
+	error: string;
 	onConfirm: (inputAdrressValue: string) => void;
 }
 
@@ -20,8 +17,8 @@ export const Details: FC<TransferOwnershipProps> = ({
 	error,
 	onConfirm,
 }) => {
-	const isError = error && error.type === ErrorType.INPUT;
-	const errorMessage = isError ? error.message : undefined;
+	const isError = Boolean(error);
+	const errorMessage = isError ? error : undefined;
 
 	return (
 		<>
