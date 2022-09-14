@@ -1,11 +1,13 @@
 import { useState } from 'react';
 
+import { TransferError } from './TransferOwnership.types';
+import { ErrorType, Step } from './TransferOwnership.constants';
+import { isValid, handleInputError } from './TransferOwnership.utils';
+
 import { useZnsSdk } from '../../lib/hooks/useZnsSdk';
 import { useWeb3 } from '../../lib/hooks/useWeb3';
-import { isValidEthAddress } from '../../lib/util/address/address';
 import { TransactionErrors } from '../../lib/constants/messages';
-
-import { TransferOwnershipFormStep } from './TransferOwnership.constants';
+import { ContractTransaction } from 'ethers';
 
 /**
  * Drives the logic behind the transfer ownership form.
@@ -13,70 +15,56 @@ import { TransferOwnershipFormStep } from './TransferOwnership.constants';
 export const useTransferOwnershipForm = (domainId: string) => {
 	const sdk = useZnsSdk();
 	const { account, provider } = useWeb3();
-
+	const [error, setError] = useState<TransferError>();
+	const [step, setStep] = useState<Step>(Step.DETAILS);
 	const [walletAddress, setWalletAddress] = useState<string>();
-	const [error, setError] = useState<string>();
-	const [helperText, setHelperText] = useState<string>();
-	const [step, setStep] = useState<TransferOwnershipFormStep>(
-		TransferOwnershipFormStep.DETAILS,
-	);
-
-	const isOwnersAddress = (inputAdrressValue: string) =>
-		inputAdrressValue.toLowerCase() === account.toLowerCase();
-
-	const isValid = (inputAdrressValue: string) =>
-		isValidEthAddress(inputAdrressValue);
 
 	/**
 	 * Checks wallet address is valid and progresses to the next step.
 	 */
-	// todo: improve helperText/setHelperText
-	const onConfirmAddressInput = (inputAdrressValue: string) => {
+	const onConfirmInput = (address: string) => {
 		setError(undefined);
 
-		if (isValid(inputAdrressValue) && !isOwnersAddress(inputAdrressValue)) {
-			setStep(TransferOwnershipFormStep.CONFIRM);
-			setWalletAddress(inputAdrressValue);
-		} else if (
-			isValid(inputAdrressValue) &&
-			isOwnersAddress(inputAdrressValue)
-		) {
-			setHelperText('This address already owns this domain');
+		if (isValid(address, account)) {
+			setStep(Step.CONFIRM);
+			setWalletAddress(address);
 		} else {
-			setHelperText('Please enter a valid Ethereum wallet address');
+			setError({
+				message: handleInputError(address, account),
+				type: ErrorType.INPUT,
+			});
 		}
 	};
 
 	/**
 	 * Triggers a series of wallet confirmations, and progresses steps accordingly.
 	 */
-	const onConfirmTransfer = () => {
+	const onConfirmTransaction = () => {
 		(async () => {
-			setStep(TransferOwnershipFormStep.TRANSACTION_APPROVAL);
 			setError(undefined);
+			setStep(Step.TRANSACTION_APPROVAL);
 
 			try {
+				let tx: ContractTransaction;
 				try {
-					const tx = await sdk.transferDomainOwnership(
+					tx = await sdk.transferDomainOwnership(
 						walletAddress,
 						domainId,
 						provider.getSigner(),
 					);
-					try {
-						setStep(TransferOwnershipFormStep.TRANSACTION_IN_PROGRESS);
-						await tx.wait();
-						setStep(TransferOwnershipFormStep.COMPLETE);
-					} catch {
-						setStep(TransferOwnershipFormStep.CONFIRM);
-						throw TransactionErrors.POST_WALLET;
-					}
 				} catch {
-					setStep(TransferOwnershipFormStep.CONFIRM);
 					throw TransactionErrors.PRE_WALLET;
 				}
+				setStep(Step.TRANSACTION_IN_PROGRESS);
+				try {
+					await tx.wait();
+				} catch {
+					throw TransactionErrors.POST_WALLET;
+				}
+				setStep(Step.COMPLETE);
 			} catch (e: any) {
-				setError(e.message);
-				setStep(TransferOwnershipFormStep.CONFIRM);
+				setError({ message: e.message, type: ErrorType.TRANSACTION });
+				setStep(Step.CONFIRM);
 			}
 		})();
 	};
@@ -84,9 +72,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 	return {
 		step,
 		error,
-		helperText,
-		setHelperText,
-		onConfirmAddressInput,
-		onConfirmTransfer,
+		onConfirmInput,
+		onConfirmTransaction,
 	};
 };

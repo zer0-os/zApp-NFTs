@@ -1,4 +1,4 @@
-export type ConfirmStepProps = {
+export type StepProps = {
 	onConfirm?: () => void;
 	onClose?: () => void;
 	errorMessage?: string;

@@ -2,11 +2,11 @@ import { FC } from 'react';
 
 import { Wizard } from '@zero-tech/zui/components/Wizard';
 
-import { ConfirmStepProps } from './FormSteps.types';
+import { StepProps } from './types';
 
-import { FormStepsText } from '../TransferOwnership.constants';
+import { StepText } from '../TransferOwnership.constants';
 
-export const Transaction: FC<ConfirmStepProps> = ({ isTransferring }) => {
+export const Transaction: FC<StepProps> = ({ isTransferring }) => {
 	const transactionMessage = isTransferring
 		? 'Your transaction is being processed...'
 		: 'Please accept wallet transaction..';
@@ -16,7 +16,7 @@ export const Transaction: FC<ConfirmStepProps> = ({ isTransferring }) => {
 			<Wizard.Loading
 				message={
 					<div>
-						<p>{FormStepsText.TRANSACTION_ALERT}</p>
+						<p>{StepText.TRANSACTION_ALERT}</p>
 						<p>{transactionMessage}</p>
 					</div>
 				}

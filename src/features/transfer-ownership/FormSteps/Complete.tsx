@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { ConfirmStepProps } from './FormSteps.types';
+import { StepProps } from './types';
 
 import { Wizard } from '@zero-tech/zui/components/Wizard';
 
-export const Complete: FC<ConfirmStepProps> = ({ onClose }) => (
+export const Complete: FC<StepProps> = ({ onClose }) => (
 	<>
 		<Wizard.Confirmation
 			onClickPrimaryButton={onClose}

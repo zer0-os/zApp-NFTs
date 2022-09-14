@@ -7,9 +7,8 @@ import styles from './FormInputs.module.scss';
 export interface FormInputsProps {
 	action: 'transfer';
 	label?: string;
-	error?: boolean;
-	helperText?: string;
-	setHelperText?: (text: string) => void;
+	isError?: boolean;
+	errorMessage?: string;
 	placeholder?: string;
 	instructionText?: string;
 	isTransactionPending?: boolean;
@@ -19,9 +18,8 @@ export interface FormInputsProps {
 export const FormInputs: FC<FormInputsProps> = ({
 	action,
 	label,
-	error,
-	helperText,
-	setHelperText,
+	isError,
+	errorMessage,
 	placeholder,
 	instructionText,
 	isTransactionPending,
@@ -33,7 +31,6 @@ export const FormInputs: FC<FormInputsProps> = ({
 
 	const handleChange = (val: string) => {
 		setInputValue(val);
-		setHelperText(undefined);
 	};
 
 	return (
@@ -42,8 +39,8 @@ export const FormInputs: FC<FormInputsProps> = ({
 			<Input
 				value={inputValue}
 				label={label}
-				error={error}
-				helperText={helperText}
+				error={isError}
+				helperText={errorMessage}
 				placeholder={placeholder}
 				isDisabled={isTransactionPending}
 				onChange={handleChange}

@@ -1,12 +1,12 @@
 import { FC, ReactNode } from 'react';
 
 import { useTransferOwnershipForm } from './useTransferOwnershipForm';
-import { TransferOwnershipFormStep as Step } from './TransferOwnership.constants';
+import { Step } from './TransferOwnership.constants';
 
 import { Confirm, Complete, Details, Transaction } from './FormSteps';
 import { Wizard } from '@zero-tech/zui/components';
 
-interface TransferOwnershipProps {
+interface TransferOwnershipFormProps {
 	domainId: string;
 	domainName: string;
 	domainTitle: string;
@@ -14,21 +14,15 @@ interface TransferOwnershipProps {
 	onClose: () => void;
 }
 
-export const TransferOwnershipForm: FC<TransferOwnershipProps> = ({
+export const TransferOwnershipForm: FC<TransferOwnershipFormProps> = ({
 	domainId,
 	domainName,
 	domainTitle,
 	domainCreator,
 	onClose,
 }) => {
-	const {
-		step,
-		error,
-		helperText,
-		setHelperText,
-		onConfirmAddressInput,
-		onConfirmTransfer,
-	} = useTransferOwnershipForm(domainId);
+	const { step, error, onConfirmInput, onConfirmTransaction } =
+		useTransferOwnershipForm(domainId);
 
 	let content: ReactNode;
 
@@ -39,18 +33,17 @@ export const TransferOwnershipForm: FC<TransferOwnershipProps> = ({
 					domainName={domainName}
 					domainTitle={domainTitle}
 					domainCreator={domainCreator}
-					helperText={helperText}
-					setHelperText={setHelperText}
-					onConfirm={onConfirmAddressInput}
+					error={error}
+					onConfirm={onConfirmInput}
 				/>
 			);
 			break;
 		case Step.CONFIRM:
 			content = (
 				<Confirm
-					onConfirm={onConfirmTransfer}
+					errorMessage={error?.message}
 					onClose={onClose}
-					errorMessage={error}
+					onConfirm={onConfirmTransaction}
 				/>
 			);
 			break;

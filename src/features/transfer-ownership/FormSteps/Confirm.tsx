@@ -1,14 +1,14 @@
 import { FC } from 'react';
 
-import { ConfirmStepProps } from './FormSteps.types';
+import { StepProps } from './types';
 
 import { Wizard } from '@zero-tech/zui/components/Wizard';
 
-import { FormStepsText } from '../TransferOwnership.constants';
+import { StepText } from '../TransferOwnership.constants';
 
 import styles from '../TransferOwnership.module.scss';
 
-export const Confirm: FC<ConfirmStepProps> = ({
+export const Confirm: FC<StepProps> = ({
 	onConfirm,
 	onClose,
 	errorMessage,
@@ -17,7 +17,7 @@ export const Confirm: FC<ConfirmStepProps> = ({
 
 	const transferText = (
 		<>
-			<p>{FormStepsText.TRANSACTION_ALERT}</p>
+			<p>{StepText.TRANSACTION_ALERT}</p>
 			{isError && <span className={styles.ErrorMessage}>{errorMessage}</span>}
 		</>
 	);
