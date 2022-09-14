@@ -11,6 +11,7 @@ export interface TransferOwnershipModalProps extends BasicModalProps {
 	domainId: string;
 	domainName: string;
 	domainTitle: string;
+	domainOwner: string;
 	domainCreator: string;
 	onClose: () => void;
 }
@@ -19,6 +20,7 @@ export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
 	domainId,
 	domainName,
 	domainTitle,
+	domainOwner,
 	domainCreator,
 	onClose,
 	...modalProps
@@ -29,6 +31,7 @@ export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
 				domainId={domainId}
 				domainName={domainName}
 				domainTitle={domainTitle}
+				domainOwner={domainOwner}
 				domainCreator={domainCreator}
 				onClose={onClose}
 			/>

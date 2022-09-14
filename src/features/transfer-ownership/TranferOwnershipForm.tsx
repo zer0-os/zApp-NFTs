@@ -11,6 +11,7 @@ interface TransferOwnershipFormProps {
 	domainName: string;
 	domainTitle: string;
 	domainCreator: string;
+	domainOwner: string;
 	onClose: () => void;
 }
 
@@ -18,11 +19,12 @@ export const TransferOwnershipForm: FC<TransferOwnershipFormProps> = ({
 	domainId,
 	domainName,
 	domainTitle,
+	domainOwner,
 	domainCreator,
 	onClose,
 }) => {
 	const { step, error, onConfirmInput, onConfirmTransaction } =
-		useTransferOwnershipForm(domainId);
+		useTransferOwnershipForm(domainId, domainOwner);
 
 	let content: ReactNode;
 

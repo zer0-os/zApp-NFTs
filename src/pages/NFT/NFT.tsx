@@ -56,6 +56,7 @@ export const NFT: FC<NFTProps> = ({
 					domainId={domain.id}
 					domainName={domain.name}
 					domainTitle={domainMetadata.title}
+					domainOwner={domain.owner}
 					domainCreator={domain.minter}
 					open={isOpen}
 					onClose={onClose}

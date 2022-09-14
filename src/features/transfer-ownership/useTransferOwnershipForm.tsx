@@ -11,7 +11,10 @@ import { ContractTransaction } from 'ethers';
 /**
  * Drives the logic behind the transfer ownership form.
  */
-export const useTransferOwnershipForm = (domainId: string) => {
+export const useTransferOwnershipForm = (
+	domainId: string,
+	domainOwner: string,
+) => {
 	const sdk = useZnsSdk();
 	const { account, provider } = useWeb3();
 	const [error, setError] = useState<string>();
@@ -28,7 +31,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 			setStep(Step.CONFIRM);
 			setWalletAddress(address);
 		} else {
-			setError(handleInputError(address, account));
+			setError(handleInputError(address, domainOwner, account));
 		}
 	};
 
@@ -38,6 +41,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 	const onConfirmTransaction = () => {
 		(async () => {
 			setError(undefined);
+
 			setStep(Step.TRANSACTION_APPROVAL);
 
 			try {
