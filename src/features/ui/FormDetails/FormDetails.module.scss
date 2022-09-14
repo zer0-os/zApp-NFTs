@@ -1,0 +1,45 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.DetailsContainer {
+	display: flex;
+	word-break: break-word;
+	gap: 1.5rem;
+
+	// todo: temporary
+	.Media {
+		height: 16.25rem;
+		width: 16.25rem;
+		flex-shrink: 0;
+		border: 1px solid grey;
+		border-radius: 0.5rem;
+	}
+
+	.Details {
+		display: flex;
+		flex-direction: column;
+		margin-top: 1rem;
+		padding: 0;
+
+		.DomainTitle {
+			margin: 0;
+			font-size: $size-large;
+			font-weight: $font-weight-bold;
+		}
+
+		.Domain {
+			color: $blue;
+			margin-top: 0.25rem;
+		}
+
+		.MemberTitle {
+			font-size: $size-tiny;
+			color: $grey-lighter-2;
+			margin-top: 1rem;
+		}
+
+		.MemberAddress {
+			font-size: $size-medium;
+		}
+	}
+}

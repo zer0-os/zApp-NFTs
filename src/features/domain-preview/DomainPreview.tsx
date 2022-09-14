@@ -2,14 +2,12 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { truncateAddress } from '../../lib/util/domains/domains';
-
-import { MemberTitle } from './DomainPreview.constants';
+import { MemberTitle } from '../../lib/constants/labels';
 
 import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
 
 const cx = classNames.bind(styles);
-
 
 type DomainPreviewProps = {
 	title?: string;

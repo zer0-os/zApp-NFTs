@@ -1,18 +1,14 @@
 import { FC, ReactNode } from 'react';
 
-import { truncateAddress } from '../../lib/util/domains/domains';
 import { useTransferOwnershipForm } from './useTransferOwnershipForm';
-
-import { FormInputs } from '../ui/FormInputs';
-import { Confirm, Complete, Transaction } from './FormSteps';
-import { Wizard } from '@zero-tech/zui/components';
-
 import { TransferOwnershipFormStep as Step } from './TransferOwnership.constants';
 
-import styles from './TransferOwnership.module.scss';
+import { Confirm, Complete, Details, Transaction } from './FormSteps';
+import { Wizard } from '@zero-tech/zui/components';
 
 interface TransferOwnershipProps {
 	domainId: string;
+	domainName: string;
 	domainTitle: string;
 	domainCreator: string;
 	onClose: () => void;
@@ -20,6 +16,7 @@ interface TransferOwnershipProps {
 
 export const TransferOwnershipForm: FC<TransferOwnershipProps> = ({
 	domainId,
+	domainName,
 	domainTitle,
 	domainCreator,
 	onClose,
@@ -33,37 +30,19 @@ export const TransferOwnershipForm: FC<TransferOwnershipProps> = ({
 		onConfirmTransfer,
 	} = useTransferOwnershipForm(domainId);
 
-	const domain = truncateAddress(domainId);
-	const creator = truncateAddress(domainCreator);
-
 	let content: ReactNode;
 
 	switch (step) {
-		case Step.FORM_INPUT:
+		case Step.DETAILS:
 			content = (
-				<>
-					{/* todo: extract */}
-					<div className={styles.DetailsContainer}>
-						<div className={styles.Media}></div>
-						<div className={styles.Details}>
-							<h1>{domainTitle}</h1>
-							<span>0://{domain}</span>
-
-							<span>Creator: {creator}</span>
-						</div>
-					</div>
-
-					<FormInputs
-						action={'transfer'}
-						label={'Ethereum Wallet'}
-						error={Boolean(helperText)}
-						helperText={helperText}
-						placeholder={'Ethereum Wallet'}
-						setHelperText={setHelperText}
-						instructionText={'Enter recipient address:'}
-						onSubmit={onConfirmAddressInput}
-					/>
-				</>
+				<Details
+					domainName={domainName}
+					domainTitle={domainTitle}
+					domainCreator={domainCreator}
+					helperText={helperText}
+					setHelperText={setHelperText}
+					onConfirm={onConfirmAddressInput}
+				/>
 			);
 			break;
 		case Step.CONFIRM:

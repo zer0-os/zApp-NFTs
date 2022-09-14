@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import {
 	Actions,
@@ -26,6 +26,8 @@ export const NFT: FC<NFTProps> = ({
 	domainMetadata,
 	paymentTokenInfo,
 }) => {
+	const [isOpen, setIsOpen] = useState(true);
+	const onClose = () => setIsOpen(false);
 	return (
 		<>
 			<DomainPreview
@@ -48,12 +50,15 @@ export const NFT: FC<NFTProps> = ({
 				paymentTokenInfo={paymentTokenInfo}
 			/>
 
+			{/* todo: remove - temp import to display modal for development prior to dropdown implementation */}
 			{domain && domainMetadata && (
 				<TransferOwnershipModal
 					domainId={domain.id}
+					domainName={domain.name}
 					domainTitle={domainMetadata.title}
 					domainCreator={domain.minter}
-					open
+					open={isOpen}
+					onClose={onClose}
 				/>
 			)}
 

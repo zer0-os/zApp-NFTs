@@ -1,5 +1,5 @@
 export enum TransferOwnershipFormStep {
-	FORM_INPUT,
+	DETAILS,
 	CONFIRM,
 	TRANSACTION_APPROVAL,
 	TRANSACTION_IN_PROGRESS,

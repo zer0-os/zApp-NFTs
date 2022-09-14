@@ -9,6 +9,7 @@ import styles from './TransferOwnership.module.scss';
 
 export interface TransferOwnershipModalProps extends BasicModalProps {
 	domainId: string;
+	domainName: string;
 	domainTitle: string;
 	domainCreator: string;
 	onClose: () => void;
@@ -16,6 +17,7 @@ export interface TransferOwnershipModalProps extends BasicModalProps {
 
 export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
 	domainId,
+	domainName,
 	domainTitle,
 	domainCreator,
 	onClose,
@@ -25,6 +27,7 @@ export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
 		<Modal {...modalProps} className={styles.Container}>
 			<TransferOwnershipForm
 				domainId={domainId}
+				domainName={domainName}
 				domainTitle={domainTitle}
 				domainCreator={domainCreator}
 				onClose={onClose}

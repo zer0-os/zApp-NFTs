@@ -18,7 +18,7 @@ export const useTransferOwnershipForm = (domainId: string) => {
 	const [error, setError] = useState<string>();
 	const [helperText, setHelperText] = useState<string>();
 	const [step, setStep] = useState<TransferOwnershipFormStep>(
-		TransferOwnershipFormStep.FORM_INPUT,
+		TransferOwnershipFormStep.DETAILS,
 	);
 
 	const isOwnersAddress = (inputAdrressValue: string) =>
