@@ -27,7 +27,7 @@ export const FormInputs: FC<FormInputsProps> = ({
 	isTransactionPending,
 	onSubmit: onSubmitProps,
 }) => {
-	const [inputValue, setInputValue] = useState<string | undefined>();
+	const [inputValue, setInputValue] = useState<string>('');
 
 	const onSubmit = () => onSubmitProps(inputValue);
 

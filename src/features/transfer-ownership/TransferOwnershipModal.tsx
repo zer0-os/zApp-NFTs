@@ -11,16 +11,16 @@ export interface TransferOwnershipModalProps extends BasicModalProps {
 	domainId: string;
 	domainTitle: string;
 	domainCreator: string;
+	onClose: () => void;
 }
 
 export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
 	domainId,
 	domainTitle,
 	domainCreator,
+	onClose,
 	...modalProps
 }) => {
-	const onClose = () => console.log('onClose');
-
 	return (
 		<Modal {...modalProps} className={styles.Container}>
 			<TransferOwnershipForm
