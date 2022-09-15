@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 
 //- Style Imports
 import styles from './FormFooter.module.scss';
-import classnames from "classnames";
+import classnames from 'classnames';
 const cx = classnames.bind(styles);
 
 //- Component Imports
@@ -17,7 +17,7 @@ interface FormFooterProps {
 }
 
 export const FormFooter: FC<FormFooterProps> = ({
-	className = "",
+	className = '',
 	action = 'Next',
 	onSubmit,
 	onCancel,

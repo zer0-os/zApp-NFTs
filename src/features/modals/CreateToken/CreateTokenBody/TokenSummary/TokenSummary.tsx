@@ -13,6 +13,14 @@ import {
 	MediaType,
 } from '@zero-tech/zui/src/components/MediaInput';
 
+const truncateAddress = (address: string): string => {
+	if (address.length < 8) return address;
+	return `${address.substring(0, 4)}...${address.substring(
+		address.length - 4,
+		address.length,
+	)}`;
+};
+
 interface TokenSummaryProps {
 	mediaType: MediaType;
 	previewUrl: string;
@@ -70,12 +78,20 @@ export const TokenSummary: FC<TokenSummaryProps> = ({
 					<TokenSummaryField
 						className={styles.TokenSummaryInitialWalletAddress}
 						label="Initial Wallet Address"
-						value={initialWalletAddress}
+						value={truncateAddress(initialWalletAddress)}
 					/>
-					<TokenSummaryField label="Admin Address" value={adminAddress} />
+					<TokenSummaryField
+						label="Admin Address"
+						value={truncateAddress(adminAddress)}
+					/>
 				</div>
 			</div>
 		</div>
-		<FormFooter className={styles.TokenSummaryFooter} action="Confirm" onSubmit={onSubmit} onCancel={onClose} />
+		<FormFooter
+			className={styles.TokenSummaryFooter}
+			action="Confirm"
+			onSubmit={onSubmit}
+			onCancel={onClose}
+		/>
 	</>
 );

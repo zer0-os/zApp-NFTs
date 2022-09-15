@@ -4,7 +4,7 @@ import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 //- Style Imports
-import styles from "./TokenomicsForm.module.scss";
+import styles from './TokenomicsForm.module.scss';
 
 //- Component Imports
 import { FormFooter } from '../FormFooter/FormFooter';
@@ -30,8 +30,12 @@ export const TokenomicsForm: FC<TokenomicsFormProps> = ({
 	onSubmit,
 	onClose,
 }) => (
-	<Formik initialValues={values} onSubmit={onSubmit} validationSchema={validationSchema}>
-		{({ submitForm, touched, errors, setFieldValue }) => (
+	<Formik
+		initialValues={values}
+		onSubmit={onSubmit}
+		validationSchema={validationSchema}
+	>
+		{({ values, submitForm, touched, errors, setFieldValue }) => (
 			<Form>
 				<WrappedInput
 					className={styles.TokenomicsFormInput}
@@ -50,8 +54,12 @@ export const TokenomicsForm: FC<TokenomicsFormProps> = ({
 					value={values.initialWalletAddress}
 					placeholder="Enter initial wallet address..."
 					info="Usually the creator's wallet address and the tokens will be sent here first."
-					hasError={touched.initialWalletAddress && !!errors.initialWalletAddress}
-					helperText={touched.initialWalletAddress && errors.initialWalletAddress}
+					hasError={
+						touched.initialWalletAddress && !!errors.initialWalletAddress
+					}
+					helperText={
+						touched.initialWalletAddress && errors.initialWalletAddress
+					}
 					onChange={(value) => setFieldValue('initialWalletAddress', value)}
 				/>
 				<WrappedInput
@@ -64,7 +72,11 @@ export const TokenomicsForm: FC<TokenomicsFormProps> = ({
 					helperText={touched.adminWalletAddress && errors.adminWalletAddress}
 					onChange={(value) => setFieldValue('adminWalletAddress', value)}
 				/>
-				<FormFooter className={styles.TokenomicsFormFooter} onSubmit={submitForm} onCancel={onClose} />
+				<FormFooter
+					className={styles.TokenomicsFormFooter}
+					onSubmit={submitForm}
+					onCancel={onClose}
+				/>
 			</Form>
 		)}
 	</Formik>

@@ -21,8 +21,8 @@ export type WrappedInputProps = {
 };
 
 export const WrappedInput: FC<WrappedInputProps> = ({
-	className = "",
-	type = "text",
+	className = '',
+	type = 'text',
 	label,
 	value,
 	placeholder,
