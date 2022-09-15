@@ -1,5 +1,5 @@
 //- React Imports
-import React, { FC, useState } from 'react';
+import { FC } from 'react';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 
@@ -36,9 +36,6 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 	onSubmit,
 	onClose,
 }) => {
-	const [mediaType, setMediaType] = useState<MediaType | undefined>();
-	const [previewUrl, setPreviewUrl] = useState('');
-
 	const handleMediaInputChange = (
 		mediaType: MediaType,
 		previewUrl: string,
@@ -49,9 +46,9 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 			shouldValidate?: boolean,
 		) => void,
 	): void => {
+		setFieldValue('mediaType', mediaType);
+		setFieldValue('previewUrl', previewUrl);
 		setFieldValue('avatar', image);
-		setMediaType(mediaType);
-		setPreviewUrl(previewUrl);
 	};
 
 	return (
@@ -68,8 +65,8 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 								className={styles.DetailsFormMediaInput}
 								title="Upload token avatar..."
 								subtitle="(Optional)"
-								mediaType={mediaType}
-								previewUrl={previewUrl}
+								mediaType={values.mediaType}
+								previewUrl={values.previewUrl}
 								hasError={false}
 								onChange={(
 									mediaType: MediaType,
@@ -85,7 +82,12 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 								}
 							/>
 						</div>
-						<div className={cx(styles.DetailsFormColumn, styles.DetailsFormColumnTwo)}>
+						<div
+							className={cx(
+								styles.DetailsFormColumn,
+								styles.DetailsFormColumnTwo,
+							)}
+						>
 							<div className={styles.DetailsFormName}>
 								<WrappedInput
 									label="What is the name of your token?"
@@ -108,7 +110,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 							/>
 						</div>
 					</div>
-					<FormFooter onSubmit={submitForm} onCancel={onClose} />
+					<FormFooter className={styles.DetailsFormFooter} onSubmit={submitForm} onCancel={onClose} />
 				</Form>
 			)}
 		</Formik>
