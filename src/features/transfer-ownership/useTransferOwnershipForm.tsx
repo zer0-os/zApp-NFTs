@@ -1,7 +1,10 @@
 import { useState } from 'react';
 
 import { Step } from './TransferOwnership.constants';
-import { isValid, handleInputError } from './TransferOwnership.utils';
+import {
+	isValidTransferAddress,
+	getInputErrorMessage,
+} from './TransferOwnership.utils';
 
 import { useZnsSdk } from '../../lib/hooks/useZnsSdk';
 import { useWeb3 } from '../../lib/hooks/useWeb3';
@@ -27,11 +30,11 @@ export const useTransferOwnershipForm = (
 	const onConfirmInput = (address: string) => {
 		setError(undefined);
 
-		if (isValid(address, account)) {
+		if (isValidTransferAddress(address, account)) {
 			setStep(Step.CONFIRM);
 			setWalletAddress(address);
 		} else {
-			setError(handleInputError(address, domainOwner, account));
+			setError(getInputErrorMessage(address, domainOwner, account));
 		}
 	};
 
@@ -41,7 +44,6 @@ export const useTransferOwnershipForm = (
 	const onConfirmTransaction = () => {
 		(async () => {
 			setError(undefined);
-
 			setStep(Step.TRANSACTION_APPROVAL);
 
 			try {
