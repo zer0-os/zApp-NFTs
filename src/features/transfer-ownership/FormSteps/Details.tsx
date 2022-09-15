@@ -17,9 +17,6 @@ export const Details: FC<DetailsProps> = ({
 	error,
 	onConfirm,
 }) => {
-	const isError = Boolean(error);
-	const errorMessage = isError ? error : undefined;
-
 	return (
 		<>
 			<FormDetails
@@ -30,8 +27,7 @@ export const Details: FC<DetailsProps> = ({
 			<FormInputs
 				action={'transfer'}
 				label={'Ethereum Wallet'}
-				isError={isError}
-				errorMessage={errorMessage}
+				errorMessage={error}
 				placeholder={'Ethereum Wallet'}
 				instructionText={'Enter recipient address:'}
 				onSubmit={onConfirm}

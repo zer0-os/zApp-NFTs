@@ -13,12 +13,12 @@ export const Confirm: FC<StepProps> = ({
 	onClose,
 	errorMessage,
 }) => {
-	const isError = errorMessage !== undefined;
-
 	const transferText = (
 		<>
 			<p>{StepText.TRANSACTION_ALERT}</p>
-			{isError && <span className={styles.ErrorMessage}>{errorMessage}</span>}
+			{errorMessage !== undefined && (
+				<span className={styles.ErrorMessage}>{errorMessage}</span>
+			)}
 		</>
 	);
 

@@ -7,7 +7,6 @@ import styles from './FormInputs.module.scss';
 export interface FormInputsProps {
 	action: 'transfer';
 	label?: string;
-	isError?: boolean;
 	errorMessage?: string;
 	placeholder?: string;
 	instructionText?: string;
@@ -18,7 +17,6 @@ export interface FormInputsProps {
 export const FormInputs: FC<FormInputsProps> = ({
 	action,
 	label,
-	isError,
 	errorMessage,
 	placeholder,
 	instructionText,
@@ -39,7 +37,7 @@ export const FormInputs: FC<FormInputsProps> = ({
 			<Input
 				value={inputValue}
 				label={label}
-				error={isError}
+				error={errorMessage !== undefined}
 				helperText={errorMessage}
 				placeholder={placeholder}
 				isDisabled={isTransactionPending}
