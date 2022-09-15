@@ -30,11 +30,11 @@ export const useTransferOwnershipForm = (
 	const onConfirmInput = (address: string) => {
 		setError(undefined);
 
-		if (isValidTransferAddress(address, account)) {
+		if (isValidTransferAddress(address, account, domainOwner)) {
 			setStep(Step.CONFIRM);
 			setWalletAddress(address);
 		} else {
-			setError(getInputErrorMessage(address, domainOwner, account));
+			setError(getInputErrorMessage(address, account, domainOwner));
 		}
 	};
 

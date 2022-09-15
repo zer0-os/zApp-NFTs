@@ -1,17 +1,24 @@
 import { ethers } from 'ethers';
 
-export const isValidTransferAddress = (value: string, account: string) =>
+export const isValidTransferAddress = (
+	value: string,
+	account: string,
+	owner: string,
+) =>
 	ethers.utils.isAddress(value) &&
-	!(value?.toLowerCase() === account?.toLowerCase());
+	!(value?.toLowerCase() === account?.toLowerCase()) &&
+	account?.toLowerCase() === owner?.toLowerCase();
 
 export const getInputErrorMessage = (
 	value: string,
-	owner: string,
 	account: string,
-) =>
-	account?.toLowerCase() !== owner?.toLowerCase()
-		? 'You are not the owner'
-		: ethers.utils.isAddress(value) &&
-		  value?.toLowerCase() === account?.toLowerCase()
-		? 'The address entered already owns this domain'
-		: 'Please enter a valid Ethereum wallet address';
+	owner: string,
+) => {
+	if (account?.toLowerCase() !== owner?.toLowerCase()) {
+		return 'You are not the owner of this domain';
+	} else {
+		return value?.toLowerCase() === account?.toLowerCase()
+			? 'The address entered already owns this domain'
+			: 'Please enter a valid Ethereum wallet address';
+	}
+};
