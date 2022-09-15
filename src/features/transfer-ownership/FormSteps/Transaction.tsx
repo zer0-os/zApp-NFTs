@@ -12,15 +12,13 @@ export const Transaction: FC<StepProps> = ({ isTransferring }) => {
 		: 'Please accept wallet transaction..';
 
 	return (
-		<>
-			<Wizard.Loading
-				message={
-					<div>
-						<p>{StepText.TRANSACTION_ALERT}</p>
-						<p>{transactionMessage}</p>
-					</div>
-				}
-			/>
-		</>
+		<Wizard.Loading
+			message={
+				<div>
+					<p>{StepText.TRANSACTION_ALERT}</p>
+					<p>{transactionMessage}</p>
+				</div>
+			}
+		/>
 	);
 };

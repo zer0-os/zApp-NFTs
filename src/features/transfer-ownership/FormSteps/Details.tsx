@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { FormInputs, FormDetails } from '../../ui';
 
-interface TransferOwnershipProps {
+interface DetailsProps {
 	domainName: string;
 	domainTitle: string;
 	domainCreator: string;
@@ -10,7 +10,7 @@ interface TransferOwnershipProps {
 	onConfirm: (inputAdrressValue: string) => void;
 }
 
-export const Details: FC<TransferOwnershipProps> = ({
+export const Details: FC<DetailsProps> = ({
 	domainName,
 	domainTitle,
 	domainCreator,
