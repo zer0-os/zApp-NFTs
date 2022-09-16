@@ -11,13 +11,20 @@ import { useWeb3 } from '../../lib/hooks/useWeb3';
 import { TransactionErrors } from '../../lib/constants/messages';
 import { ContractTransaction } from 'ethers';
 
+export type UseTransferOwnershipFormReturn = {
+	step: Step;
+	error: string;
+	onConfirmInput: (address: string) => void;
+	onConfirmTransaction: () => void;
+};
+
 /**
  * Drives the logic behind the transfer ownership form.
  */
 export const useTransferOwnershipForm = (
 	domainId: string,
 	domainOwner: string,
-) => {
+): UseTransferOwnershipFormReturn => {
 	const sdk = useZnsSdk();
 	const { account, provider } = useWeb3();
 	const [error, setError] = useState<string>();
@@ -48,6 +55,7 @@ export const useTransferOwnershipForm = (
 
 			try {
 				let tx: ContractTransaction;
+
 				try {
 					tx = await sdk.transferDomainOwnership(
 						walletAddress,
