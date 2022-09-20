@@ -8,4 +8,7 @@ module.exports = {
 	},
 	testEnvironment: 'jsdom',
 	testMatch: ['**/*.test.(ts|tsx)'],
+	moduleNameMapper: {
+		'\\.(css|scss)$': 'identity-obj-proxy',
+	},
 };

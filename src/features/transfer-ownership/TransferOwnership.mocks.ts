@@ -9,3 +9,7 @@ export const domain = {
 	owner: '0x13fc7bcca25bc0bab1c9cbec2ea2a254f4357f6e',
 	minter: '0x7829afa127494ca8b4ceef4fb81b78fee9d0e471',
 };
+
+export const metadata = {
+	title: 'Winter Time',
+};
