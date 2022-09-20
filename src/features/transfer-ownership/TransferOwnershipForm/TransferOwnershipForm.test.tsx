@@ -8,11 +8,11 @@ import {
 	waitFor,
 } from '@testing-library/react';
 
-import { truncateAddress } from '../../lib/util/domains/domains';
+import { truncateAddress } from '../../../lib/util/domains/domains';
 
 import { TransferOwnershipForm } from './TransferOwnershipForm';
 
-import * as mock from './TransferOwnership.mocks';
+import * as mock from './TransferOwnershipForm.mocks';
 
 ///////////
 // Mocks //
@@ -24,7 +24,7 @@ var mockTx = jest.fn();
 var mockOnClose = jest.fn();
 
 // web3 - provider & account
-jest.mock('../../lib/hooks/useWeb3', () => ({
+jest.mock('../../../lib/hooks/useWeb3', () => ({
 	useWeb3: () => ({
 		provider: {
 			getSigner: () => ({ isSigner: true }),
@@ -34,7 +34,7 @@ jest.mock('../../lib/hooks/useWeb3', () => ({
 }));
 
 // sdk
-jest.mock('../../lib/hooks/useZnsSdk', () => ({
+jest.mock('../../../lib/hooks/useZnsSdk', () => ({
 	useZnsSdk: () => ({
 		getDomainById: mockGetDomainById,
 		getMetadataFromUri: mockGetMetadataFromUri,

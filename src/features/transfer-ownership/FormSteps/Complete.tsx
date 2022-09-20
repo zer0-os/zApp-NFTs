@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { StepProps } from './types';
+import { StepProps } from './FormSteps.types';
 
 import { Wizard } from '@zero-tech/zui/components/Wizard';
 

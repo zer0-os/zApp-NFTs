@@ -1,9 +1,9 @@
 import { FC, ReactNode } from 'react';
 
-import { useTransferOwnershipForm } from './useTransferOwnershipForm';
-import { Step } from './TransferOwnership.constants';
+import { useTransferOwnershipForm } from './hooks/useTransferOwnershipForm';
+import { Step } from './TransferOwnershipForm.constants';
 
-import { Confirm, Complete, Details, Transaction } from './FormSteps';
+import { Confirm, Complete, Details, Transaction } from '../FormSteps';
 import { Wizard } from '@zero-tech/zui/components';
 
 interface TransferOwnershipFormProps {

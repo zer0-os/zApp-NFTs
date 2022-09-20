@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
-import { StepProps } from './types';
+import { StepProps } from './FormSteps.types';
 
 import { Wizard } from '@zero-tech/zui/components/Wizard';
 
-import { StepText } from '../TransferOwnership.constants';
+import { StepText } from './FormSteps.constants';
 
-import styles from '../TransferOwnership.module.scss';
+import styles from './FormSteps.module.scss';
 
 export const Confirm: FC<StepProps> = ({
 	onConfirm,

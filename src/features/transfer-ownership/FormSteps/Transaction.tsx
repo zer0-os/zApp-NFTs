@@ -2,9 +2,8 @@ import { FC } from 'react';
 
 import { Wizard } from '@zero-tech/zui/components/Wizard';
 
-import { StepProps } from './types';
-
-import { StepText } from '../TransferOwnership.constants';
+import { StepProps } from './FormSteps.types';
+import { StepText } from './FormSteps.constants';
 
 export const Transaction: FC<StepProps> = ({ isTransferring }) => {
 	const transactionMessage = isTransferring

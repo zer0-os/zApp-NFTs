@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-import { Step } from './TransferOwnership.constants';
+import { Step } from '../TransferOwnershipForm.constants';
 import {
 	isValidTransferAddress,
 	getInputErrorMessage,
-} from './TransferOwnership.utils';
+} from '../TransferOwnershipForm.utils';
 
-import { useZnsSdk } from '../../lib/hooks/useZnsSdk';
-import { useWeb3 } from '../../lib/hooks/useWeb3';
-import { TransactionErrors } from '../../lib/constants/messages';
+import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
+import { useWeb3 } from '../../../../lib/hooks/useWeb3';
+import { TransactionErrors } from '../../../../lib/constants/messages';
 import { ContractTransaction } from 'ethers';
 
 export type UseTransferOwnershipFormReturn = {

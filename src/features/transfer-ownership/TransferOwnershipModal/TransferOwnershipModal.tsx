@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import { BasicModalProps } from '../../lib/types/ui';
+import { BasicModalProps } from '../../../lib/types/ui';
 
-import { TransferOwnershipForm } from './TransferOwnershipForm';
+import { TransferOwnershipForm } from '../TransferOwnershipForm';
 import { Modal } from '@zero-tech/zui/components';
 
-import styles from './TransferOwnership.module.scss';
+import styles from './TransferOwnershipModal.module.scss';
 
 export interface TransferOwnershipModalProps extends BasicModalProps {
 	domainId: string;

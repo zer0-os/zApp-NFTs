@@ -1,0 +1,11 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.ErrorMessage {
+	display: block;
+	color: $helitrope;
+	font-size: $size-small;
+	font-weight: $font-weight-bold;
+	margin-top: 0.75rem;
+	text-align: center;
+}
