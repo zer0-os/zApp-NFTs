@@ -17,8 +17,6 @@ import * as mock from './TransferOwnershipForm.mocks';
 ///////////
 // Mocks //
 ///////////
-var mockGetDomainById = jest.fn();
-var mockGetMetadataFromUri = jest.fn();
 var mockTranferDomainOwnership = jest.fn();
 var mockTx = jest.fn();
 var mockOnClose = jest.fn();
@@ -36,8 +34,6 @@ jest.mock('../../../lib/hooks/useWeb3', () => ({
 // sdk
 jest.mock('../../../lib/hooks/useZnsSdk', () => ({
 	useZnsSdk: () => ({
-		getDomainById: mockGetDomainById,
-		getMetadataFromUri: mockGetMetadataFromUri,
 		transferDomainOwnership: mockTranferDomainOwnership,
 	}),
 }));
@@ -72,8 +68,6 @@ const renderComponent = (mockOwner?: string) =>
 	);
 
 const testSetup = () => {
-	mockGetDomainById.mockResolvedValue(mock.domain);
-	mockGetMetadataFromUri.mockResolvedValue(mock.metadata);
 	return renderComponent();
 };
 
@@ -276,9 +270,6 @@ describe('TransferOwnershipForm', () => {
 		});
 
 		test('should display error message when connected account is not domain owner(0xxx)', async () => {
-			mockGetDomainById.mockResolvedValue(mock.domain);
-			mockGetMetadataFromUri.mockResolvedValue(mock.metadata);
-
 			// edit mock.domain.owner
 			const mockOwner = '0xxx';
 
