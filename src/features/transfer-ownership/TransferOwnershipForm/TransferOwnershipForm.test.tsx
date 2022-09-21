@@ -67,10 +67,6 @@ const renderComponent = (mockOwner?: string) =>
 		/>,
 	);
 
-const testSetup = () => {
-	return renderComponent();
-};
-
 /////////////
 // Helpers //
 /////////////
@@ -99,17 +95,18 @@ describe('TransferOwnershipForm', () => {
 	test('should handle successful transfer domain ownership request', async () => {
 		mockTranferDomainOwnership.mockResolvedValue({ wait: mockTx });
 		mockTx.mockResolvedValue(undefined);
-		testSetup();
+		const { getByText, findByRole, findByText, findByPlaceholderText } =
+			renderComponent();
 
 		// details step
-		const onConfirmInputButton = await screen.findByRole('button', {
+		const onConfirmInputButton = await findByRole('button', {
 			name: /transfer/i,
 		});
 
 		expect(onConfirmInputButton).toBeInTheDocument();
 		expect(onConfirmInputButton).toHaveAttribute('aria-disabled', 'true');
 
-		const input = await screen.findByPlaceholderText('Ethereum Wallet');
+		const input = await findByPlaceholderText('Ethereum Wallet');
 
 		expect(input).toBeInTheDocument();
 
@@ -122,7 +119,7 @@ describe('TransferOwnershipForm', () => {
 		fireEvent.click(onConfirmInputButton);
 
 		// confirm step
-		const onConfirmTransactionButton = await screen.findByText(/confirm/i);
+		const onConfirmTransactionButton = await findByText(/confirm/i);
 
 		expect(onConfirmTransactionButton).toBeInTheDocument();
 		expect(onConfirmTransactionButton).not.toHaveAttribute('aria-disabled');
@@ -130,10 +127,10 @@ describe('TransferOwnershipForm', () => {
 		fireEvent.click(onConfirmTransactionButton);
 
 		// transaction approval step
-		screen.getByText('Please accept wallet transaction..');
+		getByText('Please accept wallet transaction..');
 
 		// transaction in progress step
-		await screen.findByText('Your transaction is being processed...');
+		await findByText('Your transaction is being processed...');
 
 		// assert successful request
 		await waitFor(() => {
@@ -149,24 +146,24 @@ describe('TransferOwnershipForm', () => {
 
 	describe('Details Step', () => {
 		test('should display correct domain data', async () => {
-			testSetup();
+			const { findByText } = renderComponent();
 
-			await screen.findByText(`0://${mock.domain.name}`);
-			await screen.findByText(mock.metadata.title);
-			await screen.findByText(truncateAddress(mock.domain.minter));
+			await findByText(`0://${mock.domain.name}`);
+			await findByText(mock.metadata.title);
+			await findByText(truncateAddress(mock.domain.minter));
 		});
 
 		test('primary button should be disabled if input value is an empty string', async () => {
-			testSetup();
+			const { findByRole, findByPlaceholderText } = renderComponent();
 
-			const onConfirmInputButton = await screen.findByRole('button', {
+			const onConfirmInputButton = await findByRole('button', {
 				name: /transfer/i,
 			});
 
 			expect(onConfirmInputButton).toBeInTheDocument();
 			expect(onConfirmInputButton).toHaveAttribute('aria-disabled', 'true');
 
-			const input = await screen.findByPlaceholderText('Ethereum Wallet');
+			const input = await findByPlaceholderText('Ethereum Wallet');
 
 			expect(input).toBeInTheDocument();
 
@@ -178,21 +175,22 @@ describe('TransferOwnershipForm', () => {
 		});
 
 		test('should display error message when input value is not a valid eth address', async () => {
-			testSetup();
+			const { findByRole, findByText, queryByText, findByPlaceholderText } =
+				renderComponent();
 
 			// input error message
 			const errorMessage = 'Please enter a valid Ethereum wallet address';
 
-			expect(screen.queryByText(errorMessage)).not.toBeInTheDocument();
+			expect(queryByText(errorMessage)).not.toBeInTheDocument();
 
-			const onConfirmInputButton = await screen.findByRole('button', {
+			const onConfirmInputButton = await findByRole('button', {
 				name: /transfer/i,
 			});
 
 			expect(onConfirmInputButton).toBeInTheDocument();
 			expect(onConfirmInputButton).toHaveAttribute('aria-disabled', 'true');
 
-			const input = await screen.findByPlaceholderText('Ethereum Wallet');
+			const input = await findByPlaceholderText('Ethereum Wallet');
 
 			expect(input).toBeInTheDocument();
 
@@ -206,25 +204,26 @@ describe('TransferOwnershipForm', () => {
 
 			fireEvent.click(onConfirmInputButton);
 
-			await screen.findByText(errorMessage);
+			await findByText(errorMessage);
 		});
 
 		test('should display error message when input value is equal to connected account address', async () => {
-			testSetup();
+			const { findByRole, findByText, queryByText, findByPlaceholderText } =
+				renderComponent();
 
 			// input error message
 			const errorMessage = 'The address entered already owns this domain';
 
-			expect(screen.queryByText(errorMessage)).not.toBeInTheDocument();
+			expect(queryByText(errorMessage)).not.toBeInTheDocument();
 
-			const onConfirmInputButton = await screen.findByRole('button', {
+			const onConfirmInputButton = await findByRole('button', {
 				name: /transfer/i,
 			});
 
 			expect(onConfirmInputButton).toBeInTheDocument();
 			expect(onConfirmInputButton).toHaveAttribute('aria-disabled', 'true');
 
-			const input = await screen.findByPlaceholderText('Ethereum Wallet');
+			const input = await findByPlaceholderText('Ethereum Wallet');
 
 			expect(input).toBeInTheDocument();
 
@@ -236,25 +235,26 @@ describe('TransferOwnershipForm', () => {
 
 			fireEvent.click(onConfirmInputButton);
 
-			await screen.findByText(errorMessage);
+			await findByText(errorMessage);
 		});
 
 		test('should display error message when input value is equal to connected account address', async () => {
-			testSetup();
+			const { findByRole, findByText, queryByText, findByPlaceholderText } =
+				renderComponent();
 
 			// input error message
 			const errorMessage = 'The address entered already owns this domain';
 
-			expect(screen.queryByText(errorMessage)).not.toBeInTheDocument();
+			expect(queryByText(errorMessage)).not.toBeInTheDocument();
 
-			const onConfirmInputButton = await screen.findByRole('button', {
+			const onConfirmInputButton = await findByRole('button', {
 				name: /transfer/i,
 			});
 
 			expect(onConfirmInputButton).toBeInTheDocument();
 			expect(onConfirmInputButton).toHaveAttribute('aria-disabled', 'true');
 
-			const input = await screen.findByPlaceholderText('Ethereum Wallet');
+			const input = await findByPlaceholderText('Ethereum Wallet');
 
 			expect(input).toBeInTheDocument();
 
@@ -266,28 +266,29 @@ describe('TransferOwnershipForm', () => {
 
 			fireEvent.click(onConfirmInputButton);
 
-			await screen.findByText(errorMessage);
+			await findByText(errorMessage);
 		});
 
 		test('should display error message when connected account is not domain owner(0xxx)', async () => {
 			// edit mock.domain.owner
 			const mockOwner = '0xxx';
 
-			renderComponent(mockOwner);
+			const { findByRole, findByText, queryByText, findByPlaceholderText } =
+				renderComponent(mockOwner);
 
 			// input error message
 			const errorMessage = 'You are not the owner of this domain';
 
-			expect(screen.queryByText(errorMessage)).not.toBeInTheDocument();
+			expect(queryByText(errorMessage)).not.toBeInTheDocument();
 
-			const onConfirmInputButton = await screen.findByRole('button', {
+			const onConfirmInputButton = await findByRole('button', {
 				name: /transfer/i,
 			});
 
 			expect(onConfirmInputButton).toBeInTheDocument();
 			expect(onConfirmInputButton).toHaveAttribute('aria-disabled', 'true');
 
-			const input = await screen.findByPlaceholderText('Ethereum Wallet');
+			const input = await findByPlaceholderText('Ethereum Wallet');
 
 			expect(input).toBeInTheDocument();
 
@@ -299,18 +300,18 @@ describe('TransferOwnershipForm', () => {
 
 			fireEvent.click(onConfirmInputButton);
 
-			await screen.findByText(errorMessage);
+			await findByText(errorMessage);
 		});
 	});
 
 	describe('Confirm Step', () => {
 		test('secondary button should call onClose when clicked', async () => {
-			testSetup();
+			const { findByText } = renderComponent();
 			onSubmitValidDetails();
 
-			await screen.findByText(confirmScreenText);
+			await findByText(confirmScreenText);
 
-			const onCancelButton = await screen.findByText(/cancel/i);
+			const onCancelButton = await findByText(/cancel/i);
 
 			expect(onCancelButton).toBeInTheDocument();
 
@@ -320,12 +321,12 @@ describe('TransferOwnershipForm', () => {
 		});
 
 		test('primary button should call transferDomainOwnership when clicked', async () => {
-			testSetup();
+			const { findByText } = renderComponent();
 			onSubmitValidDetails();
 
-			await screen.findByText(confirmScreenText);
+			await findByText(confirmScreenText);
 
-			const onConfirmButton = await screen.findByText(/confirm/i);
+			const onConfirmButton = await findByText(/confirm/i);
 
 			expect(onConfirmButton).toBeInTheDocument();
 
@@ -338,12 +339,12 @@ describe('TransferOwnershipForm', () => {
 	describe('Transaction Approval Step (signature)', () => {
 		test('should navigate back to confirm step if signature is rejected', async () => {
 			mockTranferDomainOwnership.mockRejectedValue(undefined);
-			testSetup();
+			const { getByText, findByText } = renderComponent();
 			onSubmitValidDetails();
 
-			await screen.findByText(confirmScreenText);
+			await findByText(confirmScreenText);
 
-			const onConfirmTransactionButton = await screen.findByText(/confirm/i);
+			const onConfirmTransactionButton = await findByText(/confirm/i);
 
 			expect(onConfirmTransactionButton).toBeInTheDocument();
 
@@ -351,25 +352,25 @@ describe('TransferOwnershipForm', () => {
 
 			expect(onConfirmTransactionButton).not.toBeInTheDocument();
 
-			screen.getByText('Please accept wallet transaction..');
+			getByText('Please accept wallet transaction..');
 
 			expect(mockTranferDomainOwnership).toBeCalledTimes(1);
 
-			await screen.findByText(/confirm/i);
+			await findByText(/confirm/i);
 		});
 
 		test('should handle rejected signature', async () => {
 			mockTranferDomainOwnership.mockRejectedValue(undefined);
-			testSetup();
+			const { queryByText, getByText, findByText } = renderComponent();
 			onSubmitValidDetails();
 
 			const errorMessage = 'Failed to start transaction - please try again.';
 
-			expect(screen.queryByText(errorMessage)).not.toBeInTheDocument();
+			expect(queryByText(errorMessage)).not.toBeInTheDocument();
 
-			screen.findByText(confirmScreenText);
+			findByText(confirmScreenText);
 
-			const onConfirmTransactionButton = await screen.findByText(/confirm/i);
+			const onConfirmTransactionButton = await findByText(/confirm/i);
 
 			expect(onConfirmTransactionButton).toBeInTheDocument();
 
@@ -378,7 +379,7 @@ describe('TransferOwnershipForm', () => {
 			expect(mockTranferDomainOwnership).toBeCalledTimes(1);
 			expect(console.error).toHaveBeenCalled();
 
-			await screen.findByText(errorMessage);
+			await findByText(errorMessage);
 		});
 	});
 
@@ -386,12 +387,12 @@ describe('TransferOwnershipForm', () => {
 		test('should navigate back to confirm step if transaction is rejected', async () => {
 			mockTranferDomainOwnership.mockResolvedValue({ wait: mockTx });
 			mockTx.mockRejectedValue(undefined);
-			testSetup();
+			const { getByText, findByText } = renderComponent();
 			onSubmitValidDetails();
 
-			await screen.findByText(confirmScreenText);
+			await findByText(confirmScreenText);
 
-			const onConfirmTransactionButton = await screen.findByText(/confirm/i);
+			const onConfirmTransactionButton = await findByText(/confirm/i);
 
 			expect(onConfirmTransactionButton).toBeInTheDocument();
 
@@ -399,27 +400,27 @@ describe('TransferOwnershipForm', () => {
 
 			expect(onConfirmTransactionButton).not.toBeInTheDocument();
 
-			screen.getByText('Please accept wallet transaction..');
+			getByText('Please accept wallet transaction..');
 
-			await screen.findByText('Your transaction is being processed...'),
+			await findByText('Your transaction is being processed...'),
 				await waitFor(() => expect(mockTx).toBeCalledTimes(1));
 
-			await screen.findByText(/confirm/i);
+			await findByText(/confirm/i);
 		});
 
 		test('should handle rejected transaction', async () => {
 			mockTranferDomainOwnership.mockResolvedValue({ wait: mockTx });
 			mockTx.mockRejectedValue(undefined);
-			testSetup();
+			const { queryByText, findByText } = renderComponent();
 			onSubmitValidDetails();
 
 			const errorMessage = 'Failed to process transaction - please try again.';
 
-			expect(screen.queryByText(errorMessage)).not.toBeInTheDocument();
+			expect(queryByText(errorMessage)).not.toBeInTheDocument();
 
-			await screen.findByText(confirmScreenText);
+			await findByText(confirmScreenText);
 
-			const onConfirmTransactionButton = await screen.findByText(/confirm/i);
+			const onConfirmTransactionButton = await findByText(/confirm/i);
 
 			expect(onConfirmTransactionButton).toBeInTheDocument();
 
@@ -428,7 +429,7 @@ describe('TransferOwnershipForm', () => {
 			await waitFor(() => expect(mockTx).toBeCalledTimes(1));
 			expect(console.error).toHaveBeenCalled();
 
-			await screen.findByText(errorMessage);
+			await findByText(errorMessage);
 		});
 	});
 
@@ -436,11 +437,11 @@ describe('TransferOwnershipForm', () => {
 		test('primary button should call onClose when clicked', async () => {
 			mockTranferDomainOwnership.mockResolvedValue({ wait: mockTx });
 			mockTx.mockResolvedValue(undefined);
-			testSetup();
+			const { getByText, findByText } = renderComponent();
 			onSubmitValidDetails();
 
 			// confirm step submit
-			fireEvent.click(await screen.findByText(/confirm/i));
+			fireEvent.click(await findByText(/confirm/i));
 
 			// transfer approval  step
 			expect(mockTranferDomainOwnership).toBeCalledTimes(1);
@@ -449,9 +450,9 @@ describe('TransferOwnershipForm', () => {
 			await waitFor(() => expect(mockTx).toBeCalledTimes(1));
 
 			// complete step
-			screen.getByText('Transfer Successful');
+			getByText('Transfer Successful');
 
-			const onCompleteButton = await screen.findByText(/finish/i);
+			const onCompleteButton = await findByText(/finish/i);
 
 			expect(onCompleteButton).toBeInTheDocument();
 
