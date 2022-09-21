@@ -7,6 +7,7 @@ import {
 	TokenHashInfo,
 } from '../../features/view-nft';
 import { DomainPreview } from '../../features/domain-preview';
+import { TransferOwnershipModal } from '../../features/transfer-ownership';
 
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
@@ -24,30 +25,48 @@ export const NFT: FC<NFTProps> = ({
 	metrics,
 	domainMetadata,
 	paymentTokenInfo,
-}) => (
-	<>
-		<DomainPreview
-			title={domainMetadata?.title}
-			description={domainMetadata?.description}
-			owner={domain?.owner}
-			creator={domain?.minter}
-			isNFTView
-		/>
+}) => {
+	const [isOpen, setIsOpen] = useState(true);
+	const onClose = () => setIsOpen(false);
 
-		<Actions
-			domain={domain}
-			domainMetadata={domainMetadata}
-			paymentTokenInfo={paymentTokenInfo}
-		/>
+	return (
+		<>
+			<DomainPreview
+				title={domainMetadata?.title}
+				description={domainMetadata?.description}
+				owner={domain?.owner}
+				creator={domain?.minter}
+				isNFTView
+			/>
 
-		<NFTMetrics
-			domainId={domain?.id}
-			metrics={metrics}
-			paymentTokenInfo={paymentTokenInfo}
-		/>
+			<Actions
+				domain={domain}
+				domainMetadata={domainMetadata}
+				paymentTokenInfo={paymentTokenInfo}
+			/>
 
-		<TokenHashInfo domain={domain} />
+			<NFTMetrics
+				domainId={domain?.id}
+				metrics={metrics}
+				paymentTokenInfo={paymentTokenInfo}
+			/>
 
-		<HistoryList domainId={domain?.id} paymentToken={paymentTokenInfo} />
-	</>
-);
+			{/* TODO: remove - temp import to display modal for development prior to dropdown implementation */}
+			{domain && domainMetadata && (
+				<TransferOwnershipModal
+					domainId={domain.id}
+					domainName={domain.name}
+					domainTitle={domainMetadata.title}
+					domainOwner={domain.owner}
+					domainCreator={domain.minter}
+					open={isOpen}
+					onClose={onClose}
+				/>
+			)}
+
+			<TokenHashInfo domain={domain} />
+
+			<HistoryList domainId={domain?.id} paymentToken={paymentTokenInfo} />
+		</>
+	);
+};
