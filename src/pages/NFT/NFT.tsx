@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import {
 	Actions,
@@ -7,7 +7,6 @@ import {
 	TokenHashInfo,
 } from '../../features/view-nft';
 import { DomainPreview } from '../../features/domain-preview';
-import { TransferOwnershipModal } from '../../features/transfer-ownership';
 
 import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
@@ -26,9 +25,6 @@ export const NFT: FC<NFTProps> = ({
 	domainMetadata,
 	paymentTokenInfo,
 }) => {
-	const [isOpen, setIsOpen] = useState(true);
-	const onClose = () => setIsOpen(false);
-
 	return (
 		<>
 			<DomainPreview
@@ -50,19 +46,6 @@ export const NFT: FC<NFTProps> = ({
 				metrics={metrics}
 				paymentTokenInfo={paymentTokenInfo}
 			/>
-
-			{/* TODO: remove - temp import to display modal for development prior to dropdown implementation */}
-			{domain && domainMetadata && (
-				<TransferOwnershipModal
-					domainId={domain.id}
-					domainName={domain.name}
-					domainTitle={domainMetadata.title}
-					domainOwner={domain.owner}
-					domainCreator={domain.minter}
-					open={isOpen}
-					onClose={onClose}
-				/>
-			)}
 
 			<TokenHashInfo domain={domain} />
 
