@@ -1,18 +1,32 @@
-//- React Imports
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
-//- Component Imports
-import { Modal } from '@zero-tech/zui/components';
-import { CreateTokenForm } from './CreateTokenForm';
-
-//- Lib Imports
 import { BasicModalProps } from '../../lib/types/ui';
 
-export interface CreateTokenModalProps extends BasicModalProps {}
+import { Modal } from '@zero-tech/zui/components';
+import { CreateTokenForm } from './';
 
-// TODO - discuss with zer0 how to get domainName and manage close of modal.
-export const CreateTokenModal: FC<CreateTokenModalProps> = (props) => (
-	<Modal {...props}>
-		<CreateTokenForm domainName="0://meow.dao" onClose={() => {}} />
-	</Modal>
-);
+export interface CreateTokenModalProps extends BasicModalProps {
+	domainName: string;
+}
+
+export const CreateTokenModal: FC<CreateTokenModalProps> = ({
+	domainName,
+	...props
+}) => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	const onOpenChange = (open: boolean): void => {
+		if (!open) return;
+		setIsOpen(true);
+	};
+
+	const onClose = (): void => {
+		setIsOpen(false);
+	};
+
+	return (
+		<Modal {...props} open={isOpen} onOpenChange={onOpenChange}>
+			<CreateTokenForm domainName={domainName} onClose={onClose} />
+		</Modal>
+	);
+};

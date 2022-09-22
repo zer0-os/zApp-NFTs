@@ -1,7 +1,11 @@
 import { FC } from 'react';
 
-import { CreateTokenModal } from './CreateTokenModal';
+import { CreateTokenModal } from './';
 
-export const CreateTokenButton: FC = () => (
-	<CreateTokenModal trigger={'Create Token'} />
-);
+interface CreateTokenButtonProps {
+	domainName: string;
+}
+
+export const CreateTokenButton: FC<CreateTokenButtonProps> = ({
+	domainName,
+}) => <CreateTokenModal trigger={'Create Token'} domainName={domainName} />;
