@@ -1,0 +1,24 @@
+.Row {
+	display: flex;
+}
+
+.Column {
+	display: flex;
+	flex-direction: column;
+}
+
+.MediaInput {
+	height: 12.5rem;
+	width: 12.5rem;
+	margin-right: 1.5rem;
+	border-radius: 0.5rem !important;
+}
+
+.ColumnTwo {
+	width: 100%;
+	margin-top: -1rem;
+}
+
+.Footer {
+	margin-top: 5rem;
+}

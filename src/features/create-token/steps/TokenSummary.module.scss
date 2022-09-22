@@ -1,0 +1,32 @@
+.Row {
+	display: flex;
+	margin-top: 0.625rem;
+
+	.Column {
+		display: flex;
+		flex-direction: column;
+
+		.Heading {
+			margin-top: 0;
+		}
+
+		.MediaInput {
+			height: 12.5rem;
+			width: 12.5rem;
+			margin-right: 1.5rem;
+			border-radius: 0.5rem !important;
+		}
+
+		.Name {
+			margin-right: 2.5rem;
+		}
+
+		.InitialTokenSupplyWalletAddress {
+			margin-right: 2.125rem;
+		}
+	}
+}
+
+.Footer {
+	margin-top: 1rem;
+}
