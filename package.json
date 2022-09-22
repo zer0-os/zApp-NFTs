@@ -1,5 +1,5 @@
 {
-	"name": "marketplace-dapp",
+	"name": "@zero-tech/zapp-nfts",
 	"version": "0.1.0",
 	"description": "zns marketplace app for zos",
 	"main": "dist/index.js",
