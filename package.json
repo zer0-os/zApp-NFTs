@@ -69,7 +69,9 @@
 		"@zero-tech/zns-sdk": "0.6.1",
 		"@zero-tech/zui": "0.1.6",
 		"classnames": "^2.3.1",
+		"formik": "^2.2.9",
 		"moment": "^2.29.4",
-		"react-query": "^3.39.1"
+		"react-query": "^3.39.1",
+		"yup": "^0.32.11"
 	}
 }

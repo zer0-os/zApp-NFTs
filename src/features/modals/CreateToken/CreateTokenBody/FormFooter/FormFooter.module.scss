@@ -1,0 +1,12 @@
+.FormFooter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-gap: 24px;
+	gap: 24px;
+	flex-wrap: wrap;
+
+	button {
+		width: 124px;
+	}
+}
