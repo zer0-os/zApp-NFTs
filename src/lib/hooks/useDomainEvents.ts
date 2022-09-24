@@ -1,25 +1,20 @@
-//- React Imports
 import { useQuery } from 'react-query';
 
-//- Types Imports
-import { DomainEvents } from '../../lib/types/events';
+import { DomainEvent } from '../../lib/types/events';
 
-//- Hooks Imports
 import { useZnsSdk } from './useZnsSdk';
 
 export const useDomainEvents = (domainId: string) => {
-	// SDK
 	const sdk = useZnsSdk();
 
-	// Query
 	return useQuery(
-		`domain-events-data-${domainId}`,
-		async () =>
-			(domainId && (await sdk.getDomainEvents(domainId))) as DomainEvents[],
+		['domain-events', domainId],
+		async () => (await sdk.getDomainEvents(domainId)) as DomainEvent[],
 		{
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
+			enabled: Boolean(domainId),
 		},
 	);
 };

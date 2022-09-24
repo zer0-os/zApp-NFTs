@@ -1,0 +1,18 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+
+.Container {
+	cursor: pointer;
+
+	&:hover {
+		background: $purple-10;
+	}
+
+	.Metrics {
+		text-align: right;
+	}
+
+	.Button {
+		display: flex;
+		justify-content: flex-end;
+	}
+}

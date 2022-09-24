@@ -11,5 +11,5 @@ export const getHashFromIPFSUrl = (url: string) => {
 		return matches[0];
 	}
 
-	return '';
+	return undefined;
 };

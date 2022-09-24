@@ -11,11 +11,6 @@ export enum NETWORK_TYPES {
 
 const ENV_NETWORK = process.env.REACT_APP_DEFAULT_NETWORK;
 export const DEFAULT_NETWORK = Network.RINKEBY;
-// export const DEFAULT_NETWORK: Network = (
-//   ENV_NETWORK && typeof ENV_NETWORK === "number" && Network[ENV_NETWORK]
-//     ? Network[ENV_NETWORK]
-//     : Network.MAINNET
-// ) as Network;
 
 interface NetworkConfig {
 	rpcUrl: string;

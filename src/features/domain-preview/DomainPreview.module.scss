@@ -1,0 +1,97 @@
+@import '../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+@import '../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Container {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem 0;
+
+	.Banner {
+		width: 100%;
+		height: 15rem;
+		object-fit: cover;
+		background: $purple-10;
+		border-radius: calc($radius-primary / 2);
+
+		&.isNFTView {
+			width: 100%;
+			// temporary fixed height
+			height: 23.125rem;
+
+			img {
+				border-radius: 0;
+				cursor: pointer;
+				border-radius: calc($radius-primary / 2);
+			}
+		}
+	}
+
+	.Content {
+		margin-top: -3.75rem;
+		padding-bottom: 0.5rem;
+
+		&.isNFTView {
+			margin-top: 0;
+		}
+
+		.Icon {
+			height: 7.5rem;
+			width: 7.5rem;
+			margin-left: 0.5rem;
+			border-radius: 50%;
+			background: $purple-10;
+			object-fit: cover;
+			box-shadow: 0 0 1rem rgba($black, 0.5);
+		}
+
+		.TextContainer {
+			margin-top: 1.5rem;
+
+			.Title {
+				font-size: $size-large;
+				margin: 0;
+			}
+
+			.Description {
+				margin: 0.5rem 0 0 0;
+			}
+
+			.MemberContainer {
+				display: flex;
+				padding: 0;
+				margin: 1.5rem 0 0 0;
+				list-style: none;
+
+				> *:not(:first-child) {
+					margin-left: 2rem;
+				}
+
+				.MemberItem {
+					display: flex;
+					flex-direction: column;
+
+					.MemberTitle {
+						color: $purple-lightest;
+						font-size: $size-tiny;
+						margin-bottom: 0.125rem;
+					}
+
+					.MemberAddress {
+						font-size: $size-medium;
+						margin-bottom: 1rem;
+					}
+				}
+			}
+
+			.LinkContainer {
+				margin-top: 1rem;
+
+				.Link {
+					color: $blue;
+					font-size: $size-tiny;
+				}
+			}
+		}
+	}
+}

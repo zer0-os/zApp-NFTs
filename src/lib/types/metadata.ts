@@ -3,6 +3,7 @@ export interface Attribute {
 	value: string | number;
 }
 
+// typing for parseDomainMetadata()
 interface Meta {
 	[key: string]: any | undefined;
 	image: string;

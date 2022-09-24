@@ -1,32 +1,60 @@
-/**
- * NOTE: You will need to `npm link` zUI before this repo
- * will build or run.
- */
-
-//- React Imports
 import { FC } from 'react';
 
-//- Types Imports
 import { AppProps } from './lib/types/app';
 
-//- Page Imports
-import ZNS from './pages/ZNS/ZNS';
+import { useDataContainer } from './lib/hooks/useDataContainer';
 
-//- Provider Imports
-import { ZUIProvider } from '@zero-tech/zui/src/ZUIProvider';
-import { ModalProvider } from './lib/providers/ModalProvider';
+import { Domains } from './pages/Domains';
+import { NFT } from './pages/NFT';
 
-export const App: FC<AppProps> = ({ provider, route, user }) => {
+import { getDomainId } from './lib/util/domains/domains';
+
+import classNames from 'classnames/bind';
+import styles from './App.module.scss';
+
+const cx = classNames.bind(styles);
+
+export const App: FC<AppProps> = ({ provider, route }) => {
 	console.log('prov (marketplace-dapp):', provider);
 	console.log('route (marketplace-dapp):', route);
 
+	const domainId = getDomainId(route);
+	const isRoot = route.split('.').length === 1 && !route.includes('.');
+
+	const {
+		domain,
+		subdomainData,
+		paymentTokenInfo,
+		metrics,
+		domainMetadata,
+		isNFTView,
+	} = useDataContainer(domainId);
+
 	return (
-		<main>
-			<ZUIProvider>
-				<ModalProvider>
-					<ZNS route={route} user={user} />
-				</ModalProvider>
-			</ZUIProvider>
+		<main
+			className={cx(styles.Main, {
+				isRoot: isRoot,
+			})}
+		>
+			{!isNFTView && (
+				<Domains
+					isRoot={isRoot}
+					domain={domain}
+					metrics={metrics}
+					subdomainData={subdomainData}
+					domainMetadata={domainMetadata}
+					paymentTokenInfo={paymentTokenInfo}
+				/>
+			)}
+
+			{isNFTView && (
+				<NFT
+					domain={domain}
+					metrics={metrics}
+					domainMetadata={domainMetadata}
+					paymentTokenInfo={paymentTokenInfo}
+				/>
+			)}
 		</main>
 	);
 };

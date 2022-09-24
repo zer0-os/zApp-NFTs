@@ -1,25 +1,25 @@
-@use '../../../../../zUI/src/styles/dimensions';
-@use '../../../../../zUI/src/styles/typography';
-@use '../../../../../zUI/src/styles/colors';
-@use '../../../../../zUI/src/styles/borders';
+@import '../../../../node_modules/@zero-tech//zui/styles/_borders.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_dimensions.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .TableCardContainer {
-	border: 1px solid #{colors.$mine-shaft};
-	border-radius: calc(#{borders.$radius-primary} / 2) !important;
+	border: 1px solid $mine-shaft;
+	border-radius: calc($radius-primary / 2) !important;
 
 	.Footer {
-		padding: 16px;
+		padding: 1rem;
 
 		h5 {
 			margin: 0;
-			color: #{colors.$text-primary};
-			font-size: #{typography.$size-small};
-			font-weight: #{typography.$font-weight-bold};
+			color: $text-primary;
+			font-size: $size-small;
+			font-weight: $font-weight-bold;
 		}
 
 		.Subheader {
-			font-size: #{typography.$size-tiny};
-			color: #{colors.$grey-lighter-2};
+			font-size: $size-tiny;
+			color: $grey-lighter-2;
 			word-break: break-all;
 		}
 

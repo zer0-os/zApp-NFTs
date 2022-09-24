@@ -1,7 +1,5 @@
-//- Utils Imports
 import { getDomainId, truncateAddress } from './domains';
 
-//- Mocks Imports
 import { rootDomainId, wilderDomainId } from './mocks';
 
 //////////////////////
@@ -12,18 +10,6 @@ describe('getDomainId', () => {
 	describe('when args is equal to empty string', () => {
 		it('should return the rootDomainId (hashZero)', () => {
 			expect(getDomainId('')).toBe(rootDomainId);
-		});
-	});
-
-	describe('when args is equal to undefined', () => {
-		it('should return the rootDomainId (hashZero)', () => {
-			expect(getDomainId(undefined)).toBe(rootDomainId);
-		});
-	});
-
-	describe('when args is equal to null', () => {
-		it('should return the rootDomainId (hashZero)', () => {
-			expect(getDomainId(null)).toBe(rootDomainId);
 		});
 	});
 

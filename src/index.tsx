@@ -1,37 +1,31 @@
-/**
- * This file:
- * - Wraps out App in necessary context providers
- * - Exports the root component
- */
-
-//- React Imports
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-//- Type Imports
 import { AppProps } from './lib/types/app';
+import { ChainGate } from './lib/util/ChainGate';
+import { Web3Provider } from './lib/providers/Web3Provider';
+import { ZnsSdkProvider } from './lib/providers/ZnsSdkProvider';
 
-//- Utils Imports
-import ChainGate from './lib/util/ChainGate';
+import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
 
-//- Provider Imports
-import Web3Provider from './lib/providers/Web3Provider';
-import ZnsSdkProvider from './lib/providers/ZnsSdkProvider';
-
-//- Container Imports
-import App from './App';
+import { App } from './App';
 
 const queryClient = new QueryClient();
 
-const Index = ({ provider, route, user }: AppProps) => (
+export const Index = ({ provider, route, web3 }: AppProps) => (
 	<QueryClientProvider client={queryClient}>
-		<Web3Provider provider={provider}>
+		<Web3Provider
+			provider={provider}
+			account={web3.address}
+			chainId={web3.chainId}
+			connectWallet={web3.connectWallet}
+		>
 			<ChainGate chainId={provider?._network?.chainId ?? 1}>
 				<ZnsSdkProvider provider={provider}>
-					<App provider={provider} route={route} user={user} />
+					<ZUIProvider>
+						<App provider={provider} route={route} web3={web3} />
+					</ZUIProvider>
 				</ZnsSdkProvider>
 			</ChainGate>
 		</Web3Provider>
 	</QueryClientProvider>
 );
-
-export default Index;
