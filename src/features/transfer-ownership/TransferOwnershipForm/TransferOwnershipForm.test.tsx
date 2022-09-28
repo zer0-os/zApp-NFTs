@@ -125,11 +125,11 @@ describe('TransferOwnershipForm', () => {
 		test('should display correct domain data', async () => {
 			renderComponent();
 
-			expect(screen.getByText(`0://${mock.domain.name}`)).toBeTruthy();
-			expect(screen.getByText(mock.metadata.title)).toBeTruthy();
+			expect(screen.getByText(`0://${mock.domain.name}`)).toBeInTheDocument();
+			expect(screen.getByText(mock.metadata.title)).toBeInTheDocument();
 			expect(
 				screen.getByText(truncateAddress(mock.domain.minter)),
-			).toBeTruthy();
+			).toBeInTheDocument();
 		});
 
 		test('primary button should be disabled if input value is an empty string', async () => {
