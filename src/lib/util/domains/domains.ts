@@ -28,8 +28,8 @@ export const truncateAddress = (
 	address: string,
 	startingCharacters?: number,
 ) => {
-	return `${address.substring(
+	return `${address?.substring(
 		0,
 		2 + (startingCharacters ?? 0),
-	)}...${address.substring(address.length - 4)}`;
+	)}...${address?.substring(address.length - 4)}`;
 };

@@ -2,14 +2,12 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { truncateAddress } from '../../lib/util/domains/domains';
-
-import { MemberTitle } from './DomainPreview.constants';
+import { MemberTitle } from '../../lib/constants/labels';
 
 import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
 
 const cx = classNames.bind(styles);
-
 
 type DomainPreviewProps = {
 	title?: string;
@@ -39,7 +37,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 
 	return (
 		<div className={styles.Container}>
-			{/* todo: media asset component */}
+			{/* TODO: media asset component */}
 			<div
 				className={cx(styles.Banner, {
 					isNFTView: isNFTView,
@@ -51,12 +49,12 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 					isNFTView: isNFTView,
 				})}
 			>
-				{/* todo: media asset component */}
+				{/* TODO: media asset component */}
 				{!isNFTView && <div className={styles.Icon}></div>}
 				<div className={styles.TextContainer}>
 					{title && <h1 className={styles.Title}>{title}</h1>}
 
-					{/* todo: member component */}
+					{/* TODO: member component */}
 					{isNFTView && creator && owner && (
 						<ul className={styles.MemberContainer}>
 							{members.map((member) => (
@@ -74,7 +72,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 
 					{href && (
 						<div className={styles.LinkContainer}>
-							{/* todo: arrow link component */}
+							{/* TODO: arrow link component */}
 							<Link className={styles.Link} to={href}>
 								{'View Domain NFT ->'}
 							</Link>

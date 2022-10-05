@@ -47,7 +47,7 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({
 
 	return (
 		<>
-			{/* todo: leave or add controls to table component */}
+			{/* TODO: leave or add controls to table component */}
 			<div className={styles.Controls}>
 				<div className={styles.SearchBarContainer}>
 					<SearchBar
@@ -75,7 +75,7 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({
 				columns={COLUMNS}
 				rowComponent={(data) => (
 					<SubdomainTableRow
-						// todo: use itemKey
+						// TODO: use itemKey
 						key={`${data?.id}`}
 						domainId={data?.id}
 						domainName={data?.name}
@@ -86,7 +86,7 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({
 				)}
 				gridComponent={(data) => (
 					<SubdomainTableCard
-						// todo: use itemKey
+						// TODO: use itemKey
 						key={`${data?.id}`}
 						domainId={data?.id}
 						domainName={data?.name}
