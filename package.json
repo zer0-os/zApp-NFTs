@@ -6,7 +6,7 @@
 		"type": "git",
 		"url": "git+https://github.com/zer0-os/zApp-NFTs.git"
   	},
-	"main": "dist/index.js",
+	"main": "index.js",
 	"scripts": {
 		"clean": "rimraf dist && npx mkdirp dist",
 		"build": "npm-run-all clean build:*",
@@ -29,9 +29,6 @@
 	},
 	"author": "zer0-os",
 	"license": "ISC",
-	"files": [
-		"dist"
-	],
 	"devDependencies": {
 		"@babel/cli": "^7.17.0",
 		"@babel/core": "^7.16.7",
