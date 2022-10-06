@@ -1,7 +1,11 @@
 {
 	"name": "@zero-tech/zapp-nfts",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"description": "zns marketplace app for zos",
+	"repository": {
+    		"type": "git",
+    		"url": "git+https://github.com/zer0-os/zApp-NFTs.git"
+  	},
 	"main": "dist/index.js",
 	"scripts": {
 		"clean": "rimraf dist && npx mkdirp dist",
