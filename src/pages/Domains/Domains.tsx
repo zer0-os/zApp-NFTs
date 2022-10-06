@@ -35,11 +35,15 @@ export const Domains: FC<DomainsContainerProps> = ({
 				<DomainPreview
 					title={domainMetadata?.title}
 					description={domainMetadata?.description}
+					banner={domainMetadata?.image}
 					href={`/${domain?.name}/nfts?view=true`}
 				/>
 			)}
 
-			<SubdomainMetrics metrics={metrics} paymentTokenInfo={paymentTokenInfo} />
+			<SubdomainMetrics
+				domainId={domain?.id}
+				paymentTokenInfo={paymentTokenInfo}
+			/>
 
 			<SubdomainTable
 				subdomainData={subdomainData}

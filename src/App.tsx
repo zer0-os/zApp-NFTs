@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Switch } from 'react-router-dom';
 
 import { AppProps } from './lib/types/app';
 
@@ -15,9 +16,6 @@ import styles from './App.module.scss';
 const cx = classNames.bind(styles);
 
 export const App: FC<AppProps> = ({ provider, route }) => {
-	console.log('prov (marketplace-dapp):', provider);
-	console.log('route (marketplace-dapp):', route);
-
 	const domainId = getDomainId(route);
 	const isRoot = route.split('.').length === 1 && !route.includes('.');
 
@@ -36,25 +34,27 @@ export const App: FC<AppProps> = ({ provider, route }) => {
 				isRoot: isRoot,
 			})}
 		>
-			{!isNFTView && (
-				<Domains
-					isRoot={isRoot}
-					domain={domain}
-					metrics={metrics}
-					subdomainData={subdomainData}
-					domainMetadata={domainMetadata}
-					paymentTokenInfo={paymentTokenInfo}
-				/>
-			)}
+			<Switch>
+				{!isNFTView && (
+					<Domains
+						isRoot={isRoot}
+						domain={domain}
+						metrics={metrics}
+						subdomainData={subdomainData}
+						domainMetadata={domainMetadata}
+						paymentTokenInfo={paymentTokenInfo}
+					/>
+				)}
 
-			{isNFTView && (
-				<NFT
-					domain={domain}
-					metrics={metrics}
-					domainMetadata={domainMetadata}
-					paymentTokenInfo={paymentTokenInfo}
-				/>
-			)}
+				{isNFTView && (
+					<NFT
+						domain={domain}
+						metrics={metrics}
+						domainMetadata={domainMetadata}
+						paymentTokenInfo={paymentTokenInfo}
+					/>
+				)}
+			</Switch>
 		</main>
 	);
 };

@@ -1,18 +1,16 @@
 import { FC } from 'react';
-
-import { ethers } from 'ethers';
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
-import { formatEthers, formatNumber } from '../../../lib/util/number/number';
+import { formatEthers } from '../../../lib/util/number/number';
 import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 
-import { PlaceBidButton } from '../../place-bid';
-import { BuyNowButton } from '../../buy-now';
-import { TableCard } from '../../ui/TableCard';
+import { GridCard } from '@zero-tech/zui/components/GridCard';
+import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
 
 import styles from './SubdomainTableCard.module.scss';
+import { useSubdomainData } from '../useSubdomainData';
 
 type SubdomainTableCardProps = {
 	domainId: string;
@@ -29,39 +27,57 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	paymentTokenData,
 	onCardClick,
 }) => {
-	const { data: domainMetrics } = useDomainMetrics(domainId);
-	const { data: buyNowPrice } = useBuyNowPrice(domainId);
-	const { data: domainMetadata } = useDomainMetadata(domainMetadataUri);
+	const {
+		metrics,
+		buyNowPrice,
+		metadata,
+		isMetadataLoading,
+		isButtonDisabled,
+		isBuyNowPriceLoading,
+		isMetricsLoading,
+		imageAlt,
+		imageSrc,
+		paymentTokenLabel,
+	} = useSubdomainData({
+		id: domainId,
+		zna: domainName,
+		metadataUri: domainMetadataUri,
+	});
+
+	const highestBidString = metrics?.highestBid
+		? formatEthers(metrics?.highestBid)
+		: undefined;
+
+	const buyNowPriceString = buyNowPrice ? formatEthers(buyNowPrice) : undefined;
+
+	const label =
+		(buyNowPriceString ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
 
 	return (
-		<TableCard
-			header={domainMetadata?.title}
-			subHeader={`0://${domainName}`}
-			onClick={(e) => onCardClick(e, domainName)}
+		<GridCard
+			className={styles.Container}
+			imageSrc={imageSrc}
+			aspectRatio={1}
+			imageAlt={imageAlt}
+			onClick={() => onCardClick(undefined, domainName)}
 		>
-			<div className={styles.Container}>
-				<div className={styles.Bid}>
-					<label>Top Bid</label>
-					<span className={styles.Crypto}>
-						{domainMetrics?.highestBid
-							? formatEthers(domainMetrics?.highestBid)
-							: 0}{' '}
-						{paymentTokenData?.name}{' '}
-					</span>
-					<span className={styles.Fiat}>
-						$
-						{domainMetrics?.highestBid
-							? formatNumber(
-									Number(ethers.utils.formatEther(domainMetrics?.highestBid)) *
-										Number(paymentTokenData?.price),
-							  )
-							: 0}{' '}
-					</span>
-				</div>
-				<div className={styles.ButtonContainer}>
-					{buyNowPrice ? <BuyNowButton /> : <PlaceBidButton isRoot />}
-				</div>
-			</div>
-		</TableCard>
+			<NFT
+				title={{
+					text: metadata?.title,
+					isLoading: isMetadataLoading,
+					errorText: 'Failed to load!',
+				}}
+				zna={domainName}
+				onClickButton={() => console.log('yep')}
+				isButtonDisabled={isButtonDisabled}
+				buttonText={'Mock'}
+				label={label}
+				primaryText={{
+					text: buyNowPriceString ?? highestBidString,
+					isLoading: isMetricsLoading,
+				}}
+				secondaryText={''}
+			/>
+		</GridCard>
 	);
 };

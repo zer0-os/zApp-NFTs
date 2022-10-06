@@ -38,11 +38,12 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 	return (
 		<div className={styles.Container}>
 			{/* TODO: media asset component */}
-			<div
+			<img
 				className={cx(styles.Banner, {
 					isNFTView: isNFTView,
 				})}
-			></div>
+				src={banner}
+			/>
 
 			<div
 				className={cx(styles.Content, {
@@ -50,7 +51,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 				})}
 			>
 				{/* TODO: media asset component */}
-				{!isNFTView && <div className={styles.Icon}></div>}
+				{!isNFTView && <img src={banner} className={styles.Icon}></img>}
 				<div className={styles.TextContainer}>
 					{title && <h1 className={styles.Title}>{title}</h1>}
 

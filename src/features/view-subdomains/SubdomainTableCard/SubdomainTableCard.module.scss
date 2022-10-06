@@ -2,40 +2,5 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-
-	.Bid {
-		display: flex;
-		flex-direction: column;
-
-		label {
-			font-size: $size-tiny;
-			color: $grey-lighter-2;
-		}
-	}
-
-	.Crypto {
-		margin-top: 2px;
-		font-size: $size-small;
-		font-weight: $font-weight-bold;
-		line-height: 1rem;
-		color: $text-primary;
-	}
-
-	.Fiat {
-		font-size: $size-tiny;
-		color: $grey-lighter-2;
-		margin-top: 2px;
-	}
-}
-
-.ButtonContainer {
-	display: flex;
-	justify-content: flex-end;
-
-	.Button {
-		padding: 0 0.5rem;
-	}
+	cursor: pointer;
 }
