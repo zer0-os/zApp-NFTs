@@ -8,10 +8,15 @@ import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 
+import { SkeletonText } from '@zero-tech/zui/components/SkeletonText';
+
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
 
+import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
+
 import styles from './SubdomainTableRow.module.scss';
+import { useSubdomainData } from '../useSubdomainData';
 
 type SubdomainTableRowProps = {
 	domainId: string;
@@ -28,37 +33,47 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	paymentTokenData,
 	onRowClick,
 }) => {
-	const { data: domainMetrics } = useDomainMetrics(domainId);
-	const { data: buyNowPrice } = useBuyNowPrice(domainId);
-	const { data: domainMetadata } = useDomainMetadata(domainMetadataUri);
+	const {
+		metrics,
+		buyNowPrice,
+		metadata,
+		isMetadataLoading,
+		isButtonDisabled,
+		isBuyNowPriceLoading,
+		isMetricsLoading,
+		imageAlt,
+		imageSrc,
+		paymentTokenLabel,
+	} = useSubdomainData({
+		id: domainId,
+		zna: domainName,
+		metadataUri: domainMetadataUri,
+	});
+
+	const volumeLabel = metrics?.volume?.all
+		? formatEthers(metrics.volume.all) + paymentTokenLabel
+		: undefined;
 
 	return (
 		<tr onClick={(e) => onRowClick(e, domainName)} className={styles.Container}>
-			<td>
-				<div>{domainMetadata?.title}</div>
+			<TableData alignment={'left'}>
+				<SkeletonText
+					asyncText={{ text: metadata?.title, isLoading: isMetadataLoading }}
+				/>
 				<div>0://{domainName}</div>
-			</td>
-			<td className={styles.Metrics}>
-				<div>
-					{domainMetrics?.volume.all
-						? formatEthers(domainMetrics?.volume.all)
-						: 0}{' '}
-					{paymentTokenData?.name}
-				</div>
-				<div>
-					$
-					{domainMetrics?.volume.all
-						? formatNumber(
-								Number(ethers.utils.formatEther(domainMetrics?.volume.all)) *
-									paymentTokenData?.price,
-						  )
-						: 0}{' '}
-				</div>
-			</td>
+			</TableData>
+			<TableData alignment={'right'} className={styles.Metrics}>
+				<SkeletonText
+					asyncText={{
+						text: volumeLabel,
+						isLoading: isMetricsLoading,
+					}}
+				/>
+			</TableData>
 
-			<td className={styles.Button}>
+			<TableData alignment={'right'} className={styles.Button}>
 				{buyNowPrice ? <BuyNowButton /> : <PlaceBidButton isRoot />}
-			</td>
+			</TableData>
 		</tr>
 	);
 };

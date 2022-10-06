@@ -31,70 +31,51 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({
 	const history = useHistory();
 	const [isGridView, setIsGridView] = useState<boolean>(true);
 
-	const handleItemClick = (event: any, domainName?: string) => {
+	const handleItemClick = useCallback((event: any, domainName?: string) => {
 		const clickedButton = event?.target?.className?.indexOf('button') >= 0;
 		if (!clickedButton) {
 			history.push(`/${domainName}/nfts`);
 		}
-	};
+	}, []);
 
-	const changeView = useCallback(
-		(isGridView: boolean) => {
-			setIsGridView(isGridView);
-		},
-		[setIsGridView],
+	const Row = useCallback(
+		(data) => (
+			<SubdomainTableRow
+				key={`${data?.id}`}
+				domainId={data?.id}
+				domainName={data?.name}
+				domainMetadataUri={data?.metadataUri}
+				paymentTokenData={paymentTokenData}
+				onRowClick={handleItemClick}
+			/>
+		),
+		[paymentTokenData, handleItemClick],
+	);
+
+	const Card = useCallback(
+		(data) => (
+			<SubdomainTableCard
+				key={`${data?.id}`}
+				domainId={data?.id}
+				domainName={data?.name}
+				domainMetadataUri={data?.metadataUri}
+				paymentTokenData={paymentTokenData}
+				onCardClick={handleItemClick}
+			/>
+		),
+		[paymentTokenData, handleItemClick],
 	);
 
 	return (
 		<>
-			{/* TODO: leave or add controls to table component */}
-			<div className={styles.Controls}>
-				<div className={styles.SearchBarContainer}>
-					<SearchBar
-						placeholder={'Search by domain name'}
-						onChange={() => {}}
-					/>
-				</div>
-				<div className={styles.IconButtons}>
-					<IconButton
-						isToggled={!isGridView}
-						onClick={() => changeView(false)}
-						icon={<IconList />}
-					/>
-					<IconButton
-						isToggled={isGridView}
-						onClick={() => changeView(true)}
-						icon={<IconGrid />}
-					/>
-				</div>
-			</div>
+			<Controls isGridView={isGridView} onChangeView={setIsGridView} />
 
 			<AsyncTable
 				data={subdomainData}
 				itemKey="id"
 				columns={COLUMNS}
-				rowComponent={(data) => (
-					<SubdomainTableRow
-						// TODO: use itemKey
-						key={`${data?.id}`}
-						domainId={data?.id}
-						domainName={data?.name}
-						domainMetadataUri={data?.metadataUri}
-						paymentTokenData={paymentTokenData}
-						onRowClick={handleItemClick}
-					/>
-				)}
-				gridComponent={(data) => (
-					<SubdomainTableCard
-						// TODO: use itemKey
-						key={`${data?.id}`}
-						domainId={data?.id}
-						domainName={data?.name}
-						domainMetadataUri={data?.metadataUri}
-						paymentTokenData={paymentTokenData}
-						onCardClick={handleItemClick}
-					/>
-				)}
+				rowComponent={Row}
+				gridComponent={Card}
 				searchKey={{ key: 'name', name: 'message' }}
 				isGridView={isGridView}
 				isLoading={isSubdomainDataLoading}
@@ -102,3 +83,31 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({
 		</>
 	);
 };
+
+/* @TODO move to zUI */
+
+const Controls = ({
+	onChangeView,
+	isGridView,
+}: {
+	onChangeView: (isGridView: boolean) => void;
+	isGridView: boolean;
+}) => (
+	<div className={styles.Controls}>
+		<div className={styles.SearchBarContainer}>
+			<SearchBar placeholder={'Search by domain name'} onChange={() => {}} />
+		</div>
+		<div className={styles.IconButtons}>
+			<IconButton
+				isToggled={!isGridView}
+				onClick={() => onChangeView(false)}
+				icon={<IconList />}
+			/>
+			<IconButton
+				isToggled={isGridView}
+				onClick={() => onChangeView(true)}
+				icon={<IconGrid />}
+			/>
+		</div>
+	</div>
+);

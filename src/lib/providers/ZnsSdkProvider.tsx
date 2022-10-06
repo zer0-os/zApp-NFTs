@@ -1,7 +1,7 @@
 import { createContext, FC, ReactNode, useMemo } from 'react';
 
 import { providers } from 'ethers';
-import { chainIdToNetworkType } from '../../lib/helpers/network';
+import { chainIdToNetworkType } from '../helpers/network';
 import * as zns from '@zero-tech/zns-sdk';
 
 import {
@@ -17,12 +17,10 @@ interface ZnsSdkProviderProps {
 	children: ReactNode;
 }
 
-const defaultConfig = zns.configuration.rinkebyConfiguration;
-
 // @TODO: not sure if this is the best way to create default context
 export const ZnsSdkContext = createContext(
 	zns.createInstance(
-		defaultConfig(
+		zns.configuration.mainnetConfiguration(
 			new providers.JsonRpcProvider(NETWORK_CONFIGS[DEFAULT_NETWORK].rpcUrl),
 		),
 	),
