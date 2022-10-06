@@ -1,0 +1,17 @@
+@use '../../../../../../zUI/src/styles/colors';
+
+.Field {
+	display: flex;
+	flex-direction: column;
+
+	.FieldLabel {
+		font-size: 0.75rem;
+		color: #{colors.$grey-lighter-2};
+		margin: 0;
+	}
+
+	.FieldValue {
+		font-size: 1rem;
+		margin-top: 0;
+	}
+}
