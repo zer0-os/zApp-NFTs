@@ -3,8 +3,8 @@
 	"version": "0.2.0",
 	"description": "zns marketplace app for zos",
 	"repository": {
-    		"type": "git",
-    		"url": "git+https://github.com/zer0-os/zApp-NFTs.git"
+		"type": "git",
+		"url": "git+https://github.com/zer0-os/zApp-NFTs.git"
   	},
 	"main": "dist/index.js",
 	"scripts": {
