@@ -12,14 +12,18 @@ import { TokenomicsFormSubmit } from '../CreateToken.types';
 let onSubmit = jest.fn();
 
 const DEFAULT_PROPS: TokenomicsFormProps = {
-	values : {
+	values: {
 		tokenCount: '',
 		initialTokenSupplyWalletAddress: '',
 		adminWalletAddress: '',
 	},
 	onSubmit,
-	onClose: jest.fn()
+	onClose: jest.fn(),
 };
+
+jest.mock('remark-emoji', () => jest.fn());
+jest.mock('remark-gemoji', () => jest.fn());
+jest.mock('@uiw/react-md-editor', () => jest.fn());
 
 describe('TokenomicsForm', () => {
 	beforeEach(() => jest.resetAllMocks());
@@ -31,9 +35,11 @@ describe('TokenomicsForm', () => {
 			</ZUIProvider>,
 		);
 
-		fireEvent.click(screen.getByRole('button', {
-			name: 'Next'
-		}));
+		fireEvent.click(
+			screen.getByRole('button', {
+				name: 'Next',
+			}),
+		);
 
 		await waitFor(() => expect(onSubmit).not.toHaveBeenCalled());
 	});
@@ -52,9 +58,11 @@ describe('TokenomicsForm', () => {
 			</ZUIProvider>,
 		);
 
-		fireEvent.click(screen.getByRole('button', {
-			name: 'Next'
-		}));
+		fireEvent.click(
+			screen.getByRole('button', {
+				name: 'Next',
+			}),
+		);
 
 		await waitFor(() => expect(onSubmit).toHaveBeenCalled());
 	});

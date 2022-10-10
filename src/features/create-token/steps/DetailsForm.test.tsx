@@ -12,15 +12,19 @@ import { DetailsFormSubmit } from '../CreateToken.types';
 let onSubmit = jest.fn();
 
 const DEFAULT_PROPS: DetailsFormProps = {
-	values : {
+	values: {
 		mediaType: undefined,
 		previewUrl: '',
 		name: '',
 		symbol: '',
 	},
 	onSubmit,
-	onClose: jest.fn()
+	onClose: jest.fn(),
 };
+
+jest.mock('remark-emoji', () => jest.fn());
+jest.mock('remark-gemoji', () => jest.fn());
+jest.mock('@uiw/react-md-editor', () => jest.fn());
 
 describe('DetailsForm', () => {
 	beforeEach(() => jest.resetAllMocks());
@@ -32,9 +36,11 @@ describe('DetailsForm', () => {
 			</ZUIProvider>,
 		);
 
-		fireEvent.click(screen.getByRole('button', {
-			name: 'Next'
-		}));
+		fireEvent.click(
+			screen.getByRole('button', {
+				name: 'Next',
+			}),
+		);
 
 		await waitFor(() => expect(onSubmit).not.toHaveBeenCalled());
 	});
@@ -52,9 +58,11 @@ describe('DetailsForm', () => {
 			</ZUIProvider>,
 		);
 
-		fireEvent.click(screen.getByRole('button', {
-			name: 'Next'
-		}));
+		fireEvent.click(
+			screen.getByRole('button', {
+				name: 'Next',
+			}),
+		);
 
 		await waitFor(() => expect(onSubmit).toHaveBeenCalled());
 	});
