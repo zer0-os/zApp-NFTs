@@ -12,18 +12,18 @@ export interface CreateDAOModalProps extends BasicModalProps {
 export const CreateDAOModal: FC<CreateDAOModalProps> = ({ domainName, ...props }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
-	const handleClose = (): void => {
+	const onClose = (): void => {
 		setIsOpen(false);
 	}
 
-	const handleOpenChange = (open: boolean): void => {
+	const onOpenChange = (open: boolean): void => {
 		if (!open) return;
 		setIsOpen(true);
 	}
 
 	return (
-		<Modal {...props} open={isOpen} onOpenChange={handleOpenChange}>
-			<CreateDAOForm domainName={domainName} onClose={handleClose} />
+		<Modal {...props} open={isOpen} onOpenChange={onOpenChange}>
+			<CreateDAOForm domainName={domainName} onClose={onClose} />
 		</Modal>
 	);
 };

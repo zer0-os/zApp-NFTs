@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, useState } from 'react';
 
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
@@ -24,7 +24,9 @@ export interface DetailsFormProps {
 export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 	const { details, onDetailsSubmit } = useContext(CreateDAOFormContext);
 
-	const handleMediaInputChange = (
+	const [avatarHasError, setAvatarHasError] = useState(false);
+
+	const onAvatarChange = (
 		mediaType: MediaType,
 		previewUrl: string,
 		image: Buffer,
@@ -34,9 +36,14 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 			shouldValidate?: boolean,
 		) => void,
 	): void => {
-		setFieldValue('mediaType', mediaType);
-		setFieldValue('previewUrl', previewUrl);
-		setFieldValue('avatar', image);
+		setAvatarHasError(false);
+		try {
+			setFieldValue('mediaType', mediaType);
+			setFieldValue('previewUrl', previewUrl);
+			setFieldValue('avatar', image);
+		} catch(_) {
+			setAvatarHasError(true);
+		}
 	};
 
 	return (
@@ -55,13 +62,13 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 								subtitle="(Optional)"
 								mediaType={values.mediaType}
 								previewUrl={values.previewUrl}
-								hasError={false}
+								hasError={avatarHasError}
 								onChange={(
 									mediaType: MediaType,
 									previewImage: string,
 									image: Buffer,
 								) =>
-									handleMediaInputChange(
+									onAvatarChange(
 										mediaType,
 										previewImage,
 										image,
