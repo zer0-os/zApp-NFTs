@@ -22,10 +22,6 @@ const DEFAULT_PROPS: DetailsFormProps = {
 	onClose: jest.fn(),
 };
 
-jest.mock('remark-emoji', () => jest.fn());
-jest.mock('remark-gemoji', () => jest.fn());
-jest.mock('@uiw/react-md-editor', () => jest.fn());
-
 describe('DetailsForm', () => {
 	beforeEach(() => jest.resetAllMocks());
 

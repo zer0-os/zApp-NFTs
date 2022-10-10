@@ -21,10 +21,6 @@ const DEFAULT_PROPS: TokenomicsFormProps = {
 	onClose: jest.fn(),
 };
 
-jest.mock('remark-emoji', () => jest.fn());
-jest.mock('remark-gemoji', () => jest.fn());
-jest.mock('@uiw/react-md-editor', () => jest.fn());
-
 describe('TokenomicsForm', () => {
 	beforeEach(() => jest.resetAllMocks());
 

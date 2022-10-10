@@ -21,10 +21,6 @@ var mockTranferDomainOwnership = jest.fn();
 var mockTx = jest.fn();
 var mockOnClose = jest.fn();
 
-jest.mock('remark-emoji', () => jest.fn());
-jest.mock('remark-gemoji', () => jest.fn());
-jest.mock('@uiw/react-md-editor', () => jest.fn());
-
 // web3 - provider & account
 jest.mock('../../../lib/hooks/useWeb3', () => ({
 	useWeb3: () => ({
