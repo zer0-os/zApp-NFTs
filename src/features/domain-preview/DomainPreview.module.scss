@@ -16,7 +16,7 @@
 
 		&.isNFTView {
 			width: 100%;
-			// temporary fixed height
+			// TODO: temporary fixed height
 			height: 23.125rem;
 
 			img {
@@ -45,7 +45,7 @@
 			box-shadow: 0 0 1rem rgba($black, 0.5);
 		}
 
-		.TextContainer {
+		.DetailsContainer {
 			margin-top: 1.5rem;
 
 			.Title {
@@ -57,29 +57,48 @@
 				margin: 0.5rem 0 0 0;
 			}
 
-			.MemberContainer {
+			.DetailsRow {
 				display: flex;
-				padding: 0;
-				margin: 1.5rem 0 0 0;
-				list-style: none;
+				justify-content: space-between;
+				margin-top: 1.5rem;
 
-				> *:not(:first-child) {
-					margin-left: 2rem;
-				}
-
-				.MemberItem {
+				.MemberContainer {
 					display: flex;
-					flex-direction: column;
+					padding: 0;
+					margin: 0;
+					list-style: none;
 
-					.MemberTitle {
-						color: $purple-lightest;
-						font-size: $size-tiny;
-						margin-bottom: 0.125rem;
+					> *:not(:first-child) {
+						margin-left: 2rem;
 					}
 
-					.MemberAddress {
-						font-size: $size-medium;
-						margin-bottom: 1rem;
+					.MemberItem {
+						display: flex;
+						flex-direction: column;
+
+						.MemberTitle {
+							color: $purple-lightest;
+							font-size: $size-tiny;
+							margin-bottom: 0.125rem;
+						}
+
+						.MemberAddress {
+							font-size: $size-medium;
+							margin-bottom: 1rem;
+						}
+					}
+				}
+
+				.OptionsTray {
+					display: flex;
+					height: 2.3rem;
+					background: $purple-10;
+					border-radius: calc($radius-primary / 2);
+
+					button {
+						display: flex;
+						justify-content: center;
+						align-items: center;
 					}
 				}
 			}
