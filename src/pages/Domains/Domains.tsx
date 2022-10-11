@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Metadata } from '../../lib/types/metadata';
+import { useDomainData } from '../../lib/hooks/useDomainData';
 
 import {
 	SubdomainMetrics,
@@ -8,48 +8,26 @@ import {
 } from '../../features/view-subdomains';
 import { DomainPreview } from '../../features/domain-preview';
 
-import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
-
 type DomainsContainerProps = {
 	isRoot: boolean;
-	domain: Domain;
-	metrics: DomainMetrics;
-	subdomainData: Domain[];
-	domainMetadata: Metadata;
-	paymentTokenInfo: TokenPriceInfo;
-	isSubdomainDataLoading?: boolean;
+	domainId: string;
 };
 
-export const Domains: FC<DomainsContainerProps> = ({
-	isRoot,
-	domain,
-	metrics,
-	subdomainData,
-	domainMetadata,
-	paymentTokenInfo,
-	isSubdomainDataLoading,
-}) => {
+export const Domains: FC<DomainsContainerProps> = ({ isRoot, domainId }) => {
+	const { data: domain } = useDomainData(domainId);
+
 	return (
 		<>
 			{!isRoot && (
 				<DomainPreview
-					title={domainMetadata?.title}
-					description={domainMetadata?.description}
-					banner={domainMetadata?.image}
+					domainId={domainId}
 					href={`/${domain?.name}/nfts?view=true`}
 				/>
 			)}
 
-			<SubdomainMetrics
-				domainId={domain?.id}
-				paymentTokenInfo={paymentTokenInfo}
-			/>
+			<SubdomainMetrics domainId={domainId} />
 
-			<SubdomainTable
-				subdomainData={subdomainData}
-				paymentTokenData={paymentTokenInfo}
-				isSubdomainDataLoading={isSubdomainDataLoading}
-			/>
+			<SubdomainTable domainId={domainId} />
 		</>
 	);
 };

@@ -6,27 +6,25 @@ import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 import { useBidData } from '../../../lib/hooks/useBidData';
+import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
+import { usePaymentTokenInfo } from '../../../lib/hooks/usePaymentTokenInfo';
+import { usePaymentTokenForDomain } from '../../../lib/hooks/usePaymentTokenForDomain';
+import { useDataContainer } from '../../../lib/hooks/useDataContainer';
 
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 
 type NFTMetricsProps = {
 	domainId: string;
-	metrics: DomainMetrics;
-	isLoading?: boolean;
-	paymentTokenInfo: TokenPriceInfo;
 };
 
-export const NFTMetrics: FC<NFTMetricsProps> = ({
-	domainId,
-	metrics,
-	isLoading,
-	paymentTokenInfo,
-}) => {
-	const { data: bids } = useBidData(domainId);
+export const NFTMetrics: FC<NFTMetricsProps> = ({ domainId }) => {
+	const { bids, paymentTokenInfo, metrics, isMetricsLoading } =
+		useDataContainer(domainId);
+
 	const stats = [
 		{
 			title: 'Bids',
-			value: !isLoading && (bids?.length || 0).toLocaleString(),
+			value: !isMetricsLoading && (bids?.length || 0).toLocaleString(),
 		},
 		{
 			title: 'Last Sale',
@@ -46,7 +44,7 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({
 			value: (metrics?.volume as any)?.all
 				? `${formatEthers((metrics.volume as any).all)} WILD`
 				: String(0),
-			text:
+			secondyText:
 				(metrics?.volume as any)?.all && paymentTokenInfo?.price
 					? `$${formatNumber(
 							Number(ethers.utils.formatEther(metrics.volume.all)) *

@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
+import { useDataContainer } from '../../../lib/hooks/useDataContainer';
 
 import { AsyncTable } from '@zero-tech/zui/components';
 import { IconButton } from '../../../features/ui/IconButton';
@@ -11,23 +11,21 @@ import { SubdomainTableRow } from '../SubdomainTableRow';
 
 import { COLUMNS } from '../SubdomainTable.constants';
 
-//- Assets Imports
 import { IconGrid, IconList } from './Icons';
 
-//- Styles Imports
 import styles from './SubdomainTable.module.scss';
 
 type SubdomainTableProps = {
-	subdomainData: Domain[];
-	paymentTokenData: TokenPriceInfo;
-	isSubdomainDataLoading?: boolean;
+	domainId: string;
 };
 
-export const SubdomainTable: FC<SubdomainTableProps> = ({
-	subdomainData,
-	paymentTokenData,
-	isSubdomainDataLoading,
-}) => {
+export const SubdomainTable: FC<SubdomainTableProps> = ({ domainId }) => {
+	const {
+		paymentTokenInfo: paymentTokenData,
+		subdomainData,
+		isSubdomainDataLoading,
+	} = useDataContainer(domainId);
+
 	const history = useHistory();
 	const [isGridView, setIsGridView] = useState<boolean>(true);
 

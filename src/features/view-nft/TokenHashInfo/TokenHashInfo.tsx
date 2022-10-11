@@ -1,19 +1,20 @@
-import { FC, useMemo } from 'react';
-
-import { Domain } from '@zero-tech/zns-sdk';
+import { FC } from 'react';
 
 import { StatsList } from '../../ui/StatsList';
 
+import { useDataContainer } from '../../../lib/hooks/useDataContainer';
 import { truncateAddress } from '../../../lib/util/domains/domains';
 import { getHashFromIPFSUrl } from '../../../lib/util/ipfs.ts/ipfs';
 
 import styles from './TokenHashInfo.module.scss';
 
 type TokenHashInfoProps = {
-	domain: Domain;
+	domainId: string;
 };
 
-export const TokenHashInfo: FC<TokenHashInfoProps> = ({ domain }) => {
+export const TokenHashInfo: FC<TokenHashInfoProps> = ({ domainId }) => {
+	const { domain } = useDataContainer(domainId);
+
 	const ipfsHash = domain ? getHashFromIPFSUrl(domain?.metadataUri) : '';
 
 	const stats = [

@@ -1,27 +1,22 @@
 import { FC } from 'react';
 
-import { ethers } from 'ethers';
-import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
-
 import { StatsList } from '../../ui/StatsList';
 
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
-import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
+
+import { useDataContainer } from '../../../lib/hooks/useDataContainer';
 
 interface SubdomainMetricsProps {
 	domainId?: string;
-	paymentTokenInfo: TokenPriceInfo;
 }
 
-const getMetricsLabels = (metrics: DomainMetrics) => {};
+// const getMetricsLabels = (metrics: DomainMetrics) => {};
 
-export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({
-	domainId,
-	paymentTokenInfo,
-}) => {
-	const { data: metrics, isLoading } = useDomainMetrics(domainId);
+export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ domainId }) => {
+	const { metrics, isMetricsLoading, paymentTokenInfo } =
+		useDataContainer(domainId);
 
-	const DEFAULT = { isLoading };
+	const DEFAULT = { isMetricsLoading };
 
 	const paymentTokenLabel = paymentTokenInfo?.name
 		? ` (${paymentTokenInfo?.name})`
