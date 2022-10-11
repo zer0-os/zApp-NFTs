@@ -12,14 +12,14 @@ import { DetailsFormSubmit } from '../CreateToken.types';
 let onSubmit = jest.fn();
 
 const DEFAULT_PROPS: DetailsFormProps = {
-	values : {
+	values: {
 		mediaType: undefined,
 		previewUrl: '',
 		name: '',
 		symbol: '',
 	},
 	onSubmit,
-	onClose: jest.fn()
+	onClose: jest.fn(),
 };
 
 describe('DetailsForm', () => {
@@ -32,9 +32,11 @@ describe('DetailsForm', () => {
 			</ZUIProvider>,
 		);
 
-		fireEvent.click(screen.getByRole('button', {
-			name: 'Next'
-		}));
+		fireEvent.click(
+			screen.getByRole('button', {
+				name: 'Next',
+			}),
+		);
 
 		await waitFor(() => expect(onSubmit).not.toHaveBeenCalled());
 	});
@@ -52,9 +54,11 @@ describe('DetailsForm', () => {
 			</ZUIProvider>,
 		);
 
-		fireEvent.click(screen.getByRole('button', {
-			name: 'Next'
-		}));
+		fireEvent.click(
+			screen.getByRole('button', {
+				name: 'Next',
+			}),
+		);
 
 		await waitFor(() => expect(onSubmit).toHaveBeenCalled());
 	});
