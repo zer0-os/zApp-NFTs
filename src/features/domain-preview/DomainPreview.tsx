@@ -7,6 +7,7 @@ import { MemberTitle } from '../../lib/constants/labels';
 import { useDataContainer } from '../../lib/hooks/useDataContainer';
 
 import { TransferOwnershipModal } from '../../features/transfer-ownership';
+import { DomainPreviewActions } from './DomainPreviewActions';
 import { IconDots, IconSend } from './Icons';
 import { DropdownMenu } from '@zero-tech/zui/components';
 
@@ -21,6 +22,7 @@ type DomainPreviewProps = {
 
 export const DomainPreview: FC<DomainPreviewProps> = ({ domainId }) => {
 	const { account } = useWeb3();
+
 	const { domain, domainMetadata, isNFTView } = useDataContainer(domainId);
 
 	const members = [
@@ -28,44 +30,8 @@ export const DomainPreview: FC<DomainPreviewProps> = ({ domainId }) => {
 		{ title: MemberTitle.OWNER, address: domain?.owner },
 	];
 
-	const [modal, setModal] = useState('');
-
-	const moreOptions = [
-		{
-			id: 'Transfer',
-			label: (
-				<div
-					style={{
-						display: 'flex',
-						alignItems: 'center',
-						gap: '1rem',
-					}}
-				>
-					<IconSend />
-					<div style={{ fontSize: '1rem', lineHeight: '1.5rem' }}>
-						Transfer Ownership
-					</div>
-				</div>
-			),
-			onSelect: () => setModal('transfer'),
-		},
-	];
-
-	const modals = () => (
-		<TransferOwnershipModal
-			open={modal === 'transfer'}
-			domainId={domainId}
-			domainName={domain?.name}
-			domainTitle={domainMetadata?.title}
-			domainOwner={domain?.owner}
-			domainCreator={domain?.minter}
-			onClose={() => {}}
-		/>
-	);
-
 	return (
 		<>
-			{modals()}
 			<div className={styles.Container}>
 				{/* TODO: media asset component */}
 				<img
@@ -104,13 +70,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({ domainId }) => {
 
 							{isNFTView && domain?.owner !== account && (
 								<div className={styles.OptionsTray}>
-									<DropdownMenu
-										className={styles.MoreOptionsMenu}
-										items={moreOptions}
-										side="bottom"
-										alignMenu="end"
-										trigger={<IconDots />}
-									/>
+									<DomainPreviewActions />
 								</div>
 							)}
 						</div>
