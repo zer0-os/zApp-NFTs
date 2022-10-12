@@ -62,7 +62,6 @@ export const DomainPreview: FC<DomainPreviewProps> = ({ domainId }) => {
 			onClose={() => {}}
 		/>
 	);
-	console.log('isNFTView', isNFTView);
 
 	return (
 		<>

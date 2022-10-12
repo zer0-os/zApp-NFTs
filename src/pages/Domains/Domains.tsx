@@ -13,14 +13,12 @@ type DomainsContainerProps = {
 	domainId: string;
 };
 
-export const Domains: FC<DomainsContainerProps> = ({ isRoot, domainId }) => {
-	return (
-		<>
-			{!isRoot && <DomainPreview domainId={domainId} />}
+export const Domains: FC<DomainsContainerProps> = ({ isRoot, domainId }) => (
+	<>
+		{!isRoot && <DomainPreview domainId={domainId} />}
 
-			<SubdomainMetrics domainId={domainId} />
+		<SubdomainMetrics domainId={domainId} />
 
-			<SubdomainTable domainId={domainId} />
-		</>
-	);
-};
+		<SubdomainTable domainId={domainId} />
+	</>
+);

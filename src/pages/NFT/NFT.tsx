@@ -12,18 +12,16 @@ type NFTProps = {
 	domainId: string;
 };
 
-export const NFT: FC<NFTProps> = ({ domainId }) => {
-	return (
-		<>
-			<DomainPreview domainId={domainId} />
+export const NFT: FC<NFTProps> = ({ domainId }) => (
+	<>
+		<DomainPreview domainId={domainId} />
 
-			<Actions domainId={domainId} />
+		<Actions domainId={domainId} />
 
-			<NFTMetrics domainId={domainId} />
+		<NFTMetrics domainId={domainId} />
 
-			<TokenHashInfo domainId={domainId} />
+		<TokenHashInfo domainId={domainId} />
 
-			<HistoryList domainId={domainId} />
-		</>
-	);
-};
+		<HistoryList domainId={domainId} />
+	</>
+);
