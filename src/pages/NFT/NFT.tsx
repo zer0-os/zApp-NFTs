@@ -15,7 +15,7 @@ type NFTProps = {
 export const NFT: FC<NFTProps> = ({ domainId }) => {
 	return (
 		<>
-			<DomainPreview domainId={domainId} isNFTView />
+			<DomainPreview domainId={domainId} />
 
 			<Actions domainId={domainId} />
 

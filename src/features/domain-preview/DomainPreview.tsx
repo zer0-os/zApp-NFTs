@@ -17,17 +17,11 @@ const cx = classNames.bind(styles);
 
 type DomainPreviewProps = {
 	domainId: string;
-	href?: string;
-	isNFTView?: boolean;
 };
 
-export const DomainPreview: FC<DomainPreviewProps> = ({
-	domainId,
-	href,
-	isNFTView,
-}) => {
+export const DomainPreview: FC<DomainPreviewProps> = ({ domainId }) => {
 	const { account } = useWeb3();
-	const { domain, domainMetadata } = useDataContainer(domainId);
+	const { domain, domainMetadata, isNFTView } = useDataContainer(domainId);
 
 	const members = [
 		{ title: MemberTitle.CREATOR, address: domain?.minter },
@@ -68,6 +62,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 			onClose={() => {}}
 		/>
 	);
+	console.log('isNFTView', isNFTView);
 
 	return (
 		<>
@@ -127,10 +122,13 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 							</p>
 						)}
 
-						{href && (
+						{!isNFTView && (
 							<div className={styles.LinkContainer}>
 								{/* TODO: arrow link component */}
-								<Link className={styles.Link} to={href}>
+								<Link
+									className={styles.Link}
+									to={`/${domain?.name}/nfts?view=true`}
+								>
 									{'View Domain NFT ->'}
 								</Link>
 							</div>
