@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { useWeb3 } from '../../lib/hooks/useWeb3';
 import { truncateAddress } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
+import { useDataContainer } from '../../lib/hooks/useDataContainer';
 
 import { TransferOwnershipModal } from '../../features/transfer-ownership';
-import { DropdownMenu } from '@zero-tech/zui/components';
 import { IconDots, IconSend } from './Icons';
+import { DropdownMenu } from '@zero-tech/zui/components';
 
 import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
@@ -15,31 +16,22 @@ import styles from './DomainPreview.module.scss';
 const cx = classNames.bind(styles);
 
 type DomainPreviewProps = {
-	title?: string;
-	description?: string;
-	icon?: string;
-	banner?: string;
+	domainId: string;
 	href?: string;
-	owner?: string;
-	creator?: string;
 	isNFTView?: boolean;
 };
 
 export const DomainPreview: FC<DomainPreviewProps> = ({
-	title,
-	description,
-	icon,
-	banner,
+	domainId,
 	href,
-	owner,
-	creator,
 	isNFTView,
 }) => {
 	const { account } = useWeb3();
+	const { domain, domainMetadata } = useDataContainer(domainId);
 
 	const members = [
-		{ title: MemberTitle.CREATOR, address: creator },
-		{ title: MemberTitle.OWNER, address: owner },
+		{ title: MemberTitle.CREATOR, address: domain?.minter },
+		{ title: MemberTitle.OWNER, address: domain?.owner },
 	];
 
 	const [modal, setModal] = useState('');
@@ -68,11 +60,11 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 	const modals = () => (
 		<TransferOwnershipModal
 			open={modal === 'transfer'}
-			domainId={''}
-			domainName={''}
-			domainTitle={''}
-			domainOwner={''}
-			domainCreator={''}
+			domainId={domainId}
+			domainName={domain?.name}
+			domainTitle={domainMetadata?.title}
+			domainOwner={domain?.owner}
+			domainCreator={domain?.minter}
 			onClose={() => {}}
 		/>
 	);
@@ -86,7 +78,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 					className={cx(styles.Banner, {
 						isNFTView: isNFTView,
 					})}
-					src={banner}
+					src={'banner'}
 				/>
 
 				<div
@@ -95,13 +87,15 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 					})}
 				>
 					{/* TODO: media asset component */}
-					{!isNFTView && <img src={banner} className={styles.Icon}></img>}
+					{!isNFTView && <img src={'icon'} className={styles.Icon}></img>}
 					<div className={styles.DetailsContainer}>
-						{title && <h1 className={styles.Title}>{title}</h1>}
+						{domainMetadata?.title && (
+							<h1 className={styles.Title}>{domainMetadata?.title}</h1>
+						)}
 
 						<div className={styles.DetailsRow}>
 							{/* TODO: member component */}
-							{isNFTView && creator && owner && (
+							{isNFTView && domain?.minter && domain?.owner && (
 								<ul className={styles.MemberContainer}>
 									{members.map((member) => (
 										<li key={member.title} className={styles.MemberItem}>
@@ -114,9 +108,10 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 								</ul>
 							)}
 
-							{isNFTView && owner !== account && (
+							{isNFTView && domain?.owner !== account && (
 								<div className={styles.OptionsTray}>
 									<DropdownMenu
+										className={styles.MoreOptionsMenu}
 										items={moreOptions}
 										side="bottom"
 										alignMenu="end"
@@ -126,7 +121,11 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 							)}
 						</div>
 
-						{description && <p className={styles.Description}>{description}</p>}
+						{domainMetadata?.description && (
+							<p className={styles.Description}>
+								{domainMetadata?.description}
+							</p>
+						)}
 
 						{href && (
 							<div className={styles.LinkContainer}>

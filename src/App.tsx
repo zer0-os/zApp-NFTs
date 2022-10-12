@@ -2,31 +2,23 @@ import { FC } from 'react';
 import { Switch } from 'react-router-dom';
 
 import { AppProps } from './lib/types/app';
-
+import { getDomainId } from './lib/util/domains/domains';
 import { useDataContainer } from './lib/hooks/useDataContainer';
 
 import { Domains } from './pages/Domains';
 import { NFT } from './pages/NFT';
-
-import { getDomainId } from './lib/util/domains/domains';
 
 import classNames from 'classnames/bind';
 import styles from './App.module.scss';
 
 const cx = classNames.bind(styles);
 
-export const App: FC<AppProps> = ({ provider, route }) => {
+export const App: FC<AppProps> = ({ route }) => {
 	const domainId = getDomainId(route);
-	const isRoot = route.split('.').length === 1 && !route.includes('.');
 
-	const {
-		domain,
-		subdomainData,
-		paymentTokenInfo,
-		metrics,
-		domainMetadata,
-		isNFTView,
-	} = useDataContainer(domainId);
+	const { isNFTView } = useDataContainer(domainId);
+
+	const isRoot = route.split('.').length === 1 && !route.includes('.');
 
 	return (
 		<main
@@ -35,25 +27,9 @@ export const App: FC<AppProps> = ({ provider, route }) => {
 			})}
 		>
 			<Switch>
-				{!isNFTView && (
-					<Domains
-						isRoot={isRoot}
-						domain={domain}
-						metrics={metrics}
-						subdomainData={subdomainData}
-						domainMetadata={domainMetadata}
-						paymentTokenInfo={paymentTokenInfo}
-					/>
-				)}
+				{!isNFTView && <Domains isRoot={isRoot} domainId={domainId} />}
 
-				{isNFTView && (
-					<NFT
-						domain={domain}
-						metrics={metrics}
-						domainMetadata={domainMetadata}
-						paymentTokenInfo={paymentTokenInfo}
-					/>
-				)}
+				{isNFTView && <NFT domainId={domainId} />}
 			</Switch>
 		</main>
 	);

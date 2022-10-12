@@ -11,8 +11,7 @@ import { DataTestId, Messages } from './Actions.constants';
 import { Labels } from '../../../lib/constants/labels';
 
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
-import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
-import { useBidData } from '../../../lib/hooks/useBidData';
+import { useDataContainer } from '../../../lib/hooks/useDataContainer';
 
 import {
 	getOrderedActions,
@@ -28,19 +27,14 @@ import { Metadata } from '../../../lib/types/metadata';
 import styles from './Actions.module.scss';
 
 type ActionsProps = {
-	domain?: Domain;
-	domainMetadata?: Metadata;
-	paymentTokenInfo?: TokenPriceInfo;
+	domainId: string;
 };
 
-export const Actions = ({
-	domain,
-	domainMetadata,
-	paymentTokenInfo,
-}: ActionsProps) => {
+export const Actions = ({ domainId }: ActionsProps) => {
 	const { account } = useWeb3();
-	const { data: buyNowPrice } = useBuyNowPrice(domain?.id);
-	const { data: bids } = useBidData(domain?.id);
+	const { domain, domainMetadata, paymentTokenInfo, buyNowPrice, bids } =
+		useDataContainer(domainId);
+
 	const userBids = getUserBids(account, bids);
 	const highestBid = getHighestBid(bids);
 	const highestUserBid = getHighestBid(userBids);

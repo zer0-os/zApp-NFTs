@@ -1,12 +1,10 @@
 import { FC } from 'react';
 
-import { TokenPriceInfo } from '@zero-tech/zns-sdk';
-
 import { HistoryItem } from '..';
 
 import { DomainEvent } from '../../../lib/types/events';
 
-import { useDomainEvents } from '../../../lib/hooks/useDomainEvents';
+import { useDataContainer } from '../../../lib/hooks/useDataContainer';
 
 import { sortEventsByTimestamp } from './HistoryList.utils';
 
@@ -14,14 +12,11 @@ import styles from './HistoryList.module.scss';
 
 type HistoryListProps = {
 	domainId: string;
-	paymentToken: TokenPriceInfo;
 };
 
-export const HistoryList: FC<HistoryListProps> = ({
-	domainId,
-	paymentToken,
-}) => {
-	const { data: domainEvents } = useDomainEvents(domainId);
+export const HistoryList: FC<HistoryListProps> = ({ domainId }) => {
+	const { paymentTokenInfo, domainEvents } = useDataContainer(domainId);
+
 	const sortedDomainEvents = sortEventsByTimestamp(domainEvents);
 
 	return (
@@ -32,7 +27,7 @@ export const HistoryList: FC<HistoryListProps> = ({
 				<ul className={styles.Container}>
 					{sortedDomainEvents?.map((item: DomainEvent, i: number) => (
 						<div key={i}>
-							<HistoryItem item={item} paymentToken={paymentToken} />
+							<HistoryItem item={item} paymentToken={paymentTokenInfo} />
 						</div>
 					))}
 				</ul>

@@ -8,48 +8,22 @@ import {
 } from '../../features/view-nft';
 import { DomainPreview } from '../../features/domain-preview';
 
-import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
-
-import { Metadata } from '../../lib/types/metadata';
-
 type NFTProps = {
-	domain: Domain;
-	metrics: DomainMetrics;
-	domainMetadata: Metadata;
-	paymentTokenInfo: TokenPriceInfo;
+	domainId: string;
 };
 
-export const NFT: FC<NFTProps> = ({
-	domain,
-	metrics,
-	domainMetadata,
-	paymentTokenInfo,
-}) => {
+export const NFT: FC<NFTProps> = ({ domainId }) => {
 	return (
 		<>
-			<DomainPreview
-				title={domainMetadata?.title}
-				description={domainMetadata?.description}
-				owner={domain?.owner}
-				creator={domain?.minter}
-				isNFTView
-			/>
+			<DomainPreview domainId={domainId} isNFTView />
 
-			<Actions
-				domain={domain}
-				domainMetadata={domainMetadata}
-				paymentTokenInfo={paymentTokenInfo}
-			/>
+			<Actions domainId={domainId} />
 
-			<NFTMetrics
-				domainId={domain?.id}
-				metrics={metrics}
-				paymentTokenInfo={paymentTokenInfo}
-			/>
+			<NFTMetrics domainId={domainId} />
 
-			<TokenHashInfo domain={domain} />
+			<TokenHashInfo domainId={domainId} />
 
-			<HistoryList domainId={domain?.id} paymentToken={paymentTokenInfo} />
+			<HistoryList domainId={domainId} />
 		</>
 	);
 };
