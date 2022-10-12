@@ -1,0 +1,14 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+
+.Container {
+	display: flex;
+	height: 2.3rem;
+	background: $purple-10;
+	border-radius: calc($radius-primary / 2);
+
+	button {
+		display: flex;
+		align-items: center;
+	}
+}

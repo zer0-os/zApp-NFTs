@@ -88,18 +88,6 @@
 						}
 					}
 				}
-
-				.OptionsTray {
-					display: flex;
-					height: 2.3rem;
-					background: $purple-10;
-					border-radius: calc($radius-primary / 2);
-
-					button {
-						display: flex;
-						align-items: center;
-					}
-				}
 			}
 
 			.LinkContainer {

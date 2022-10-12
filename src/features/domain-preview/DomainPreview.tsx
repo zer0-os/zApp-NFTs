@@ -1,15 +1,11 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useWeb3 } from '../../lib/hooks/useWeb3';
 import { truncateAddress } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
 import { useDataContainer } from '../../lib/hooks/useDataContainer';
 
-import { TransferOwnershipModal } from '../../features/transfer-ownership';
-import { DomainPreviewActions } from './DomainPreviewActions';
-import { IconDots, IconSend } from './Icons';
-import { DropdownMenu } from '@zero-tech/zui/components';
+import { Options } from './Options';
 
 import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
@@ -21,8 +17,6 @@ type DomainPreviewProps = {
 };
 
 export const DomainPreview: FC<DomainPreviewProps> = ({ domainId }) => {
-	const { account } = useWeb3();
-
 	const { domain, domainMetadata, isNFTView } = useDataContainer(domainId);
 
 	const members = [
@@ -68,11 +62,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({ domainId }) => {
 								</ul>
 							)}
 
-							{isNFTView && domain?.owner !== account && (
-								<div className={styles.OptionsTray}>
-									<DomainPreviewActions />
-								</div>
-							)}
+							<Options domainId={domainId} />
 						</div>
 
 						{domainMetadata?.description && (
