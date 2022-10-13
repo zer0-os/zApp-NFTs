@@ -36,7 +36,7 @@ export const Options: FC<OptionsProps> = ({ domainId }) => {
 				</button>
 			</Tooltip>
 
-			{isNFTView && domain?.owner !== account && (
+			{isNFTView && domain?.owner === account && (
 				<MoreNFTOptions domainId={domainId} trigger={<IconDots />} />
 			)}
 		</div>
