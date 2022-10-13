@@ -3,6 +3,7 @@
 
 .Container {
 	display: flex;
+	align-items: center;
 	background: $purple-10;
 	border-radius: calc($radius-primary / 2);
 	height: 2.313rem;
@@ -10,8 +11,8 @@
 	button {
 		display: flex;
 		justify-content: center;
-		align-items: center;
 		width: 3.5rem;
-		height: 2.313rem;
+		border: none;
+		background: none;
 	}
 }

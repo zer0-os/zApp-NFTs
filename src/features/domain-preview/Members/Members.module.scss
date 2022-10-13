@@ -1,0 +1,29 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.MemberContainer {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+
+	> *:not(:first-child) {
+		margin-left: 2rem;
+	}
+
+	.MemberItem {
+		display: flex;
+		flex-direction: column;
+
+		.MemberTitle {
+			color: $purple-lightest;
+			font-size: $size-tiny;
+			margin-bottom: 0.125rem;
+		}
+
+		.MemberAddress {
+			font-size: $size-medium;
+			margin-bottom: 1rem;
+		}
+	}
+}

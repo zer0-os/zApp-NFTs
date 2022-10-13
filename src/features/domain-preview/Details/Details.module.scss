@@ -1,0 +1,31 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.TitleBlock {
+	margin-top: 1.5rem;
+
+	.Title {
+		// TODO: add xl font size to zui
+		font-size: 36px;
+		margin: 0;
+	}
+
+	.Description {
+		margin: 0.5rem 0 0 0;
+	}
+
+	.DetailsRow {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 1.5rem;
+	}
+
+	.LinkContainer {
+		margin-top: 1rem;
+
+		.Link {
+			color: $blue;
+			font-size: $size-tiny;
+		}
+	}
+}

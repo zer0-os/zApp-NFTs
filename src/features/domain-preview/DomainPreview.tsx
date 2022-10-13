@@ -1,16 +1,11 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
 
-import { truncateAddress } from '../../lib/util/domains/domains';
-import { MemberTitle } from '../../lib/constants/labels';
 import { useDataContainer } from '../../lib/hooks/useDataContainer';
 
-import { Options } from './Options';
+import { Details } from './Details';
+import { Banner } from './Banner';
 
-import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
-
-const cx = classNames.bind(styles);
 
 type DomainPreviewProps = {
 	domainId: string;
@@ -19,71 +14,23 @@ type DomainPreviewProps = {
 export const DomainPreview: FC<DomainPreviewProps> = ({ domainId }) => {
 	const { domain, domainMetadata, isNFTView } = useDataContainer(domainId);
 
-	const members = [
-		{ title: MemberTitle.CREATOR, address: domain?.minter },
-		{ title: MemberTitle.OWNER, address: domain?.owner },
-	];
+	const imageSrc = domainMetadata?.previewImage ?? domainMetadata?.image;
+	const imageAlt = domainMetadata?.name ?? domain?.name;
 
 	return (
 		<>
 			<div className={styles.Container}>
-				{/* TODO: media asset component */}
-				<img
-					className={cx(styles.Banner, {
-						isNFTView: isNFTView,
-					})}
-					src={'banner'}
+				<Banner imageSrc={imageSrc} imageAlt={imageAlt} isNFTView={isNFTView} />
+
+				<Details
+					id={domainId}
+					zna={domain?.name}
+					title={domainMetadata?.title}
+					description={domainMetadata?.description}
+					owner={domain?.owner}
+					creator={domain?.minter}
+					isNFTView={isNFTView}
 				/>
-
-				<div
-					className={cx(styles.Content, {
-						isNFTView: isNFTView,
-					})}
-				>
-					{/* TODO: media asset component */}
-					{!isNFTView && <img src={'icon'} className={styles.Icon}></img>}
-					<div className={styles.DetailsContainer}>
-						{domainMetadata?.title && (
-							<h1 className={styles.Title}>{domainMetadata?.title}</h1>
-						)}
-
-						<div className={styles.DetailsRow}>
-							{/* TODO: member component */}
-							{isNFTView && domain?.minter && domain?.owner && (
-								<ul className={styles.MemberContainer}>
-									{members.map((member) => (
-										<li key={member.title} className={styles.MemberItem}>
-											<span className={styles.MemberTitle}>{member.title}</span>
-											<span className={styles.MemberAddress}>
-												{truncateAddress(member.address)}
-											</span>
-										</li>
-									))}
-								</ul>
-							)}
-
-							<Options domainId={domainId} />
-						</div>
-
-						{domainMetadata?.description && (
-							<p className={styles.Description}>
-								{domainMetadata?.description}
-							</p>
-						)}
-
-						{!isNFTView && (
-							<div className={styles.LinkContainer}>
-								{/* TODO: arrow link component */}
-								<Link
-									className={styles.Link}
-									to={`/${domain?.name}/nfts?view=true`}
-								>
-									{'View Domain NFT ->'}
-								</Link>
-							</div>
-						)}
-					</div>
-				</div>
 			</div>
 		</>
 	);

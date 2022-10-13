@@ -1,0 +1,37 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+
+.Banner {
+	height: 15rem;
+	width: 100%;
+	background: $purple-10;
+	border-radius: calc($radius-primary / 2);
+
+	// TODO: temporary fixed height
+	&.isNFTView {
+		height: 23.125rem;
+	}
+
+	img {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+		border-radius: calc($radius-primary / 2);
+	}
+}
+
+.Thumbnail {
+	height: 7.5rem;
+	width: 7.5rem;
+	background: $purple-10;
+	margin: -3.75rem 0 0 0.5rem;
+	border-radius: 50%;
+	box-shadow: 0 0 1rem rgba($black, 0.5);
+
+	img {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+		border-radius: 50%;
+	}
+}
