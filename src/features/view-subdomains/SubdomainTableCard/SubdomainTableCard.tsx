@@ -1,16 +1,15 @@
 import { FC } from 'react';
+
+import { useSubdomainData } from '../useSubdomainData';
+import { formatEthers } from '../../../lib/util/number/number';
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
-import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
-import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
-import { formatEthers } from '../../../lib/util/number/number';
-import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
-
+import { PlaceBidButton } from '../../place-bid';
+import { BuyNowButton } from '../../buy-now';
 import { GridCard } from '@zero-tech/zui/components/GridCard';
 import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
 
 import styles from './SubdomainTableCard.module.scss';
-import { useSubdomainData } from '../useSubdomainData';
 
 type SubdomainTableCardProps = {
 	domainId: string;
@@ -53,6 +52,8 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	const label =
 		(buyNowPriceString ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
 
+	const button = buyNowPrice ? <BuyNowButton /> : <PlaceBidButton isRoot />;
+
 	return (
 		<GridCard
 			className={styles.Container}
@@ -68,15 +69,13 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 					errorText: 'Failed to load!',
 				}}
 				zna={domainName}
-				onClickButton={() => console.log('yep')}
-				isButtonDisabled={isButtonDisabled}
-				buttonText={'Mock'}
 				label={label}
 				primaryText={{
 					text: buyNowPriceString ?? highestBidString,
 					isLoading: isMetricsLoading,
 				}}
 				secondaryText={''}
+				button={button}
 			/>
 		</GridCard>
 	);
