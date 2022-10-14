@@ -1,6 +1,5 @@
 import { FC } from 'react';
 
-import { ethers } from 'ethers';
 import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 
 import { StatsList } from '../../ui/StatsList';
@@ -42,17 +41,26 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({
 	const stats = [
 		{
 			title: 'Items In Domain',
-			value: itemsInDomain,
+			value: {
+				isLoading,
+				text: itemsInDomain,
+			},
 			...DEFAULT,
 		},
 		{
 			title: 'Floor Price',
-			value: floorPriceString,
+			value: {
+				isLoading,
+				text: floorPriceString,
+			},
 			...DEFAULT,
 		},
 		{
 			title: 'Volume',
-			value: volumeString,
+			value: {
+				isLoading,
+				text: volumeString,
+			},
 			...DEFAULT,
 		},
 	];
