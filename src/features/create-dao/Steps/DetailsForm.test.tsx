@@ -24,7 +24,7 @@ const DEFAULT_PROVIDER_VALUES = {
 		description: '',
 	},
 	governance: {
-		votingProcess: '',
+		votingProcess: 'absolute',
 		votingPeriod: '',
 		votingSystem: '',
 		daoTokenAddress: '',

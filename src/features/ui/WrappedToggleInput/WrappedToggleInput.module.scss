@@ -1,0 +1,17 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+
+.Container {
+	display: flex;
+	justify-content: space-between;
+
+	.Label {
+		margin-left: 1.375rem;
+	}
+}
+
+.LearnMore {
+	color: $blue;
+	font-size: 0.75rem;
+	float: right;
+	margin-top: 0.5rem;
+}

@@ -1,0 +1,10 @@
+.Container {
+    display: flex;
+
+    .Label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 0.5rem;
+    }
+}

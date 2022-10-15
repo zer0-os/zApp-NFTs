@@ -19,7 +19,7 @@ export const CreateDAOFormContext = createContext({
 		description: '',
 	},
 	governance: {
-		votingProcess: '',
+		votingProcess: 'absolute',
 		votingPeriod: '',
 		votingSystem: '',
 		daoTokenAddress: '',
@@ -54,7 +54,7 @@ export const CreateDAOFormContextProvider: FC<Props> = ({ children }) => {
 	});
 
 	const [governance, setGovernance] = useState<GovernanceFormSubmit>({
-		votingProcess: '',
+		votingProcess: 'absolute',
 		votingPeriod: '',
 		votingSystem: '',
 		daoTokenAddress: '',
