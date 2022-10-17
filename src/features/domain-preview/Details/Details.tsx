@@ -10,7 +10,7 @@ import styles from './Details.module.scss';
 
 const cx = classNames.bind(styles);
 
-type DomainPreviewProps = {
+type DetailsProps = {
 	id: string;
 	zna: string;
 	title: string;
@@ -20,7 +20,7 @@ type DomainPreviewProps = {
 	isNFTView: boolean;
 };
 
-export const Details: FC<DomainPreviewProps> = ({
+export const Details: FC<DetailsProps> = ({
 	id,
 	zna,
 	title,
