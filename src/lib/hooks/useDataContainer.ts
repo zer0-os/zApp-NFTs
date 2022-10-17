@@ -7,7 +7,8 @@ import { useDomainMetrics } from './useDomainMetrics';
 import { useViewNavigation } from './useViewNavigation';
 
 export const useDataContainer = (domainId: string) => {
-	const { data: domain } = useDomainData(domainId);
+	const { data: domain, isLoading: isDomainDataLoading } =
+		useDomainData(domainId);
 	const { data: subdomainData } = useSubdomainData(domainId);
 	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
 	const { data: paymentTokenInfo } = usePaymentTokenInfo(paymentToken);
@@ -17,6 +18,7 @@ export const useDataContainer = (domainId: string) => {
 
 	return {
 		domain,
+		isDomainDataLoading,
 		subdomainData,
 		paymentTokenInfo,
 		metrics,

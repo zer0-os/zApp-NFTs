@@ -13,3 +13,16 @@ export const chainIdToNetworkType = (chainId?: Network): NETWORK_TYPES => {
 			return NETWORK_TYPES.LOCAL;
 	}
 };
+
+export const getEtherscanUri = (networkType: NETWORK_TYPES): string => {
+	let prefix = '';
+	// TODO: add goerli network when available
+	// switch (networkType) {
+	// 	case NETWORK_TYPES.GOERLI:
+	// 		prefix = 'goerli.';
+	// 		break;
+	// }
+	const uri = `https://${prefix}etherscan.io/`;
+
+	return uri;
+};

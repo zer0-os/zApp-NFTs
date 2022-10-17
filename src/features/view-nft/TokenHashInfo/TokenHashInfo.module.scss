@@ -1,3 +1,11 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
 .Container {
 	margin-top: 1rem;
+
+	.Link {
+		color: $blue;
+		font-size: $size-tiny;
+	}
 }
