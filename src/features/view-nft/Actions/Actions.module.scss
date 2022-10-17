@@ -8,6 +8,10 @@
 	margin: 0 0 3rem 0;
 	list-style: none;
 
+	li {
+		display: flex;
+	}
+
 	.Border {
 		border-right: 1px solid $mine-shaft;
 		padding-right: 2.5rem;

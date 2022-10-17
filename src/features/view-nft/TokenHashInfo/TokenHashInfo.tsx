@@ -1,10 +1,19 @@
 import { FC } from 'react';
 
-import { StatsList } from '../../ui/StatsList';
-
+import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { useDataContainer } from '../../../lib/hooks/useDataContainer';
-import { truncateAddress } from '../../../lib/util/domains/domains';
-import { getHashFromIPFSUrl } from '../../../lib/util/ipfs.ts/ipfs';
+import {
+	getEtherscanLink,
+	truncateAddress,
+} from '../../../lib/util/domains/domains';
+import {
+	getHashFromIPFSUrl,
+	getWebIPFSUrlFromHash,
+} from '../../../lib/util/ipfs.ts/ipfs';
+import { Domain } from '@zero-tech/zns-sdk';
+
+import { StatsList } from '../../ui/StatsList';
+import { ArrowLink } from '@zero-tech/zui/components/Link/ArrowLink';
 
 import styles from './TokenHashInfo.module.scss';
 
@@ -12,21 +21,51 @@ type TokenHashInfoProps = {
 	domainId: string;
 };
 
-export const TokenHashInfo: FC<TokenHashInfoProps> = ({ domainId }) => {
-	const { domain } = useDataContainer(domainId);
-
+export const TokenHashInfo: FC<TokenHashInfoProps> = ({ domain }) => {
+	const { chainId } = useWeb3();
+	const { isDomainDataLoading } = useDataContainer(domain?.id);
 	const ipfsHash = domain ? getHashFromIPFSUrl(domain?.metadataUri) : '';
+	const webIpfsUrl = getWebIPFSUrlFromHash(ipfsHash);
+	const etherscanLink = getEtherscanLink(domain, chainId);
 
 	const stats = [
 		{
 			title: 'Token ID',
-			value: domain && truncateAddress(domain?.id),
-			text: 'View on Etherscan ->',
+			value: {
+				isLoading: isDomainDataLoading,
+				text: truncateAddress(domain?.id),
+			},
+			text: {
+				isLoading: isDomainDataLoading,
+				text: (
+					<ArrowLink
+						className={styles.Link}
+						href={etherscanLink}
+						isLinkToExternalUrl
+					>
+						View on Etherscan
+					</ArrowLink>
+				),
+			},
 		},
 		{
 			title: 'IPFS Hash',
-			value: ipfsHash && truncateAddress(ipfsHash),
-			text: 'View on IPFS ->',
+			value: {
+				isLoading: !ipfsHash,
+				text: truncateAddress(ipfsHash),
+			},
+			text: {
+				isLoading: !ipfsHash,
+				text: (
+					<ArrowLink
+						className={styles.Link}
+						href={webIpfsUrl}
+						isLinkToExternalUrl
+					>
+						View on IPFS
+					</ArrowLink>
+				),
+			},
 		},
 	];
 
@@ -36,3 +75,5 @@ export const TokenHashInfo: FC<TokenHashInfoProps> = ({ domainId }) => {
 		</div>
 	);
 };
+
+// remove usememe

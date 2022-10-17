@@ -17,7 +17,7 @@ then
   echo "Would you like to remove it?"
   select result in yes "no (cancel)"
   do
-    case $result in
+    case $REPLY in
         yes)
           sudo npm rm --global --s "$PACKAGE" && echo "* Removed existing link for $PACKAGE." && break;;
         "no (cancel)")

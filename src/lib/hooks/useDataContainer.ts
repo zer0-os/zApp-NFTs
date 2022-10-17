@@ -11,7 +11,6 @@ import { useViewNavigation } from './useViewNavigation';
 
 export const useDataContainer = (domainId: string) => {
 	const { data: bids } = useBidData(domainId);
-	const { data: domain } = useDomainData(domainId);
 	const { data: buyNowPrice } = useBuyNowPrice(domainId);
 	const { data: domainEvents } = useDomainEvents(domainId);
 	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
@@ -19,6 +18,8 @@ export const useDataContainer = (domainId: string) => {
 	const { data: domainMetadata } = useDomainMetadata(domain?.metadataUri);
 	const { data: metrics, isLoading: isMetricsLoading } =
 		useDomainMetrics(domainId);
+  const { data: domain, isLoading: isDomainDataLoading } =
+		useDomainData(domainId);
 	const { data: subdomainData, isLoading: isSubdomainDataLoading } =
 		useSubdomainData(domainId);
 	const { isNFTView } = useViewNavigation(subdomainData);
@@ -28,6 +29,8 @@ export const useDataContainer = (domainId: string) => {
 		domain,
 		buyNowPrice,
 		domainEvents,
+		isDomainDataLoading,
+		subdomainData,
 		paymentTokenInfo,
 		domainMetadata,
 		metrics,

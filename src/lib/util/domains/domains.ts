@@ -1,4 +1,13 @@
-import { ethers } from 'ethers';
+import { useMemo } from 'react';
+
+import {
+	chainIdToNetworkType,
+	getEtherscanUri,
+} from '../../../lib/helpers/network';
+import { Network } from '../../../lib/constants/networks';
+
+import { ethers, BigNumber } from 'ethers';
+import { Domain } from '@zero-tech/zns-sdk';
 
 export const rootDomainId = ethers.constants.HashZero;
 
@@ -33,3 +42,13 @@ export const truncateAddress = (
 		2 + (startingCharacters ?? 0),
 	)}...${address?.substring(address.length - 4)}`;
 };
+
+export const getEtherscanLink = (domain: Domain, chainId: Network) =>
+	useMemo(() => {
+		const domainIdInteger = domain && BigNumber.from(domain.id);
+		const networkType = chainIdToNetworkType(chainId);
+		const etherscanBaseUri = getEtherscanUri(networkType);
+		const registrarAddress = domain ? domain.contract : '';
+
+		return `${etherscanBaseUri}token/${registrarAddress}?a=${domainIdInteger?.toString()}`;
+	}, [domain, domain?.id, chainId]);

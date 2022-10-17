@@ -21,38 +21,82 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({ domainId }) => {
 	const { bids, paymentTokenInfo, metrics, isMetricsLoading } =
 		useDataContainer(domainId);
 
+	const paymentTokenLabel = paymentTokenInfo?.name
+		? ` (${paymentTokenInfo?.name})`
+		: '';
+
+	const numberOfBids = bids
+		? (formatNumber(bids?.length) || 0).toLocaleString()
+		: undefined;
+
+	const lastSale = metrics?.lastSale
+		? formatEthers(metrics?.lastSale) + paymentTokenLabel
+		: undefined;
+
+	const volumeString = metrics?.volume?.all
+		? formatEthers(metrics?.volume?.all) + paymentTokenLabel
+		: undefined;
+
 	const stats = [
 		{
 			title: 'Bids',
-			value: !isMetricsLoading && (bids?.length || 0).toLocaleString(),
+			value: {
+				isLoading,
+				text: numberOfBids,
+			},
 		},
 		{
 			title: 'Last Sale',
-			value: metrics?.lastSale
-				? `${formatEthers(metrics.lastSale)} WILD`
-				: 'No sales',
-			text:
-				metrics?.lowestSale && paymentTokenInfo?.price
-					? `$${formatNumber(
-							Number(ethers.utils.formatEther(metrics.lowestSale)) *
-								paymentTokenInfo.price,
-					  )}`
-					: 0,
+			value: {
+				isLoading,
+				text: lastSale,
+			},
 		},
 		{
 			title: 'Volume',
-			value: (metrics?.volume as any)?.all
-				? `${formatEthers((metrics.volume as any).all)} WILD`
-				: String(0),
-			secondyText:
-				(metrics?.volume as any)?.all && paymentTokenInfo?.price
-					? `$${formatNumber(
-							Number(ethers.utils.formatEther(metrics.volume.all)) *
-								paymentTokenInfo.price,
-					  )}`
-					: 0,
+			value: {
+				isLoading,
+				text: volumeString,
+			},
 		},
 	];
+
+	/*
+	 * LEAVING COMMENT HERE FOR REUSE
+	 */
+
+	// const stats = [
+	// 	{
+	// 		title: 'Bids',
+	// 		value: !isLoading && (bids?.length || 0).toLocaleString(),
+	// 	},
+	// 	{
+	// 		title: 'Last Sale',
+	// 		value: metrics?.lastSale
+	// 			? `${formatEthers(metrics.lastSale)} WILD`
+	// 			: 'No sales',
+	// 		text:
+	// 			metrics?.lowestSale && paymentTokenInfo?.price
+	// 				? `$${formatNumber(
+	// 						Number(ethers.utils.formatEther(metrics.lowestSale)) *
+	// 							paymentTokenInfo.price,
+	// 				  )}`
+	// 				: 0,
+	// 	},
+	// 	{
+	// 		title: 'Volume',
+	// 		value: (metrics?.volume as any)?.all
+	// 			? `${formatEthers((metrics.volume as any).all)} WILD`
+	// 			: String(0),
+	// 		text:
+	// 			(metrics?.volume as any)?.all && paymentTokenInfo?.price
+	// 				? `$${formatNumber(
+	// 						Number(ethers.utils.formatEther(metrics.volume.all)) *
+	// 							paymentTokenInfo.price,
+	// 				  )}`
+	// 				: 0,
+	// 	},
+	// ];
 
 	return <StatsList stats={stats} />;
 };
