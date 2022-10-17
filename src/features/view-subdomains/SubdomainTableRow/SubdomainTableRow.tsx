@@ -1,22 +1,15 @@
 import { FC } from 'react';
 
-import { ethers } from 'ethers';
+import { useSubdomainData } from '../useSubdomainData';
+import { formatEthers } from '../../../lib/util/number/number';
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
-
-import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
-import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
-import { formatEthers, formatNumber } from '../../../lib/util/number/number';
-import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
-
-import { SkeletonText } from '@zero-tech/zui/components/SkeletonText';
 
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
-
+import { SkeletonText } from '@zero-tech/zui/components/SkeletonText';
 import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
 
 import styles from './SubdomainTableRow.module.scss';
-import { useSubdomainData } from '../useSubdomainData';
 
 type SubdomainTableRowProps = {
 	domainId: string;
