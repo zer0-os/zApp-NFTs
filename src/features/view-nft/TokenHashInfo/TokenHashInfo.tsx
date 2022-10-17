@@ -72,7 +72,6 @@ export const TokenHashInfo: FC<TokenHashInfoProps> = ({ domain }) => {
 
 	return (
 		<div className={styles.Container}>
-			{/* TODO: convert Text Stack text props to take node */}
 			<StatsList stats={stats} />
 		</div>
 	);
