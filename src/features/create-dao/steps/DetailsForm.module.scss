@@ -1,0 +1,30 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+
+.Row {
+	display: flex;
+}
+
+.Column {
+	display: flex;
+	flex-direction: column;
+}
+
+.MediaInput {
+	height: 12.5rem;
+	width: 12.5rem;
+	margin-right: 1.5rem;
+	border-radius: calc($radius-primary / 2) !important;
+}
+
+.ColumnTwo {
+	width: 100%;
+	margin-top: -1rem;
+}
+
+.Description {
+	margin-top: 0.5rem;
+}
+
+.Footer {
+	margin-top: 3rem !important;
+}
