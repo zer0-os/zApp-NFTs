@@ -1,7 +1,5 @@
 import { FC } from 'react';
 
-import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
-
 import { StatsList } from '../../ui/StatsList';
 
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
@@ -40,7 +38,7 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ domainId }) => {
 		{
 			title: 'Items In Domain',
 			value: {
-				isLoading,
+				isLoading: isMetricsLoading,
 				text: itemsInDomain,
 			},
 			...DEFAULT,
@@ -48,7 +46,7 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ domainId }) => {
 		{
 			title: 'Floor Price',
 			value: {
-				isLoading,
+				isLoading: isMetricsLoading,
 				text: floorPriceString,
 			},
 			...DEFAULT,
@@ -56,7 +54,7 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ domainId }) => {
 		{
 			title: 'Volume',
 			value: {
-				isLoading,
+				isLoading: isMetricsLoading,
 				text: volumeString,
 			},
 			...DEFAULT,

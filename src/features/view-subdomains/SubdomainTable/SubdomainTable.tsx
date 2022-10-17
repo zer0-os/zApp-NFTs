@@ -9,10 +9,6 @@ import { SubdomainTableRow } from '../SubdomainTableRow';
 
 import { COLUMNS } from '../SubdomainTable.constants';
 
-import { IconGrid, IconList } from './Icons';
-
-import styles from './SubdomainTable.module.scss';
-
 type SubdomainTableProps = {
 	domainId: string;
 };

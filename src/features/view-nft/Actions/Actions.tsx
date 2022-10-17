@@ -1,5 +1,3 @@
-import { Domain, TokenPriceInfo } from '@zero-tech/zns-sdk';
-
 import { Action } from '..';
 import { BuyNowButton } from '../../buy-now';
 import { SetBuyNowButton } from '../../set-buy-now';
@@ -22,7 +20,6 @@ import { formatNumber } from '../../../lib/util/number/number';
 import { getHighestBid, getUserBids } from '../../../lib/util/bids/bids';
 
 import { ActionBlock, ActionTypes } from './Actions.types';
-import { Metadata } from '../../../lib/types/metadata';
 
 import styles from './Actions.module.scss';
 
@@ -49,7 +46,7 @@ export const Actions = ({ domainId }: ActionsProps) => {
 
 	const actions: { [action in ActionTypes]: ActionBlock } = {
 		[ActionTypes.BUY_NOW]: {
-			label: `${Labels.BUY_NOW} (${paymentTokenInfo?.name})`,
+			label: `${Labels.BUY_NOW}`,
 			amountToken: formatNumber(buyNowPrice),
 			amountUsd: getUsdConversion(
 				buyNowPrice,
@@ -61,7 +58,7 @@ export const Actions = ({ domainId }: ActionsProps) => {
 			buttonComponent: <BuyNowButton />,
 		},
 		[ActionTypes.SET_BUY_NOW]: {
-			label: `${Labels.BUY_NOW} (${paymentTokenInfo?.name})`,
+			label: `${Labels.BUY_NOW}`,
 			amountToken: buyNowPrice ? formatNumber(buyNowPrice) : '-',
 			amountUsd: getUsdConversion(
 				buyNowPrice,
@@ -73,7 +70,7 @@ export const Actions = ({ domainId }: ActionsProps) => {
 			buttonComponent: <SetBuyNowButton />,
 		},
 		[ActionTypes.BID]: {
-			label: `${Labels.HIGHEST_BID} (${paymentTokenInfo?.name})`,
+			label: `${Labels.HIGHEST_BID}`,
 			amountToken: highestBid > 0 ? highestBid : '-',
 			amountUsd: getUsdConversion(
 				highestBid,
@@ -91,7 +88,7 @@ export const Actions = ({ domainId }: ActionsProps) => {
 			),
 		},
 		[ActionTypes.USER_BID]: {
-			label: `${Labels.YOUR_BID} (${paymentTokenInfo?.name})`,
+			label: `${Labels.YOUR_BID}`,
 			amountToken: highestUserBid ? highestUserBid : '-',
 			amountUsd: getUsdConversion(highestBid, paymentTokenInfo?.price),
 			isVisible: isUserBid,

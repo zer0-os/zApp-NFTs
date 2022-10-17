@@ -21,9 +21,9 @@ type TokenHashInfoProps = {
 	domainId: string;
 };
 
-export const TokenHashInfo: FC<TokenHashInfoProps> = ({ domain }) => {
+export const TokenHashInfo: FC<TokenHashInfoProps> = ({ domainId }) => {
 	const { chainId } = useWeb3();
-	const { isDomainDataLoading } = useDataContainer(domain?.id);
+	const { domain, isDomainDataLoading } = useDataContainer(domainId);
 	const ipfsHash = domain ? getHashFromIPFSUrl(domain?.metadataUri) : '';
 	const webIpfsUrl = getWebIPFSUrlFromHash(ipfsHash);
 	const etherscanLink = getEtherscanLink(domain, chainId);

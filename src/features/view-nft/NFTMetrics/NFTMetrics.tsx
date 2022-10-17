@@ -41,21 +41,21 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({ domainId }) => {
 		{
 			title: 'Bids',
 			value: {
-				isLoading,
+				isLoading: isMetricsLoading,
 				text: numberOfBids,
 			},
 		},
 		{
 			title: 'Last Sale',
 			value: {
-				isLoading,
+				isLoading: isMetricsLoading,
 				text: lastSale,
 			},
 		},
 		{
 			title: 'Volume',
 			value: {
-				isLoading,
+				isLoading: isMetricsLoading,
 				text: volumeString,
 			},
 		},
