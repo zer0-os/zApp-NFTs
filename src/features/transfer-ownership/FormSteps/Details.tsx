@@ -26,10 +26,9 @@ export const Details: FC<DetailsProps> = ({
 			/>
 			<FormInputs
 				action={'transfer'}
-				label={'Ethereum Wallet'}
+				label={'Enter recipient address:'}
 				errorMessage={error}
 				placeholder={'Ethereum Wallet'}
-				instructionText={'Enter recipient address:'}
 				onSubmit={onConfirm}
 			/>
 		</>
