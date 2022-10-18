@@ -1,6 +1,6 @@
 {
 	"name": "@zero-tech/zapp-nfts",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "zns marketplace app for zos",
 	"repository": {
 		"type": "git",
