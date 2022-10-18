@@ -55,30 +55,36 @@
 				margin: 0.5rem 0 0 0;
 			}
 
-			.MemberContainer {
+			.DetailsRow {
 				display: flex;
-				padding: 0;
-				margin: 1.5rem 0 0 0;
-				list-style: none;
+				justify-content: space-between;
+				align-items: center;
 
-				> *:not(:first-child) {
-					margin-left: 2rem;
-				}
-
-				.MemberItem {
+				.MemberContainer {
 					display: flex;
-					flex-direction: column;
+					padding: 0;
+					margin: 1.5rem 0 0 0;
+					list-style: none;
 
-					.MemberTitle {
-						color: $purple-lightest;
-						font-size: $size-tiny;
-						margin-bottom: 0.125rem;
+					> *:not(:first-child) {
+						margin-left: 2rem;
 					}
 
-					.MemberAddress {
-						font-size: $size-medium;
-						margin-bottom: 1rem;
-						min-width: 4.375rem; // 70px - width of truncated address
+					.MemberItem {
+						display: flex;
+						flex-direction: column;
+
+						.MemberTitle {
+							color: $purple-lightest;
+							font-size: $size-tiny;
+							margin-bottom: 0.125rem;
+						}
+
+						.MemberAddress {
+							font-size: $size-medium;
+							margin-bottom: 1rem;
+							min-width: 4.375rem; // 70px - width of truncated address
+						}
 					}
 				}
 			}
