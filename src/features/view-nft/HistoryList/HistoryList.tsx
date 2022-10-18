@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
+import { Skeleton } from '@zero-tech/zui/components';
 import { HistoryItem } from '..';
 
 import { DomainEvent } from '../../../lib/types/events';
@@ -17,6 +18,10 @@ type HistoryListProps = {
 	paymentToken: TokenPriceInfo;
 };
 
+const CONFIG = {
+	numSkeletons: 3,
+};
+
 export const HistoryList: FC<HistoryListProps> = ({
 	domainId,
 	paymentToken,
@@ -28,15 +33,21 @@ export const HistoryList: FC<HistoryListProps> = ({
 		<section>
 			<h4>History</h4>
 
-			{sortedDomainEvents?.length > 0 && (
-				<ul className={styles.Container}>
-					{sortedDomainEvents?.map((item: DomainEvent, i: number) => (
-						<div key={i}>
-							<HistoryItem item={item} paymentToken={paymentToken} />
-						</div>
-					))}
-				</ul>
-			)}
+			<ul className={styles.Container}>
+				{sortedDomainEvents?.length > 0 ? (
+					<>
+						{sortedDomainEvents?.map((item: DomainEvent, i: number) => (
+							<div key={i}>
+								<HistoryItem item={item} paymentToken={paymentToken} />
+							</div>
+						))}
+					</>
+				) : (
+					[...Array(CONFIG.numSkeletons)].map((_, i) => (
+						<Skeleton key={i} className={styles.Skeleton} />
+					))
+				)}
+			</ul>
 		</section>
 	);
 };
