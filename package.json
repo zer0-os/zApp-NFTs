@@ -24,7 +24,7 @@
 		"test:watch": "jest --watch",
 		"link": "bash .scripts/link.sh",
 		"start:watch": "tsc --watch && cp src/*.css dist/",
-		"prettier": "prettier -w src/",
+		"prettier": "prettier -w src/"
 	},
 	"files": [
     		"dist"
