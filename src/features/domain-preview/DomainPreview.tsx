@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { truncateAddress } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
 
+import { Image } from '@zero-tech/zui/components/Image';
+
 import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
 
@@ -38,11 +40,14 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 	return (
 		<div className={styles.Container}>
 			{/* TODO: media asset component */}
-			<img
+
+			<Image
+				alt={`${title ?? 'loading'} nft image banner`}
 				className={cx(styles.Banner, {
 					isNFTView: isNFTView,
 				})}
 				src={banner}
+				objectFit={isNFTView ? 'contain' : 'cover'}
 			/>
 
 			<div
@@ -51,7 +56,13 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 				})}
 			>
 				{/* TODO: media asset component */}
-				{!isNFTView && <img src={banner} className={styles.Icon}></img>}
+				{!isNFTView && (
+					<Image
+						alt={`${title ?? 'loading'} nft thumbnail`}
+						className={styles.Icon}
+						src={banner}
+					/>
+				)}
 				<div className={styles.TextContainer}>
 					{title && <h1 className={styles.Title}>{title}</h1>}
 
