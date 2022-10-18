@@ -1,4 +1,4 @@
-@use '@zero-tech/zui/styles/_colors.scss';
+@import '@zero-tech/zui/styles/_colors.scss';
 
 .Field {
 	display: flex;
@@ -6,7 +6,7 @@
 
 	.FieldLabel {
 		font-size: 0.75rem;
-		color: #{colors.$grey-lighter-2};
+		color: $grey-lighter-2;
 		margin: 0;
 	}
 
