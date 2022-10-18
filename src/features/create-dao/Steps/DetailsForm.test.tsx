@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
 import { DetailsForm, DetailsFormProps } from './';
-import { CreateDAOFormContext } from "../";
+import { CreateDAOFormContext } from '../';
 
 let onSubmit = jest.fn();
 
@@ -45,12 +45,12 @@ describe('<DetailsForm />', () => {
 	beforeEach(() => jest.resetAllMocks());
 
 	test('should correctly validate required name field', async () => {
-		render (
+		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
 					<DetailsForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
-			</ZUIProvider>
+			</ZUIProvider>,
 		);
 
 		fireEvent.blur(screen.getByPlaceholderText(/Enter name.../i));
@@ -66,12 +66,12 @@ describe('<DetailsForm />', () => {
 	});
 
 	test('should correctly validate required zNA address field', async () => {
-		render (
+		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
 					<DetailsForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
-			</ZUIProvider>
+			</ZUIProvider>,
 		);
 
 		fireEvent.blur(screen.getByPlaceholderText(/Enter zNA address.../i));
@@ -89,12 +89,12 @@ describe('<DetailsForm />', () => {
 	});
 
 	test('should correctly validate required description field', async () => {
-		render (
+		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
 					<DetailsForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
-			</ZUIProvider>
+			</ZUIProvider>,
 		);
 
 		fireEvent.blur(screen.getByPlaceholderText(/Enter description.../i));
@@ -112,12 +112,12 @@ describe('<DetailsForm />', () => {
 	});
 
 	test('should not fire onSubmit when next button clicked and field values are invalid', async () => {
-		render (
+		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
 					<DetailsForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
-			</ZUIProvider>
+			</ZUIProvider>,
 		);
 
 		const user = userEvent.setup();
@@ -127,12 +127,12 @@ describe('<DetailsForm />', () => {
 	});
 
 	test('should fire onSubmit with expected params when next button clicked and field values are valid', async () => {
-		render (
+		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
 					<DetailsForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
-			</ZUIProvider>
+			</ZUIProvider>,
 		);
 
 		const user = userEvent.setup();

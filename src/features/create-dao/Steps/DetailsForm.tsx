@@ -41,7 +41,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 			setFieldValue('mediaType', mediaType);
 			setFieldValue('previewUrl', previewUrl);
 			setFieldValue('avatar', image);
-		} catch(_) {
+		} catch (_) {
 			setAvatarHasError(true);
 		}
 	};
@@ -68,12 +68,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 									previewImage: string,
 									image: Buffer,
 								) =>
-									onAvatarChange(
-										mediaType,
-										previewImage,
-										image,
-										setFieldValue,
-									)
+									onAvatarChange(mediaType, previewImage, image, setFieldValue)
 								}
 							/>
 						</div>
