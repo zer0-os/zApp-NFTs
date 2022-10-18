@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { truncateAddress } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
 
-import { Options } from '../Options';
+import { Options } from './Options';
 import { SkeletonText } from '@zero-tech/zui/components';
 
 import classNames from 'classnames/bind';
