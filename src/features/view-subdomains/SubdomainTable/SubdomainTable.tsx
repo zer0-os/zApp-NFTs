@@ -64,7 +64,7 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({
 			columns={COLUMNS}
 			rowComponent={Row}
 			gridComponent={Card}
-			searchKey={{ key: 'name', name: 'message' }}
+			searchKey={{ key: 'name', name: 'zna' }}
 			isLoading={isSubdomainDataLoading}
 		/>
 	);
