@@ -1,12 +1,10 @@
-@import '@zero-tech/zui/styles/_colors.scss';
-
 .Field {
 	display: flex;
 	flex-direction: column;
 
 	.FieldLabel {
 		font-size: 0.75rem;
-		color: $grey-lighter-2;
+		color: #bfbfbf; // @TODO: use zui color
 		margin: 0;
 	}
 
