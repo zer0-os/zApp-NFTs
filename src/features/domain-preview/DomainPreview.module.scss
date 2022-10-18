@@ -20,9 +20,7 @@
 			height: 23.125rem;
 
 			img {
-				border-radius: 0;
 				cursor: pointer;
-				border-radius: calc($radius-primary / 2);
 			}
 		}
 	}
@@ -80,6 +78,7 @@
 					.MemberAddress {
 						font-size: $size-medium;
 						margin-bottom: 1rem;
+						min-width: 4.375rem; // 70px - width of truncated address
 					}
 				}
 			}
