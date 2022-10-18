@@ -74,6 +74,7 @@
 					.MemberAddress {
 						font-size: $size-medium;
 						margin-bottom: 1rem;
+						min-width: 4.375rem; // 70px - width of truncated address
 					}
 				}
 			}

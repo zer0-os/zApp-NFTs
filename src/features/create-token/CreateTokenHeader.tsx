@@ -1,14 +1,11 @@
-//- React Imports
 import React, { FC } from 'react';
 
-//- Style Imports
-import styles from './CreateTokenHeader.module.scss';
-
-//- Component Imports
-import { IconCross } from '@zero-tech/zui/components/Icons';
+import { IconXClose } from '@zero-tech/zui/components/Icons';
 import { StepBar } from '@zero-tech/zui/components/StepBar/StepBar';
 import { Step } from '@zero-tech/zui/components/StepBar/StepBar.types';
 import { Wizard } from '@zero-tech/zui/components/Wizard/Wizard';
+
+import styles from './CreateTokenHeader.module.scss';
 
 interface CreateTokenHeaderProps {
 	title: string;
@@ -35,7 +32,7 @@ export const CreateTokenHeader: FC<CreateTokenHeaderProps> = ({
 			sectionDivider={false}
 		>
 			<div className={styles.Close} onClick={onClose}>
-				<IconCross size={24} />
+				<IconXClose size={24} />
 			</div>
 			<StepBar
 				currentStepId={stepId}

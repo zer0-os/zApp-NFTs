@@ -1,14 +1,8 @@
-//- React Imports
-import React, { FC } from 'react';
+import { FC } from 'react';
 
-//- Component Imports
-import { DetailsForm } from './steps/DetailsForm';
-import { TokenomicsForm } from './steps/TokenomicsForm';
-import { TokenSummary } from './steps/TokenSummary';
-
-//- Type Imports
-import { DetailsFormSubmit, TokenomicsFormSubmit } from './CreateToken.types';
 import { MediaType } from '@zero-tech/zui/components/MediaInput';
+import { DetailsForm, TokenomicsForm, TokenSummary } from './Steps';
+import { DetailsFormSubmit, TokenomicsFormSubmit } from './CreateToken.types';
 
 type CreateTokenBodyProps = {
 	stepId: string;

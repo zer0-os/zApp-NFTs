@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { truncateAddress } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
 
-import { Image } from '@zero-tech/zui/components/Image';
+import { SkeletonText, Image } from '@zero-tech/zui/components';
 
 import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
@@ -25,7 +25,6 @@ type DomainPreviewProps = {
 export const DomainPreview: FC<DomainPreviewProps> = ({
 	title,
 	description,
-	icon,
 	banner,
 	href,
 	owner,
@@ -64,23 +63,40 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 					/>
 				)}
 				<div className={styles.TextContainer}>
-					{title && <h1 className={styles.Title}>{title}</h1>}
+					<SkeletonText
+						as={'h1'}
+						className={styles.Title}
+						asyncText={{ text: title, isLoading: !title }}
+						skeletonOptions={{ width: '50%' }}
+					/>
+					{/*{title && <h1 className={styles.Title}>{title}</h1>}*/}
 
 					{/* TODO: member component */}
-					{isNFTView && creator && owner && (
+					{isNFTView && (
 						<ul className={styles.MemberContainer}>
 							{members.map((member) => (
 								<li key={member.title} className={styles.MemberItem}>
 									<span className={styles.MemberTitle}>{member.title}</span>
-									<span className={styles.MemberAddress}>
-										{truncateAddress(member.address)}
-									</span>
+									<SkeletonText
+										as={'span'}
+										className={styles.MemberAddress}
+										asyncText={{
+											text: member?.address
+												? truncateAddress(member.address)
+												: undefined,
+											isLoading: !member?.address,
+										}}
+									/>
 								</li>
 							))}
 						</ul>
 					)}
 
-					{description && <p className={styles.Description}>{description}</p>}
+					<SkeletonText
+						as={'p'}
+						asyncText={{ text: description, isLoading: !description }}
+						className={styles.Description}
+					/>
 
 					{href && (
 						<div className={styles.LinkContainer}>

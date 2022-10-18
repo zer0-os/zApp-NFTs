@@ -1,7 +1,11 @@
 import { FC } from 'react';
 
 import { Wizard } from '@zero-tech/zui/components/Wizard/Wizard';
-import { CreateDAOBody, CreateDAOHeader, CreateDAOFormContextProvider } from './';
+import {
+	CreateDAOBody,
+	CreateDAOHeader,
+	CreateDAOFormContextProvider,
+} from './';
 import { ConnectWallet } from '../ui/ConnectWallet';
 
 import { useWeb3 } from '../../lib/hooks/useWeb3';
