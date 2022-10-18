@@ -10,7 +10,7 @@ export enum ActionTypes {
 export type ActionBlock = {
 	label: string;
 	amountToken: number | string;
-	amountUsd: number | string;
+	amountUsd?: number | string;
 	isVisible: boolean;
 	dataTestId: string;
 	shouldShowBorder?: boolean;
