@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 
-import { IconCross } from '@zero-tech/zui/components/Icons';
+import { IconXClose } from '@zero-tech/zui/components/Icons';
 import { StepBar, Wizard } from '@zero-tech/zui/components';
 import { steps, CreateDAOFormContext } from './';
 
@@ -26,7 +26,7 @@ export const CreateDAOHeader: FC<CreateTokenHeaderProps> = ({
 				sectionDivider={false}
 			>
 				<div className={styles.Close} onClick={onClose}>
-					<IconCross size={24} />
+					<IconXClose size={24} />
 				</div>
 				<StepBar
 					currentStepId={stepId}
