@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { truncateAddress } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
 
+import { Options } from '../Options';
 import { SkeletonText } from '@zero-tech/zui/components';
 
 import classNames from 'classnames/bind';
@@ -12,6 +13,7 @@ import styles from './DomainPreview.module.scss';
 const cx = classNames.bind(styles);
 
 type DomainPreviewProps = {
+	id?: string;
 	title?: string;
 	description?: string;
 	icon?: string;
@@ -23,6 +25,7 @@ type DomainPreviewProps = {
 };
 
 export const DomainPreview: FC<DomainPreviewProps> = ({
+	id,
 	title,
 	description,
 	banner,
@@ -64,23 +67,27 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 
 					{/* TODO: member component */}
 					{isNFTView && (
-						<ul className={styles.MemberContainer}>
-							{members.map((member) => (
-								<li key={member.title} className={styles.MemberItem}>
-									<span className={styles.MemberTitle}>{member.title}</span>
-									<SkeletonText
-										as={'span'}
-										className={styles.MemberAddress}
-										asyncText={{
-											text: member?.address
-												? truncateAddress(member.address)
-												: undefined,
-											isLoading: !member?.address,
-										}}
-									/>
-								</li>
-							))}
-						</ul>
+						<div className={styles.DetailsRow}>
+							<ul className={styles.MemberContainer}>
+								{members.map((member) => (
+									<li key={member.title} className={styles.MemberItem}>
+										<span className={styles.MemberTitle}>{member.title}</span>
+										<SkeletonText
+											as={'span'}
+											className={styles.MemberAddress}
+											asyncText={{
+												text: member?.address
+													? truncateAddress(member.address)
+													: undefined,
+												isLoading: !member?.address,
+											}}
+										/>
+									</li>
+								))}
+							</ul>
+
+							<Options domainId={id} />
+						</div>
 					)}
 
 					<SkeletonText

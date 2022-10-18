@@ -13,7 +13,6 @@ import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
 type DomainsContainerProps = {
 	isRoot: boolean;
 	domain: Domain;
-	metrics: DomainMetrics;
 	subdomainData: Domain[];
 	domainMetadata: Metadata;
 	paymentTokenInfo: TokenPriceInfo;
@@ -23,7 +22,6 @@ type DomainsContainerProps = {
 export const Domains: FC<DomainsContainerProps> = ({
 	isRoot,
 	domain,
-	metrics,
 	subdomainData,
 	domainMetadata,
 	paymentTokenInfo,
