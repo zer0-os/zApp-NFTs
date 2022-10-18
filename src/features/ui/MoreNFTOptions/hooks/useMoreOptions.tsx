@@ -1,8 +1,8 @@
 import { MoreOptions, Option } from '../MoreNFTOptions.types';
 import { OptionType } from '../MoreNFTOptions.constants';
 
-import { IconSend } from '../Icons';
 import { OptionLabel } from '../OptionLabel';
+import { IconSend3 } from '@zero-tech/zui/components/Icons';
 
 type UseMoreOptionsReturn = {
 	moreOptions: MoreOptions[];
@@ -18,7 +18,9 @@ export const useMoreOptions = (
 	const moreOptions = [
 		{
 			id: OptionType.TRANSFER,
-			label: <OptionLabel icon={<IconSend />} label="Transfer Ownership" />,
+			label: (
+				<OptionLabel icon={<IconSend3 isFilled />} label="Transfer Ownership" />
+			),
 			onSelect: () => setOption(OptionType.TRANSFER),
 		},
 	];
