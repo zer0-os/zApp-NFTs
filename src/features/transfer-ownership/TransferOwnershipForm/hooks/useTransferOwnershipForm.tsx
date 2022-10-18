@@ -9,6 +9,7 @@ import {
 import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
 import { useWeb3 } from '../../../../lib/hooks/useWeb3';
 import { TransactionErrors } from '../../../../lib/constants/messages';
+import { useDataContainer } from '../../../../lib/hooks/useDataContainer';
 import { ContractTransaction } from 'ethers';
 
 export type UseTransferOwnershipFormReturn = {
@@ -23,10 +24,10 @@ export type UseTransferOwnershipFormReturn = {
  */
 export const useTransferOwnershipForm = (
 	domainId: string,
-	domainOwner: string,
 ): UseTransferOwnershipFormReturn => {
 	const sdk = useZnsSdk();
 	const { account, provider } = useWeb3();
+	const { domain } = useDataContainer(domainId);
 	const [error, setError] = useState<string>();
 	const [step, setStep] = useState<Step>(Step.DETAILS);
 	const [walletAddress, setWalletAddress] = useState<string>();
@@ -37,11 +38,11 @@ export const useTransferOwnershipForm = (
 	const onConfirmInput = (address: string) => {
 		setError(undefined);
 
-		if (isValidTransferAddress(address, account, domainOwner)) {
+		if (isValidTransferAddress(address, account, domain?.owner)) {
 			setStep(Step.CONFIRM);
 			setWalletAddress(address);
 		} else {
-			setError(getInputErrorMessage(address, account, domainOwner));
+			setError(getInputErrorMessage(address, account, domain?.owner));
 		}
 	};
 

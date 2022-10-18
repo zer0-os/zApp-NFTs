@@ -26,9 +26,6 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({
 	/* Hook returning all options  */
 	const { moreOptions } = useMoreOptions(setOption);
 
-	/* Hook returning data for  modals  */
-	const { domain, domainMetadata } = useDataContainer(domainId);
-
 	const onChange = (open: boolean) => {
 		if (!open) {
 			setOption(undefined);
@@ -42,11 +39,7 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({
 		<>
 			<TransferOwnershipModal
 				open={option === OptionType.TRANSFER}
-				domainId={domain?.id}
-				domainName={domain?.name}
-				domainTitle={domainMetadata?.title}
-				domainOwner={domain?.owner}
-				domainCreator={domain?.minter}
+				domainId={domainId}
 				onClose={onClose}
 				onOpenChange={onChange}
 			/>

@@ -1,3 +1,4 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
@@ -6,13 +7,18 @@
 	word-break: break-word;
 	gap: 1.5rem;
 
-	// TODO: temporary
 	.Media {
-		height: 16.25rem;
-		width: 16.25rem;
+		height: 16.75rem;
+		width: 16.75rem;
 		flex-shrink: 0;
-		border: 1px solid $grey;
 		border-radius: 0.5rem;
+
+		img {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+			border-radius: calc($radius-primary / 2);
+		}
 	}
 
 	.Details {

@@ -1,28 +1,29 @@
 import { FC } from 'react';
 
+import { useDataContainer } from '../../../lib/hooks/useDataContainer';
+
 import { FormInputs, FormDetails } from '../../ui';
 
 interface DetailsProps {
-	domainName: string;
-	domainTitle: string;
-	domainCreator: string;
+	domainId: string;
 	error: string;
 	onConfirm: (inputAdrressValue: string) => void;
 }
 
-export const Details: FC<DetailsProps> = ({
-	domainName,
-	domainTitle,
-	domainCreator,
-	error,
-	onConfirm,
-}) => {
+export const Details: FC<DetailsProps> = ({ domainId, error, onConfirm }) => {
+	const { domain, domainMetadata } = useDataContainer(domainId);
+
+	const imageSrc = domainMetadata?.previewImage ?? domainMetadata?.image;
+	const imageAlt = domainMetadata?.name ?? domain?.name;
+
 	return (
 		<>
 			<FormDetails
-				name={domainName}
-				title={domainTitle}
-				creator={domainCreator}
+				name={domain?.name}
+				title={domainMetadata?.title}
+				creator={domain?.minter}
+				imageSrc={imageSrc}
+				imageAlt={imageAlt}
 			/>
 			<FormInputs
 				action={'transfer'}

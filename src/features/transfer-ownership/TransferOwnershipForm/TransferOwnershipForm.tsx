@@ -8,36 +8,22 @@ import { Wizard } from '@zero-tech/zui/components';
 
 interface TransferOwnershipFormProps {
 	domainId: string;
-	domainName: string;
-	domainTitle: string;
-	domainCreator: string;
-	domainOwner: string;
 	onClose: () => void;
 }
 
 export const TransferOwnershipForm: FC<TransferOwnershipFormProps> = ({
 	domainId,
-	domainName,
-	domainTitle,
-	domainOwner,
-	domainCreator,
 	onClose,
 }) => {
 	const { step, error, onConfirmInput, onConfirmTransaction } =
-		useTransferOwnershipForm(domainId, domainOwner);
+		useTransferOwnershipForm(domainId);
 
 	let content: ReactNode;
 
 	switch (step) {
 		case Step.DETAILS:
 			content = (
-				<Details
-					domainName={domainName}
-					domainTitle={domainTitle}
-					domainCreator={domainCreator}
-					error={error}
-					onConfirm={onConfirmInput}
-				/>
+				<Details domainId={domainId} error={error} onConfirm={onConfirmInput} />
 			);
 			break;
 		case Step.CONFIRM:
