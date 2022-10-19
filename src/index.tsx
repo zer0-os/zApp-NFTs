@@ -20,7 +20,7 @@ export const NFTsZApp = ({ provider, route, web3 }: AppProps) => (
 			connectWallet={web3.connectWallet}
 		>
 			<ChainGate chainId={provider?._network?.chainId ?? 1}>
-				<ZnsSdkProvider provider={provider}>
+				<ZnsSdkProvider>
 					<ZUIProvider>
 						<App provider={provider} route={route} web3={web3} />
 					</ZUIProvider>

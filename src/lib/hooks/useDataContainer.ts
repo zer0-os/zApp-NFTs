@@ -9,7 +9,8 @@ import { useViewNavigation } from './useViewNavigation';
 export const useDataContainer = (domainId: string) => {
 	const { data: domain, isLoading: isDomainDataLoading } =
 		useDomainData(domainId);
-	const { data: subdomainData } = useSubdomainData(domainId);
+	const { data: subdomainData, isLoading: isSubdomainDataLoading } =
+		useSubdomainData(domainId);
 	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
 	const { data: paymentTokenInfo } = usePaymentTokenInfo(paymentToken);
 	const { data: metrics } = useDomainMetrics(domainId);
@@ -19,6 +20,7 @@ export const useDataContainer = (domainId: string) => {
 	return {
 		domain,
 		isDomainDataLoading,
+		isSubdomainDataLoading,
 		subdomainData,
 		paymentTokenInfo,
 		metrics,
