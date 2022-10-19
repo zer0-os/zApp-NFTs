@@ -32,6 +32,7 @@ export const NFT: FC<NFTProps> = ({
 				description={domainMetadata?.description}
 				owner={domain?.owner}
 				creator={domain?.minter}
+				banner={domainMetadata?.image_full ?? domainMetadata?.image}
 				isNFTView
 			/>
 

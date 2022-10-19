@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { truncateAddress } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
 
-import { SkeletonText, Image } from '@zero-tech/zui/components';
+import { IpfsMedia } from '@zero-tech/zapp-utils/components';
+
+import { SkeletonText } from '@zero-tech/zui/components';
 
 import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
@@ -30,6 +32,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 	owner,
 	creator,
 	isNFTView,
+	icon,
 }) => {
 	const members = [
 		{ title: MemberTitle.CREATOR, address: creator },
@@ -40,14 +43,21 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 		<div className={styles.Container}>
 			{/* TODO: media asset component */}
 
-			<Image
-				alt={`${title ?? 'loading'} nft image banner`}
+			<div
 				className={cx(styles.Banner, {
 					isNFTView: isNFTView,
 				})}
-				src={banner}
-				objectFit={isNFTView ? 'contain' : 'cover'}
-			/>
+			>
+				<IpfsMedia
+					alt={`${title ?? 'loading'} nft image banner`}
+					className={styles.Media}
+					src={banner}
+					options={{
+						size: isNFTView ? 'full' : 'large',
+						fit: isNFTView ? 'fit' : 'fill',
+					}}
+				/>
+			</div>
 
 			<div
 				className={cx(styles.Content, {
@@ -56,10 +66,11 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 			>
 				{/* TODO: media asset component */}
 				{!isNFTView && (
-					<Image
+					<IpfsMedia
 						alt={`${title ?? 'loading'} nft thumbnail`}
 						className={styles.Icon}
-						src={banner}
+						src={icon}
+						size={'small'}
 					/>
 				)}
 				<div className={styles.TextContainer}>

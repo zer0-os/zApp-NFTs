@@ -23,7 +23,6 @@ type DomainsContainerProps = {
 export const Domains: FC<DomainsContainerProps> = ({
 	isRoot,
 	domain,
-	metrics,
 	subdomainData,
 	domainMetadata,
 	paymentTokenInfo,
@@ -35,8 +34,9 @@ export const Domains: FC<DomainsContainerProps> = ({
 				<DomainPreview
 					title={domainMetadata?.title}
 					description={domainMetadata?.description}
-					banner={domainMetadata?.image}
+					banner={domainMetadata?.image_full ?? domainMetadata?.image}
 					href={`/${domain?.name}/nfts?view=true`}
+					icon={domainMetadata?.previewImage ?? domainMetadata?.image}
 				/>
 			)}
 
