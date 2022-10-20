@@ -17,6 +17,7 @@ export const useUserTokenBalance = (account: string, paymentToken: string) => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
+			enabled: Boolean(paymentToken),
 		},
 	);
 };
