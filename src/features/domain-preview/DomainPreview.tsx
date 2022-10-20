@@ -70,7 +70,9 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 						alt={`${title ?? 'loading'} nft thumbnail`}
 						className={styles.Icon}
 						src={icon}
-						size={'small'}
+						options={{
+							size: 'medium',
+						}}
 					/>
 				)}
 				<div className={styles.TextContainer}>
