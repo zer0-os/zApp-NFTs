@@ -4,6 +4,8 @@ import { useSubdomainData } from '../useSubdomainData';
 import { formatEthers } from '../../../lib/util/number/number';
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
+import { IpfsMedia } from '@zero-tech/zapp-utils/components';
+
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
 import { SkeletonText } from '@zero-tech/zui/components/SkeletonText';
@@ -50,10 +52,25 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	return (
 		<tr onClick={(e) => onRowClick(e, domainName)} className={styles.Container}>
 			<TableData alignment={'left'}>
-				<SkeletonText
-					asyncText={{ text: metadata?.title, isLoading: isMetadataLoading }}
-				/>
-				<div>0://{domainName}</div>
+				<div className={styles.NFT}>
+					<IpfsMedia
+						className={styles.Thumbnail}
+						src={imageSrc}
+						alt={imageAlt}
+						options={{ size: 'small', fit: 'fill' }}
+						asImage={true}
+					/>
+
+					<div className={styles.Info}>
+						<SkeletonText
+							asyncText={{
+								text: metadata?.title,
+								isLoading: isMetadataLoading,
+							}}
+						/>
+						<span>0://{domainName}</span>
+					</div>
+				</div>
 			</TableData>
 			<TableData alignment={'right'} className={styles.Metrics}>
 				<SkeletonText

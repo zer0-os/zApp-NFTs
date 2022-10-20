@@ -7,6 +7,29 @@
 		background: $purple-10;
 	}
 
+	.NFT {
+		display: flex;
+		align-items: center;
+
+		gap: 0.5rem;
+
+		.Thumbnail {
+			height: 2.5rem;
+			width: 2.5rem;
+			border-radius: 0.5rem;
+		}
+
+		.Info {
+			display: flex;
+			flex-direction: column;
+
+			> *:last-child {
+				font-size: 0.875rem;
+				color: $grey-lighter-3;
+			}
+		}
+	}
+
 	.Metrics {
 		text-align: right;
 	}
