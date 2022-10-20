@@ -32,6 +32,7 @@ export const Domains: FC<DomainsContainerProps> = ({
 		<>
 			{!isRoot && (
 				<DomainPreview
+					zna={domain?.name}
 					title={domainMetadata?.title}
 					description={domainMetadata?.description}
 					banner={domainMetadata?.image_full ?? domainMetadata?.image}

@@ -36,11 +36,7 @@ export const NFT: FC<NFTProps> = ({
 				isNFTView
 			/>
 
-			<Actions
-				domain={domain}
-				domainMetadata={domainMetadata}
-				paymentTokenInfo={paymentTokenInfo}
-			/>
+			<Actions domain={domain} domainMetadata={domainMetadata} />
 
 			<NFTMetrics
 				domainId={domain?.id}
