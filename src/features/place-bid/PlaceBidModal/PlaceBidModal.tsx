@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { BasicModalProps } from '../../lib/types/ui';
+import { BasicModalProps } from '../../../lib/types/ui';
 
 import { Modal } from '@zero-tech/zui/components';
 
-import { PlaceBid } from './PlaceBid';
+import { PlaceBid } from '../PlaceBid';
 
 export interface PlaceBidModalProps extends BasicModalProps {}
 

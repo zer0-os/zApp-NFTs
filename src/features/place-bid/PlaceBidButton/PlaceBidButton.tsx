@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { PlaceBidModal } from './PlaceBidModal';
+import { PlaceBidModal } from '../PlaceBidModal';
 
 type PlaceBidButtonProps = {
 	isRoot?: boolean;
