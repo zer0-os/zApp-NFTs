@@ -7,6 +7,8 @@ import { AsyncTable } from '@zero-tech/zui/components';
 import { SubdomainTableCard } from '../SubdomainTableCard';
 import { SubdomainTableRow } from '../SubdomainTableRow';
 
+import styles from './SubdomainTable.module.scss';
+
 import { COLUMNS } from '../SubdomainTable.constants';
 
 type SubdomainTableProps = {
@@ -59,6 +61,7 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({
 
 	return (
 		<AsyncTable
+			className={styles.Table}
 			data={subdomainData}
 			itemKey="id"
 			columns={COLUMNS}

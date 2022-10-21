@@ -51,8 +51,8 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 
 	return (
 		<tr onClick={(e) => onRowClick(e, domainName)} className={styles.Container}>
-			<TableData alignment={'left'}>
-				<div className={styles.NFT}>
+			<TableData alignment={'left'} className={styles.NFT}>
+				<div>
 					<IpfsMedia
 						className={styles.Thumbnail}
 						src={imageSrc}
