@@ -5,4 +5,5 @@ export enum Step {
 	CONFIRM_BID,
 	WAITING_FOR_WALLET,
 	PROCESSING,
+	COMPLETE,
 }

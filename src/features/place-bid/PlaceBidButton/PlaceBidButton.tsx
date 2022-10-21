@@ -1,6 +1,8 @@
 import { FC } from 'react';
 
-import { PlaceBidModal } from '../PlaceBidModal';
+import { usePlaceBidData } from '../usePlaceBidData';
+
+import { PlaceBidModal } from '..';
 
 type PlaceBidButtonProps = {
 	domainId: string;
@@ -10,6 +12,14 @@ type PlaceBidButtonProps = {
 export const PlaceBidButton: FC<PlaceBidButtonProps> = ({
 	domainId,
 	isRoot,
-}) => (
-	<PlaceBidModal trigger={isRoot ? 'Bid' : 'Place A Bid'} domainId={domainId} />
-);
+}) => {
+	const { tokenBalance } = usePlaceBidData(domainId);
+
+	return (
+		<PlaceBidModal
+			trigger={isRoot ? 'Bid' : 'Place A Bid'}
+			domainId={domainId}
+			tokenBalance={tokenBalance}
+		/>
+	);
+};

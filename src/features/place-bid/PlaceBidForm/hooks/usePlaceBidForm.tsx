@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
+import { usePlaceBidData } from '../../usePlaceBidData';
 import { useWeb3 } from '../../../../lib/hooks/useWeb3';
 import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
-import { usePaymentTokenForDomain } from '../../../../lib/hooks/usePaymentTokenForDomain';
+import { useZAuctionCheck } from '../../../../lib/hooks/useZAuctionCheck';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { Step } from '../PlaceBidForm.constants';
@@ -12,52 +13,41 @@ export type UsePlaceBidFormReturn = {
 	error: string;
 	onZAuctionCheck: () => void;
 	onZAuctionApprove: () => void;
+	onConfirmPlaceBid: () => void;
 };
 
 /**
  * Drives the logic behind the place bid form.
  */
-export const usePlaceBidForm = (domainId: string): UsePlaceBidFormReturn => {
+export const usePlaceBidForm = (
+	domainId: string,
+	bidAmount: string,
+): UsePlaceBidFormReturn => {
+	const [error, setError] = useState<string>();
+	const [step, setStep] = useState<Step>(Step.DETAILS);
+
 	const sdk = useZnsSdk();
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const { data: paymentTokenForDomain } = usePaymentTokenForDomain(domainId);
+	const { paymentTokenForDomain } = usePlaceBidData(domainId);
+	const { data: isZAuctionCheckRequired, error: zAuctionCheckError } =
+		useZAuctionCheck(account, paymentTokenForDomain);
 
-	const [error, setError] = useState<string>();
-	const [step, setStep] = useState<Step>(Step.CONFIRM_BID);
-
-	/**
-	 * Controls modal state and calls SDK methods for what happens
-	 * when the modal checks zAuction approval status
-	 * @returns void
-	 */
-	const onZAuctionCheck = () => {
-		if (!sdk || !account) {
-			return;
-		}
+	const onZAuctionCheck = async () => {
 		setError(undefined);
 		setStep(Step.ZAUCTION_CHECK);
-		(async () => {
-			try {
-				const needsApproval =
-					await sdk.zauction.needsToApproveZAuctionToSpendTokensByPaymentToken(
-						account,
-						paymentTokenForDomain,
-						'1000000000',
-					);
 
-				// Timeout to prevent jolt
-				await new Promise((r) => setTimeout(r, 1500));
-				if (needsApproval) {
-					setStep(Step.ZAUCTION_APPROVE);
-				} else {
-					setStep(Step.CONFIRM_BID);
-				}
-			} catch (e) {
-				setError('Failed to check zAuction approval status');
-				setStep(Step.DETAILS);
-			}
-		})();
+		// set timeout to prevent container jolt
+		await new Promise((r) => setTimeout(r, 1500));
+
+		if (isZAuctionCheckRequired) {
+			setStep(Step.ZAUCTION_APPROVE);
+		} else if (zAuctionCheckError) {
+			setError('Failed to check zAuction approval status');
+			setStep(Step.DETAILS);
+		} else {
+			setStep(Step.CONFIRM_BID);
+		}
 	};
 
 	const onZAuctionApprove = () => {
@@ -79,5 +69,36 @@ export const usePlaceBidForm = (domainId: string): UsePlaceBidFormReturn => {
 		);
 	};
 
-	return { step, error, onZAuctionCheck, onZAuctionApprove };
+	const onConfirmPlaceBid = () => {
+		setError(undefined);
+		return executeTransaction(
+			sdk.zauction.placeBid,
+			[
+				{
+					domainId,
+					bidAmount,
+				},
+				provider.getSigner(),
+			],
+			{
+				onStart: () => setStep(Step.WAITING_FOR_WALLET),
+				onProcessing: () => setStep(Step.PROCESSING),
+				onSuccess: () => setStep(Step.COMPLETE),
+				onError: (error: any) => {
+					setError(error.message);
+					setStep(Step.CONFIRM_BID);
+				},
+				// TODO: correct keys
+				invalidationKeys: [['user', { account, domainId, bidAmount }]],
+			},
+		);
+	};
+
+	return {
+		step,
+		error,
+		onZAuctionCheck,
+		onZAuctionApprove,
+		onConfirmPlaceBid,
+	};
 };

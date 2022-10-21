@@ -1,12 +1,6 @@
 import { FC, ReactNode } from 'react';
 
 import { usePlaceBidForm } from './hooks/usePlaceBidForm';
-import { useWeb3 } from '../../../lib/hooks/useWeb3';
-import { useDomainData } from '../../../lib/hooks/useDomainData';
-import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
-import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
-import { useUserTokenBalance } from '../../../lib/hooks/useUserTokenBalance';
-import { usePaymentTokenForDomain } from '../../../lib/hooks/usePaymentTokenForDomain';
 
 import { Details } from './FormSteps';
 import { Step } from './PlaceBidForm.constants';
@@ -16,21 +10,17 @@ import styles from './PlaceBidForm.module.scss';
 
 interface PlaceBidFormProps {
 	domainId: string;
+	tokenBalance: string;
+	onClose: () => void;
 }
 
-export const PlaceBidForm: FC<PlaceBidFormProps> = ({ domainId }) => {
-	const { account } = useWeb3();
-	const { data: domain } = useDomainData(domainId);
-	const { data: metrics } = useDomainMetrics(domainId);
-	const { data: domainMetadata } = useDomainMetadata(domainId);
-	const { data: paymentToken } = usePaymentTokenForDomain(domainId);
-	const { data: walletTokenBalance } = useUserTokenBalance(
-		account,
-		paymentToken,
-	);
-
-	const { step, error, onZAuctionCheck, onZAuctionApprove } =
-		usePlaceBidForm(domainId);
+export const PlaceBidForm: FC<PlaceBidFormProps> = ({
+	domainId,
+	tokenBalance,
+	onClose,
+}) => {
+	const { step, error, onZAuctionCheck, onZAuctionApprove, onConfirmPlaceBid } =
+		usePlaceBidForm(domainId, '10');
 
 	let content: ReactNode;
 
@@ -51,15 +41,11 @@ export const PlaceBidForm: FC<PlaceBidFormProps> = ({ domainId }) => {
 		case Step.DETAILS:
 			content = (
 				<Details
-					zna={domain?.name}
+					domainId={domainId}
+					tokenBalance={tokenBalance}
 					error={error}
-					title={domainMetadata?.title}
-					highestBid={metrics?.highestBid}
-					creator={domain?.minter}
-					walletTokenBalance={walletTokenBalance}
-					image={domainMetadata?.image}
-					imageFull={domainMetadata?.image_full}
 					onConfirm={onZAuctionCheck}
+					onClose={onClose}
 				/>
 			);
 			break;
@@ -86,7 +72,7 @@ export const PlaceBidForm: FC<PlaceBidFormProps> = ({ domainId }) => {
 					primaryButtonText={'Continue'}
 					secondaryButtonText={'Cancel'}
 					onClickPrimaryButton={onZAuctionApprove}
-					onClickSecondaryButton={() => 'onClose Click'}
+					onClickSecondaryButton={onClose}
 				/>
 			);
 			break;
@@ -120,24 +106,16 @@ export const PlaceBidForm: FC<PlaceBidFormProps> = ({ domainId }) => {
 			break;
 
 		case Step.CONFIRM_BID:
-			content = (
-				<Details
-					error={error}
-					zna={domain?.name}
-					title={domainMetadata?.title}
-					highestBid={metrics?.highestBid}
-					creator={domain?.minter}
-					walletTokenBalance={walletTokenBalance}
-					image={domainMetadata?.image}
-					imageFull={domainMetadata?.image_full}
-					onConfirm={onZAuctionCheck}
-				/>
-			);
+			content = <>Confirm</>;
+			break;
+
+		case Step.COMPLETE:
+			content = <>Complete</>;
 			break;
 	}
 
 	return (
-		<form>
+		<form className={styles.Form}>
 			<Wizard.Container header="Place A Bid">{content}</Wizard.Container>
 		</form>
 	);

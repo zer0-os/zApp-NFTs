@@ -52,3 +52,18 @@ export const getEtherscanLink = (domain: Domain, chainId: Network) =>
 
 		return `${etherscanBaseUri}token/${registrarAddress}?a=${domainIdInteger?.toString()}`;
 	}, [domain, domain?.id, chainId]);
+
+// TODO: move to utils
+export const truncateDomain = (
+	domainName: string,
+	maxCharacterLength: number,
+) => {
+	if (domainName?.length > maxCharacterLength) {
+		const splits = domainName.split('.');
+		if (splits?.length > 2) {
+			return `${splits[0]}...${splits[splits?.length - 1]}`;
+		}
+		return domainName;
+	}
+	return domainName;
+};
