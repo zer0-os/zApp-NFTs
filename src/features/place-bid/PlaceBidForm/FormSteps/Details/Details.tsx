@@ -122,7 +122,7 @@ export const Details: FC<DetailsProps> = ({
 
 						<div className={styles.ActionContainer}>
 							{/* TODO: add correct button styles */}
-							<ViewBidsButton />
+							<ViewBidsButton isTextButton />
 						</div>
 					</div>
 				</div>
