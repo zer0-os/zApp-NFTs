@@ -2,16 +2,16 @@ import { FC, useState } from 'react';
 
 import { usePlaceBidData } from '../../../usePlaceBidData';
 import { formatEthers } from '../../../../../lib/util/number';
-import {
-	truncateAddress,
-	truncateDomain,
-} from '../../../../../lib/util/domains';
+import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
+import { truncateDomain } from '../../../../../lib/util/domains';
 
 import { ViewBidsButton } from '../../../../../features/view-bids';
-import { Input, SkeletonText, Wizard } from '@zero-tech/zui/components';
+import { Button, Input, SkeletonText } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './Details.module.scss';
+
+import { IconUniswap, IconKucoin, IconGateio } from './Icons/';
 
 interface DetailsProps {
 	domainId: string;
@@ -45,8 +45,8 @@ export const Details: FC<DetailsProps> = ({
 	const truncatedCreatorAddress = truncateAddress(domain?.minter);
 	const formattedHighestBid = formatEthers(metrics?.highestBid);
 
-	const primaryButtonText =
-		tokenBalance === '0.0' ? 'Buy Wild' : error ? 'Retry' : 'Continue';
+	const buttonText =
+		tokenBalance === '0.0' ? 'Cancel' : error ? 'Retry' : 'Continue';
 	const isInputValueValid = !Number.isNaN(parseFloat(inputValue));
 	const isDisabled = tokenBalance === '0.0' ? false : !isInputValueValid;
 
@@ -54,8 +54,25 @@ export const Details: FC<DetailsProps> = ({
 		setInputValue(val);
 	};
 
-	const onSubmit = () =>
-		tokenBalance === '0.0' ? console.log('Buy Wild') : onConfirm();
+	const onPress = tokenBalance === '0.0' ? onClose : onConfirm;
+
+	const urlList = [
+		{
+			title: 'Uniswap',
+			href: 'https://app.uniswap.org/#/swap?outputCurrency=0x2a3bff78b79a009976eea096a51a948a3dc00e34&inputCurrency=ETH&use=V2',
+			icon: <IconUniswap />,
+		},
+		{
+			title: 'Kucoin',
+			href: 'https://www.kucoin.com/',
+			icon: <IconKucoin />,
+		},
+		{
+			title: 'Gate.io',
+			href: 'https://www.gate.io/',
+			icon: <IconGateio />,
+		},
+	];
 
 	return (
 		<>
@@ -131,26 +148,40 @@ export const Details: FC<DetailsProps> = ({
 
 					{tokenBalance === '0.0' && (
 						<>
-							<span className={styles.TextContent}>
-								Your balance: {tokenBalance}
+							<span className={styles.TextContent} data-variant={'warning'}>
+								You need WILD tokens to bid on this domain. To buy WILD tokens
+								simply go to one of the exhanges below and head back here when
+								you’re ready.
 							</span>
 
-							<span className={styles.TextContent} data-variant={'warning'}>
-								You need WILD tokens to bid on this domain.
-							</span>
+							<ul className={styles.ExternalUrls}>
+								{urlList.map((item) => (
+									<li key={item.title}>
+										<a
+											className={styles.Url}
+											target="_blank"
+											rel="noreferrer"
+											href={item.href}
+										>
+											{item.icon}
+											<p>{item.title}</p>
+										</a>
+									</li>
+								))}
+							</ul>
 						</>
 					)}
 
 					{error !== undefined && <div className={styles.Error}>{error}</div>}
 
-					<Wizard.Buttons
-						isPrimaryButtonActive={!isDisabled}
-						isSecondaryButtonActive
-						primaryButtonText={primaryButtonText}
-						secondaryButtonText={'Cancel'}
-						onClickPrimaryButton={onSubmit}
-						onClickSecondaryButton={tokenBalance === '0.0' && onClose}
-					/>
+					<Button
+						className={styles.Button}
+						onPress={onPress}
+						isDisabled={isDisabled}
+						variant={tokenBalance === '0.0' ? 'negative' : 'primary'}
+					>
+						{buttonText}
+					</Button>
 				</div>
 			</div>
 		</>

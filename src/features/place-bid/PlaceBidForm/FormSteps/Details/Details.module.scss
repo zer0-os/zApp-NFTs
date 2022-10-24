@@ -1,10 +1,10 @@
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
 @import '../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
 @import '../../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 1.125rem;
 	gap: 2.5rem;
 
 	.NFTSection {
@@ -80,6 +80,52 @@
 				color: $red-100;
 				margin-bottom: 0;
 			}
+		}
+
+		.ExternalUrls {
+			display: flex;
+			flex-direction: row;
+			align-items: end;
+			justify-content: space-around;
+			width: 100%;
+			height: 4.375rem;
+			list-style: none;
+			padding: 0;
+			margin: 2.5rem 0 0 0;
+
+			li {
+				width: 100%;
+				height: 100%;
+				border-radius: calc($radius-primary / 2);
+
+				&:hover {
+					background: $purple-10;
+				}
+
+				.Url {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-evenly;
+					align-items: center;
+					height: 100%;
+					border-radius: calc($radius-primary / 2);
+
+					&:hover {
+						background: $purple-10;
+					}
+
+					p {
+						color: $blue;
+						font-size: $size-small;
+						line-height: 1.059rem;
+						margin: 0;
+					}
+				}
+			}
+		}
+
+		.Button {
+			margin-top: 2.5rem;
 		}
 
 		.Error {
