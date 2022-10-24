@@ -3,7 +3,7 @@ export const IconGateio: React.FC = () => {
 		<svg
 			width="28"
 			height="28"
-			viewBox="-30 -40 150 151"
+			viewBox="-25 -40 150 151"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 		>
