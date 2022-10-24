@@ -1,32 +1,33 @@
 {
 	"name": "@zero-tech/zapp-nfts",
-	"version": "0.2.2",
+	"version": "0.4.2",
 	"description": "zns marketplace app for zos",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/zer0-os/zApp-NFTs.git"
 	},
-	"main": "index.js",
+	"main": "dist/index.js",
 	"scripts": {
 		"clean": "rimraf dist && npx mkdirp dist",
 		"build": "npm-run-all clean build:*",
 		"build:scripts": "NODE_ENV=production babel --extensions \".ts,.tsx,.js,.jsx\" ./src --out-dir ./dist",
 		"build:styles": "sass src:dist",
 		"build:assets": "copyfiles -u 1 src/assets/* dist",
-		"build:config": "cp package.json dist/",
 		"watch": "npm-run-all clean watch:all",
 		"watch:all": "concurrently --kill-others --names \"babel,sass,assets,config\" -c \"bgBlue.bold,bgGreen.bold,bgRed.bold,bgMagenta.bold\" \"npm run watch:scripts\" \"npm run watch:styles\" \"npm run watch:assets\" \"npm run watch:config\"",
 		"watch:scripts": "npm run build:scripts -- --watch",
 		"watch:styles": "npm run build:styles -- --watch",
 		"watch:assets": "npm run build:assets && onchange 'src/**/*.{jpg,jpeg,svg,png}' -- npm run build:assets",
-		"watch:config": "npm run build:config && onchange 'package.json' -- npm run build:assets",
+		"watch:config": "cp package.json dist/ && onchange 'package.json' -- npm run build:assets",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"link": "bash .scripts/link.sh",
 		"start:watch": "tsc --watch && cp src/*.css dist/",
-		"prettier": "prettier -w src/",
-		"publish": "cd dist && npm publish"
+		"prettier": "prettier -w src/"
 	},
+	"files": [
+		"dist"
+	],
 	"author": "zer0-os",
 	"license": "ISC",
 	"devDependencies": {
@@ -72,8 +73,9 @@
 		"@ethersproject/units": "^5.6.1",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/user-event": "^14.4.3",
+		"@zero-tech/zapp-utils": "^0.2.1",
 		"@zero-tech/zns-sdk": "0.6.1",
-		"@zero-tech/zui": "0.11.2",
+		"@zero-tech/zui": "0.11.4",
 		"classnames": "^2.3.1",
 		"formik": "^2.2.9",
 		"moment": "^2.29.4",

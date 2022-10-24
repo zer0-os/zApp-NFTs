@@ -1,12 +1,10 @@
-@use '../../../../../../zUI/src/styles/colors';
-
 .Field {
 	display: flex;
 	flex-direction: column;
 
 	.FieldLabel {
 		font-size: 0.75rem;
-		color: #{colors.$grey-lighter-2};
+		color: #bfbfbf; // @TODO: use zui color
 		margin: 0;
 	}
 

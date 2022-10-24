@@ -1,18 +1,50 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
 
 .Container {
+
 	cursor: pointer;
 
 	&:hover {
 		background: $purple-10;
 	}
 
+	.NFT {
+		width: 100%;
+
+		> div {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.Thumbnail {
+			height: 2.5rem;
+			width: 2.5rem;
+			border-radius: 0.5rem;
+		}
+
+		.Info {
+			display: flex;
+			flex-direction: column;
+
+			> *:last-child {
+				font-size: 0.875rem;
+				color: $grey-lighter-3;
+			}
+		}
+	}
+
 	.Metrics {
-		text-align: right;
+		width: 100%;
+		min-width: 8.75rem;
 	}
 
 	.Button {
 		display: flex;
 		justify-content: flex-end;
+
+		width: 6.25rem;
+		max-width: 6.25rem;
+		min-width: 6.25rem;
 	}
 }
