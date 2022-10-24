@@ -41,7 +41,6 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 
 	return (
 		<div className={styles.Container}>
-			{/* TODO: media asset component */}
 			<img
 				className={cx(styles.Banner, {
 					isNFTView: isNFTView,
@@ -54,8 +53,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 					isNFTView: isNFTView,
 				})}
 			>
-				{/* TODO: media asset component */}
-				{!isNFTView && <img src={banner} className={styles.Icon}></img>}
+				{!isNFTView && <img src={banner} className={styles.Icon} />}
 				<div className={styles.TextContainer}>
 					<SkeletonText
 						as={'h1'}
@@ -63,7 +61,6 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 						asyncText={{ text: title, isLoading: !title }}
 						skeletonOptions={{ width: '50%' }}
 					/>
-					{/*{title && <h1 className={styles.Title}>{title}</h1>}*/}
 
 					{/* TODO: member component */}
 					{isNFTView && (
