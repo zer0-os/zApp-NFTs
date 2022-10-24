@@ -7,16 +7,18 @@ import { IconLinkExternal1 } from '@zero-tech/zui/components/Icons';
 import styles from './ViewBidsButton.module.scss';
 
 interface ViewBidsButtonProps {
-	isTextButton?: boolean;
+	variant?: 'primary' | 'text';
 }
 
-export const ViewBidsButton: FC<ViewBidsButtonProps> = ({ isTextButton }) => {
+export const ViewBidsButton: FC<ViewBidsButtonProps> = ({
+	variant = 'primary',
+}) => {
 	const textButton = (
 		<div className={styles.Container}>
 			<p className={styles.TextButton}>View All Bids</p>
-			<IconLinkExternal1 className={styles.Icon} size={'1rem'} isFilled />
+			<IconLinkExternal1 className={styles.Icon} size={'1.15rem'} isFilled />
 		</div>
 	);
 
-	return <ViewBidsModal trigger={isTextButton ? textButton : 'View Bids'} />;
+	return <ViewBidsModal trigger={variant ? textButton : 'View Bids'} />;
 };

@@ -5,16 +5,4 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
-	.ErrorMessage {
-		color: $red-300;
-		font-size: $size-default;
-		font-weight: $font-weight-bold;
-		line-height: 1.5rem;
-		margin-top: 2.5rem;
-	}
-
-	.Confirmation {
-		margin-bottom: 1.125rem;
-	}
 }

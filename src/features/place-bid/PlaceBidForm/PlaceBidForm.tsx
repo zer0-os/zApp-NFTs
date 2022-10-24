@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 
 import { usePlaceBidForm } from './hooks/usePlaceBidForm';
 
-import { Details } from './FormSteps';
+import { ApproveZAuction, Complete, ConfirmBid, Details } from './FormSteps';
 import { Step } from './PlaceBidForm.constants';
 import { Wizard } from '@zero-tech/zui/components';
 
@@ -19,98 +19,61 @@ export const PlaceBidForm: FC<PlaceBidFormProps> = ({
 	tokenBalance,
 	onClose,
 }) => {
-	const { step, error, onZAuctionCheck, onZAuctionApprove, onConfirmPlaceBid } =
-		usePlaceBidForm(domainId, '10');
+	const {
+		step,
+		error,
+		statusText,
+		bidAmount,
+		setBidAmount,
+		onCheckZAuction,
+		onApproveZAuction,
+		onConfirmPlaceBid,
+	} = usePlaceBidForm(domainId);
 
 	let content: ReactNode;
-
-	const zAuctionConfirmationText = (
-		<>
-			<p>
-				{
-					'Before you can place a bid, your wallet needs to approve zAuction. You will only need to do this once. This will cost gas.'
-				}
-			</p>
-			{error !== undefined && (
-				<span className={styles.ErrorMessage}>{error}</span>
-			)}
-		</>
-	);
 
 	switch (step) {
 		case Step.DETAILS:
 			content = (
 				<Details
-					domainId={domainId}
-					tokenBalance={tokenBalance}
 					error={error}
-					onConfirm={onZAuctionCheck}
+					domainId={domainId}
+					bidAmount={bidAmount}
+					tokenBalance={tokenBalance}
+					setBidAmount={setBidAmount}
+					onCheckZAuction={onCheckZAuction}
 					onClose={onClose}
-				/>
-			);
-			break;
-
-		case Step.ZAUCTION_CHECK:
-			content = (
-				<Wizard.Loading
-					message={
-						<div>
-							<p>{'Checking status of zAuction approval...'}</p>
-						</div>
-					}
 				/>
 			);
 			break;
 
 		case Step.ZAUCTION_APPROVE:
 			content = (
-				<Wizard.Confirmation
-					className={styles.Confirmation}
-					message={zAuctionConfirmationText}
-					isPrimaryButtonActive
-					isSecondaryButtonActive
-					primaryButtonText={'Continue'}
-					secondaryButtonText={'Cancel'}
-					onClickPrimaryButton={onZAuctionApprove}
-					onClickSecondaryButton={onClose}
-				/>
-			);
-			break;
-
-		case Step.WAITING_FOR_WALLET:
-			content = (
-				<Wizard.Loading
-					message={
-						<div>
-							<p>{'Waiting for approval from your wallet...'}</p>
-						</div>
-					}
-				/>
-			);
-			break;
-
-		case Step.PROCESSING:
-			content = (
-				<Wizard.Loading
-					message={
-						<div>
-							<p>
-								{
-									'Approving zAuction. This may take up to 20 mins... Please do not close this window or refresh the page.'
-								}
-							</p>
-						</div>
-					}
+				<ApproveZAuction
+					error={error}
+					onClose={onClose}
+					onApproveZAuction={onApproveZAuction}
 				/>
 			);
 			break;
 
 		case Step.CONFIRM_BID:
-			content = <>Confirm</>;
+			content = (
+				<ConfirmBid
+					error={error}
+					domainId={domainId}
+					bidAmount={bidAmount}
+					onConfirm={onConfirmPlaceBid}
+				/>
+			);
 			break;
 
 		case Step.COMPLETE:
-			content = <>Complete</>;
+			content = <Complete domainId={domainId} onClose={onClose} />;
+			break;
+
+		case Step.LOADING:
+			content = <Wizard.Loading message={statusText} />;
 			break;
 	}
 
