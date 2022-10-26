@@ -1,4 +1,4 @@
 export * from './ApproveZAuction';
 export * from './Complete';
-export * from './ConfirmBid';
+export * from './Confirm';
 export * from './Details';
