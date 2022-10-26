@@ -10,18 +10,18 @@
 	.Banner {
 		width: 100%;
 		height: 15rem;
-		object-fit: cover;
-		background: $purple-10;
 		border-radius: calc($radius-primary / 2);
 
-		&.isNFTView {
+		.Media {
+			height: 100%;
 			width: 100%;
-			// temporary fixed height
-			height: 23.125rem;
+			border-radius: inherit;
+		}
 
-			img {
-				cursor: pointer;
-			}
+		&.isNFTView {
+			height: 23.125rem;
+			display: flex;
+			justify-content: center;
 		}
 	}
 
@@ -38,9 +38,8 @@
 			width: 7.5rem;
 			margin-left: 0.5rem;
 			border-radius: 50%;
-			background: $purple-10;
-			object-fit: cover;
 			box-shadow: 0 0 1rem rgba($black, 0.5);
+			z-index: 2;
 		}
 
 		.TextContainer {

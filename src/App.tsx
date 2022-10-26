@@ -15,7 +15,7 @@ import styles from './App.module.scss';
 
 const cx = classNames.bind(styles);
 
-export const App: FC<AppProps> = ({ provider, route }) => {
+export const App: FC<AppProps> = ({ route }) => {
 	const domainId = getDomainId(route);
 	const isRoot = route.split('.').length === 1 && !route.includes('.');
 
@@ -26,6 +26,7 @@ export const App: FC<AppProps> = ({ provider, route }) => {
 		metrics,
 		domainMetadata,
 		isNFTView,
+		isSubdomainDataLoading,
 	} = useDataContainer(domainId);
 
 	return (
@@ -43,6 +44,7 @@ export const App: FC<AppProps> = ({ provider, route }) => {
 						subdomainData={subdomainData}
 						domainMetadata={domainMetadata}
 						paymentTokenInfo={paymentTokenInfo}
+						isSubdomainDataLoading={isSubdomainDataLoading}
 					/>
 				)}
 

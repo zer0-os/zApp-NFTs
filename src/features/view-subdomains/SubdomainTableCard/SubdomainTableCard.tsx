@@ -4,6 +4,8 @@ import { useSubdomainData } from '../useSubdomainData';
 import { formatEthers } from '../../../lib/util/number/number';
 import { TokenPriceInfo } from '@zero-tech/zns-sdk';
 
+import { getCloudinaryUrlFromIpfs } from '@zero-tech/zapp-utils/utils/cloudinary';
+
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
 import { GridCard } from '@zero-tech/zui/components/GridCard';
@@ -23,7 +25,6 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	domainId,
 	domainName,
 	domainMetadataUri,
-	paymentTokenData,
 	onCardClick,
 }) => {
 	const {
@@ -31,8 +32,6 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		buyNowPrice,
 		metadata,
 		isMetadataLoading,
-		isButtonDisabled,
-		isBuyNowPriceLoading,
 		isMetricsLoading,
 		imageAlt,
 		imageSrc,
@@ -57,7 +56,13 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	return (
 		<GridCard
 			className={styles.Container}
-			imageSrc={imageSrc}
+			imageSrc={
+				imageSrc &&
+				getCloudinaryUrlFromIpfs(imageSrc, 'image', {
+					size: 'medium',
+					fit: 'fill',
+				})
+			}
 			aspectRatio={1}
 			imageAlt={imageAlt}
 			onClick={() => onCardClick(undefined, domainName)}

@@ -5,6 +5,7 @@ import { truncateAddress } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
 
 import { Options } from './Options';
+import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 import { SkeletonText } from '@zero-tech/zui/components';
 
 import classNames from 'classnames/bind';
@@ -33,6 +34,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 	owner,
 	creator,
 	isNFTView,
+	icon,
 }) => {
 	const members = [
 		{ title: MemberTitle.CREATOR, address: creator },
@@ -41,19 +43,40 @@ export const DomainPreview: FC<DomainPreviewProps> = ({
 
 	return (
 		<div className={styles.Container}>
-			<img
+			{/* TODO: media asset component */}
+
+			<div
 				className={cx(styles.Banner, {
 					isNFTView: isNFTView,
 				})}
-				src={banner}
-			/>
+			>
+				<IpfsMedia
+					alt={`${title ?? 'loading'} nft image banner`}
+					className={styles.Media}
+					src={banner}
+					options={{
+						size: isNFTView ? 'full' : 'large',
+						fit: isNFTView ? 'fit' : 'fill',
+					}}
+				/>
+			</div>
 
 			<div
 				className={cx(styles.Content, {
 					isNFTView: isNFTView,
 				})}
 			>
-				{!isNFTView && <img src={banner} className={styles.Icon} />}
+				{/* TODO: media asset component */}
+				{!isNFTView && (
+					<IpfsMedia
+						alt={`${title ?? 'loading'} nft thumbnail`}
+						className={styles.Icon}
+						src={icon}
+						options={{
+							size: 'medium',
+						}}
+					/>
+				)}
 				<div className={styles.TextContainer}>
 					<SkeletonText
 						as={'h1'}

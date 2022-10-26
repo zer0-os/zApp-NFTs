@@ -1,0 +1,55 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7.0
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:14.17.5
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: echo "//npm.pkg.github.com/:_authToken=${GIT_PACKAGE_READ}" > ~/.npmrc
+      - node/install-packages:
+          pkg-manager: npm
+      - run: npm run build
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+  publish:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ~/.npmrc
+      - run: 
+          name: NPM Publish
+          command: npm publish
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          context: zApp
+          filters:
+            branches:
+              ignore: master
+  production:
+    jobs:
+      - build:
+          context: zApp
+          filters: &filters-production # this yaml anchor is setting these values to "filters-production"
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+      - publish:
+          context: NPM_Publish
+          requires:
+            - build
+          filters:
+            <<: *filters-production # this is calling the previously set yaml anchor
