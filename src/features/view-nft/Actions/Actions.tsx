@@ -35,7 +35,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 	const { data: buyNowPriceData } = useBuyNowPrice(domainId);
 	const { data: metrics } = useDomainMetrics(domainId);
 	const { data: bids } = useBidData(domainId);
-	const { data: domainMetadata } = useDomainMetadata(domainId);
+	const { data: metadata } = useDomainMetadata(domainId);
 
 	const buyNowPrice = buyNowPriceData ? formatNumber(buyNowPriceData) : '-';
 	const userBids = getUserBids(account, bids) ?? [];
@@ -45,7 +45,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 		metrics?.highestBid > '0' ? formatEthers(metrics?.highestBid) : '-';
 
 	const isOwnedByUser = domain?.owner?.toLowerCase() === account?.toLowerCase();
-	const isBiddable = !isOwnedByUser || Boolean(domainMetadata?.isBiddable);
+	const isBiddable = !isOwnedByUser || Boolean(metadata?.isBiddable);
 	const isUserBid = !isOwnedByUser && userBids.length > 0;
 	const isSetBuyNow = isOwnedByUser && Boolean(domain?.name);
 	const isBuyNow =
