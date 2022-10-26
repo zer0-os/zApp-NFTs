@@ -3,16 +3,13 @@ import { FC, useState } from 'react';
 import { Option } from './MoreNFTOptions.types';
 import { OptionType } from './MoreNFTOptions.constants';
 
+import { OptionLabel } from '../OptionLabel';
 import { TransferOwnershipModal } from '../../transfer-ownership';
 import { DropdownMenu, DropdownMenuProps } from '@zero-tech/zui/components';
-import { useMoreOptions } from './hooks/useMoreOptions';
+import { IconSend3 } from '@zero-tech/zui/components/Icons';
 
 type MoreNFTOptionsProps = {
 	domainId: string;
-	domainName: string;
-	domainTitle: string;
-	domainOwner: string;
-	domainCreator: string;
 	trigger: DropdownMenuProps['trigger'];
 };
 
@@ -21,16 +18,19 @@ type MoreNFTOptionsProps = {
  */
 export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({
 	domainId,
-	domainName,
-	domainTitle,
-	domainOwner,
-	domainCreator,
 	trigger,
 }) => {
 	const [option, setOption] = useState<Option | undefined>();
 
-	/* Hook returning all options  */
-	const { moreOptions } = useMoreOptions(setOption);
+	const moreOptions = [
+		{
+			id: OptionType.TRANSFER,
+			label: (
+				<OptionLabel icon={<IconSend3 isFilled />} label="Transfer Ownership" />
+			),
+			onSelect: () => setOption(OptionType.TRANSFER),
+		},
+	];
 
 	const onChange = (open: boolean) => {
 		if (!open) {
@@ -46,10 +46,6 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({
 			<TransferOwnershipModal
 				open={option === OptionType.TRANSFER}
 				domainId={domainId}
-				domainName={domainName}
-				domainTitle={domainTitle}
-				domainOwner={domainOwner}
-				domainCreator={domainCreator}
 				onOpenChange={onChange}
 				onClose={onClose}
 			/>

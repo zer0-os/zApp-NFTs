@@ -8,6 +8,10 @@
 	border-radius: calc($radius-primary / 2);
 	height: 2.313rem;
 
+	.Icon {
+		color: $blue;
+	}
+
 	button {
 		display: flex;
 		justify-content: center;

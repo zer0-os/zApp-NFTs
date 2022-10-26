@@ -38,6 +38,26 @@ jest.mock('../../../lib/hooks/useZnsSdk', () => ({
 	}),
 }));
 
+// domain data
+let mockOwner: string;
+jest.mock('../../../lib/hooks/useDomainData', () => ({
+	useDomainData: () => ({
+		data: {
+			id: mock.domain.id,
+			name: mock.domain.name,
+			owner: mockOwner,
+			minter: mock.domain.minter,
+		},
+	}),
+}));
+
+// domain metadata
+jest.mock('../../../lib/hooks/useDomainMetadata', () => ({
+	useDomainMetadata: () => ({
+		data: mock.metadata,
+	}),
+}));
+
 ///////////
 // Setup //
 ///////////
@@ -55,17 +75,11 @@ afterEach(() => {
 	jest.clearAllMocks();
 });
 
-const renderComponent = (mockOwner?: string) =>
+const renderComponent = () => {
 	render(
-		<TransferOwnershipForm
-			domainId={mock.domain.id}
-			domainName={mock.domain.name}
-			domainTitle={mock.metadata.title}
-			domainOwner={mockOwner ? mockOwner : mock.domain.owner}
-			domainCreator={mock.domain.minter}
-			onClose={mockOnClose}
-		/>,
+		<TransferOwnershipForm domainId={mock.domain.id} onClose={mockOnClose} />,
 	);
+};
 
 /////////////
 // Helpers //
@@ -88,7 +102,7 @@ describe('TransferOwnershipForm', () => {
 	test('should handle successful transfer domain ownership request', async () => {
 		mockTranferDomainOwnership.mockResolvedValue({ wait: mockTx });
 		mockTx.mockResolvedValue(undefined);
-
+		mockOwner = mock.domain.owner;
 		renderComponent();
 
 		// details step
@@ -123,6 +137,7 @@ describe('TransferOwnershipForm', () => {
 
 	describe('Details Step', () => {
 		test('should display correct domain data', async () => {
+			mockOwner = mock.domain.owner;
 			renderComponent();
 
 			expect(screen.getByText(`0://${mock.domain.name}`)).toBeInTheDocument();
@@ -133,6 +148,7 @@ describe('TransferOwnershipForm', () => {
 		});
 
 		test('primary button should be disabled if input value is an empty string', async () => {
+			mockOwner = mock.domain.owner;
 			renderComponent();
 
 			const input = screen.getByPlaceholderText('Ethereum Wallet');
@@ -149,6 +165,7 @@ describe('TransferOwnershipForm', () => {
 		});
 
 		test('primary button should NOT be disabled if value exists', async () => {
+			mockOwner = mock.domain.owner;
 			renderComponent();
 
 			const input = screen.getByPlaceholderText('Ethereum Wallet');
@@ -164,6 +181,7 @@ describe('TransferOwnershipForm', () => {
 		});
 
 		test('should display error message when input value is not a valid eth address', async () => {
+			mockOwner = mock.domain.owner;
 			renderComponent();
 
 			// input error message
@@ -186,6 +204,7 @@ describe('TransferOwnershipForm', () => {
 		});
 
 		test('should display error message when input value is equal to connected account address', async () => {
+			mockOwner = mock.domain.owner;
 			renderComponent();
 
 			// input error message
@@ -206,6 +225,7 @@ describe('TransferOwnershipForm', () => {
 		});
 
 		test('should display error message when input value is equal to connected account address', async () => {
+			mockOwner = mock.domain.owner;
 			renderComponent();
 
 			// input error message
@@ -226,10 +246,8 @@ describe('TransferOwnershipForm', () => {
 		});
 
 		test('should display error message when connected account is not domain owner(0xxx)', async () => {
-			// edit mock.domain.owner
-			const mockOwner = '0xxx';
-
-			renderComponent(mockOwner);
+			mockOwner = '0xxx';
+			renderComponent();
 
 			// input error message
 			const errorMessage = 'You are not the owner of this domain';
@@ -251,6 +269,7 @@ describe('TransferOwnershipForm', () => {
 
 	describe('Confirm Step', () => {
 		test('secondary button should call onClose when clicked', async () => {
+			mockOwner = mock.domain.owner;
 			renderComponent();
 			onSubmitValidDetails();
 
@@ -272,6 +291,7 @@ describe('TransferOwnershipForm', () => {
 	describe('Transaction Approval Step (signature)', () => {
 		test('should navigate back to confirm step and handle error if signature rejected', async () => {
 			mockTranferDomainOwnership.mockRejectedValue(undefined);
+			mockOwner = mock.domain.owner;
 			renderComponent();
 			onSubmitValidDetails();
 
@@ -298,6 +318,7 @@ describe('TransferOwnershipForm', () => {
 
 	describe('Transaction In Progress Step (transaction)', () => {
 		test('should navigate back to confirm step and handle error if transaction rejected', async () => {
+			mockOwner = mock.domain.owner;
 			mockTranferDomainOwnership.mockResolvedValue({ wait: mockTx });
 			mockTx.mockRejectedValue(undefined);
 			renderComponent();
@@ -326,6 +347,7 @@ describe('TransferOwnershipForm', () => {
 
 	describe('Complete Step', () => {
 		test('primary button should call onClose when clicked', async () => {
+			mockOwner = mock.domain.owner;
 			mockTranferDomainOwnership.mockResolvedValue({ wait: mockTx });
 			mockTx.mockResolvedValue(undefined);
 			renderComponent();

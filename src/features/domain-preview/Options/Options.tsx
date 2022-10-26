@@ -22,7 +22,7 @@ export type OptionsProps = {
  */
 export const Options: FC<OptionsProps> = ({ domainId }) => {
 	const { account } = useWeb3();
-	const { domain, domainMetadata, isNFTView } = useDataContainer(domainId);
+	const { domain, isNFTView } = useDataContainer(domainId);
 
 	return (
 		<div className={styles.Container}>
@@ -43,11 +43,7 @@ export const Options: FC<OptionsProps> = ({ domainId }) => {
 			{isNFTView && domain?.owner === account && (
 				<MoreNFTOptions
 					domainId={domainId}
-					domainName={domain?.name}
-					domainTitle={domainMetadata?.title}
-					domainOwner={domain?.owner}
-					domainCreator={domain?.minter}
-					trigger={<IconDotsVertical color={'#52CBFF'} isFilled />}
+					trigger={<IconDotsVertical className={styles.Icon} isFilled />}
 				/>
 			)}
 		</div>
