@@ -3,14 +3,19 @@ import { useQuery } from 'react-query';
 import { parseDomainMetadata } from '../util/metadata/metadata';
 
 import { useZnsSdk } from './useZnsSdk';
+import { useDomainData } from './useDomainData';
 
-export const useDomainMetadata = (uri: string) => {
+export const useDomainMetadata = (domainId: string) => {
 	const sdk = useZnsSdk();
 
-	return useQuery(
-		['domain-metadata', uri],
+	const { data: domainData } = useDomainData(domainId);
+
+	const metadataUri = domainData?.metadataUri;
+
+	const query = useQuery(
+		['domain', 'metadata', { metadataUri }],
 		async () => {
-			const raw = await sdk.utility.getMetadataFromUri(uri);
+			const raw = await sdk.utility.getMetadataFromUri(metadataUri);
 
 			if (raw) {
 				return parseDomainMetadata(raw);
@@ -20,7 +25,12 @@ export const useDomainMetadata = (uri: string) => {
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			enabled: Boolean(uri),
+			enabled: Boolean(metadataUri),
 		},
 	);
+
+	return {
+		...query,
+		isLoading: query.isLoading || query.isIdle,
+	};
 };

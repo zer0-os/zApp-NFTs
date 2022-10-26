@@ -1,34 +1,33 @@
 import { FC } from 'react';
 
-import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
-
-import { StatsList } from '../../ui/StatsList';
+import { StatsList } from '../../ui';
 
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
+import { getDomainId } from '../../../lib/util/domains/domains';
+import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
 
 interface SubdomainMetricsProps {
-	domainId?: string;
-	paymentTokenInfo: TokenPriceInfo;
+	zna: string;
 }
 
-const getMetricsLabels = (metrics: DomainMetrics) => {};
+export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ zna }) => {
+	const domainId = getDomainId(zna);
 
-export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({
-	domainId,
-	paymentTokenInfo,
-}) => {
-	const { data: metrics, isLoading } = useDomainMetrics(domainId);
+	const { data: metrics, isLoading: isLoadingMetrics } =
+		useDomainMetrics(domainId);
+	const { data: paymentToken } = usePaymentToken(zna);
 
-	const DEFAULT = { isLoading };
+	const DEFAULT = { isLoading: isLoadingMetrics };
 
-	const paymentTokenLabel = paymentTokenInfo?.name
-		? ` (${paymentTokenInfo?.name})`
+	const paymentTokenLabel = paymentToken?.name
+		? ` (${paymentToken?.name})`
 		: '';
 
-	const itemsInDomain = metrics?.items
-		? formatNumber(metrics?.items) + paymentTokenLabel
-		: undefined;
+	const itemsInDomain =
+		metrics?.items !== undefined
+			? formatNumber(metrics?.items) + paymentTokenLabel
+			: undefined;
 
 	const floorPriceString = metrics?.lowestSale
 		? formatEthers(metrics?.lowestSale) + paymentTokenLabel
@@ -42,26 +41,23 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({
 		{
 			title: 'Items In Domain',
 			value: {
-				isLoading,
+				...DEFAULT,
 				text: itemsInDomain,
 			},
-			...DEFAULT,
 		},
 		{
 			title: 'Floor Price',
 			value: {
-				isLoading,
+				...DEFAULT,
 				text: floorPriceString,
 			},
-			...DEFAULT,
 		},
 		{
 			title: 'Volume',
 			value: {
-				isLoading,
+				...DEFAULT,
 				text: volumeString,
 			},
-			...DEFAULT,
 		},
 	];
 

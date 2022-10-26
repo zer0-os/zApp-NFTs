@@ -11,7 +11,7 @@ import { App } from './App';
 
 const queryClient = new QueryClient();
 
-export const NFTsZApp = ({ provider, route, web3 }: AppProps) => (
+export const NFTsZApp = ({ provider, web3 }: AppProps) => (
 	<QueryClientProvider client={queryClient} contextSharing={true}>
 		<Web3Provider
 			provider={provider}
@@ -22,7 +22,7 @@ export const NFTsZApp = ({ provider, route, web3 }: AppProps) => (
 			<ChainGate chainId={provider?._network?.chainId ?? 1}>
 				<ZnsSdkProvider>
 					<ZUIProvider>
-						<App provider={provider} route={route} web3={web3} />
+						<App />
 					</ZUIProvider>
 				</ZnsSdkProvider>
 			</ChainGate>

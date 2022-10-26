@@ -1,32 +1,30 @@
 import { FC } from 'react';
 
-import { TokenPriceInfo } from '@zero-tech/zns-sdk';
-
 import { Skeleton } from '@zero-tech/zui/components';
-import { HistoryItem } from '..';
+import { HistoryItem } from '../HistoryItem';
 
-import { DomainEvent } from '../../../lib/types/events';
-
+import { getDomainId } from '../../../lib/util/domains/domains';
+import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
 import { useDomainEvents } from '../../../lib/hooks/useDomainEvents';
+import { DomainEvent } from '../../../lib/types/events';
 
 import { sortEventsByTimestamp } from './HistoryList.utils';
 
 import styles from './HistoryList.module.scss';
 
 type HistoryListProps = {
-	domainId: string;
-	paymentToken: TokenPriceInfo;
+	zna: string;
 };
 
 const CONFIG = {
 	numSkeletons: 3,
 };
 
-export const HistoryList: FC<HistoryListProps> = ({
-	domainId,
-	paymentToken,
-}) => {
+export const HistoryList: FC<HistoryListProps> = ({ zna }) => {
+	const domainId = getDomainId(zna);
 	const { data: domainEvents } = useDomainEvents(domainId);
+	const { data: paymentToken } = usePaymentToken(zna);
+
 	const sortedDomainEvents = sortEventsByTimestamp(domainEvents);
 
 	return (
@@ -38,7 +36,7 @@ export const HistoryList: FC<HistoryListProps> = ({
 					<>
 						{sortedDomainEvents?.map((item: DomainEvent, i: number) => (
 							<div key={i}>
-								<HistoryItem item={item} paymentToken={paymentToken} />
+								<HistoryItem item={item} tokenName={paymentToken?.name} />
 							</div>
 						))}
 					</>
