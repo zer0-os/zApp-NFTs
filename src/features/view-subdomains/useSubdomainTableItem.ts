@@ -24,15 +24,18 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 	const image = metadata?.previewImage ?? metadata?.image;
 	const alt = (metadata?.name ?? zna) + ' preview image';
 	const isLoading = isLoadingMetrics || isLoadingBuyNowPrice;
+
 	const paymentTokenLabel = paymentToken?.name ? `(${paymentToken?.name})` : '';
+	const volume = metrics?.volume?.all
+		? formatEthers(metrics.volume.all)
+		: undefined;
+	const highestBid = metrics?.highestBid
+		? formatEthers(metrics.highestBid)
+		: undefined;
 
 	return {
-		volume: metrics?.volume?.all
-			? formatEthers(metrics?.volume?.all)
-			: undefined,
-		highestBid: metrics?.highestBid
-			? formatEthers(metrics?.highestBid)
-			: undefined,
+		volume,
+		highestBid,
 		image,
 		alt,
 		isLoadingMetrics,
