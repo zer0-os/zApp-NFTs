@@ -18,8 +18,6 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ zna }) => {
 		useDomainMetrics(domainId);
 	const { data: paymentToken } = usePaymentToken(zna);
 
-	const DEFAULT = { isLoading: isLoadingMetrics };
-
 	const paymentTokenLabel = paymentToken?.name
 		? ` (${paymentToken?.name})`
 		: '';
@@ -41,22 +39,22 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ zna }) => {
 		{
 			title: 'Items In Domain',
 			value: {
-				...DEFAULT,
 				text: itemsInDomain,
+				isLoading: isLoadingMetrics,
 			},
 		},
 		{
 			title: 'Floor Price',
 			value: {
-				...DEFAULT,
 				text: floorPriceString,
+				isLoading: isLoadingMetrics,
 			},
 		},
 		{
 			title: 'Volume',
 			value: {
-				...DEFAULT,
 				text: volumeString,
+				isLoading: isLoadingMetrics,
 			},
 		},
 	];
