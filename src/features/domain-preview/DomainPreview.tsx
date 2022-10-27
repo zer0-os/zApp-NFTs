@@ -192,7 +192,6 @@ interface NftViewLinkProps {
 }
 
 const NftViewLink = ({ zna }: NftViewLinkProps) => {
-	console.log(zna);
 	return (
 		<div className={styles.LinkContainer}>
 			<ArrowLink className={styles.Link} href={zna} replace>
