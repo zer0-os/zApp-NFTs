@@ -92,12 +92,16 @@ export const DomainPreview: FC<DomainPreviewProps> = ({ zna, variant }) => {
 				)}
 
 				<div className={styles.TextContainer}>
-
 					<Title title={title} />
 
-					{variant === 'full' && <Members members={members} />}
-         
-					<Options domainId={id} />
+					<div className={styles.FlexRow}>
+						{variant === 'full' && (
+							<>
+								<Members members={members} />
+								<Options zna={zna} />
+							</>
+						)}
+					</div>
 
 					<Description description={description} />
 

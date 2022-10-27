@@ -1,21 +1,24 @@
 import { FC } from 'react';
 
-import { useDomainData } from '../../../lib/hooks/useDomainData';
-import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
-import { truncateAddress } from '../../../lib/util/domains/domains';
 import { MemberTitle } from '../../../lib/constants/labels';
+import { useDomainData } from '../../../lib/hooks/useDomainData';
+import { truncateAddress } from '../../../lib/util/domains/domains';
+import { getDomainId } from '../../../lib/util/domains/domains';
+import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './FormDetails.module.scss';
 
 interface FormDetailsProps {
-	domainId: string;
+	zna: string;
 }
 
-export const FormDetails: FC<FormDetailsProps> = ({ domainId }) => {
+export const FormDetails: FC<FormDetailsProps> = ({ zna }) => {
+	const domainId = getDomainId(zna);
+
 	const { data: domain } = useDomainData(domainId);
-	const { data: metadata } = useDomainMetadata(domain?.metadataUri);
+	const { data: metadata } = useDomainMetadata(domainId);
 	const truncatedAddress = truncateAddress(domain?.minter);
 
 	const imageSrc = metadata?.previewImage ?? metadata?.image;

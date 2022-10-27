@@ -3,15 +3,15 @@ import { FC } from 'react';
 import { FormInputs, FormDetails } from '../../ui';
 
 interface DetailsProps {
+	zna: string;
 	error: string;
-	domainId: string;
 	onConfirm: (inputAdrressValue: string) => void;
 }
 
-export const Details: FC<DetailsProps> = ({ error, domainId, onConfirm }) => {
+export const Details: FC<DetailsProps> = ({ zna, error, onConfirm }) => {
 	return (
 		<>
-			<FormDetails domainId={domainId} />
+			<FormDetails zna={zna} />
 			<FormInputs
 				action={'transfer'}
 				label={'Enter recipient address:'}
