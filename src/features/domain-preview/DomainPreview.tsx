@@ -1,132 +1,223 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { truncateAddress } from '../../lib/util/domains/domains';
+import { useDomainData } from '../../lib/hooks/useDomainData';
+import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
+import { getDomainId, truncateAddress } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
 
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
+import { ArrowLink, SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
 
-import { ArrowLink } from '@zero-tech/zui/components/Link/ArrowLink';
-import { SkeletonText } from '@zero-tech/zui/components';
-
-import classNames from 'classnames/bind';
 import styles from './DomainPreview.module.scss';
+import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-type DomainPreviewProps = {
-	zna?: string;
-	title?: string;
-	description?: string;
-	icon?: string;
-	banner?: string;
-	href?: string;
-	owner?: string;
-	creator?: string;
-	isNFTView?: boolean;
+export interface DomainPreviewProps {
+	zna: string;
+	variant: 'minimal' | 'full';
+}
+
+const BannerOptions: Record<DomainPreviewProps['variant'], object> = {
+	minimal: { size: 'large', fit: 'fill' },
+	full: { size: 'full', fit: 'fit' },
 };
 
-export const DomainPreview: FC<DomainPreviewProps> = ({
-	zna,
-	title,
-	description,
-	banner,
-	href,
-	owner,
-	creator,
-	isNFTView,
-	icon,
-}) => {
-	const members = [
-		{ title: MemberTitle.CREATOR, address: creator },
-		{ title: MemberTitle.OWNER, address: owner },
+export const DomainPreview: FC<DomainPreviewProps> = ({ zna, variant }) => {
+	const domainId = getDomainId(zna);
+
+	/***************************
+	 * Retrieve data
+	 ***************************/
+
+	const { data: domain } = useDomainData(domainId);
+	const { data: metadata, isLoading: isLoadingMetadata } =
+		useDomainMetadata(domainId);
+
+	/***************************
+	 * Format data
+	 ***************************/
+
+	const members: Member[] = [
+		{ title: MemberTitle.CREATOR, address: domain?.minter },
+		{ title: MemberTitle.OWNER, address: domain?.owner },
 	];
+
+	const title: SkeletonTextProps['asyncText'] = {
+		text: metadata?.title,
+		isLoading: isLoadingMetadata,
+	};
+
+	const description: SkeletonTextProps['asyncText'] = {
+		text: metadata?.description,
+		isLoading: isLoadingMetadata,
+	};
+
+	const altTemplate = `${metadata?.title ?? zna} nft `;
+
+	const thumbnailAlt = altTemplate + ` thumbnail`;
+	const thumbnailSrc = metadata?.previewImage ?? metadata?.image;
+
+	const bannerAlt = altTemplate + ` banner`;
+	const bannerSrc = metadata?.image_full ?? metadata?.image;
+
+	/***************************
+	 * Render
+	 ***************************/
 
 	return (
 		<div className={styles.Container}>
-			{/* TODO: media asset component */}
-
 			<div
 				className={cx(styles.Banner, {
-					isNFTView: isNFTView,
+					isNFTView: variant === 'full',
 				})}
 			>
 				<IpfsMedia
-					alt={`${title ?? 'loading'} nft image banner`}
+					alt={bannerAlt}
 					className={styles.Media}
-					src={banner}
-					options={{
-						size: isNFTView ? 'full' : 'large',
-						fit: isNFTView ? 'fit' : 'fill',
-					}}
+					src={bannerSrc}
+					options={BannerOptions[variant]}
 				/>
 			</div>
 
 			<div
 				className={cx(styles.Content, {
-					isNFTView: isNFTView,
+					isNFTView: variant === 'full',
 				})}
 			>
-				{/* TODO: media asset component */}
-				{!isNFTView && (
-					<IpfsMedia
-						alt={`${title ?? 'loading'} nft thumbnail`}
-						className={styles.Icon}
-						src={icon}
-						options={{
-							size: 'medium',
-						}}
-					/>
+				{variant === 'minimal' && (
+					<Thumbnail alt={thumbnailAlt} src={thumbnailSrc} />
 				)}
+
 				<div className={styles.TextContainer}>
-					<SkeletonText
-						as={'h1'}
-						className={styles.Title}
-						asyncText={{ text: title, isLoading: !title }}
-						skeletonOptions={{ width: '50%' }}
-					/>
-					{/*{title && <h1 className={styles.Title}>{title}</h1>}*/}
+					<Title title={title} />
 
-					{/* TODO: member component */}
-					{isNFTView && (
-						<ul className={styles.MemberContainer}>
-							{members.map((member) => (
-								<li key={member.title} className={styles.MemberItem}>
-									<span className={styles.MemberTitle}>{member.title}</span>
-									<SkeletonText
-										as={'span'}
-										className={styles.MemberAddress}
-										asyncText={{
-											text: member?.address
-												? truncateAddress(member.address)
-												: undefined,
-											isLoading: !member?.address,
-										}}
-									/>
-								</li>
-							))}
-						</ul>
-					)}
+					{variant === 'full' && <Members members={members} />}
 
-					<SkeletonText
-						as={'p'}
-						asyncText={{ text: description, isLoading: !description }}
-						className={styles.Description}
-					/>
+					<Description description={description} />
 
-					{href && (
-						<div className={styles.LinkContainer}>
-							<ArrowLink
-								className={styles.Link}
-								href={`/${zna}/nfts?view=true`}
-								replace
-							>
-								View Domain NFT
-							</ArrowLink>
-						</div>
+					{variant === 'minimal' && (
+						<NftViewLink to={`/${zna}/nfts?view=true`} />
 					)}
 				</div>
 			</div>
 		</div>
+	);
+};
+
+/*******************
+ * Thumbnail
+ *******************/
+
+interface ThumbnailProps {
+	src: string;
+	alt: string;
+}
+
+const Thumbnail = ({ src, alt }: ThumbnailProps) => {
+	return (
+		<IpfsMedia
+			alt={alt}
+			className={styles.Icon}
+			src={src}
+			options={{
+				size: 'medium',
+			}}
+		/>
+	);
+};
+
+/*******************
+ * Title
+ *******************/
+
+interface TitleProps {
+	title: SkeletonTextProps['asyncText'];
+}
+
+const Title = ({ title }: TitleProps) => {
+	return (
+		<SkeletonText
+			as={'h1'}
+			className={styles.Title}
+			asyncText={title}
+			skeletonOptions={{ width: '50%' }}
+		/>
+	);
+};
+
+/*******************
+ * Members
+ *******************/
+
+type Member = {
+	title: MemberTitle;
+	address: string;
+};
+
+interface MembersProps {
+	members: Member[];
+}
+
+const Members = ({ members }: MembersProps) => {
+	return (
+		<ul className={styles.MemberContainer}>
+			{members.map((member) => (
+				<li key={member.title} className={styles.MemberItem}>
+					<span className={styles.MemberTitle}>{member.title}</span>
+					<SkeletonText
+						as={'span'}
+						className={styles.MemberAddress}
+						asyncText={{
+							text: member?.address
+								? truncateAddress(member.address)
+								: undefined,
+							isLoading: !member?.address,
+						}}
+					/>
+				</li>
+			))}
+		</ul>
+	);
+};
+
+/*******************
+ * Nft View Link
+ *******************/
+
+interface NftViewLinkProps {
+	to: string;
+}
+
+const NftViewLink = ({ to }: NftViewLinkProps) => {
+	return (
+			<div className={styles.LinkContainer}>
+			  <ArrowLink
+			  className={styles.Link}
+			  href={`/${zna}/nfts?view=true`}
+			  replace
+			>
+			View Domain NFT
+			</ArrowLink>
+			</div>
+	);
+};
+
+/*******************
+ * Description
+ *******************/
+
+interface DescriptionProps {
+	description: SkeletonTextProps['asyncText'];
+}
+
+const Description = ({ description }: DescriptionProps) => {
+	return (
+		<SkeletonText
+			className={styles.Description}
+			as={'p'}
+			asyncText={description}
+		/>
 	);
 };

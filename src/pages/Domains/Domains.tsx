@@ -1,56 +1,16 @@
 import { FC } from 'react';
 
-import { Metadata } from '../../lib/types/metadata';
-
-import {
-	SubdomainMetrics,
-	SubdomainTable,
-} from '../../features/view-subdomains';
+import { ViewSubdomains } from '../../features/view-subdomains/ViewSubdomains';
+import { useCurrentRoute } from '../../lib/hooks/useCurrentRoute';
 import { DomainPreview } from '../../features/domain-preview';
 
-import { Domain, DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
+export const Domains: FC = () => {
+	const { currentZna, isRootDomain } = useCurrentRoute();
 
-type DomainsContainerProps = {
-	isRoot: boolean;
-	domain: Domain;
-	metrics: DomainMetrics;
-	subdomainData: Domain[];
-	domainMetadata: Metadata;
-	paymentTokenInfo: TokenPriceInfo;
-	isSubdomainDataLoading?: boolean;
-};
-
-export const Domains: FC<DomainsContainerProps> = ({
-	isRoot,
-	domain,
-	subdomainData,
-	domainMetadata,
-	paymentTokenInfo,
-	isSubdomainDataLoading,
-}) => {
 	return (
 		<>
-			{!isRoot && (
-				<DomainPreview
-					zna={domain?.name}
-					title={domainMetadata?.title}
-					description={domainMetadata?.description}
-					banner={domainMetadata?.image_full ?? domainMetadata?.image}
-					href={`/${domain?.name}/nfts?view=true`}
-					icon={domainMetadata?.previewImage ?? domainMetadata?.image}
-				/>
-			)}
-
-			<SubdomainMetrics
-				domainId={domain?.id}
-				paymentTokenInfo={paymentTokenInfo}
-			/>
-
-			<SubdomainTable
-				subdomainData={subdomainData}
-				paymentTokenData={paymentTokenInfo}
-				isSubdomainDataLoading={isSubdomainDataLoading}
-			/>
+			{!isRootDomain && <DomainPreview zna={currentZna} variant={'minimal'} />}
+			<ViewSubdomains zna={currentZna} />
 		</>
 	);
 };

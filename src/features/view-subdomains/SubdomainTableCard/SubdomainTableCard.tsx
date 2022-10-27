@@ -1,8 +1,6 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
-import { useSubdomainData } from '../useSubdomainData';
-import { formatEthers } from '../../../lib/util/number/number';
-import { TokenPriceInfo } from '@zero-tech/zns-sdk';
+import { useSubdomainTableItem } from '../useSubdomainTableItem';
 
 import { getCloudinaryUrlFromIpfs } from '@zero-tech/zapp-utils/utils/cloudinary';
 
@@ -14,70 +12,60 @@ import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
 import styles from './SubdomainTableCard.module.scss';
 
 type SubdomainTableCardProps = {
-	domainId: string;
-	domainName: string;
-	domainMetadataUri: string;
-	paymentTokenData: TokenPriceInfo;
-	onCardClick: (e?: any, domainName?: string) => void;
+	zna: string;
+	onClick: (e?: any, domainName?: string) => void;
 };
 
 export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
-	domainId,
-	domainName,
-	domainMetadataUri,
-	onCardClick,
+	zna,
+	onClick,
 }) => {
 	const {
-		metrics,
+		highestBid,
 		buyNowPrice,
 		metadata,
-		isMetadataLoading,
-		isMetricsLoading,
-		imageAlt,
-		imageSrc,
+		image,
+		alt,
+		isLoadingMetrics,
+		isLoadingMetadata,
 		paymentTokenLabel,
-	} = useSubdomainData({
-		id: domainId,
-		zna: domainName,
-		metadataUri: domainMetadataUri,
+	} = useSubdomainTableItem({
+		zna,
 	});
 
-	const highestBidString = metrics?.highestBid
-		? formatEthers(metrics?.highestBid)
-		: undefined;
-
-	const buyNowPriceString = buyNowPrice ? formatEthers(buyNowPrice) : undefined;
-
-	const label =
-		(buyNowPriceString ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
-
+	const buyNowPriceString = buyNowPrice ? buyNowPrice : highestBid;
+	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
 	const button = buyNowPrice ? <BuyNowButton /> : <PlaceBidButton isRoot />;
+
+	const handleOnClick = useCallback(() => {
+		onClick(undefined, zna);
+	}, [zna, onClick]);
 
 	return (
 		<GridCard
 			className={styles.Container}
 			imageSrc={
-				imageSrc &&
-				getCloudinaryUrlFromIpfs(imageSrc, 'image', {
+				image &&
+				getCloudinaryUrlFromIpfs(image, 'image', {
 					size: 'medium',
 					fit: 'fill',
 				})
 			}
 			aspectRatio={1}
-			imageAlt={imageAlt}
-			onClick={() => onCardClick(undefined, domainName)}
+			imageAlt={alt}
+			onClick={handleOnClick}
 		>
 			<NFT
 				title={{
 					text: metadata?.title,
-					isLoading: isMetadataLoading,
+					isLoading: isLoadingMetadata,
 					errorText: 'Failed to load!',
 				}}
-				zna={domainName}
+				zna={zna}
 				label={label}
 				primaryText={{
-					text: buyNowPriceString ?? highestBidString,
-					isLoading: isMetricsLoading,
+					text: buyNowPriceString,
+					isLoading: isLoadingMetrics,
 				}}
 				secondaryText={''}
 				button={button}
