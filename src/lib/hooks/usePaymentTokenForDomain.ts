@@ -6,8 +6,8 @@ export const usePaymentTokenForDomain = (domainId: string) => {
 	const sdk = useZnsSdk();
 
 	return useQuery(
-		['domain-payment-token', domainId],
-		async () => await sdk.zauction.getPaymentTokenForDomain(domainId),
+		['domain', 'token', { domainId }],
+		() => sdk.zauction.getPaymentTokenForDomain(domainId),
 		{
 			retry: false,
 			refetchOnMount: false,
