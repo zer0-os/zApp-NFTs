@@ -7,7 +7,7 @@ export const useDomainData = (domainId: string) => {
 
 	return useQuery(
 		['domain', { domainId }],
-		() => sdk.getDomainById(domainId, true),
+		() => sdk.getDomainById(domainId, false),
 		{
 			retry: false,
 			refetchOnMount: false,
