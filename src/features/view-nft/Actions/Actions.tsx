@@ -21,6 +21,7 @@ import { ActionBlock, ActionTypes } from './Actions.types';
 import { getOrderedActions, getVisibleActions } from './Actions.utils';
 
 import styles from './Actions.module.scss';
+import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
 
 type ActionsProps = {
 	zna: string;
@@ -31,6 +32,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 
 	const domainId = getDomainId(zna);
 
+	const { data: paymentToken } = usePaymentToken(zna);
 	const { data: domain } = useDomainData(domainId);
 	const { data: buyNowPriceData } = useBuyNowPrice(domainId);
 	const { data: metrics } = useDomainMetrics(domainId);
@@ -55,21 +57,21 @@ export const Actions = ({ zna }: ActionsProps) => {
 
 	const actions: { [action in ActionTypes]: ActionBlock } = {
 		[ActionTypes.BUY_NOW]: {
-			label: `${Labels.BUY_NOW}`,
+			label: `${Labels.BUY_NOW} ` + paymentToken?.label,
 			amountToken: buyNowPrice,
 			isVisible: isBuyNow,
 			dataTestId: DataTestId.BUY_NOW,
 			buttonComponent: <BuyNowButton />,
 		},
 		[ActionTypes.SET_BUY_NOW]: {
-			label: `${Labels.BUY_NOW}`,
+			label: `${Labels.BUY_NOW} ` + paymentToken?.label,
 			amountToken: buyNowPrice,
 			isVisible: isSetBuyNow,
 			dataTestId: DataTestId.SET_BUY_NOW,
 			buttonComponent: <SetBuyNowButton />,
 		},
 		[ActionTypes.BID]: {
-			label: `${Labels.HIGHEST_BID}`,
+			label: `${Labels.HIGHEST_BID} ` + paymentToken?.label,
 			amountToken: highestBid,
 			isVisible: isBiddable || isViewBids,
 			dataTestId: DataTestId.BID,
@@ -82,7 +84,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 			),
 		},
 		[ActionTypes.USER_BID]: {
-			label: `${Labels.YOUR_BID}`,
+			label: `${Labels.YOUR_BID} ` + paymentToken?.label,
 			amountToken: highestUserBid,
 			isVisible: isUserBid,
 			dataTestId: DataTestId.USER_BID,

@@ -22,15 +22,13 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({ zna }) => {
 		useDomainMetrics(domainId);
 	const { data: paymentToken } = usePaymentToken(parentZna);
 
-	const paymentTokenLabel = paymentToken?.name ? ` (${paymentToken.name})` : '';
-
 	let numberOfBids, lastSale, volumeString;
 	if (!isLoadingBids && bids) {
 		numberOfBids = formatNumber(bids.length || 0).toLocaleString();
 	}
 	if (!isLoadingMetrics && metrics) {
-		lastSale = formatEthers(metrics.lastSale) + paymentTokenLabel;
-		volumeString = formatEthers(metrics.volume.all) + paymentTokenLabel;
+		lastSale = formatEthers(metrics.lastSale);
+		volumeString = formatEthers(metrics.volume.all);
 	}
 
 	const stats = [
@@ -42,14 +40,14 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({ zna }) => {
 			},
 		},
 		{
-			title: 'Last Sale',
+			title: 'Last Sale ' + paymentToken?.label,
 			value: {
 				isLoading: isLoadingMetrics,
 				text: lastSale,
 			},
 		},
 		{
-			title: 'Volume',
+			title: 'Volume ' + paymentToken?.label,
 			value: {
 				isLoading: isLoadingMetrics,
 				text: volumeString,
