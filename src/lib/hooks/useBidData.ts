@@ -6,8 +6,8 @@ export const useBidData = (domainId: string) => {
 	const sdk = useZnsSdk();
 
 	return useQuery(
-		['domain-bids', domainId],
-		async () => await sdk.zauction.listBids(domainId),
+		['domain', 'bids', { domainId }],
+		() => sdk.zauction.listBids(domainId),
 		{
 			retry: false,
 			refetchOnMount: false,

@@ -1,61 +1,28 @@
-import { FC } from 'react';
 import { Switch } from 'react-router-dom';
 
-import { AppProps } from './lib/types/app';
-
-import { useDataContainer } from './lib/hooks/useDataContainer';
+import { useCurrentRoute } from './lib/hooks/useCurrentRoute';
+import { useSubdomainData } from './lib/hooks/useSubdomainData';
 
 import { Domains } from './pages/Domains';
 import { NFT } from './pages/NFT';
-
-import { getDomainId } from './lib/util/domains/domains';
 
 import classNames from 'classnames/bind';
 import styles from './App.module.scss';
 
 const cx = classNames.bind(styles);
 
-export const App: FC<AppProps> = ({ route }) => {
-	const domainId = getDomainId(route);
-	const isRoot = route.split('.').length === 1 && !route.includes('.');
-
-	const {
-		domain,
-		subdomainData,
-		paymentTokenInfo,
-		metrics,
-		domainMetadata,
-		isNFTView,
-		isSubdomainDataLoading,
-	} = useDataContainer(domainId);
+export const App = () => {
+	const { isRootDomain, isNftView, currentDomainId } = useCurrentRoute();
+	const { data: subdomains } = useSubdomainData(currentDomainId);
 
 	return (
 		<main
 			className={cx(styles.Main, {
-				isRoot: isRoot,
+				isRoot: isRootDomain,
 			})}
 		>
 			<Switch>
-				{!isNFTView && (
-					<Domains
-						isRoot={isRoot}
-						domain={domain}
-						metrics={metrics}
-						subdomainData={subdomainData}
-						domainMetadata={domainMetadata}
-						paymentTokenInfo={paymentTokenInfo}
-						isSubdomainDataLoading={isSubdomainDataLoading}
-					/>
-				)}
-
-				{isNFTView && (
-					<NFT
-						domain={domain}
-						metrics={metrics}
-						domainMetadata={domainMetadata}
-						paymentTokenInfo={paymentTokenInfo}
-					/>
-				)}
+				{isNftView || subdomains?.length === 0 ? <NFT /> : <Domains />}
 			</Switch>
 		</main>
 	);

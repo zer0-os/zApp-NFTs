@@ -5,9 +5,9 @@ import { useZnsSdk } from './useZnsSdk';
 export const usePaymentTokenInfo = (token: string) => {
 	const sdk = useZnsSdk();
 
-	return useQuery(
-		['domain-payment-token-info', token],
-		async () => await sdk.zauction.getPaymentTokenInfo(token),
+	const query = useQuery(
+		['token', 'info', { token }],
+		() => sdk.zauction.getPaymentTokenInfo(token),
 		{
 			retry: false,
 			refetchOnMount: false,
@@ -15,4 +15,9 @@ export const usePaymentTokenInfo = (token: string) => {
 			enabled: Boolean(token),
 		},
 	);
+
+	return {
+		...query,
+		isLoading: query.isLoading || query.isIdle,
+	};
 };
