@@ -31,6 +31,8 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({ zna }) => {
 		volumeString = formatEthers(metrics.volume.all);
 	}
 
+	const paymentTokenSymbol = paymentToken?.label ?? '';
+
 	const stats = [
 		{
 			title: 'Bids',
@@ -40,14 +42,14 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({ zna }) => {
 			},
 		},
 		{
-			title: 'Last Sale ' + paymentToken?.label,
+			title: 'Last Sale ' + paymentTokenSymbol,
 			value: {
 				isLoading: isLoadingMetrics,
 				text: lastSale,
 			},
 		},
 		{
-			title: 'Volume ' + paymentToken?.label,
+			title: 'Volume ' + paymentTokenSymbol,
 			value: {
 				isLoading: isLoadingMetrics,
 				text: volumeString,

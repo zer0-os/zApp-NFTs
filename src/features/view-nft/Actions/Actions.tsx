@@ -55,23 +55,25 @@ export const Actions = ({ zna }: ActionsProps) => {
 	const isViewBids =
 		isOwnedByUser !== undefined && isBiddable && bids?.length > 0;
 
+	const paymentTokenSymbol = paymentToken?.label ?? '';
+
 	const actions: { [action in ActionTypes]: ActionBlock } = {
 		[ActionTypes.BUY_NOW]: {
-			label: `${Labels.BUY_NOW} ` + paymentToken?.label,
+			label: `${Labels.BUY_NOW} ` + paymentTokenSymbol,
 			amountToken: buyNowPrice,
 			isVisible: isBuyNow,
 			dataTestId: DataTestId.BUY_NOW,
 			buttonComponent: <BuyNowButton />,
 		},
 		[ActionTypes.SET_BUY_NOW]: {
-			label: `${Labels.BUY_NOW} ` + paymentToken?.label,
+			label: `${Labels.BUY_NOW} ` + paymentTokenSymbol,
 			amountToken: buyNowPrice,
 			isVisible: isSetBuyNow,
 			dataTestId: DataTestId.SET_BUY_NOW,
 			buttonComponent: <SetBuyNowButton />,
 		},
 		[ActionTypes.BID]: {
-			label: `${Labels.HIGHEST_BID} ` + paymentToken?.label,
+			label: `${Labels.HIGHEST_BID} ` + paymentTokenSymbol,
 			amountToken: highestBid,
 			isVisible: isBiddable || isViewBids,
 			dataTestId: DataTestId.BID,
@@ -84,7 +86,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 			),
 		},
 		[ActionTypes.USER_BID]: {
-			label: `${Labels.YOUR_BID} ` + paymentToken?.label,
+			label: `${Labels.YOUR_BID} ` + paymentTokenSymbol,
 			amountToken: highestUserBid,
 			isVisible: isUserBid,
 			dataTestId: DataTestId.USER_BID,
