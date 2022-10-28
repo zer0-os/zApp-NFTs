@@ -1,5 +1,6 @@
 import { FC, useCallback } from 'react';
 
+import { getDomainId } from '../../../lib/util';
 import { useSubdomainTableItem } from '../useSubdomainTableItem';
 
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
@@ -20,6 +21,7 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	zna,
 	onClick,
 }) => {
+	const domainId = getDomainId(zna);
 	const {
 		volume,
 		buyNowPrice,

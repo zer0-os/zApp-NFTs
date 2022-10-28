@@ -6,7 +6,7 @@ export const useZAuctionCheck = (account: string, paymentToken: string) => {
 	const sdk = useZnsSdk();
 
 	return useQuery(
-		['check-zauction', account, paymentToken],
+		['check-zauction', { account, paymentToken }],
 		async () =>
 			await sdk.zauction.needsToApproveZAuctionToSpendTokensByPaymentToken(
 				account,

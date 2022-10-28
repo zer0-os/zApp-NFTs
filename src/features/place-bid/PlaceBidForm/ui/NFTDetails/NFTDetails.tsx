@@ -17,33 +17,34 @@ interface NFTDetailsProps {
 
 export const NFTDetails: FC<NFTDetailsProps> = ({ domainId }) => {
 	const {
-		domain,
-		isDomainLoading,
-		metrics,
-		isMetricsLoading,
-		metadata,
-		isMetadataLoading,
+		zna,
+		title,
+		creator,
 		imageAlt,
 		imageSrc,
+		highestBid,
+		isLoadingDomain,
+		isLoadingMetrics,
+		isLoadingMetadata,
 	} = usePlaceBidData(domainId);
 
-	const truncatedZna = truncateDomain(domain?.name, 20);
-	const truncatedCreatorAddress = truncateAddress(domain?.minter);
-	const formattedHighestBid = formatEthers(metrics?.highestBid);
+	const truncatedZna = truncateDomain(zna, 20);
+	const truncatedCreatorAddress = truncateAddress(creator);
+	const formattedHighestBid = formatEthers(highestBid);
 
 	const textContent = [
 		{
 			id: 'title',
 			className: styles.Title,
-			text: metadata?.title,
-			isLoading: isMetadataLoading,
+			text: title,
+			isLoading: isLoadingMetadata,
 			as: 'h1' as const,
 		},
 		{
 			id: 'zna',
 			className: styles.ZNA,
 			text: `0://${truncatedZna}`,
-			isLoading: isDomainLoading,
+			isLoading: isLoadingDomain,
 			as: 'span' as const,
 		},
 		{
@@ -51,7 +52,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ domainId }) => {
 			title: 'HighestBid',
 			className: styles.InfoValue,
 			text: formattedHighestBid,
-			isLoading: isMetricsLoading,
+			isLoading: isLoadingMetrics,
 			as: 'span' as const,
 		},
 		{
@@ -59,7 +60,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ domainId }) => {
 			title: 'Creator',
 			className: styles.InfoValue,
 			text: truncatedCreatorAddress,
-			isLoading: isDomainLoading,
+			isLoading: isLoadingDomain,
 			as: 'span' as const,
 		},
 	];

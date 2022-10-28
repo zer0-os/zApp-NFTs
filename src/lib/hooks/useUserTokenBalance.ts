@@ -11,7 +11,10 @@ export const useUserTokenBalance = (account: string, paymentToken: string) => {
 		async () => {
 			const balanceAsBigNumber =
 				await sdk.zauction.getUserBalanceForPaymentToken(account, paymentToken);
-			return bigNumberToLocaleString(balanceAsBigNumber, 18);
+			return {
+				balanceAsBigNumber: balanceAsBigNumber,
+				balanceAsString: bigNumberToLocaleString(balanceAsBigNumber, 18),
+			};
 		},
 		{
 			retry: false,

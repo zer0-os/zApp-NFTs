@@ -7,31 +7,37 @@ import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDoma
 
 export const usePlaceBidData = (domainId: string) => {
 	const { account } = useWeb3();
-	const { data: domain, isLoading: isDomainLoading } = useDomainData(domainId);
-	const { data: metrics, isLoading: isMetricsLoading } =
+
+	const { data: domain, isLoading: isLoadingDomain } = useDomainData(domainId);
+	const { data: metrics, isLoading: isLoadingMetrics } =
 		useDomainMetrics(domainId);
-	const { data: metadata, isLoading: isMetadataLoading } = useDomainMetadata(
-		domain?.metadataUri,
-	);
+	const { data: metadata, isLoading: isLoadingMetadata } =
+		useDomainMetadata(domainId);
 	const { data: paymentTokenForDomain } = usePaymentTokenForDomain(domainId);
 	const { data: tokenBalance } = useUserTokenBalance(
 		account,
 		paymentTokenForDomain,
 	);
 
+	const zna = domain?.name;
+	const title = metadata?.title;
+	const creator = domain?.minter;
+	const highestBid = metrics?.highestBid;
+	const balanceAsString = tokenBalance?.balanceAsString;
 	const imageSrc = metadata?.previewImage ?? metadata?.image;
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 
 	return {
-		domain,
-		isDomainLoading,
-		metrics,
-		isMetricsLoading,
-		metadata,
-		isMetadataLoading,
+		zna,
+		title,
+		creator,
 		imageSrc,
 		imageAlt,
+		highestBid,
+		balanceAsString,
 		paymentTokenForDomain,
-		tokenBalance,
+		isLoadingDomain,
+		isLoadingMetrics,
+		isLoadingMetadata,
 	};
 };

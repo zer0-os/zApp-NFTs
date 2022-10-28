@@ -81,8 +81,10 @@ export const usePlaceBidForm = (domainId: string): UsePlaceBidFormReturn => {
 					setError(error.message);
 					setStep(Step.ZAUCTION_APPROVE);
 				},
-				// TODO: correct keys
-				invalidationKeys: [['user', { account, paymentTokenForDomain }]],
+
+				invalidationKeys: [
+					['user', { account, paymentTokenForDomain, bidAmount }],
+				],
 			},
 		);
 	};
@@ -109,7 +111,7 @@ export const usePlaceBidForm = (domainId: string): UsePlaceBidFormReturn => {
 					setError(error.message);
 					setStep(Step.CONFIRM_BID);
 				},
-				// TODO: correct keys
+
 				invalidationKeys: [['user', { account, domainId, bidAmount }]],
 			},
 		);

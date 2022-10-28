@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { NFTDetails } from '../../ui/NFTDetails';
-import { Button } from '@zero-tech/zui/components';
+import { Wizard } from '@zero-tech/zui/components';
 
 import styles from '../FormSteps.module.scss';
 
@@ -20,9 +20,12 @@ export const Complete: FC<CompleteProps> = ({ domainId, onClose }) => {
 					{'Your bid was successfully placed.'}
 				</span>
 
-				<Button className={styles.Button} onPress={onClose}>
-					Finish
-				</Button>
+				<Wizard.Buttons
+					className={styles.Button}
+					isPrimaryButtonActive
+					primaryButtonText="Finish"
+					onClickPrimaryButton={onClose}
+				/>
 			</div>
 		</>
 	);

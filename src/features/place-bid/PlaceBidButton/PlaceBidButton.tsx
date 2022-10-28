@@ -13,13 +13,13 @@ export const PlaceBidButton: FC<PlaceBidButtonProps> = ({
 	domainId,
 	isRoot,
 }) => {
-	const { tokenBalance } = usePlaceBidData(domainId);
+	const { balanceAsString } = usePlaceBidData(domainId);
 
 	return (
 		<PlaceBidModal
 			trigger={isRoot ? 'Bid' : 'Place A Bid'}
 			domainId={domainId}
-			tokenBalance={tokenBalance}
+			tokenBalance={balanceAsString}
 		/>
 	);
 };

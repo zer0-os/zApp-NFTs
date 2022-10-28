@@ -2,6 +2,7 @@ import { FC, useCallback } from 'react';
 
 import { useSubdomainTableItem } from '../useSubdomainTableItem';
 
+import { getDomainId } from '../../../lib/util';
 import { getCloudinaryUrlFromIpfs } from '@zero-tech/zapp-utils/utils/cloudinary';
 
 import { PlaceBidButton } from '../../place-bid';
@@ -20,6 +21,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	zna,
 	onClick,
 }) => {
+	const domainId = getDomainId(zna);
 	const {
 		highestBid,
 		buyNowPrice,
@@ -33,12 +35,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		zna,
 	});
 
-
-	const highestBidString = metrics?.highestBid
-		? formatEthers(metrics?.highestBid)
-		: undefined;
-
-	const buyNowPriceString = buyNowPrice ? formatEthers(buyNowPrice) : undefined;
+	const buyNowPriceString = buyNowPrice ? buyNowPrice : highestBid;
 
 	const label =
 		(buyNowPriceString ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
