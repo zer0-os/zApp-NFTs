@@ -12,12 +12,11 @@ import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 import styles from './NFTDetails.module.scss';
 
 interface NFTDetailsProps {
-	domainId: string;
+	zna: string;
 }
 
-export const NFTDetails: FC<NFTDetailsProps> = ({ domainId }) => {
+export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 	const {
-		zna,
 		title,
 		creator,
 		imageAlt,
@@ -26,7 +25,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ domainId }) => {
 		isLoadingDomain,
 		isLoadingMetrics,
 		isLoadingMetadata,
-	} = usePlaceBidData(domainId);
+	} = usePlaceBidData(zna);
 
 	const truncatedZna = truncateDomain(zna, 20);
 	const truncatedCreatorAddress = truncateAddress(creator);

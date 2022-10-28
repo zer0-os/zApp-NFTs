@@ -7,7 +7,7 @@ import styles from '../FormSteps.module.scss';
 
 interface DetailsProps {
 	error: string;
-	domainId: string;
+	zna: string;
 	bidAmount: string;
 	tokenBalance: string;
 	setBidAmount?: (bidAmount: string) => void;
@@ -17,7 +17,7 @@ interface DetailsProps {
 
 export const Details: FC<DetailsProps> = ({
 	error,
-	domainId,
+	zna,
 	bidAmount,
 	tokenBalance,
 	setBidAmount,
@@ -37,7 +37,7 @@ export const Details: FC<DetailsProps> = ({
 
 	return (
 		<>
-			<NFTDetails domainId={domainId} />
+			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
 				{isTokenBalance && (

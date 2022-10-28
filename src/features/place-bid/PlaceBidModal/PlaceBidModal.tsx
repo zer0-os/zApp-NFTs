@@ -10,12 +10,12 @@ import { Modal } from '@zero-tech/zui/components';
 import styles from './PlaceBidModal.module.scss';
 
 export interface PlaceBidModalProps extends BasicModalProps {
-	domainId: string;
+	zna: string;
 	tokenBalance: string;
 }
 
 export const PlaceBidModal: FC<PlaceBidModalProps> = ({
-	domainId,
+	zna,
 	tokenBalance,
 	...modalProps
 }) => {
@@ -28,11 +28,7 @@ export const PlaceBidModal: FC<PlaceBidModalProps> = ({
 	};
 
 	const content = account ? (
-		<PlaceBidForm
-			domainId={domainId}
-			tokenBalance={tokenBalance}
-			onClose={onClose}
-		/>
+		<PlaceBidForm zna={zna} tokenBalance={tokenBalance} onClose={onClose} />
 	) : (
 		<ConnectWallet message={'Connect your wallet to place a bid.'} />
 	);

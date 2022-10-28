@@ -9,22 +9,20 @@ import styles from '../FormSteps.module.scss';
 
 interface ConfirmBidProps {
 	error: string;
-	domainId: string;
+	zna: string;
 	bidAmount: string;
 	onConfirm: (bidAmound: string) => void;
 }
 
 export const ConfirmBid: FC<ConfirmBidProps> = ({
 	error,
-	domainId,
+	zna,
 	bidAmount,
 	onConfirm,
 }) => {
-	const { zna } = usePlaceBidData(domainId);
-
 	return (
 		<>
-			<NFTDetails domainId={domainId} />
+			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
 				<span className={styles.TextContent}>

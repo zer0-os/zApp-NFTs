@@ -74,11 +74,7 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 			</TableData>
 
 			<TableData alignment={'right'} className={styles.Button}>
-				{buyNowPrice ? (
-					<BuyNowButton />
-				) : (
-					<PlaceBidButton domainId={domainId} isRoot />
-				)}
+				{buyNowPrice ? <BuyNowButton /> : <PlaceBidButton zna={zna} isRoot />}
 			</TableData>
 		</tr>
 	);

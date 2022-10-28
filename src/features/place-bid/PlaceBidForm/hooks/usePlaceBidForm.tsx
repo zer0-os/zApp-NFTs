@@ -34,11 +34,12 @@ export type UsePlaceBidFormReturn = {
 /**
  * Drives the logic behind the place bid form.
  */
-export const usePlaceBidForm = (domainId: string): UsePlaceBidFormReturn => {
+export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 	const sdk = useZnsSdk();
+
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const { paymentTokenForDomain } = usePlaceBidData(domainId);
+	const { domainId, paymentTokenForDomain } = usePlaceBidData(zna);
 	const { data: isZAuctionCheckRequired, error: zAuctionCheckError } =
 		useZAuctionCheck(account, paymentTokenForDomain);
 

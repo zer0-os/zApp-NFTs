@@ -4,9 +4,12 @@ import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
 import { useUserTokenBalance } from '../../lib/hooks/useUserTokenBalance';
 import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDomain';
+import { getDomainId } from '../../lib/util';
 
-export const usePlaceBidData = (domainId: string) => {
+export const usePlaceBidData = (zna: string) => {
 	const { account } = useWeb3();
+
+	const domainId = getDomainId(zna);
 
 	const { data: domain, isLoading: isLoadingDomain } = useDomainData(domainId);
 	const { data: metrics, isLoading: isLoadingMetrics } =
@@ -19,7 +22,6 @@ export const usePlaceBidData = (domainId: string) => {
 		paymentTokenForDomain,
 	);
 
-	const zna = domain?.name;
 	const title = metadata?.title;
 	const creator = domain?.minter;
 	const highestBid = metrics?.highestBid;
@@ -28,7 +30,7 @@ export const usePlaceBidData = (domainId: string) => {
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 
 	return {
-		zna,
+		domainId,
 		title,
 		creator,
 		imageSrc,

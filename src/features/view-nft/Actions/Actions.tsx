@@ -74,7 +74,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 			isVisible: isBiddable || isViewBids,
 			dataTestId: DataTestId.BID,
 			buttonComponent: !isOwnedByUser ? (
-				<PlaceBidButton domainId={domain?.id} />
+				<PlaceBidButton zna={zna} />
 			) : !isViewBids ? (
 				<></>
 			) : (

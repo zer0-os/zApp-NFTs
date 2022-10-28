@@ -2,6 +2,8 @@ import { FC, ReactNode } from 'react';
 
 import { usePlaceBidForm } from './hooks/usePlaceBidForm';
 
+import { getDomainId } from '../../../lib/util';
+
 import { ApproveZAuction, Complete, ConfirmBid, Details } from './FormSteps';
 import { Step } from './PlaceBidForm.constants';
 import { Wizard } from '@zero-tech/zui/components';
@@ -9,13 +11,13 @@ import { Wizard } from '@zero-tech/zui/components';
 import styles from './PlaceBidForm.module.scss';
 
 interface PlaceBidFormProps {
-	domainId: string;
+	zna: string;
 	tokenBalance: string;
 	onClose: () => void;
 }
 
 export const PlaceBidForm: FC<PlaceBidFormProps> = ({
-	domainId,
+	zna,
 	tokenBalance,
 	onClose,
 }) => {
@@ -28,7 +30,7 @@ export const PlaceBidForm: FC<PlaceBidFormProps> = ({
 		onCheckZAuction,
 		onApproveZAuction,
 		onConfirmPlaceBid,
-	} = usePlaceBidForm(domainId);
+	} = usePlaceBidForm(zna);
 
 	let content: ReactNode;
 
@@ -37,7 +39,7 @@ export const PlaceBidForm: FC<PlaceBidFormProps> = ({
 			content = (
 				<Details
 					error={error}
-					domainId={domainId}
+					zna={zna}
 					bidAmount={bidAmount}
 					tokenBalance={tokenBalance}
 					setBidAmount={setBidAmount}
@@ -61,7 +63,7 @@ export const PlaceBidForm: FC<PlaceBidFormProps> = ({
 			content = (
 				<ConfirmBid
 					error={error}
-					domainId={domainId}
+					zna={zna}
 					bidAmount={bidAmount}
 					onConfirm={onConfirmPlaceBid}
 				/>
@@ -69,7 +71,7 @@ export const PlaceBidForm: FC<PlaceBidFormProps> = ({
 			break;
 
 		case Step.COMPLETE:
-			content = <Complete domainId={domainId} onClose={onClose} />;
+			content = <Complete zna={zna} onClose={onClose} />;
 			break;
 
 		case Step.LOADING:

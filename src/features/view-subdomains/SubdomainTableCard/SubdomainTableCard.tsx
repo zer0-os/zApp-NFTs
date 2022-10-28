@@ -43,7 +43,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	const button = buyNowPrice ? (
 		<BuyNowButton />
 	) : (
-		<PlaceBidButton domainId={domainId} isRoot />
+		<PlaceBidButton zna={zna} isRoot />
 	);
 
 	const handleOnClick = useCallback(() => {
