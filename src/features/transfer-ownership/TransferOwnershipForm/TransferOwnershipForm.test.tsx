@@ -58,12 +58,6 @@ jest.mock('../../../lib/hooks/useDomainMetadata', () => ({
 	}),
 }));
 
-jest.mock('@zero-tech/zapp-utils/hooks/useTransaction', () => ({
-	useTransaction: () => ({
-		executeTransaction: ,
-	}),
-}));
-
 ///////////
 // Setup //
 ///////////
@@ -121,11 +115,9 @@ describe('TransferOwnershipForm', () => {
 		fireEvent.click(screen.getByRole('button', { name: /transfer/i }));
 
 		// confirm step
-		await act(async () => {
-			fireEvent.click(await screen.findByRole('button', { name: /confirm/i }));
-		});
+		fireEvent.click(await screen.findByRole('button', { name: /confirm/i }));
 
-		expect(screen.getByText(/error/i)).not.toBeInTheDocument();
+		expect(screen.queryByText(/error/i)).not.toBeInTheDocument();
 
 		// transaction approval step
 		screen.getByText('Please accept wallet transaction..');
