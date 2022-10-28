@@ -1,8 +1,6 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
-import { useSubdomainData } from '../useSubdomainData';
-import { formatEthers } from '../../../lib/util/number/number';
-import { TokenPriceInfo } from '@zero-tech/zns-sdk';
+import { useSubdomainTableItem } from '../useSubdomainTableItem';
 
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
@@ -14,49 +12,41 @@ import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
 import styles from './SubdomainTableRow.module.scss';
 
 type SubdomainTableRowProps = {
-	domainId: string;
-	domainName: string;
-	domainMetadataUri: string;
-	paymentTokenData: TokenPriceInfo;
-	onRowClick: (e?: any, domainName?: string) => void;
+	zna: string;
+	onClick: (e?: any, domainName?: string) => void;
 };
 
 export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
-	domainId,
-	domainName,
-	domainMetadataUri,
-	paymentTokenData,
-	onRowClick,
+	zna,
+	onClick,
 }) => {
 	const {
-		metrics,
+		volume,
 		buyNowPrice,
 		metadata,
-		isMetadataLoading,
-		isButtonDisabled,
-		isBuyNowPriceLoading,
-		isMetricsLoading,
-		imageAlt,
-		imageSrc,
-		paymentTokenLabel,
-	} = useSubdomainData({
-		id: domainId,
-		zna: domainName,
-		metadataUri: domainMetadataUri,
+		image,
+		alt,
+		isLoadingMetrics,
+		isLoadingMetadata,
+	} = useSubdomainTableItem({
+		zna,
 	});
 
-	const volumeLabel = metrics?.volume?.all
-		? formatEthers(metrics.volume.all) + paymentTokenLabel
-		: undefined;
+	const handleOnClick = useCallback(
+		(e) => {
+			onClick(e, zna);
+		},
+		[zna, onClick],
+	);
 
 	return (
-		<tr onClick={(e) => onRowClick(e, domainName)} className={styles.Container}>
-			<TableData alignment={'left'}>
-				<div className={styles.NFT}>
+		<tr onClick={handleOnClick} className={styles.Container}>
+			<TableData alignment={'left'} className={styles.NFT}>
+				<div>
 					<IpfsMedia
 						className={styles.Thumbnail}
-						src={imageSrc}
-						alt={imageAlt}
+						src={image}
+						alt={alt}
 						options={{ size: 'small', fit: 'fill' }}
 						asImage={true}
 					/>
@@ -65,18 +55,18 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 						<SkeletonText
 							asyncText={{
 								text: metadata?.title,
-								isLoading: isMetadataLoading,
+								isLoading: isLoadingMetadata,
 							}}
 						/>
-						<span>0://{domainName}</span>
+						<span>0://{zna}</span>
 					</div>
 				</div>
 			</TableData>
 			<TableData alignment={'right'} className={styles.Metrics}>
 				<SkeletonText
 					asyncText={{
-						text: volumeLabel,
-						isLoading: isMetricsLoading,
+						text: volume,
+						isLoading: isLoadingMetrics,
 					}}
 				/>
 			</TableData>

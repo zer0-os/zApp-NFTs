@@ -1,19 +1,20 @@
-import { Action } from '..';
-import { BuyNowButton } from '../../buy-now';
-import { SetBuyNowButton } from '../../set-buy-now';
-import { PlaceBidButton } from '../../place-bid';
-import { ViewBidsButton } from '../../view-bids';
-import { CancelBidButton } from '../../cancel-bid';
-
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 import { useBidData } from '../../../lib/hooks/useBidData';
 import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 import { getUserBids } from '../../../lib/util/bids/bids';
-import { Metadata } from '../../../lib/types/metadata';
+import { getDomainId } from '../../../lib/util/domains/domains';
+import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
+import { useDomainData } from '../../../lib/hooks/useDomainData';
 import { Labels } from '../../../lib/constants/labels';
-import { Domain } from '@zero-tech/zns-sdk';
+
+import { BuyNowButton } from '../../buy-now';
+import { SetBuyNowButton } from '../../set-buy-now';
+import { PlaceBidButton } from '../../place-bid';
+import { ViewBidsButton } from '../../view-bids';
+import { CancelBidButton } from '../../cancel-bid';
+import { Action } from '../Action';
 
 import { DataTestId } from './Actions.constants';
 import { ActionBlock, ActionTypes } from './Actions.types';
@@ -22,15 +23,19 @@ import { getOrderedActions, getVisibleActions } from './Actions.utils';
 import styles from './Actions.module.scss';
 
 type ActionsProps = {
-	domain?: Domain;
-	domainMetadata?: Metadata;
+	zna: string;
 };
 
-export const Actions = ({ domain, domainMetadata }: ActionsProps) => {
+export const Actions = ({ zna }: ActionsProps) => {
 	const { account } = useWeb3();
-	const { data: buyNowPriceData } = useBuyNowPrice(domain?.id);
-	const { data: metrics } = useDomainMetrics(domain?.id);
-	const { data: bids } = useBidData(domain?.id);
+
+	const domainId = getDomainId(zna);
+
+	const { data: domain } = useDomainData(domainId);
+	const { data: buyNowPriceData } = useBuyNowPrice(domainId);
+	const { data: metrics } = useDomainMetrics(domainId);
+	const { data: bids } = useBidData(domainId);
+	const { data: metadata } = useDomainMetadata(domainId);
 
 	const buyNowPrice = buyNowPriceData ? formatNumber(buyNowPriceData) : '-';
 	const userBids = getUserBids(account, bids) ?? [];
@@ -40,7 +45,7 @@ export const Actions = ({ domain, domainMetadata }: ActionsProps) => {
 		metrics?.highestBid > '0' ? formatEthers(metrics?.highestBid) : '-';
 
 	const isOwnedByUser = domain?.owner?.toLowerCase() === account?.toLowerCase();
-	const isBiddable = !isOwnedByUser || Boolean(domainMetadata?.isBiddable);
+	const isBiddable = !isOwnedByUser || Boolean(metadata?.isBiddable);
 	const isUserBid = !isOwnedByUser && userBids.length > 0;
 	const isSetBuyNow = isOwnedByUser && Boolean(domain?.name);
 	const isBuyNow =

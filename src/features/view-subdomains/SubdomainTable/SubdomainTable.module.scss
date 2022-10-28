@@ -1,19 +1,11 @@
-.Controls {
-	display: flex;
-	grid-gap: 1rem;
-	gap: 1rem;
-	width: 100%;
-	align-items: center;
-
-	.SearchBarContainer {
-		width: 100%;
-	}
-
-	.IconButtons {
-		display: flex;
-		flex: 1;
-		align-items: center;
-		justify-content: flex-end;
-		gap: 0.75rem;
+.Table {
+	/**
+	 * @NOTE: 21 Oct 2022
+	 * Fixing the column size while we work on AsyncTable.
+	 */
+	th:last-of-type {
+		width: 6.25rem;
+		max-width: 6.25rem;
+		min-width: 6.25rem;
 	}
 }
