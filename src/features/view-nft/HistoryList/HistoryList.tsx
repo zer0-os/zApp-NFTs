@@ -36,7 +36,7 @@ export const HistoryList: FC<HistoryListProps> = ({ zna }) => {
 					<>
 						{sortedDomainEvents?.map((item: DomainEvent, i: number) => (
 							<div key={i}>
-								<HistoryItem item={item} tokenName={paymentToken?.name} />
+								<HistoryItem item={item} tokenName={paymentToken?.symbol} />
 							</div>
 						))}
 					</>

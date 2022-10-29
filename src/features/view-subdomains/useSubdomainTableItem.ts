@@ -25,7 +25,6 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 	const alt = (metadata?.name ?? zna) + ' preview image';
 	const isLoading = isLoadingMetrics || isLoadingBuyNowPrice;
 
-	const paymentTokenLabel = paymentToken?.name ? `(${paymentToken?.name})` : '';
 	const volume = metrics?.volume?.all
 		? formatEthers(metrics.volume.all)
 		: undefined;
@@ -43,6 +42,6 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 		isLoading,
 		buyNowPrice,
 		metadata,
-		paymentTokenLabel,
+		paymentTokenLabel: paymentToken?.label ?? '',
 	};
 };

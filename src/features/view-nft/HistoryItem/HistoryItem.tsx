@@ -56,7 +56,8 @@ export const HistoryItem = ({ item, tokenName }: HistoryItemProps) => {
 						actionText={'transferred this domain to'}
 						secondaryAddress={item.to}
 					/>
-					<Date timestamp={item.timestamp!} />
+					{/* NOTE: multiplying by 1000 here as transfer timestamps are in seconds for some reason */}
+					<Date timestamp={(Number(item.timestamp!) * 1000).toString()} />
 				</Container>
 			);
 

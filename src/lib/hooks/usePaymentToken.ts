@@ -12,9 +12,12 @@ export const usePaymentToken = (zna: string) => {
 
 	const isLoading = isLoadingPaymentToken || isLoadingPaymentTokenInfo;
 
+	const label = paymentTokenInfo?.symbol ? `(${paymentTokenInfo?.symbol})` : '';
+
 	return {
 		data: !isLoading && {
 			tokenId: paymentToken,
+			label,
 			...paymentTokenInfo,
 		},
 		isLoading,
