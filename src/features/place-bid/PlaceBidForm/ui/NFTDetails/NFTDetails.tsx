@@ -2,8 +2,10 @@ import { FC } from 'react';
 
 import { usePlaceBidData } from '../../../usePlaceBidData';
 import { formatEthers } from '../../../../../lib/util/number';
-import { truncateDomain } from '../../../../../lib/util/domains';
-import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
+import {
+	truncateAddress,
+	truncateDomain,
+} from '@zero-tech/zapp-utils/formatting/addresses';
 
 import { ViewBidsButton } from '../../../../view-bids';
 import { SkeletonText } from '@zero-tech/zui/components';
@@ -12,46 +14,47 @@ import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 import styles from './NFTDetails.module.scss';
 
 interface NFTDetailsProps {
-	domainId: string;
+	zna: string;
 }
 
-export const NFTDetails: FC<NFTDetailsProps> = ({ domainId }) => {
+export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 	const {
-		domain,
-		isDomainLoading,
-		metrics,
-		isMetricsLoading,
-		metadata,
-		isMetadataLoading,
+		title,
+		creator,
 		imageAlt,
 		imageSrc,
-	} = usePlaceBidData(domainId);
+		highestBid,
+		paymentTokenLabel,
+		isLoadingDomain,
+		isLoadingMetrics,
+		isLoadingMetadata,
+	} = usePlaceBidData(zna);
 
-	const truncatedZna = truncateDomain(domain?.name, 20);
-	const truncatedCreatorAddress = truncateAddress(domain?.minter);
-	const formattedHighestBid = formatEthers(metrics?.highestBid);
+	const truncatedZna = truncateDomain(zna, 20);
+	const truncatedCreatorAddress = truncateAddress(creator);
+	const formattedHighestBid = formatEthers(highestBid);
 
 	const textContent = [
 		{
 			id: 'title',
 			className: styles.Title,
-			text: metadata?.title,
-			isLoading: isMetadataLoading,
+			text: title,
+			isLoading: isLoadingMetadata,
 			as: 'h1' as const,
 		},
 		{
 			id: 'zna',
 			className: styles.ZNA,
 			text: `0://${truncatedZna}`,
-			isLoading: isDomainLoading,
+			isLoading: isLoadingDomain,
 			as: 'span' as const,
 		},
 		{
 			id: 'highest-bid',
 			title: 'HighestBid',
 			className: styles.InfoValue,
-			text: formattedHighestBid,
-			isLoading: isMetricsLoading,
+			text: `${formattedHighestBid} ${paymentTokenLabel}`,
+			isLoading: isLoadingMetrics,
 			as: 'span' as const,
 		},
 		{
@@ -59,7 +62,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ domainId }) => {
 			title: 'Creator',
 			className: styles.InfoValue,
 			text: truncatedCreatorAddress,
-			isLoading: isDomainLoading,
+			isLoading: isLoadingDomain,
 			as: 'span' as const,
 		},
 	];

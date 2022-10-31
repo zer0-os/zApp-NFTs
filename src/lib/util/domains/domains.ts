@@ -1,12 +1,10 @@
-import { useMemo } from 'react';
-
 import {
 	chainIdToNetworkType,
 	getEtherscanUri,
 } from '../../../lib/helpers/network';
 import { Network } from '../../../lib/constants/networks';
 
-import { ethers, BigNumber } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import { Domain } from '@zero-tech/zns-sdk';
 
 export const rootDomainId = ethers.constants.HashZero;
@@ -33,6 +31,12 @@ export const getDomainId = (name: string) => {
 	return hashReturn;
 };
 
+export const getParentZna = (childZna: string) => {
+	const domains = childZna.split('.');
+	domains.pop();
+	return domains.join('.');
+};
+
 export const truncateAddress = (
 	address: string,
 	startingCharacters?: number,
@@ -43,27 +47,10 @@ export const truncateAddress = (
 	)}...${address?.substring(address.length - 4)}`;
 };
 
-export const getEtherscanLink = (domain: Domain, chainId: Network) =>
-	useMemo(() => {
-		const domainIdInteger = domain && BigNumber.from(domain.id);
-		const networkType = chainIdToNetworkType(chainId);
-		const etherscanBaseUri = getEtherscanUri(networkType);
-		const registrarAddress = domain ? domain.contract : '';
-
-		return `${etherscanBaseUri}token/${registrarAddress}?a=${domainIdInteger?.toString()}`;
-	}, [domain, domain?.id, chainId]);
-
-// TODO: move to utils
-export const truncateDomain = (
-	domainName: string,
-	maxCharacterLength: number,
-) => {
-	if (domainName?.length > maxCharacterLength) {
-		const splits = domainName.split('.');
-		if (splits?.length > 2) {
-			return `${splits[0]}...${splits[splits?.length - 1]}`;
-		}
-		return domainName;
-	}
-	return domainName;
+export const getEtherscanLink = (domain: Domain, chainId: Network) => {
+	const domainIdInteger = domain && BigNumber.from(domain.id);
+	const networkType = chainIdToNetworkType(chainId);
+	const etherscanBaseUri = getEtherscanUri(networkType);
+	const registrarAddress = domain ? domain.contract : '';
+	return `${etherscanBaseUri}token/${registrarAddress}?a=${domainIdInteger?.toString()}`;
 };

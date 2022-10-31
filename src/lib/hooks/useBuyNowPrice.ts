@@ -6,8 +6,8 @@ export const useBuyNowPrice = (domainId: string) => {
 	const sdk = useZnsSdk();
 
 	return useQuery(
-		['domain-buy-now-price', domainId],
-		async () => await sdk.zauction.getBuyNowPrice(domainId),
+		['domain', 'listing', 'buy-now', { domainId }],
+		() => sdk.zauction.getBuyNowListing(domainId),
 		{
 			retry: false,
 			refetchOnMount: false,

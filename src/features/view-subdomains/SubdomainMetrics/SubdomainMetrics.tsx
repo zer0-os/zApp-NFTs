@@ -1,67 +1,59 @@
 import { FC } from 'react';
 
-import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
-
-import { StatsList } from '../../ui/StatsList';
+import { StatsList } from '../../ui';
 
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
+import { getDomainId } from '../../../lib/util/domains/domains';
+import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
 
 interface SubdomainMetricsProps {
-	domainId?: string;
-	paymentTokenInfo: TokenPriceInfo;
+	zna: string;
 }
 
-const getMetricsLabels = (metrics: DomainMetrics) => {};
+export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ zna }) => {
+	const domainId = getDomainId(zna);
 
-export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({
-	domainId,
-	paymentTokenInfo,
-}) => {
-	const { data: metrics, isLoading } = useDomainMetrics(domainId);
+	const { data: metrics, isLoading: isLoadingMetrics } =
+		useDomainMetrics(domainId);
+	const { data: paymentToken } = usePaymentToken(zna);
 
-	const DEFAULT = { isLoading };
-
-	const paymentTokenLabel = paymentTokenInfo?.name
-		? ` (${paymentTokenInfo?.name})`
+	const paymentTokenLabel = paymentToken?.symbol
+		? ` (${paymentToken?.symbol})`
 		: '';
 
-	const itemsInDomain = metrics?.items
-		? formatNumber(metrics?.items) + paymentTokenLabel
-		: undefined;
+	const itemsInDomain =
+		metrics?.items !== undefined ? formatNumber(metrics?.items) : undefined;
 
 	const floorPriceString = metrics?.lowestSale
-		? formatEthers(metrics?.lowestSale) + paymentTokenLabel
+		? formatEthers(metrics?.lowestSale)
 		: undefined;
 
 	const volumeString = metrics?.volume?.all
-		? formatEthers(metrics?.volume?.all) + paymentTokenLabel
+		? formatEthers(metrics?.volume?.all)
 		: undefined;
 
 	const stats = [
 		{
 			title: 'Items In Domain',
 			value: {
-				isLoading,
 				text: itemsInDomain,
+				isLoading: isLoadingMetrics,
 			},
-			...DEFAULT,
 		},
 		{
-			title: 'Floor Price',
+			title: 'Floor Price ' + paymentTokenLabel,
 			value: {
-				isLoading,
 				text: floorPriceString,
+				isLoading: isLoadingMetrics,
 			},
-			...DEFAULT,
 		},
 		{
-			title: 'Volume',
+			title: 'Volume ' + paymentTokenLabel,
 			value: {
-				isLoading,
 				text: volumeString,
+				isLoading: isLoadingMetrics,
 			},
-			...DEFAULT,
 		},
 	];
 

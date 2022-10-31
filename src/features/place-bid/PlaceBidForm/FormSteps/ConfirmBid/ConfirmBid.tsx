@@ -3,39 +3,40 @@ import { FC } from 'react';
 import { usePlaceBidData } from '../../../usePlaceBidData';
 
 import { NFTDetails } from '../../ui/NFTDetails';
-import { Button } from '@zero-tech/zui/components';
+import { Wizard } from '@zero-tech/zui/components';
 
 import styles from '../FormSteps.module.scss';
 
 interface ConfirmBidProps {
 	error: string;
-	domainId: string;
+	zna: string;
 	bidAmount: string;
 	onConfirm: (bidAmound: string) => void;
 }
 
 export const ConfirmBid: FC<ConfirmBidProps> = ({
 	error,
-	domainId,
+	zna,
 	bidAmount,
 	onConfirm,
 }) => {
-	const { domain } = usePlaceBidData(domainId);
-
 	return (
 		<>
-			<NFTDetails domainId={domainId} />
+			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
 				<span className={styles.TextContent}>
-					{`Are you sure you want to place a ${bidAmount} WILD bid for 0://${domain?.name}.`}
+					{`Are you sure you want to place a ${bidAmount} WILD bid for 0://${zna}.`}
 				</span>
 
 				{error !== undefined && <div className={styles.Error}>{error}</div>}
 
-				<Button className={styles.Button} onPress={() => onConfirm(bidAmount)}>
-					Confirm
-				</Button>
+				<Wizard.Buttons
+					className={styles.Button}
+					isPrimaryButtonActive
+					primaryButtonText="Confirm"
+					onClickPrimaryButton={() => onConfirm(bidAmount)}
+				/>
 			</div>
 		</>
 	);

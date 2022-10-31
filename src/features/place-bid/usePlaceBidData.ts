@@ -1,37 +1,46 @@
 import { useWeb3 } from '../../lib/hooks/useWeb3';
 import { useDomainData } from '../../lib/hooks/useDomainData';
+import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
 import { useUserTokenBalance } from '../../lib/hooks/useUserTokenBalance';
-import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDomain';
+import { getDomainId, getParentZna } from '../../lib/util';
 
-export const usePlaceBidData = (domainId: string) => {
+export const usePlaceBidData = (zna: string) => {
 	const { account } = useWeb3();
-	const { data: domain, isLoading: isDomainLoading } = useDomainData(domainId);
-	const { data: metrics, isLoading: isMetricsLoading } =
-		useDomainMetrics(domainId);
-	const { data: metadata, isLoading: isMetadataLoading } = useDomainMetadata(
-		domain?.metadataUri,
-	);
-	const { data: paymentTokenForDomain } = usePaymentTokenForDomain(domainId);
-	const { data: tokenBalance } = useUserTokenBalance(
-		account,
-		paymentTokenForDomain,
-	);
 
+	const domainId = getDomainId(zna);
+	const parentZna = getParentZna(zna);
+
+	const { data: domain, isLoading: isLoadingDomain } = useDomainData(domainId);
+	const { data: metrics, isLoading: isLoadingMetrics } =
+		useDomainMetrics(domainId);
+	const { data: metadata, isLoading: isLoadingMetadata } =
+		useDomainMetadata(domainId);
+	const { data: paymentToken } = usePaymentToken(parentZna);
+	const { data: tokenBalance } = useUserTokenBalance(account, paymentToken?.id);
+
+	const title = metadata?.title;
+	const creator = domain?.minter;
+	const highestBid = metrics?.highestBid;
+	const balanceAsString = tokenBalance?.balanceAsString ?? '';
 	const imageSrc = metadata?.previewImage ?? metadata?.image;
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
+	const paymentTokenLabel = paymentToken?.label ?? '';
+	const paymentTokenId = paymentToken?.id ?? '';
 
 	return {
-		domain,
-		isDomainLoading,
-		metrics,
-		isMetricsLoading,
-		metadata,
-		isMetadataLoading,
+		domainId,
+		title,
+		creator,
 		imageSrc,
 		imageAlt,
-		paymentTokenForDomain,
-		tokenBalance,
+		highestBid,
+		balanceAsString,
+		paymentTokenLabel,
+		paymentTokenId,
+		isLoadingDomain,
+		isLoadingMetrics,
+		isLoadingMetadata,
 	};
 };

@@ -6,8 +6,8 @@ export const useDomainData = (domainId: string) => {
 	const sdk = useZnsSdk();
 
 	return useQuery(
-		['domain', domainId],
-		async () => await sdk.getDomainById(domainId),
+		['domain', { domainId }],
+		() => sdk.getDomainById(domainId, false),
 		{
 			retry: false,
 			refetchOnMount: false,

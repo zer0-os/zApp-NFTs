@@ -6,8 +6,8 @@ export const useSubdomainData = (domainId: string) => {
 	const sdk = useZnsSdk();
 
 	return useQuery(
-		['domain-subdomains', domainId],
-		async () => await sdk.getSubdomainsById(domainId),
+		['domain', 'subdomains', { domainId }],
+		() => sdk.getSubdomainsById(domainId, false),
 		{
 			retry: false,
 			refetchOnMount: false,

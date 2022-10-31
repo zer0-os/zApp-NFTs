@@ -1,64 +1,57 @@
 import { FC } from 'react';
 
-import { StatsList } from '../../ui/StatsList';
-
-import { ethers } from 'ethers';
-import { DomainMetrics, TokenPriceInfo } from '@zero-tech/zns-sdk';
+import { StatsList } from '../../ui';
 
 import { useBidData } from '../../../lib/hooks/useBidData';
 
 import { formatEthers, formatNumber } from '../../../lib/util/number/number';
+import { getDomainId, getParentZna } from '../../../lib/util/domains/domains';
+import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
+import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
 
 type NFTMetricsProps = {
-	domainId: string;
-	metrics: DomainMetrics;
-	isLoading?: boolean;
-	paymentTokenInfo: TokenPriceInfo;
+	zna: string;
 };
 
-export const NFTMetrics: FC<NFTMetricsProps> = ({
-	domainId,
-	metrics,
-	isLoading,
-	paymentTokenInfo,
-}) => {
-	const { data: bids } = useBidData(domainId);
+export const NFTMetrics: FC<NFTMetricsProps> = ({ zna }) => {
+	const domainId = getDomainId(zna);
+	const parentZna = getParentZna(zna);
 
-	const paymentTokenLabel = paymentTokenInfo?.name
-		? ` (${paymentTokenInfo?.name})`
-		: '';
+	const { data: bids, isLoading: isLoadingBids } = useBidData(domainId);
+	const { data: metrics, isLoading: isLoadingMetrics } =
+		useDomainMetrics(domainId);
+	const { data: paymentToken } = usePaymentToken(parentZna);
 
-	const numberOfBids = bids
-		? (formatNumber(bids?.length) || 0).toLocaleString()
-		: undefined;
+	let numberOfBids, lastSale, volumeString;
+	if (!isLoadingBids && bids) {
+		numberOfBids = formatNumber(bids.length || 0).toLocaleString();
+	}
+	if (!isLoadingMetrics && metrics) {
+		lastSale = formatEthers(metrics.lastSale);
+		volumeString = formatEthers(metrics.volume.all);
+	}
 
-	const lastSale = metrics?.lastSale
-		? formatEthers(metrics?.lastSale) + paymentTokenLabel
-		: undefined;
-
-	const volumeString = metrics?.volume?.all
-		? formatEthers(metrics?.volume?.all) + paymentTokenLabel
-		: undefined;
+	const paymentTokenSymbol = paymentToken?.label ?? '';
 
 	const stats = [
 		{
 			title: 'Bids',
 			value: {
-				isLoading,
+				isLoading: isLoadingBids,
 				text: numberOfBids,
 			},
 		},
 		{
-			title: 'Last Sale',
+			title: 'Last Sale ' + paymentTokenSymbol,
 			value: {
-				isLoading,
+				isLoading: isLoadingMetrics,
 				text: lastSale,
 			},
 		},
 		{
-			title: 'Volume',
+			title: 'Volume ' + paymentTokenSymbol,
 			value: {
-				isLoading,
+				isLoading: isLoadingMetrics,
 				text: volumeString,
 			},
 		},

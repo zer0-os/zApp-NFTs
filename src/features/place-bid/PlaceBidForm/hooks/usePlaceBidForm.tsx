@@ -34,13 +34,14 @@ export type UsePlaceBidFormReturn = {
 /**
  * Drives the logic behind the place bid form.
  */
-export const usePlaceBidForm = (domainId: string): UsePlaceBidFormReturn => {
+export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 	const sdk = useZnsSdk();
+
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const { paymentTokenForDomain } = usePlaceBidData(domainId);
+	const { domainId, paymentTokenId } = usePlaceBidData(zna);
 	const { data: isZAuctionCheckRequired, error: zAuctionCheckError } =
-		useZAuctionCheck(account, paymentTokenForDomain);
+		useZAuctionCheck(account, paymentTokenId);
 
 	const [error, setError] = useState<string>();
 	const [bidAmount, setBidAmount] = useState<string>();
@@ -69,7 +70,7 @@ export const usePlaceBidForm = (domainId: string): UsePlaceBidFormReturn => {
 		setError(undefined);
 		return executeTransaction(
 			sdk.zauction.approveZAuctionToSpendPaymentToken,
-			[paymentTokenForDomain, provider.getSigner()],
+			[paymentTokenId, provider.getSigner()],
 			{
 				onStart: () => {
 					setStep(Step.LOADING);
@@ -81,8 +82,8 @@ export const usePlaceBidForm = (domainId: string): UsePlaceBidFormReturn => {
 					setError(error.message);
 					setStep(Step.ZAUCTION_APPROVE);
 				},
-				// TODO: correct keys
-				invalidationKeys: [['user', { account, paymentTokenForDomain }]],
+
+				invalidationKeys: [['user', { account, paymentTokenId, bidAmount }]],
 			},
 		);
 	};
@@ -109,7 +110,7 @@ export const usePlaceBidForm = (domainId: string): UsePlaceBidFormReturn => {
 					setError(error.message);
 					setStep(Step.CONFIRM_BID);
 				},
-				// TODO: correct keys
+
 				invalidationKeys: [['user', { account, domainId, bidAmount }]],
 			},
 		);
