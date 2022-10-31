@@ -63,7 +63,7 @@ export const useAcceptBidForm = (
 			setError(ErrorText.FAILED_ZAUCTION_CHECK);
 			setStep(Step.DETAILS);
 		} else {
-			setStep(Step.PLACE_BID);
+			setStep(Step.CONFIRM);
 		}
 	};
 
@@ -78,7 +78,7 @@ export const useAcceptBidForm = (
 					setStatusText(StatusText.WAITING_FOR_APPROVAL);
 				},
 				onProcessing: () => setStatusText(StatusText.APPROVING_ZAUCTION),
-				onSuccess: () => setStep(Step.PLACE_BID),
+				onSuccess: () => setStep(Step.CONFIRM),
 				onError: (error: any) => {
 					setError(error.message);
 					setStep(Step.ZAUCTION_APPROVE);
@@ -103,7 +103,7 @@ export const useAcceptBidForm = (
 				onSuccess: () => setStep(Step.COMPLETE),
 				onError: (error: any) => {
 					setError(error.message);
-					setStep(Step.PLACE_BID);
+					setStep(Step.CONFIRM);
 				},
 
 				invalidationKeys: [['user', { account, domainId, bid }]],

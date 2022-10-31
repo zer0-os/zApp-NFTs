@@ -54,7 +54,7 @@ export const AcceptBidForm: FC<AcceptBidFormProps> = ({
 			);
 			break;
 
-		case Step.PLACE_BID:
+		case Step.CONFIRM:
 			content = (
 				<Confirm
 					zna={zna}
