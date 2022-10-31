@@ -81,7 +81,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 			amountToken: highestBid,
 			isVisible: isBiddable || isViewBids,
 			dataTestId: DataTestId.BID,
-			buttonComponent: isOwnedByUser ? (
+			buttonComponent: !isOwnedByUser ? (
 				<PlaceBidButton zna={zna} />
 			) : !isViewBids ? (
 				<></>
