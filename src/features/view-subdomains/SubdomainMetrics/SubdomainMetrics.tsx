@@ -18,21 +18,19 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ zna }) => {
 		useDomainMetrics(domainId);
 	const { data: paymentToken } = usePaymentToken(zna);
 
-	const paymentTokenLabel = paymentToken?.name
-		? ` (${paymentToken?.name})`
+	const paymentTokenLabel = paymentToken?.symbol
+		? ` (${paymentToken?.symbol})`
 		: '';
 
 	const itemsInDomain =
-		metrics?.items !== undefined
-			? formatNumber(metrics?.items) + paymentTokenLabel
-			: undefined;
+		metrics?.items !== undefined ? formatNumber(metrics?.items) : undefined;
 
 	const floorPriceString = metrics?.lowestSale
-		? formatEthers(metrics?.lowestSale) + paymentTokenLabel
+		? formatEthers(metrics?.lowestSale)
 		: undefined;
 
 	const volumeString = metrics?.volume?.all
-		? formatEthers(metrics?.volume?.all) + paymentTokenLabel
+		? formatEthers(metrics?.volume?.all)
 		: undefined;
 
 	const stats = [
@@ -44,14 +42,14 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ zna }) => {
 			},
 		},
 		{
-			title: 'Floor Price',
+			title: 'Floor Price ' + paymentTokenLabel,
 			value: {
 				text: floorPriceString,
 				isLoading: isLoadingMetrics,
 			},
 		},
 		{
-			title: 'Volume',
+			title: 'Volume ' + paymentTokenLabel,
 			value: {
 				text: volumeString,
 				isLoading: isLoadingMetrics,
