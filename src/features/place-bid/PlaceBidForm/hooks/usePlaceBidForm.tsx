@@ -39,9 +39,9 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const { domainId, paymentTokenForDomain } = usePlaceBidData(zna);
+	const { domainId, paymentTokenId } = usePlaceBidData(zna);
 	const { data: isZAuctionCheckRequired, error: zAuctionCheckError } =
-		useZAuctionCheck(account, paymentTokenForDomain);
+		useZAuctionCheck(account, paymentTokenId);
 
 	const [error, setError] = useState<string>();
 	const [bidAmount, setBidAmount] = useState<string>();
@@ -70,7 +70,7 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 		setError(undefined);
 		return executeTransaction(
 			sdk.zauction.approveZAuctionToSpendPaymentToken,
-			[paymentTokenForDomain, provider.getSigner()],
+			[paymentTokenId, provider.getSigner()],
 			{
 				onStart: () => {
 					setStep(Step.LOADING);
@@ -83,9 +83,7 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 					setStep(Step.ZAUCTION_APPROVE);
 				},
 
-				invalidationKeys: [
-					['user', { account, paymentTokenForDomain, bidAmount }],
-				],
+				invalidationKeys: [['user', { account, paymentTokenId, bidAmount }]],
 			},
 		);
 	};

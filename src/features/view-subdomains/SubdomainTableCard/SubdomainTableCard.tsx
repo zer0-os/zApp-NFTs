@@ -2,7 +2,6 @@ import { FC, useCallback } from 'react';
 
 import { useSubdomainTableItem } from '../useSubdomainTableItem';
 
-import { getDomainId } from '../../../lib/util';
 import { getCloudinaryUrlFromIpfs } from '@zero-tech/zapp-utils/utils/cloudinary';
 
 import { PlaceBidButton } from '../../place-bid';
@@ -21,7 +20,6 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	zna,
 	onClick,
 }) => {
-	const domainId = getDomainId(zna);
 	const {
 		highestBid,
 		buyNowPrice,
