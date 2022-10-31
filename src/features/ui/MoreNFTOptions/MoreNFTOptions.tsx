@@ -53,7 +53,7 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 						e?.target?.className === `zui-dropdown-item ${option.className}`,
 				).id,
 			),
-		[],
+		[moreOptions, setOption],
 	);
 
 	/* Returns drop down menu including modals for each option - add additional modals here  */
