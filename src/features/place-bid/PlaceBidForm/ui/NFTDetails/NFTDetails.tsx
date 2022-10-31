@@ -2,8 +2,10 @@ import { FC } from 'react';
 
 import { usePlaceBidData } from '../../../usePlaceBidData';
 import { formatEthers } from '../../../../../lib/util/number';
-import { truncateDomain } from '../../../../../lib/util/domains';
-import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
+import {
+	truncateAddress,
+	truncateDomain,
+} from '@zero-tech/zapp-utils/formatting/addresses';
 
 import { ViewBidsButton } from '../../../../view-bids';
 import { SkeletonText } from '@zero-tech/zui/components';
