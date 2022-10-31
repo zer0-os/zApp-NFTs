@@ -1,4 +1,5 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import {
 	act,
@@ -77,7 +78,9 @@ afterEach(() => {
 
 const renderComponent = () => {
 	render(
-		<TransferOwnershipForm zna={mock.domain.name} onClose={mockOnClose} />,
+		<QueryClientProvider client={new QueryClient()}>
+			<TransferOwnershipForm zna={mock.domain.name} onClose={mockOnClose} />,
+		</QueryClientProvider>,
 	);
 };
 
@@ -292,12 +295,12 @@ describe('TransferOwnershipForm', () => {
 
 	describe('Transaction Approval Step (signature)', () => {
 		test('should navigate back to confirm step and handle error if signature rejected', async () => {
-			mockTranferDomainOwnership.mockRejectedValue(undefined);
+			const errorMessage = 'An unknown error has occured..';
+
+			mockTranferDomainOwnership.mockRejectedValue(errorMessage);
 			mockOwner = mock.domain.owner;
 			renderComponent();
 			onSubmitValidDetails();
-
-			const errorMessage = 'Failed to start transaction - please try again.';
 
 			expect(screen.queryByText(errorMessage)).not.toBeInTheDocument();
 
@@ -320,13 +323,13 @@ describe('TransferOwnershipForm', () => {
 
 	describe('Transaction In Progress Step (transaction)', () => {
 		test('should navigate back to confirm step and handle error if transaction rejected', async () => {
+			const errorMessage = 'An unknown error has occured..';
+
 			mockOwner = mock.domain.owner;
 			mockTranferDomainOwnership.mockResolvedValue({ wait: mockTx });
-			mockTx.mockRejectedValue(undefined);
+			mockTx.mockRejectedValue(errorMessage);
 			renderComponent();
 			onSubmitValidDetails();
-
-			const errorMessage = 'Failed to process transaction - please try again.';
 
 			expect(screen.queryByText(errorMessage)).not.toBeInTheDocument();
 
