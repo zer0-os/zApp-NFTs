@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 
 import { useAcceptBidForm } from './hooks/useAcceptBidForm';
+import { Bid } from '@zero-tech/zauction-sdk';
 
 import { ApproveZAuction, Complete, Confirm, Details } from './FormSteps';
 import { Step } from './AcceptBidForm.constants';
@@ -9,14 +10,14 @@ import { Wizard } from '@zero-tech/zui/components';
 import styles from './AcceptBidForm.module.scss';
 
 interface AcceptBidFormProps {
-	domainId: string;
-	bidAmount: string;
+	zna: string;
+	bid: Bid;
 	onClose: () => void;
 }
 
 export const AcceptBidForm: FC<AcceptBidFormProps> = ({
-	domainId,
-	bidAmount,
+	zna,
+	bid,
 	onClose,
 }) => {
 	const {
@@ -26,7 +27,7 @@ export const AcceptBidForm: FC<AcceptBidFormProps> = ({
 		onCheckZAuction,
 		onApproveZAuction,
 		onConfirmAcceptBid,
-	} = useAcceptBidForm(domainId, bidAmount);
+	} = useAcceptBidForm(zna, bid);
 
 	let content: ReactNode;
 
@@ -34,9 +35,9 @@ export const AcceptBidForm: FC<AcceptBidFormProps> = ({
 		case Step.DETAILS:
 			content = (
 				<Details
+					zna={zna}
+					bid={bid}
 					error={error}
-					domainId={domainId}
-					bidAmount={bidAmount}
 					onCheckZAuction={onCheckZAuction}
 					onClose={onClose}
 				/>
@@ -56,16 +57,16 @@ export const AcceptBidForm: FC<AcceptBidFormProps> = ({
 		case Step.PLACE_BID:
 			content = (
 				<Confirm
+					zna={zna}
+					bid={bid}
 					error={error}
-					domainId={domainId}
-					bidAmount={bidAmount}
 					onConfirm={onConfirmAcceptBid}
 				/>
 			);
 			break;
 
 		case Step.COMPLETE:
-			content = <Complete domainId={domainId} onClose={onClose} />;
+			content = <Complete zna={zna} onClose={onClose} />;
 			break;
 
 		case Step.LOADING:
@@ -74,8 +75,8 @@ export const AcceptBidForm: FC<AcceptBidFormProps> = ({
 	}
 
 	return (
-		<form className={styles.Form}>
-			<Wizard.Container header="Place A Bid">{content}</Wizard.Container>
-		</form>
+		<Wizard.Container header="Accept Bid">
+			<form className={styles.Form}>{content}</form>
+		</Wizard.Container>
 	);
 };

@@ -81,7 +81,7 @@ export const PlaceBidForm: FC<PlaceBidFormProps> = ({
 
 	return (
 		<Wizard.Container header="Place A Bid">
-			<form className={styles.Form}>{content} </form>
+			<form className={styles.Form}>{content}</form>
 		</Wizard.Container>
 	);
 };

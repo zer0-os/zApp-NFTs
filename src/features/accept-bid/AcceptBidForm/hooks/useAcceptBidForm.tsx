@@ -5,13 +5,14 @@ import { useWeb3 } from '../../../../lib/hooks/useWeb3';
 import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
 import { useZAuctionCheck } from '../../../../lib/hooks/useZAuctionCheck';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
+import { Bid } from '@zero-tech/zauction-sdk';
 
 import { Step } from '../AcceptBidForm.constants';
 
 enum StatusText {
 	APPROVING_ZAUCTION = 'Approving zAuction. This may take up to 20 mins... Please do not close this window or refresh the page.',
 	CHECK_ZAUCTION = 'Checking status of zAuction approval...',
-	PROCESSING_BID = 'Processing bid...',
+	PROCESSING_BID = 'Accepting Bid... This may take up to 20 mins. Do not close this window or refresh your browser.',
 	WAITING_FOR_APPROVAL = 'Waiting for approval from your wallet...',
 	WAITING_FOR_SIGNATURE = 'Waiting for bid to be signed by wallet...',
 }
@@ -33,15 +34,16 @@ export type UseAcceptBidFormReturn = {
  * Drives the logic behind the place bid form.
  */
 export const useAcceptBidForm = (
-	domainId: string,
-	bidAmount: string,
+	zna: string,
+	bid: Bid,
 ): UseAcceptBidFormReturn => {
 	const sdk = useZnsSdk();
+
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const { paymentTokenForDomain } = useAcceptBidData(domainId);
+	const { domainId, paymentTokenId } = useAcceptBidData(zna);
 	const { data: isZAuctionCheckRequired, error: zAuctionCheckError } =
-		useZAuctionCheck(account, paymentTokenForDomain);
+		useZAuctionCheck(account, paymentTokenId);
 
 	const [error, setError] = useState<string>();
 	const [step, setStep] = useState<Step>(Step.DETAILS);
@@ -69,7 +71,7 @@ export const useAcceptBidForm = (
 		setError(undefined);
 		return executeTransaction(
 			sdk.zauction.approveZAuctionToSpendPaymentToken,
-			[paymentTokenForDomain, provider.getSigner()],
+			[paymentTokenId, provider.getSigner()],
 			{
 				onStart: () => {
 					setStep(Step.LOADING);
@@ -81,8 +83,8 @@ export const useAcceptBidForm = (
 					setError(error.message);
 					setStep(Step.ZAUCTION_APPROVE);
 				},
-				// TODO: correct keys
-				invalidationKeys: [['user', { account, paymentTokenForDomain }]],
+
+				invalidationKeys: [['user', { account, paymentTokenId, bid }]],
 			},
 		);
 	};
@@ -90,14 +92,8 @@ export const useAcceptBidForm = (
 	const onConfirmAcceptBid = () => {
 		setError(undefined);
 		return executeTransaction(
-			// sdk.zauction.placeBid,
-			// [
-			// 	{
-			// 		domainId,
-			// 		bidAmount: Number(bidAmount),
-			// 	},
-			// 	provider.getSigner(),
-			// ],
+			sdk.zauction.acceptBid,
+			[bid, provider.getSigner()],
 			{
 				onStart: () => {
 					setStep(Step.LOADING);
@@ -109,8 +105,8 @@ export const useAcceptBidForm = (
 					setError(error.message);
 					setStep(Step.PLACE_BID);
 				},
-				// TODO: correct keys
-				invalidationKeys: [['user', { account, domainId, bidAmount }]],
+
+				invalidationKeys: [['user', { account, domainId, bid }]],
 			},
 		);
 	};

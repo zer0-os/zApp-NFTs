@@ -15,11 +15,6 @@
 	.TextContent {
 		line-height: 1.5rem;
 
-		&[data-variant='warning'] {
-			color: $red-100;
-			margin-bottom: 0;
-		}
-
 		&[data-variant='success'] {
 			color: $success-green;
 			margin-bottom: 0;

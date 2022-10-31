@@ -2,41 +2,31 @@ import { FC, useState } from 'react';
 
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../../lib/types/ui';
-import { Bid } from '@zero-tech/zauction-sdk';
 
-import { AcceptBidForm } from '..';
+import { ViewBids } from '../ViewBids';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
-import styles from './AcceptBidModal.module.scss';
-
-export interface AcceptBidModalProps extends BasicModalProps {
+export interface ViewBidsModalProps extends BasicModalProps {
 	zna: string;
-	bid: Bid;
 }
 
-export const AcceptBidModal: FC<AcceptBidModalProps> = ({
+export const ViewBidsModal: FC<ViewBidsModalProps> = ({
 	zna,
-	bid,
 	...modalProps
 }) => {
 	const { account } = useWeb3();
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-	const onClose = () => {
-		setIsModalOpen(false);
-	};
-
 	const content = account ? (
-		<AcceptBidForm zna={zna} bid={bid} onClose={onClose} />
+		<ViewBids zna={zna} />
 	) : (
-		<ConnectWallet message={'Connect your wallet to accept a bid.'} />
+		<ConnectWallet message={'Connect your wallet to place a bid.'} />
 	);
 
 	return (
 		<Modal
-			className={styles.Container}
 			open={isModalOpen}
 			onOpenChange={(isOpen: boolean) => setIsModalOpen(isOpen)}
 			{...modalProps}

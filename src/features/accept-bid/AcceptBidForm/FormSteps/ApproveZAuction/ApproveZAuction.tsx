@@ -16,7 +16,7 @@ export const ApproveZAuction = ({
 	const zAuctionConfirmationText = (
 		<>
 			<p>
-				Before you can place a bid, your wallet needs to approve zAuction. You
+				Before you can accept a bid, your wallet needs to approve zAuction. You
 				will only need to do this once. This will cost gas.
 			</p>
 			{error !== undefined && <span className={styles.Error}>{error}</span>}

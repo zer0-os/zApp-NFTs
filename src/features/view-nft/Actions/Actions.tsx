@@ -23,6 +23,7 @@ import { ActionBlock, ActionTypes } from './Actions.types';
 import { getOrderedActions, getVisibleActions } from './Actions.utils';
 
 import styles from './Actions.module.scss';
+import { AcceptBidButton } from '../../../features/accept-bid';
 
 type ActionsProps = {
 	zna: string;
@@ -80,12 +81,12 @@ export const Actions = ({ zna }: ActionsProps) => {
 			amountToken: highestBid,
 			isVisible: isBiddable || isViewBids,
 			dataTestId: DataTestId.BID,
-			buttonComponent: !isOwnedByUser ? (
+			buttonComponent: isOwnedByUser ? (
 				<PlaceBidButton zna={zna} />
 			) : !isViewBids ? (
 				<></>
 			) : (
-				<ViewBidsButton />
+				<ViewBidsButton zna={zna} variant="primary" />
 			),
 		},
 		[ActionTypes.USER_BID]: {

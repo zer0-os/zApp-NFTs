@@ -1,17 +1,14 @@
 import { FC } from 'react';
 
-import { useAcceptBidData } from '../useAcceptBidData';
+import { Bid } from '@zero-tech/zauction-sdk';
 
 import { AcceptBidModal } from '..';
 
 type AcceptBidButtonProps = {
-	domainId: string;
+	zna: string;
+	bid: Bid;
 };
 
-export const AcceptBidButton: FC<AcceptBidButtonProps> = ({ domainId }) => {
-	const {} = useAcceptBidData(domainId);
-
-	return (
-		<AcceptBidModal trigger={'Accept'} domainId={domainId} bidAmount={''} />
-	);
-};
+export const AcceptBidButton: FC<AcceptBidButtonProps> = ({ zna, bid }) => (
+	<AcceptBidModal trigger={'Accept'} bid={bid} zna={zna} />
+);

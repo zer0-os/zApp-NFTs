@@ -1,37 +1,41 @@
-import { useWeb3 } from '../../lib/hooks/useWeb3';
+import { getDomainId, getParentZna } from '../../lib/util';
 import { useDomainData } from '../../lib/hooks/useDomainData';
+import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
-import { useUserTokenBalance } from '../../lib/hooks/useUserTokenBalance';
-import { usePaymentTokenForDomain } from '../../lib/hooks/usePaymentTokenForDomain';
 
-export const useAcceptBidData = (domainId: string) => {
-	const { account } = useWeb3();
-	const { data: domain, isLoading: isDomainLoading } = useDomainData(domainId);
-	const { data: metrics, isLoading: isMetricsLoading } =
+export const useAcceptBidData = (zna: string) => {
+	const domainId = getDomainId(zna);
+	const parentZna = getParentZna(zna);
+
+	const { data: domain, isLoading: isLoadingDomain } = useDomainData(domainId);
+	const { data: metrics, isLoading: isLoadingMetrics } =
 		useDomainMetrics(domainId);
-	const { data: metadata, isLoading: isMetadataLoading } = useDomainMetadata(
-		domain?.metadataUri,
-	);
-	const { data: paymentTokenForDomain } = usePaymentTokenForDomain(domainId);
-	const { data: tokenBalance } = useUserTokenBalance(
-		account,
-		paymentTokenForDomain,
-	);
+	const { data: metadata, isLoading: isLoadingMetadata } =
+		useDomainMetadata(domainId);
+	const { data: paymentToken } = usePaymentToken(parentZna);
 
+	const title = metadata?.title;
+	const creator = domain?.minter;
+	const highestBid = metrics?.highestBid;
+	const isMetadataLocked = domain?.isLocked ? 'Locked' : 'Unlocked';
 	const imageSrc = metadata?.previewImage ?? metadata?.image;
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
+	const paymentTokenLabel = paymentToken?.label ?? '';
+	const paymentTokenId = paymentToken?.id ?? '';
 
 	return {
-		domain,
-		isDomainLoading,
-		metrics,
-		isMetricsLoading,
-		metadata,
-		isMetadataLoading,
+		domainId,
+		title,
+		creator,
 		imageSrc,
 		imageAlt,
-		paymentTokenForDomain,
-		tokenBalance,
+		highestBid,
+		isMetadataLocked,
+		paymentTokenLabel,
+		paymentTokenId,
+		isLoadingDomain,
+		isLoadingMetrics,
+		isLoadingMetadata,
 	};
 };
