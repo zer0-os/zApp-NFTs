@@ -7,6 +7,8 @@ import { ViewBids } from '../ViewBids';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
+import styles from './ViewBidsModal.module.scss';
+
 export interface ViewBidsModalProps extends BasicModalProps {
 	zna: string;
 }
@@ -27,6 +29,7 @@ export const ViewBidsModal: FC<ViewBidsModalProps> = ({
 
 	return (
 		<Modal
+			className={styles.Container}
 			open={isModalOpen}
 			onOpenChange={(isOpen: boolean) => setIsModalOpen(isOpen)}
 			{...modalProps}
