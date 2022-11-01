@@ -8,6 +8,7 @@ import { MemberTitle } from '../../lib/constants/labels';
 
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
+import { ArrowLink } from '@zero-tech/zui/components/Link';
 
 import styles from './DomainPreview.module.scss';
 import classNames from 'classnames/bind';
@@ -98,7 +99,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({ zna, variant }) => {
 					<Description description={description} />
 
 					{variant === 'minimal' && (
-						<NftViewLink to={`/${zna}/nfts?view=true`} />
+						<NftViewLink zna={`/${zna}/nfts?view=true`} />
 					)}
 				</div>
 			</div>
@@ -187,15 +188,15 @@ const Members = ({ members }: MembersProps) => {
  *******************/
 
 interface NftViewLinkProps {
-	to: string;
+	zna: string;
 }
 
-const NftViewLink = ({ to }: NftViewLinkProps) => {
+const NftViewLink = ({ zna }: NftViewLinkProps) => {
 	return (
 		<div className={styles.LinkContainer}>
-			<Link className={styles.Link} to={to}>
-				{'View Domain NFT ->'}
-			</Link>
+			<ArrowLink className={styles.Link} href={zna} replace>
+				View Domain NFT
+			</ArrowLink>
 		</div>
 	);
 };
