@@ -58,7 +58,7 @@ export const useAcceptBidForm = (
 		await new Promise((r) => setTimeout(r, 1500));
 
 		if (isZAuctionCheckRequired) {
-			setStep(Step.CONFIRM);
+			setStep(Step.ZAUCTION_APPROVE);
 		} else if (zAuctionCheckError) {
 			setError(ErrorText.FAILED_ZAUCTION_CHECK);
 			setStep(Step.DETAILS);
