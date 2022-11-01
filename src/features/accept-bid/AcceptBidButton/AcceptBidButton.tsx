@@ -1,13 +1,11 @@
 import { FC } from 'react';
 
-import { Bid } from '@zero-tech/zauction-sdk';
+import { AcceptBidModal, AcceptBidModalProps } from '..';
 
-import { AcceptBidModal } from '..';
-
-type AcceptBidButtonProps = {
-	zna: string;
-	bid: Bid;
-};
+export interface AcceptBidButtonProps {
+	zna: AcceptBidModalProps['zna'];
+	bid: AcceptBidModalProps['bid'];
+}
 
 export const AcceptBidButton: FC<AcceptBidButtonProps> = ({ zna, bid }) => (
 	<AcceptBidModal trigger={'Accept'} bid={bid} zna={zna} />

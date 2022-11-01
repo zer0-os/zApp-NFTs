@@ -7,7 +7,7 @@ import { useZAuctionCheck } from '../../../../lib/hooks/useZAuctionCheck';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 import { Bid } from '@zero-tech/zauction-sdk';
 
-import { Step } from '../AcceptBidForm.constants';
+import { Step } from '../FormSteps/hooks';
 
 enum StatusText {
 	APPROVING_ZAUCTION = 'Approving zAuction. This may take up to 20 mins... Please do not close this window or refresh the page.',
@@ -58,7 +58,7 @@ export const useAcceptBidForm = (
 		await new Promise((r) => setTimeout(r, 1500));
 
 		if (isZAuctionCheckRequired) {
-			setStep(Step.ZAUCTION_APPROVE);
+			setStep(Step.CONFIRM);
 		} else if (zAuctionCheckError) {
 			setError(ErrorText.FAILED_ZAUCTION_CHECK);
 			setStep(Step.DETAILS);

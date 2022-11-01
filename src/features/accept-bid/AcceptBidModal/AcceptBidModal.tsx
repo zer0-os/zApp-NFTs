@@ -2,17 +2,16 @@ import { FC, useState } from 'react';
 
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../../lib/types/ui';
-import { Bid } from '@zero-tech/zauction-sdk';
 
-import { AcceptBidForm } from '..';
+import { AcceptBidForm, AcceptBidFormProps } from '..';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
 import styles from './AcceptBidModal.module.scss';
 
 export interface AcceptBidModalProps extends BasicModalProps {
-	zna: string;
-	bid: Bid;
+	zna: ModalContentProps['zna'];
+	bid: ModalContentProps['bid'];
 }
 
 export const AcceptBidModal: FC<AcceptBidModalProps> = ({
@@ -28,12 +27,6 @@ export const AcceptBidModal: FC<AcceptBidModalProps> = ({
 		setIsModalOpen(false);
 	};
 
-	const content = account ? (
-		<AcceptBidForm zna={zna} bid={bid} onClose={onClose} />
-	) : (
-		<ConnectWallet message={'Connect your wallet to accept a bid.'} />
-	);
-
 	return (
 		<Modal
 			className={styles.Container}
@@ -41,7 +34,26 @@ export const AcceptBidModal: FC<AcceptBidModalProps> = ({
 			onOpenChange={(isOpen: boolean) => setIsModalOpen(isOpen)}
 			{...modalProps}
 		>
-			{content}
+			<ModalContent account={account} zna={zna} bid={bid} onClose={onClose} />
 		</Modal>
+	);
+};
+
+/*******************
+ * ModalContent
+ *******************/
+
+interface ModalContentProps {
+	account: string;
+	zna: AcceptBidFormProps['zna'];
+	bid: AcceptBidFormProps['bid'];
+	onClose: AcceptBidFormProps['onClose'];
+}
+
+const ModalContent = ({ account, zna, bid, onClose }: ModalContentProps) => {
+	return account ? (
+		<AcceptBidForm zna={zna} bid={bid} onClose={onClose} />
+	) : (
+		<ConnectWallet message={'Connect your wallet to accept a bid.'} />
 	);
 };

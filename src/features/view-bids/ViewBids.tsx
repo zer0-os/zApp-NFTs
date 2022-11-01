@@ -9,13 +9,16 @@ import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
 import { Bid } from '@zero-tech/zauction-sdk';
 import moment from 'moment';
 
-import { AcceptBidButton } from '../../features/accept-bid';
-import { TextStack, Wizard } from '@zero-tech/zui/components';
+import {
+	AcceptBidButton,
+	AcceptBidButtonProps,
+} from '../../features/accept-bid';
+import { TextStack, TextStackProps, Wizard } from '@zero-tech/zui/components';
 
 import styles from './ViewBids.module.scss';
 
 export interface ViewBidsProps {
-	zna: string;
+	zna: BidListProps['zna'];
 }
 
 export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
@@ -27,7 +30,7 @@ export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 
 	const sortedBids = sortBidsByTime(bids);
 
-	const bidsToShow = sortedBids.filter(
+	const bidsToShow: BidListProps['bids'] = sortedBids.filter(
 		(bid) => bid.bidder.toLowerCase() !== account?.toLowerCase(),
 	);
 
@@ -60,15 +63,23 @@ const Header = () => {
  *******************/
 
 interface BidItemProps {
-	zna: string;
+	zna: AcceptBidButtonProps['zna'];
 	bid: Bid;
 	paymentTokenSymbol: string;
 }
 
 const BidItem = ({ zna, bid, paymentTokenSymbol }: BidItemProps) => {
-	const label = moment(Number(bid.timestamp)).fromNow();
-	const primaryText = `${formatEthers(bid.amount)}  ${paymentTokenSymbol}`;
-	const secondaryText = `by ${truncateAddress(bid.bidder)}`;
+	const label: TextStackProps['label'] = moment(
+		Number(bid.timestamp),
+	).fromNow();
+
+	const primaryText: TextStackProps['primaryText'] = `${formatEthers(
+		bid.amount,
+	)}  ${paymentTokenSymbol}`;
+
+	const secondaryText: TextStackProps['secondaryText'] = `by ${truncateAddress(
+		bid.bidder,
+	)}`;
 
 	return (
 		<div className={styles.BidContent}>
@@ -88,9 +99,9 @@ const BidItem = ({ zna, bid, paymentTokenSymbol }: BidItemProps) => {
  *******************/
 
 interface BidListProps {
-	zna: string;
-	bids: Bid[];
-	paymentTokenSymbol: string;
+	zna: BidItemProps['zna'];
+	bids: BidItemProps['bid'][];
+	paymentTokenSymbol: BidItemProps['paymentTokenSymbol'];
 }
 
 const BidList = ({ zna, bids, paymentTokenSymbol }: BidListProps) => {

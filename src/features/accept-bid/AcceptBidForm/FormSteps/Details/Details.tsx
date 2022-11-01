@@ -1,48 +1,46 @@
 import { FC } from 'react';
 
-import { Bid } from '@zero-tech/zauction-sdk';
-
-import { NFTDetails } from '../../ui';
 import { formatEthers } from '../../../../../lib/util';
 import { useAcceptBidData } from '../../../useAcceptBidData';
 import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
-import { Wizard } from '@zero-tech/zui/components';
+import { Bid } from '@zero-tech/zauction-sdk';
+
+import { NFTDetails, TextContent, TextContentProps } from '../ui';
+import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
 
-interface DetailsProps {
+export interface DetailsProps {
 	zna: string;
 	bid: Bid;
-	error: string;
-	onClose: () => void;
-	onCheckZAuction?: () => void;
+	errorText: TextContentProps['errorText'];
+	onClose: ButtonsProps['onClickSecondaryButton'];
+	onCheckZAuction?: ButtonsProps['onClickPrimaryButton'];
 }
 
 export const Details: FC<DetailsProps> = ({
 	zna,
 	bid,
-	error,
+	errorText,
 	onClose,
 	onCheckZAuction,
 }) => {
-	const primaryButtonText = error ? 'Retry' : 'Continue';
 	const { paymentTokenLabel } = useAcceptBidData(zna);
+
+	const bidder = truncateAddress(bid?.bidder);
+	const bidAmount = formatEthers(bid?.amount);
+	const textContent = `Are you sure you want to accept a bid of ${bidAmount} ${paymentTokenLabel} and transfer ownership of 0://${zna} to ${bidder}?`;
+
+	const primaryButtonText: ButtonsProps['primaryButtonText'] = errorText
+		? 'Retry'
+		: 'Continue';
 
 	return (
 		<>
 			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
-				<span className={styles.TextContent}>
-					{`Are you sure you want to accept a bid of ${formatEthers(
-						bid?.amount,
-					)} ${paymentTokenLabel} and transfer ownership of 0://${zna} to ${truncateAddress(
-						bid?.bidder,
-					)}`}
-					?
-				</span>
-
-				{error !== undefined && <div className={styles.Error}>{error}</div>}
+				<TextContent textContent={textContent} errorText={errorText} />
 
 				<Wizard.Buttons
 					className={styles.Button}

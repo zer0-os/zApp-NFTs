@@ -12,28 +12,12 @@
 		margin-top: 1.5rem;
 	}
 
-	.TextContent {
-		line-height: 1.5rem;
-
-		&[data-variant='success'] {
-			color: $success-green;
-			margin-bottom: 0;
-		}
-	}
-
 	.Button {
 		margin-top: 2.5rem;
 	}
 
 	.Confirmation {
 		margin-bottom: 1.125rem;
-	}
-
-	.Error {
-		color: $red-300;
-		font-size: $size-default;
-		font-weight: $font-weight-bold;
-		line-height: 1.5rem;
-		margin-top: 2.5rem;
+		white-space: pre-line;
 	}
 }

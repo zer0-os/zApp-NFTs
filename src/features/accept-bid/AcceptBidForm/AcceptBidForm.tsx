@@ -1,18 +1,20 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
+import {
+	useFormSteps,
+	useFormStepsProps,
+} from './FormSteps/hooks/useFormSteps';
 import { useAcceptBidForm } from './hooks/useAcceptBidForm';
 import { Bid } from '@zero-tech/zauction-sdk';
 
-import { ApproveZAuction, Complete, Confirm, Details } from './FormSteps';
-import { Step } from './AcceptBidForm.constants';
 import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './AcceptBidForm.module.scss';
 
-interface AcceptBidFormProps {
+export interface AcceptBidFormProps {
 	zna: string;
 	bid: Bid;
-	onClose: () => void;
+	onClose: useFormStepsProps['onClose'];
 }
 
 export const AcceptBidForm: FC<AcceptBidFormProps> = ({
@@ -29,50 +31,17 @@ export const AcceptBidForm: FC<AcceptBidFormProps> = ({
 		onConfirmAcceptBid,
 	} = useAcceptBidForm(zna, bid);
 
-	let content: ReactNode;
-
-	switch (step) {
-		case Step.DETAILS:
-			content = (
-				<Details
-					zna={zna}
-					bid={bid}
-					error={error}
-					onCheckZAuction={onCheckZAuction}
-					onClose={onClose}
-				/>
-			);
-			break;
-
-		case Step.ZAUCTION_APPROVE:
-			content = (
-				<ApproveZAuction
-					error={error}
-					onClose={onClose}
-					onApproveZAuction={onApproveZAuction}
-				/>
-			);
-			break;
-
-		case Step.CONFIRM:
-			content = (
-				<Confirm
-					zna={zna}
-					bid={bid}
-					error={error}
-					onConfirm={onConfirmAcceptBid}
-				/>
-			);
-			break;
-
-		case Step.COMPLETE:
-			content = <Complete zna={zna} onClose={onClose} />;
-			break;
-
-		case Step.LOADING:
-			content = <Wizard.Loading message={statusText} />;
-			break;
-	}
+	const { content } = useFormSteps({
+		step,
+		zna,
+		bid,
+		error,
+		statusText,
+		onClose,
+		onCheckZAuction,
+		onApproveZAuction,
+		onConfirmAcceptBid,
+	});
 
 	return (
 		<Wizard.Container header="Accept Bid">

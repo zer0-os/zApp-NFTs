@@ -3,14 +3,14 @@ import { FC, useState } from 'react';
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../../lib/types/ui';
 
-import { ViewBids } from '../ViewBids';
+import { ViewBids, ViewBidsProps } from '../ViewBids';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
 import styles from './ViewBidsModal.module.scss';
 
 export interface ViewBidsModalProps extends BasicModalProps {
-	zna: string;
+	zna: ModalContentProps['zna'];
 }
 
 export const ViewBidsModal: FC<ViewBidsModalProps> = ({
@@ -21,12 +21,6 @@ export const ViewBidsModal: FC<ViewBidsModalProps> = ({
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-	const content = account ? (
-		<ViewBids zna={zna} />
-	) : (
-		<ConnectWallet message={'Connect your wallet to place a bid.'} />
-	);
-
 	return (
 		<Modal
 			className={styles.Container}
@@ -34,7 +28,24 @@ export const ViewBidsModal: FC<ViewBidsModalProps> = ({
 			onOpenChange={(isOpen: boolean) => setIsModalOpen(isOpen)}
 			{...modalProps}
 		>
-			{content}
+			<ModalContent zna={zna} account={account} />
 		</Modal>
+	);
+};
+
+/*******************
+ * ModalContent
+ *******************/
+
+interface ModalContentProps {
+	zna: ViewBidsProps['zna'];
+	account: string;
+}
+
+const ModalContent = ({ zna, account }: ModalContentProps) => {
+	return account ? (
+		<ViewBids zna={zna} />
+	) : (
+		<ConnectWallet message={'Connect your wallet to view bids.'} />
 	);
 };
