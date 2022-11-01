@@ -1,18 +1,25 @@
 import { FC } from 'react';
 
-import { ExternalLinks, NFTDetails } from '../../ui';
-import { Button, Input } from '@zero-tech/zui/components';
+import {
+	ExternalLinks,
+	NFTDetails,
+	TextContent,
+	TextContentProps,
+} from '../ui';
+import { ErrorText } from '../ui/ErrorText/ErrorText';
+import { Input, InputProps } from '@zero-tech/zui/components/Input';
+import { Button, ButtonProps } from '@zero-tech/zui/components/Button';
 
 import styles from '../FormSteps.module.scss';
 
-interface DetailsProps {
-	error: string;
+export interface DetailsProps {
 	zna: string;
+	error: string;
 	bidAmount: string;
 	tokenBalance: string;
-	setBidAmount?: (bidAmount: string) => void;
-	onCheckZAuction?: () => void;
-	onClose: () => void;
+	setBidAmount?: InputProps['onChange'];
+	onCheckZAuction?: ButtonProps['onPress'];
+	onClose: ButtonProps['onPress'];
 }
 
 export const Details: FC<DetailsProps> = ({
@@ -25,11 +32,33 @@ export const Details: FC<DetailsProps> = ({
 	onClose,
 }) => {
 	const isTokenBalance = tokenBalance !== '0.0';
-	const onPress = isTokenBalance ? onCheckZAuction : onClose;
+
 	const isInputValueValid =
 		Number(bidAmount) && !Number.isNaN(parseFloat(bidAmount));
-	const isDisabled = isTokenBalance ? !isInputValueValid : false;
-	const buttonText = isTokenBalance ? (error ? 'Retry' : 'Continue') : 'Cancel';
+
+	const onPress: ButtonProps['onPress'] = isTokenBalance
+		? onCheckZAuction
+		: onClose;
+
+	const isDisabled: ButtonProps['isDisabled'] = isTokenBalance
+		? !isInputValueValid
+		: false;
+
+	const buttonText: ButtonProps['children'] = isTokenBalance
+		? error
+			? 'Retry'
+			: 'Continue'
+		: 'Cancel';
+
+	const buttonVariant: ButtonProps['variant'] = !isTokenBalance
+		? 'negative'
+		: 'primary';
+
+	const primaryTextContent: TextContentProps['textContent'] =
+		'Enter the amount you wish to bid:';
+
+	const secondaryTextContent: TextContentProps['textContent'] =
+		'You need WILD tokens to bid on this domain. To buy WILD tokens simply go to one of the exhanges below and head back here when you’re ready.';
 
 	const onChange = (val: string) => {
 		setBidAmount(val);
@@ -42,9 +71,7 @@ export const Details: FC<DetailsProps> = ({
 			<div className={styles.Container}>
 				{isTokenBalance && (
 					<>
-						<span className={styles.TextContent}>
-							Enter the amount you wish to bid:
-						</span>
+						<TextContent textContent={primaryTextContent} />
 
 						<Input
 							value={bidAmount ?? ''}
@@ -60,23 +87,22 @@ export const Details: FC<DetailsProps> = ({
 
 				{!isTokenBalance && (
 					<>
-						<span className={styles.TextContent} data-variant={'warning'}>
-							You need WILD tokens to bid on this domain. To buy WILD tokens
-							simply go to one of the exhanges below and head back here when
-							you’re ready.
-						</span>
+						<TextContent
+							variant={'warning'}
+							textContent={secondaryTextContent}
+						/>
 
 						<ExternalLinks />
 					</>
 				)}
 
-				{error !== undefined && <div className={styles.Error}>{error}</div>}
+				{error !== undefined && <ErrorText text={error} />}
 
 				<Button
 					className={styles.Button}
 					onPress={onPress}
 					isDisabled={isDisabled}
-					variant={!isTokenBalance ? 'negative' : 'primary'}
+					variant={buttonVariant}
 				>
 					{buttonText}
 				</Button>

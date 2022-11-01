@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { usePlaceBidData } from '../usePlaceBidData';
 
 import { PlaceBidModal } from '..';
-import { getDomainId } from '../../../lib/util';
 
 type PlaceBidButtonProps = {
 	zna: string;
