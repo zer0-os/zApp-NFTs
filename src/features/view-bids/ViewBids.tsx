@@ -66,13 +66,17 @@ interface BidItemProps {
 }
 
 const BidItem = ({ zna, bid, paymentTokenSymbol }: BidItemProps) => {
+	const label = moment(Number(bid.timestamp)).fromNow();
+	const primaryText = `${formatEthers(bid.amount)}  ${paymentTokenSymbol}`;
+	const secondaryText = `by ${truncateAddress(bid.bidder)}`;
+
 	return (
 		<div className={styles.BidContent}>
 			<TextStack
 				className={styles.TextContent}
-				label={moment(Number(bid.timestamp)).fromNow()}
-				primaryText={`${formatEthers(bid.amount)}  ${paymentTokenSymbol}`}
-				secondaryText={`by ${truncateAddress(bid.bidder)}`}
+				label={label}
+				primaryText={primaryText}
+				secondaryText={secondaryText}
 			/>
 			<AcceptBidButton zna={zna} bid={bid} />
 		</div>
