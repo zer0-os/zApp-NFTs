@@ -91,7 +91,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 				</ul>
 
 				<div className={styles.ActionContainer}>
-					<ViewBidsButton variant="text" />
+					<ViewBidsButton zna={zna} variant="text" />
 				</div>
 			</div>
 		</div>
