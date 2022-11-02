@@ -34,8 +34,15 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	});
 
 	const buyNowPriceString = buyNowPrice ? buyNowPrice : highestBid;
-	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
-	const button = buyNowPrice ? <BuyNowButton /> : <PlaceBidButton isRoot />;
+
+	const label =
+		(buyNowPriceString ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
+
+	const button = buyNowPrice ? (
+		<BuyNowButton />
+	) : (
+		<PlaceBidButton zna={zna} isRoot />
+	);
 
 	const handleOnClick = useCallback(() => {
 		onClick(undefined, zna);
