@@ -27,7 +27,7 @@ export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 	const sortedBids = sortBidsByTime(bids);
 
 	const isOwnedByUser: BidListProps['isAcceptBidEnabled'] =
-		owner?.toLowerCase() !== account?.toLowerCase();
+		owner?.toLowerCase() === account?.toLowerCase();
 
 	const bidsToShow: BidListProps['bids'] = isOwnedByUser
 		? sortedBids.filter(
