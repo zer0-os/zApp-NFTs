@@ -52,6 +52,5 @@ export const getEtherscanLink = (domain: Domain, chainId: Network) => {
 	const networkType = chainIdToNetworkType(chainId);
 	const etherscanBaseUri = getEtherscanUri(networkType);
 	const registrarAddress = domain ? domain.contract : '';
-
 	return `${etherscanBaseUri}token/${registrarAddress}?a=${domainIdInteger?.toString()}`;
 };

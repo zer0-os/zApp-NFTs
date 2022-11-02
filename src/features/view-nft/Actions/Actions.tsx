@@ -2,12 +2,14 @@ import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 import { useBidData } from '../../../lib/hooks/useBidData';
 import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
-import { formatEthers, formatNumber } from '../../../lib/util/number/number';
+import { formatEthers } from '../../../lib/util/number/number';
 import { getUserBids } from '../../../lib/util/bids/bids';
 import { getDomainId } from '../../../lib/util/domains/domains';
 import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 import { useDomainData } from '../../../lib/hooks/useDomainData';
+import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
 import { Labels } from '../../../lib/constants/labels';
+import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
 import { BuyNowButton } from '../../buy-now';
 import { SetBuyNowButton } from '../../set-buy-now';
@@ -21,7 +23,6 @@ import { ActionBlock, ActionTypes } from './Actions.types';
 import { getOrderedActions, getVisibleActions } from './Actions.utils';
 
 import styles from './Actions.module.scss';
-import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
 
 type ActionsProps = {
 	zna: string;
@@ -39,7 +40,9 @@ export const Actions = ({ zna }: ActionsProps) => {
 	const { data: bids } = useBidData(domainId);
 	const { data: metadata } = useDomainMetadata(domainId);
 
-	const buyNowPrice = buyNowPriceData ? formatNumber(buyNowPriceData) : '-';
+	const buyNowPrice = buyNowPriceData
+		? bigNumberToLocaleString(buyNowPriceData?.price)
+		: '-';
 	const userBids = getUserBids(account, bids) ?? [];
 	const highestUserBid =
 		userBids.length > 0 ? formatEthers(userBids[0]?.amount) : '-';
@@ -78,7 +81,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 			isVisible: isBiddable || isViewBids,
 			dataTestId: DataTestId.BID,
 			buttonComponent: !isOwnedByUser ? (
-				<PlaceBidButton />
+				<PlaceBidButton zna={zna} />
 			) : !isViewBids ? (
 				<></>
 			) : (
