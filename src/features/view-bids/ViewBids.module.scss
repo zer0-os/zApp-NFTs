@@ -12,13 +12,11 @@ $gutter: 16px;
 	max-height: 60vh;
 	overflow: hidden;
 
-	gap: 0;
-
 	.Header {
-		margin: 1.6rem 2.5rem 0.25rem 2.5rem;
+		margin: 3rem 2.5rem 0.25rem 2.5rem;
 
 		h1 {
-			margin: 0;
+			margin: 0 0 0.5rem 0;
 		}
 	}
 

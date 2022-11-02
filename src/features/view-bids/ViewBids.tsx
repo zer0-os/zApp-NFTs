@@ -1,10 +1,9 @@
 import { FC } from 'react';
 
 import { useWeb3 } from '../../lib/hooks/useWeb3';
-import { useBidData } from '../../lib/hooks/useBidData';
+import { useViewBidsData } from './useViewBidsData';
 import { sortBidsByTime } from '../../lib/util/bids/bids';
-import { getDomainId, formatEthers } from '../../lib/util';
-import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
+import { formatEthers } from '../../lib/util';
 import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
 import { Bid } from '@zero-tech/zauction-sdk';
 import moment from 'moment';
@@ -22,17 +21,19 @@ export interface ViewBidsProps {
 }
 
 export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
-	const domainId = getDomainId(zna);
-
 	const { account } = useWeb3();
-	const { data: bids } = useBidData(domainId);
-	const { data: paymentToken } = usePaymentToken(zna);
+	const { bids, owner, paymentTokenSymbol } = useViewBidsData(zna);
 
 	const sortedBids = sortBidsByTime(bids);
 
-	const bidsToShow: BidListProps['bids'] = sortedBids.filter(
-		(bid) => bid.bidder.toLowerCase() !== account?.toLowerCase(),
-	);
+	const isOwnedByUser: BidListProps['isAcceptBidEnabled'] =
+		owner?.toLowerCase() !== account?.toLowerCase();
+
+	const bidsToShow: BidListProps['bids'] = isOwnedByUser
+		? sortedBids.filter(
+				(bid) => bid.bidder.toLowerCase() !== account?.toLowerCase(),
+		  )
+		: sortedBids;
 
 	return (
 		<Wizard.Container className={styles.Container}>
@@ -40,7 +41,8 @@ export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 			<BidList
 				zna={zna}
 				bids={bidsToShow}
-				paymentTokenSymbol={paymentToken?.symbol}
+				isAcceptBidEnabled={isOwnedByUser}
+				paymentTokenSymbol={paymentTokenSymbol}
 			/>
 		</Wizard.Container>
 	);
@@ -65,10 +67,16 @@ const Header = () => {
 interface BidItemProps {
 	zna: AcceptBidButtonProps['zna'];
 	bid: Bid;
+	isAcceptBidEnabled: boolean;
 	paymentTokenSymbol: string;
 }
 
-const BidItem = ({ zna, bid, paymentTokenSymbol }: BidItemProps) => {
+const BidItem = ({
+	zna,
+	bid,
+	isAcceptBidEnabled,
+	paymentTokenSymbol,
+}: BidItemProps) => {
 	const label: TextStackProps['label'] = moment(
 		Number(bid.timestamp),
 	).fromNow();
@@ -89,7 +97,7 @@ const BidItem = ({ zna, bid, paymentTokenSymbol }: BidItemProps) => {
 				primaryText={primaryText}
 				secondaryText={secondaryText}
 			/>
-			<AcceptBidButton zna={zna} bid={bid} />
+			{isAcceptBidEnabled && <AcceptBidButton zna={zna} bid={bid} />}
 		</div>
 	);
 };
@@ -101,10 +109,16 @@ const BidItem = ({ zna, bid, paymentTokenSymbol }: BidItemProps) => {
 interface BidListProps {
 	zna: BidItemProps['zna'];
 	bids: BidItemProps['bid'][];
+	isAcceptBidEnabled: BidItemProps['isAcceptBidEnabled'];
 	paymentTokenSymbol: BidItemProps['paymentTokenSymbol'];
 }
 
-const BidList = ({ zna, bids, paymentTokenSymbol }: BidListProps) => {
+const BidList = ({
+	zna,
+	bids,
+	isAcceptBidEnabled,
+	paymentTokenSymbol,
+}: BidListProps) => {
 	return (
 		<ul className={styles.BidList}>
 			{bids.map((bid: Bid) => (
@@ -112,6 +126,7 @@ const BidList = ({ zna, bids, paymentTokenSymbol }: BidListProps) => {
 					<BidItem
 						zna={zna}
 						bid={bid}
+						isAcceptBidEnabled={isAcceptBidEnabled}
 						paymentTokenSymbol={paymentTokenSymbol}
 					/>
 				</li>

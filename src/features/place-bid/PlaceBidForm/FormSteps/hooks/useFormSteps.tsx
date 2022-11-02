@@ -1,7 +1,5 @@
 import { ReactNode } from 'react';
 
-import { Bid } from '@zero-tech/zauction-sdk';
-
 import {
 	ApproveZAuction,
 	ApproveZAuctionProps,
@@ -28,13 +26,15 @@ interface UseFormStepsReturn {
 
 export interface useFormStepsProps {
 	zna: string;
-	bid: Bid;
 	step: Step;
 	error: string;
 	statusText: string;
+	tokenBalance: string;
+	bidAmount: string;
+	setBidAmount: DetailsProps['setBidAmount'];
 	onCheckZAuction: DetailsProps['onCheckZAuction'];
 	onApproveZAuction: ApproveZAuctionProps['onApproveZAuction'];
-	onConfirmAcceptBid: ConfirmProps['onConfirm'];
+	onConfirmPlaceBid: ConfirmProps['onConfirm'];
 	onClose:
 		| DetailsProps['onClose']
 		| ApproveZAuctionProps['onClose']
@@ -43,13 +43,15 @@ export interface useFormStepsProps {
 
 export const useFormSteps = ({
 	zna,
-	bid,
 	step,
 	error,
 	statusText,
+	tokenBalance,
+	bidAmount,
+	setBidAmount,
 	onCheckZAuction,
 	onApproveZAuction,
-	onConfirmAcceptBid,
+	onConfirmPlaceBid,
 	onClose,
 }: useFormStepsProps): UseFormStepsReturn => {
 	let content: ReactNode;
@@ -59,10 +61,12 @@ export const useFormSteps = ({
 			content = (
 				<Details
 					zna={zna}
-					bid={bid}
 					errorText={error}
-					onClose={onClose}
+					bidAmount={bidAmount}
+					tokenBalance={tokenBalance}
+					setBidAmount={setBidAmount}
 					onCheckZAuction={onCheckZAuction}
+					onClose={onClose}
 				/>
 			);
 			break;
@@ -81,9 +85,9 @@ export const useFormSteps = ({
 			content = (
 				<Confirm
 					zna={zna}
-					bid={bid}
 					errorText={error}
-					onConfirm={onConfirmAcceptBid}
+					bidAmount={bidAmount}
+					onConfirm={onConfirmPlaceBid}
 				/>
 			);
 			break;

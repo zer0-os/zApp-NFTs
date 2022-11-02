@@ -23,7 +23,6 @@ import { ActionBlock, ActionTypes } from './Actions.types';
 import { getOrderedActions, getVisibleActions } from './Actions.utils';
 
 import styles from './Actions.module.scss';
-import { AcceptBidButton } from '../../../features/accept-bid';
 
 type ActionsProps = {
 	zna: string;
@@ -82,7 +81,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 			isVisible: isBiddable || isViewBids,
 			dataTestId: DataTestId.BID,
 			buttonComponent: !isOwnedByUser ? (
-				<PlaceBidButton zna={zna} />
+				<PlaceBidButton zna={zna} trigger={'Place A Bid'} />
 			) : !isViewBids ? (
 				<></>
 			) : (

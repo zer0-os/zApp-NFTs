@@ -1,23 +1,18 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { usePlaceBidData } from '../usePlaceBidData';
 
 import { PlaceBidModal } from '..';
-import { getDomainId } from '../../../lib/util';
 
 type PlaceBidButtonProps = {
 	zna: string;
-	isRoot?: boolean;
+	trigger: ReactNode;
 };
 
-export const PlaceBidButton: FC<PlaceBidButtonProps> = ({ zna, isRoot }) => {
+export const PlaceBidButton: FC<PlaceBidButtonProps> = ({ zna, trigger }) => {
 	const { balanceAsString } = usePlaceBidData(zna);
 
 	return (
-		<PlaceBidModal
-			trigger={isRoot ? 'Bid' : 'Place A Bid'}
-			zna={zna}
-			tokenBalance={balanceAsString}
-		/>
+		<PlaceBidModal trigger={trigger} zna={zna} tokenBalance={balanceAsString} />
 	);
 };

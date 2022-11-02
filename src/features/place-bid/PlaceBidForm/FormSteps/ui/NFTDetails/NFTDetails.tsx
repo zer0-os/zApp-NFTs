@@ -1,19 +1,19 @@
 import { FC } from 'react';
 
-import { usePlaceBidData } from '../../../usePlaceBidData';
-import { formatEthers } from '../../../../../lib/util/number';
+import { usePlaceBidData } from '../../../../usePlaceBidData';
+import { formatEthers } from '../../../../../../lib/util/number';
 import {
 	truncateAddress,
 	truncateDomain,
 } from '@zero-tech/zapp-utils/formatting/addresses';
 
-import { ViewBidsButton } from '../../../../view-bids';
+import { ViewBidsButton } from '../../../../../view-bids';
 import { SkeletonText } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './NFTDetails.module.scss';
 
-interface NFTDetailsProps {
+export interface NFTDetailsProps {
 	zna: string;
 }
 
@@ -24,7 +24,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		imageAlt,
 		imageSrc,
 		highestBid,
-		paymentTokenLabel,
+		paymentTokenSymbol,
 		isLoadingDomain,
 		isLoadingMetrics,
 		isLoadingMetadata,
@@ -51,9 +51,9 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		},
 		{
 			id: 'highest-bid',
-			title: 'HighestBid',
+			title: 'Highest Bid',
 			className: styles.InfoValue,
-			text: `${formattedHighestBid} ${paymentTokenLabel}`,
+			text: `${formattedHighestBid} ${paymentTokenSymbol}`,
 			isLoading: isLoadingMetrics,
 			as: 'span' as const,
 		},

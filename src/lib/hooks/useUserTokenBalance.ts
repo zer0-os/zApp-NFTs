@@ -7,7 +7,7 @@ export const useUserTokenBalance = (account: string, paymentToken: string) => {
 	const sdk = useZnsSdk();
 
 	return useQuery(
-		['user-balance-token', account, paymentToken],
+		['user', 'balance', { account, paymentToken }],
 		async () => {
 			const balanceAsBigNumber =
 				await sdk.zauction.getUserBalanceForPaymentToken(account, paymentToken);

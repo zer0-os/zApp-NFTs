@@ -26,7 +26,7 @@ export const usePlaceBidData = (zna: string) => {
 	const balanceAsString = tokenBalance?.balanceAsString ?? '';
 	const imageSrc = metadata?.previewImage ?? metadata?.image;
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
-	const paymentTokenLabel = paymentToken?.label ?? '';
+	const paymentTokenSymbol = paymentToken?.symbol ?? '';
 	const paymentTokenId = paymentToken?.id ?? '';
 
 	return {
@@ -37,7 +37,7 @@ export const usePlaceBidData = (zna: string) => {
 		imageAlt,
 		highestBid,
 		balanceAsString,
-		paymentTokenLabel,
+		paymentTokenSymbol,
 		paymentTokenId,
 		isLoadingDomain,
 		isLoadingMetrics,

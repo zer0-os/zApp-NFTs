@@ -25,11 +25,11 @@ export const Details: FC<DetailsProps> = ({
 	onClose,
 	onCheckZAuction,
 }) => {
-	const { paymentTokenLabel } = useAcceptBidData(zna);
+	const { paymentTokenSymbol } = useAcceptBidData(zna);
 
 	const bidder = truncateAddress(bid?.bidder);
 	const bidAmount = formatEthers(bid?.amount);
-	const textContent = `Are you sure you want to accept a bid of ${bidAmount} ${paymentTokenLabel} and transfer ownership of 0://${zna} to ${bidder}?`;
+	const textContent = `Are you sure you want to accept a bid of ${bidAmount} ${paymentTokenSymbol} and transfer ownership of 0://${zna} to ${bidder}?`;
 
 	const primaryButtonText: ButtonsProps['primaryButtonText'] = errorText
 		? 'Retry'
