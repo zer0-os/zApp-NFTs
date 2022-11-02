@@ -92,9 +92,9 @@ export const Actions = ({ zna }: ActionsProps) => {
 		[ActionTypes.USER_BID]: {
 			label: `${Labels.YOUR_BID} ` + paymentTokenSymbol,
 			amountToken: highestUserBid,
-			isVisible: isUserBid,
+			isVisible: !isUserBid,
 			dataTestId: DataTestId.USER_BID,
-			buttonComponent: <CancelBidButton />,
+			buttonComponent: <CancelBidButton zna={zna} variant="text" />,
 		},
 	};
 

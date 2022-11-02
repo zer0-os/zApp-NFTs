@@ -1,0 +1,9 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+
+.TextButton {
+	color: $blue;
+	line-height: 1.5rem;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+}
