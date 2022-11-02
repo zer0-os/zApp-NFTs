@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { truncateAddress } from '../../../lib/util/domains/domains';
+import { Member } from '../Member';
 import { MemberTitle } from '../../../lib/constants/labels';
 
 import styles from './FormDetails.module.scss';
@@ -12,8 +12,6 @@ interface FormDetailsProps {
 }
 
 export const FormDetails: FC<FormDetailsProps> = ({ name, title, creator }) => {
-	const truncatedAddress = truncateAddress(creator);
-
 	return (
 		<div className={styles.DetailsContainer}>
 			<div className={styles.Media}></div>
@@ -21,8 +19,7 @@ export const FormDetails: FC<FormDetailsProps> = ({ name, title, creator }) => {
 				<h1 className={styles.DomainTitle}>{title}</h1>
 				<span className={styles.Domain}>0://{name}</span>
 
-				<span className={styles.MemberTitle}>{MemberTitle.CREATOR}</span>
-				<span className={styles.MemberAddress}>{truncatedAddress}</span>
+				<Member title={MemberTitle.CREATOR} walletAddress={creator} />
 			</div>
 		</div>
 	);
