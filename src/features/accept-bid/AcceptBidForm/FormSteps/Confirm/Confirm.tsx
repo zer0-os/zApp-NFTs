@@ -6,7 +6,7 @@ import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
 import { Bid } from '@zero-tech/zauction-sdk';
 
 import { NFTDetails, TextContent, TextContentProps } from '../ui';
-import { Wizard } from '@zero-tech/zui/components/Wizard';
+import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
 
@@ -29,6 +29,10 @@ export const Confirm: FC<ConfirmProps> = ({
 	const bidAmount = formatEthers(bid?.amount);
 	const textContent = `Are you sure you want to accept a bid of ${bidAmount} ${paymentTokenSymbol} and transfer ownership of 0://${zna} to ${bidder}?`;
 
+	const primaryButtonText: ButtonsProps['primaryButtonText'] = errorText
+		? 'Retry'
+		: 'Continue';
+
 	const onConfirmAcceptBid = () => onConfirm(bid);
 
 	return (
@@ -41,7 +45,7 @@ export const Confirm: FC<ConfirmProps> = ({
 				<Wizard.Buttons
 					className={styles.Button}
 					isPrimaryButtonActive
-					primaryButtonText={'Confirm'}
+					primaryButtonText={primaryButtonText}
 					onClickPrimaryButton={onConfirmAcceptBid}
 				/>
 			</div>
