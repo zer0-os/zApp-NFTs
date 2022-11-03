@@ -6,7 +6,7 @@ import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
 export const useViewBidsData = (zna: string) => {
 	const domainId = getDomainId(zna);
 
-	const { data: bids } = useBidData(domainId);
+	const { data: bids, isLoading: isLoadingBids } = useBidData(domainId);
 	const { data: domain } = useDomainData(domainId);
 	const { data: paymentToken } = usePaymentToken(zna);
 
@@ -15,6 +15,7 @@ export const useViewBidsData = (zna: string) => {
 
 	return {
 		bids,
+		isLoadingBids,
 		owner,
 		paymentTokenSymbol,
 	};

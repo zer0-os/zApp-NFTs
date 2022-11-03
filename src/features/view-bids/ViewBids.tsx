@@ -22,7 +22,8 @@ export interface ViewBidsProps {
 
 export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 	const { account } = useWeb3();
-	const { bids, owner, paymentTokenSymbol } = useViewBidsData(zna);
+	const { bids, isLoadingBids, owner, paymentTokenSymbol } =
+		useViewBidsData(zna);
 
 	const sortedBids = sortBidsByTime(bids);
 
@@ -38,12 +39,19 @@ export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 	return (
 		<Wizard.Container className={styles.Container}>
 			<Header />
-			<BidList
-				zna={zna}
-				bids={bidsToShow}
-				isAcceptBidEnabled={isOwnedByUser}
-				paymentTokenSymbol={paymentTokenSymbol}
-			/>
+
+			{!isLoadingBids ? (
+				<BidList
+					zna={zna}
+					bids={bidsToShow}
+					paymentTokenSymbol={paymentTokenSymbol}
+					isAcceptBidEnabled={isOwnedByUser}
+				/>
+			) : (
+				<div className={styles.Loading}>
+					<Wizard.Loading message={'Loading Bids...'} />
+				</div>
+			)}
 		</Wizard.Container>
 	);
 };
@@ -67,15 +75,15 @@ const Header = () => {
 interface BidItemProps {
 	zna: AcceptBidButtonProps['zna'];
 	bid: Bid;
-	isAcceptBidEnabled: boolean;
 	paymentTokenSymbol: string;
+	isAcceptBidEnabled: boolean;
 }
 
 const BidItem = ({
 	zna,
 	bid,
-	isAcceptBidEnabled,
 	paymentTokenSymbol,
+	isAcceptBidEnabled,
 }: BidItemProps) => {
 	const label: TextStackProps['label'] = moment(
 		Number(bid.timestamp),
@@ -83,7 +91,7 @@ const BidItem = ({
 
 	const primaryText: TextStackProps['primaryText'] = `${formatEthers(
 		bid.amount,
-	)}  ${paymentTokenSymbol}`;
+	)} ${paymentTokenSymbol}`;
 
 	const secondaryText: TextStackProps['secondaryText'] = `by ${truncateAddress(
 		bid.bidder,
@@ -109,19 +117,19 @@ const BidItem = ({
 interface BidListProps {
 	zna: BidItemProps['zna'];
 	bids: BidItemProps['bid'][];
-	isAcceptBidEnabled: BidItemProps['isAcceptBidEnabled'];
 	paymentTokenSymbol: BidItemProps['paymentTokenSymbol'];
+	isAcceptBidEnabled: BidItemProps['isAcceptBidEnabled'];
 }
 
 const BidList = ({
 	zna,
 	bids,
-	isAcceptBidEnabled,
 	paymentTokenSymbol,
+	isAcceptBidEnabled,
 }: BidListProps) => {
 	return (
 		<ul className={styles.BidList}>
-			{bids.map((bid: Bid) => (
+			{bids?.map((bid: Bid) => (
 				<li key={bid.bidNonce} className={styles.BidItem}>
 					<BidItem
 						zna={zna}
