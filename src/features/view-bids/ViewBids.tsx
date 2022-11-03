@@ -40,6 +40,7 @@ export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 		<Wizard.Container className={styles.Container}>
 			<Header />
 
+			{/* Loading bids needs to be handlded prior to mapping each bid */}
 			{!isLoadingBids ? (
 				<BidList
 					zna={zna}
