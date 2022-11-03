@@ -33,10 +33,8 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		zna,
 	});
 
-	const buyNowPriceString = buyNowPrice ? buyNowPrice : highestBid;
-
-	const label =
-		(buyNowPriceString ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
+	const metric = buyNowPrice ? buyNowPrice : highestBid;
+	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
 
 	const button = buyNowPrice ? (
 		<BuyNowButton />
@@ -71,7 +69,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 				zna={zna}
 				label={label}
 				primaryText={{
-					text: buyNowPriceString,
+					text: metric,
 					isLoading: isLoadingMetrics,
 				}}
 				secondaryText={''}
