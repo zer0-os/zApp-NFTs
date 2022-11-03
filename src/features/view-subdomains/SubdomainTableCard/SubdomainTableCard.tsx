@@ -42,9 +42,14 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		<PlaceBidButton zna={zna} isRoot />
 	);
 
-	const handleOnClick = useCallback(() => {
-		onClick(undefined, zna);
-	}, [zna, onClick]);
+	const handleOnClick = useCallback(
+		(event: any) => {
+			if (event.currentTarget.contains(event.target)) {
+				onClick(undefined, zna);
+			}
+		},
+		[zna, onClick],
+	);
 
 	return (
 		<GridCard
