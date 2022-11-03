@@ -68,23 +68,6 @@
 					> *:not(:first-child) {
 						margin-left: 2rem;
 					}
-
-					.MemberItem {
-						display: flex;
-						flex-direction: column;
-
-						.MemberTitle {
-							color: $purple-lightest;
-							font-size: $size-tiny;
-							margin-bottom: 0.125rem;
-						}
-
-						.MemberAddress {
-							font-size: $size-medium;
-							margin-bottom: 1rem;
-							min-width: 4.375rem; // 70px - width of truncated address
-						}
-					}
 				}
 			}
 
