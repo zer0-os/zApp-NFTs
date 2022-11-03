@@ -113,7 +113,7 @@ export const useFormSteps = ({
 		if (!isLoadingTokenBalance) {
 			setShowBalanceLoader(false);
 		}
-	}, 500);
+	}, 1000);
 
 	return { content };
 };
