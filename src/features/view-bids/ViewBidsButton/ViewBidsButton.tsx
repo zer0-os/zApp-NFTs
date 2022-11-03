@@ -15,20 +15,18 @@ export const ViewBidsButton: FC<ViewBidsButtonProps> = ({
 	variant = 'primary',
 }) => {
 	const triggerVariant: ViewBidsModalProps['trigger'] =
-		variant === 'text' ? <TextButton /> : 'View Bids';
+		variant === 'text' ? textButton : 'View Bids';
 
 	return <ViewBidsModal zna={zna} trigger={triggerVariant} />;
 };
 
-/*******************
- * TextButton
- *******************/
+/**************
+ * textButton
+ **************/
 
-const TextButton = () => {
-	return (
-		<div className={styles.Container}>
-			<p className={styles.TextButton}>{'View All Bids'}</p>
-			<IconLinkExternal1 className={styles.Icon} size={'1.15rem'} isFilled />
-		</div>
-	);
-};
+const textButton = (
+	<div className={styles.Container}>
+		<p className={styles.TextButton}>{'View All Bids'}</p>
+		<IconLinkExternal1 className={styles.Icon} size={'1.15rem'} isFilled />
+	</div>
+);

@@ -1,36 +1,40 @@
-import { Wizard } from '@zero-tech/zui/components';
+import { TextContent, TextContentProps } from '../ui';
+import { Wizard, ConfirmationProps } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
 
-interface ApproveZAuctionProps {
-	error: string;
-	onClose: () => void;
-	onApproveZAuction: () => void;
+export interface ApproveZAuctionProps {
+	errorText: TextContentProps['errorText'];
+	onClose: ConfirmationProps['onClickSecondaryButton'];
+	onApproveZAuction: ConfirmationProps['onClickPrimaryButton'];
 }
 
 export const ApproveZAuction = ({
-	error,
+	errorText,
 	onClose,
 	onApproveZAuction,
 }: ApproveZAuctionProps) => {
-	const zAuctionConfirmationText = (
-		<>
-			<p>
-				Before you can place a bid, your wallet needs to approve zAuction. You
-				will only need to do this once. This will cost gas.
-			</p>
-			{error !== undefined && <span className={styles.Error}>{error}</span>}
-		</>
+	const primaryButtonText: ConfirmationProps['primaryButtonText'] = errorText
+		? 'Retry'
+		: 'Continue';
+
+	const confirmationMessage = (
+		<TextContent
+			textContent={
+				'Before you can accept a bid, your wallet needs to approve zAuction. \nYou will only need to do this once. This will cost gas.'
+			}
+			errorText={errorText}
+		/>
 	);
 
 	return (
 		<div className={styles.Container}>
 			<Wizard.Confirmation
 				className={styles.Confirmation}
-				message={zAuctionConfirmationText}
+				message={confirmationMessage}
 				isPrimaryButtonActive
 				isSecondaryButtonActive
-				primaryButtonText={error ? 'Retry' : 'Continue'}
+				primaryButtonText={primaryButtonText}
 				secondaryButtonText={'Cancel'}
 				onClickPrimaryButton={onApproveZAuction}
 				onClickSecondaryButton={onClose}

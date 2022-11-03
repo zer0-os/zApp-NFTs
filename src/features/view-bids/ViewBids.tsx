@@ -1,10 +1,9 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useWeb3 } from '../../lib/hooks/useWeb3';
-import { useBidData } from '../../lib/hooks/useBidData';
+import { useViewBidsData } from './useViewBidsData';
 import { sortBidsByTime } from '../../lib/util/bids/bids';
-import { getDomainId, formatEthers } from '../../lib/util';
-import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
+import { formatEthers } from '../../lib/util';
 import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
 import { Bid } from '@zero-tech/zauction-sdk';
 import moment from 'moment';
@@ -22,26 +21,48 @@ export interface ViewBidsProps {
 }
 
 export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
-	const domainId = getDomainId(zna);
-
 	const { account } = useWeb3();
-	const { data: bids } = useBidData(domainId);
-	const { data: paymentToken } = usePaymentToken(zna);
+
+	const { bids, isLoadingBids, owner, paymentTokenSymbol } =
+		useViewBidsData(zna);
+
+	const [showBidLoader, setShowBidLoader] = useState<boolean>(isLoadingBids);
 
 	const sortedBids = sortBidsByTime(bids);
 
-	const bidsToShow: BidListProps['bids'] = sortedBids.filter(
-		(bid) => bid.bidder.toLowerCase() !== account?.toLowerCase(),
-	);
+	const isOwnedByUser: BidListProps['isAcceptBidEnabled'] =
+		owner?.toLowerCase() === account?.toLowerCase();
+
+	const bidsToShow: BidListProps['bids'] = isOwnedByUser
+		? sortedBids.filter(
+				(bid) => bid.bidder.toLowerCase() !== account?.toLowerCase(),
+		  )
+		: sortedBids;
+
+	// prevent jolt for fast data loading
+	setTimeout(() => {
+		if (!isLoadingBids) {
+			setShowBidLoader(false);
+		}
+	}, 500);
 
 	return (
 		<Wizard.Container className={styles.Container}>
 			<Header />
-			<BidList
-				zna={zna}
-				bids={bidsToShow}
-				paymentTokenSymbol={paymentToken?.symbol}
-			/>
+
+			{/* Loading bids needs to be handlded prior to mapping each bid */}
+			{!showBidLoader ? (
+				<BidList
+					zna={zna}
+					bids={bidsToShow}
+					paymentTokenSymbol={paymentTokenSymbol}
+					isAcceptBidEnabled={isOwnedByUser}
+				/>
+			) : (
+				<div className={styles.Loading}>
+					<Wizard.Loading message={'Loading Bids...'} />
+				</div>
+			)}
 		</Wizard.Container>
 	);
 };
@@ -66,16 +87,22 @@ interface BidItemProps {
 	zna: AcceptBidButtonProps['zna'];
 	bid: Bid;
 	paymentTokenSymbol: string;
+	isAcceptBidEnabled: boolean;
 }
 
-const BidItem = ({ zna, bid, paymentTokenSymbol }: BidItemProps) => {
+const BidItem = ({
+	zna,
+	bid,
+	paymentTokenSymbol,
+	isAcceptBidEnabled,
+}: BidItemProps) => {
 	const label: TextStackProps['label'] = moment(
 		Number(bid.timestamp),
 	).fromNow();
 
 	const primaryText: TextStackProps['primaryText'] = `${formatEthers(
 		bid.amount,
-	)}  ${paymentTokenSymbol}`;
+	)} ${paymentTokenSymbol}`;
 
 	const secondaryText: TextStackProps['secondaryText'] = `by ${truncateAddress(
 		bid.bidder,
@@ -89,7 +116,7 @@ const BidItem = ({ zna, bid, paymentTokenSymbol }: BidItemProps) => {
 				primaryText={primaryText}
 				secondaryText={secondaryText}
 			/>
-			<AcceptBidButton zna={zna} bid={bid} />
+			{isAcceptBidEnabled && <AcceptBidButton zna={zna} bid={bid} />}
 		</div>
 	);
 };
@@ -102,16 +129,23 @@ interface BidListProps {
 	zna: BidItemProps['zna'];
 	bids: BidItemProps['bid'][];
 	paymentTokenSymbol: BidItemProps['paymentTokenSymbol'];
+	isAcceptBidEnabled: BidItemProps['isAcceptBidEnabled'];
 }
 
-const BidList = ({ zna, bids, paymentTokenSymbol }: BidListProps) => {
+const BidList = ({
+	zna,
+	bids,
+	paymentTokenSymbol,
+	isAcceptBidEnabled,
+}: BidListProps) => {
 	return (
 		<ul className={styles.BidList}>
-			{bids.map((bid: Bid) => (
+			{bids?.map((bid: Bid) => (
 				<li key={bid.bidNonce} className={styles.BidItem}>
 					<BidItem
 						zna={zna}
 						bid={bid}
+						isAcceptBidEnabled={isAcceptBidEnabled}
 						paymentTokenSymbol={paymentTokenSymbol}
 					/>
 				</li>

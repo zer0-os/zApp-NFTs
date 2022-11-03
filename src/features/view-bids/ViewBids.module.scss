@@ -9,16 +9,14 @@ $gutter: 16px;
 	width: $width;
 	min-width: $width;
 	max-width: $width;
-	max-height: 60vh;
+	max-height: 80vh;
 	overflow: hidden;
 
-	gap: 0;
-
 	.Header {
-		margin: 1.6rem 2.5rem 0.25rem 2.5rem;
+		margin: 3rem 2.5rem 0.25rem 2.5rem;
 
 		h1 {
-			margin: 0;
+			margin: 0 0 0.5rem 0;
 		}
 	}
 
@@ -68,5 +66,9 @@ $gutter: 16px;
 				}
 			}
 		}
+	}
+
+	.Loading {
+		margin-bottom: 2.5rem;
 	}
 }

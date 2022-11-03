@@ -1,7 +1,3 @@
-@import '../../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
-@import '../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
-@import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
-
 .Container {
 	display: flex;
 	flex-direction: column;
@@ -12,33 +8,12 @@
 		margin-top: 1.5rem;
 	}
 
-	.TextContent {
-		line-height: 1.5rem;
-
-		&[data-variant='warning'] {
-			color: $red-100;
-			margin-bottom: 0;
-		}
-
-		&[data-variant='success'] {
-			color: $success-green;
-			margin-bottom: 0;
-		}
-	}
-
 	.Button {
 		margin-top: 2.5rem;
 	}
 
 	.Confirmation {
 		margin-bottom: 1.125rem;
-	}
-
-	.Error {
-		color: $red-300;
-		font-size: $size-default;
-		font-weight: $font-weight-bold;
-		line-height: 1.5rem;
-		margin-top: 2.5rem;
+		white-space: pre-line;
 	}
 }

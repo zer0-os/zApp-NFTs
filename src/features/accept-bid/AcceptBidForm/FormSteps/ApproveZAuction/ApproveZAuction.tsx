@@ -18,11 +18,13 @@ export const ApproveZAuction = ({
 		? 'Retry'
 		: 'Continue';
 
-	const textContent =
-		'Before you can accept a bid, your wallet needs to approve zAuction. \nYou will only need to do this once. This will cost gas.';
-
 	const confirmationMessage = (
-		<TextContent textContent={textContent} errorText={errorText} />
+		<TextContent
+			textContent={
+				'Before you can accept a bid, your wallet needs to approve zAuction. \nYou will only need to do this once. This will cost gas.'
+			}
+			errorText={errorText}
+		/>
 	);
 
 	return (

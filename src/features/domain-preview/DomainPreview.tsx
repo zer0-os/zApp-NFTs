@@ -1,13 +1,14 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
 
 import { useDomainData } from '../../lib/hooks/useDomainData';
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
-import { getDomainId, truncateAddress } from '../../lib/util/domains/domains';
+import { getDomainId } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
 
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
+import { ArrowLink } from '@zero-tech/zui/components/Link';
+import { Member } from '../ui/Member';
 
 import styles from './DomainPreview.module.scss';
 import classNames from 'classnames/bind';
@@ -98,7 +99,7 @@ export const DomainPreview: FC<DomainPreviewProps> = ({ zna, variant }) => {
 					<Description description={description} />
 
 					{variant === 'minimal' && (
-						<NftViewLink to={`/${zna}/nfts?view=true`} />
+						<NftViewLink zna={`/${zna}/nfts?view=true`} />
 					)}
 				</div>
 			</div>
@@ -164,19 +165,14 @@ const Members = ({ members }: MembersProps) => {
 	return (
 		<ul className={styles.MemberContainer}>
 			{members.map((member) => (
-				<li key={member.title} className={styles.MemberItem}>
-					<span className={styles.MemberTitle}>{member.title}</span>
-					<SkeletonText
-						as={'span'}
-						className={styles.MemberAddress}
-						asyncText={{
-							text: member?.address
-								? truncateAddress(member.address)
-								: undefined,
-							isLoading: !member?.address,
-						}}
-					/>
-				</li>
+				<Member
+					key={member.title}
+					walletAddress={{
+						text: member?.address,
+						isLoading: !member?.address,
+					}}
+					title={member.title}
+				/>
 			))}
 		</ul>
 	);
@@ -187,15 +183,15 @@ const Members = ({ members }: MembersProps) => {
  *******************/
 
 interface NftViewLinkProps {
-	to: string;
+	zna: string;
 }
 
-const NftViewLink = ({ to }: NftViewLinkProps) => {
+const NftViewLink = ({ zna }: NftViewLinkProps) => {
 	return (
 		<div className={styles.LinkContainer}>
-			<Link className={styles.Link} to={to}>
-				{'View Domain NFT ->'}
-			</Link>
+			<ArrowLink className={styles.Link} href={zna} replace>
+				View Domain NFT
+			</ArrowLink>
 		</div>
 	);
 };

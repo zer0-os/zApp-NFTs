@@ -7,7 +7,7 @@ import { Bid } from '@zero-tech/zns-sdk/lib/zAuction';
  */
 export const sortBidsByTime = (bids: Bid[]) => {
 	return bids
-		.slice()
+		?.slice()
 		.sort((a: Bid, b: Bid) => Number(b.timestamp) - Number(a.timestamp));
 };
 

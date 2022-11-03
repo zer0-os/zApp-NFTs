@@ -6,7 +6,7 @@ import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
 import { useZAuctionCheck } from '../../../../lib/hooks/useZAuctionCheck';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
-import { Step } from '../PlaceBidForm.constants';
+import { Step } from '../FormSteps/hooks';
 
 enum StatusText {
 	APPROVING_ZAUCTION = 'Approving zAuction. This may take up to 20 mins... Please do not close this window or refresh the page.',
@@ -43,9 +43,9 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 	const { data: isZAuctionCheckRequired, error: zAuctionCheckError } =
 		useZAuctionCheck(account, paymentTokenId);
 
+	const [step, setStep] = useState<Step>(Step.DETAILS);
 	const [error, setError] = useState<string>();
 	const [bidAmount, setBidAmount] = useState<string>();
-	const [step, setStep] = useState<Step>(Step.DETAILS);
 	const [statusText, setStatusText] = useState<string>();
 
 	const onCheckZAuction = async () => {
@@ -62,7 +62,7 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 			setError(ErrorText.FAILED_ZAUCTION_CHECK);
 			setStep(Step.DETAILS);
 		} else {
-			setStep(Step.CONFIRM_BID);
+			setStep(Step.CONFIRM);
 		}
 	};
 
@@ -77,7 +77,7 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 					setStatusText(StatusText.WAITING_FOR_APPROVAL);
 				},
 				onProcessing: () => setStatusText(StatusText.APPROVING_ZAUCTION),
-				onSuccess: () => setStep(Step.CONFIRM_BID),
+				onSuccess: () => setStep(Step.CONFIRM),
 				onError: (error: any) => {
 					setError(error.message);
 					setStep(Step.ZAUCTION_APPROVE);
@@ -108,7 +108,7 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 				onSuccess: () => setStep(Step.COMPLETE),
 				onError: (error: any) => {
 					setError(error.message);
-					setStep(Step.CONFIRM_BID);
+					setStep(Step.CONFIRM);
 				},
 
 				invalidationKeys: [['user', { account, domainId, bidAmount }]],
