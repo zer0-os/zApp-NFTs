@@ -6,7 +6,7 @@ import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-nu
 export const useUserTokenBalance = (account: string, paymentToken: string) => {
 	const sdk = useZnsSdk();
 
-	return useQuery(
+	const query = useQuery(
 		['user', 'balance', { account, paymentToken }],
 		async () => {
 			const balanceAsBigNumber =
@@ -23,4 +23,9 @@ export const useUserTokenBalance = (account: string, paymentToken: string) => {
 			enabled: Boolean(paymentToken),
 		},
 	);
+
+	return {
+		...query,
+		isLoading: query.isLoading || query.isIdle,
+	};
 };

@@ -18,7 +18,8 @@ export const usePlaceBidData = (zna: string) => {
 	const { data: metadata, isLoading: isLoadingMetadata } =
 		useDomainMetadata(domainId);
 	const { data: paymentToken } = usePaymentToken(parentZna);
-	const { data: tokenBalance } = useUserTokenBalance(account, paymentToken?.id);
+	const { data: tokenBalance, isLoading: isLoadingTokenBalance } =
+		useUserTokenBalance(account, paymentToken?.id);
 
 	const title = metadata?.title;
 	const creator = domain?.minter;
@@ -28,6 +29,7 @@ export const usePlaceBidData = (zna: string) => {
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 	const paymentTokenSymbol = paymentToken?.symbol ?? '';
 	const paymentTokenId = paymentToken?.id ?? '';
+	const tokenBalanceString = tokenBalance?.balanceAsString ?? '';
 
 	return {
 		domainId,
@@ -39,8 +41,10 @@ export const usePlaceBidData = (zna: string) => {
 		balanceAsString,
 		paymentTokenSymbol,
 		paymentTokenId,
+		tokenBalanceString,
 		isLoadingDomain,
 		isLoadingMetrics,
 		isLoadingMetadata,
+		isLoadingTokenBalance,
 	};
 };

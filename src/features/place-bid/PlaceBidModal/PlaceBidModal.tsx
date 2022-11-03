@@ -11,12 +11,10 @@ import styles from './PlaceBidModal.module.scss';
 
 export interface PlaceBidModalProps extends BasicModalProps {
 	zna: string;
-	tokenBalance: string;
 }
 
 export const PlaceBidModal: FC<PlaceBidModalProps> = ({
 	zna,
-	tokenBalance,
 	...modalProps
 }) => {
 	const { account } = useWeb3();
@@ -28,7 +26,7 @@ export const PlaceBidModal: FC<PlaceBidModalProps> = ({
 	};
 
 	const content = account ? (
-		<PlaceBidForm zna={zna} tokenBalance={tokenBalance} onClose={onClose} />
+		<PlaceBidForm zna={zna} onClose={onClose} />
 	) : (
 		<ConnectWallet message={'Connect your wallet to place a bid.'} />
 	);

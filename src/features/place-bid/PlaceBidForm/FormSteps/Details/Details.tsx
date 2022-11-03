@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { usePlaceBidData } from '../../../usePlaceBidData';
+
 import {
 	ExternalLinks,
 	NFTDetails,
@@ -16,7 +18,6 @@ export interface DetailsProps {
 	zna: string;
 	errorText: string;
 	bidAmount: string;
-	tokenBalance: string;
 	setBidAmount?: InputProps['onChange'];
 	onCheckZAuction?: ButtonProps['onPress'];
 	onClose: ButtonProps['onPress'];
@@ -26,11 +27,12 @@ export const Details: FC<DetailsProps> = ({
 	zna,
 	errorText,
 	bidAmount,
-	tokenBalance,
 	setBidAmount,
 	onCheckZAuction,
 	onClose,
 }) => {
+	const { tokenBalanceString: tokenBalance } = usePlaceBidData(zna);
+
 	const isTokenBalance = tokenBalance !== '0.0';
 
 	const isInputValueValid =

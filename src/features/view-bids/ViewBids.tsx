@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useWeb3 } from '../../lib/hooks/useWeb3';
 import { useViewBidsData } from './useViewBidsData';
@@ -22,8 +22,11 @@ export interface ViewBidsProps {
 
 export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 	const { account } = useWeb3();
+
 	const { bids, isLoadingBids, owner, paymentTokenSymbol } =
 		useViewBidsData(zna);
+
+	const [showBidLoader, setShowBidLoader] = useState<boolean>(isLoadingBids);
 
 	const sortedBids = sortBidsByTime(bids);
 
@@ -36,12 +39,19 @@ export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 		  )
 		: sortedBids;
 
+	// prevent jolt for fast data loading
+	setTimeout(() => {
+		if (!isLoadingBids) {
+			setShowBidLoader(false);
+		}
+	}, 500);
+
 	return (
 		<Wizard.Container className={styles.Container}>
 			<Header />
 
 			{/* Loading bids needs to be handlded prior to mapping each bid */}
-			{!isLoadingBids ? (
+			{!showBidLoader ? (
 				<BidList
 					zna={zna}
 					bids={bidsToShow}

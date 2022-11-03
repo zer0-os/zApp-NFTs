@@ -1,4 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
+
+import { usePlaceBidData } from '../../../usePlaceBidData';
 
 import {
 	ApproveZAuction,
@@ -29,7 +31,6 @@ export interface useFormStepsProps {
 	step: Step;
 	error: string;
 	statusText: string;
-	tokenBalance: string;
 	bidAmount: string;
 	setBidAmount: DetailsProps['setBidAmount'];
 	onCheckZAuction: DetailsProps['onCheckZAuction'];
@@ -46,7 +47,6 @@ export const useFormSteps = ({
 	step,
 	error,
 	statusText,
-	tokenBalance,
 	bidAmount,
 	setBidAmount,
 	onCheckZAuction,
@@ -54,20 +54,27 @@ export const useFormSteps = ({
 	onConfirmPlaceBid,
 	onClose,
 }: useFormStepsProps): UseFormStepsReturn => {
+	const { paymentTokenSymbol, isLoadingTokenBalance } = usePlaceBidData(zna);
+
+	const [showBalanceLoader, setShowBalanceLoader] = useState<boolean>(
+		isLoadingTokenBalance,
+	);
+
 	let content: ReactNode;
 
 	switch (step) {
 		case Step.DETAILS:
-			content = (
+			content = !showBalanceLoader ? (
 				<Details
 					zna={zna}
 					errorText={error}
 					bidAmount={bidAmount}
-					tokenBalance={tokenBalance}
 					setBidAmount={setBidAmount}
 					onCheckZAuction={onCheckZAuction}
 					onClose={onClose}
 				/>
+			) : (
+				<Wizard.Loading message={`Loading ${paymentTokenSymbol} balance...`} />
 			);
 			break;
 
@@ -100,6 +107,13 @@ export const useFormSteps = ({
 			content = <Wizard.Loading message={statusText} />;
 			break;
 	}
+
+	// prevent jolt for fast data loading
+	setTimeout(() => {
+		if (!isLoadingTokenBalance) {
+			setShowBalanceLoader(false);
+		}
+	}, 500);
 
 	return { content };
 };
