@@ -18,7 +18,8 @@ export const useCancelBidData = (zna: string) => {
 	const { data: metadata, isLoading: isLoadingMetadata } =
 		useDomainMetadata(domainId);
 	const { data: paymentToken } = usePaymentToken(parentZna);
-	const { data: tokenBalance } = useUserTokenBalance(account, paymentToken?.id);
+	const { data: tokenBalance, isLoading: isLoadingTokenBalance } =
+		useUserTokenBalance(account, paymentToken?.id);
 
 	const title = metadata?.title;
 	const creator = domain?.minter;
@@ -26,7 +27,8 @@ export const useCancelBidData = (zna: string) => {
 	const balanceAsString = tokenBalance?.balanceAsString ?? '';
 	const imageSrc = metadata?.previewImage ?? metadata?.image;
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
-	const paymentTokenLabel = paymentToken?.label ?? '';
+	const paymentTokenSymbol = paymentToken?.symbol ?? '';
+	const tokenBalanceString = tokenBalance?.balanceAsString ?? '';
 
 	return {
 		domainId,
@@ -36,9 +38,11 @@ export const useCancelBidData = (zna: string) => {
 		imageAlt,
 		highestBid,
 		balanceAsString,
-		paymentTokenLabel,
+		paymentTokenSymbol,
+		tokenBalanceString,
 		isLoadingDomain,
 		isLoadingMetrics,
 		isLoadingMetadata,
+		isLoadingTokenBalance,
 	};
 };

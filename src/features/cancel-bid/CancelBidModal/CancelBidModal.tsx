@@ -11,12 +11,10 @@ import styles from './CancelBidModal.module.scss';
 
 export interface CancelBidModalProps extends BasicModalProps {
 	zna: ModalContentProps['zna'];
-	tokenBalance: ModalContentProps['tokenBalance'];
 }
 
 export const CancelBidModal: FC<CancelBidModalProps> = ({
 	zna,
-	tokenBalance,
 	...modalProps
 }) => {
 	const { account } = useWeb3();
@@ -34,12 +32,7 @@ export const CancelBidModal: FC<CancelBidModalProps> = ({
 			onOpenChange={(isOpen: boolean) => setIsModalOpen(isOpen)}
 			{...modalProps}
 		>
-			<ModalContent
-				account={account}
-				zna={zna}
-				tokenBalance={tokenBalance}
-				onClose={onClose}
-			/>
+			<ModalContent account={account} zna={zna} onClose={onClose} />
 		</Modal>
 	);
 };
@@ -51,18 +44,12 @@ export const CancelBidModal: FC<CancelBidModalProps> = ({
 interface ModalContentProps {
 	account: string;
 	zna: CancelBidFormProps['zna'];
-	tokenBalance: CancelBidFormProps['tokenBalance'];
 	onClose: CancelBidFormProps['onClose'];
 }
 
-const ModalContent = ({
-	account,
-	zna,
-	tokenBalance,
-	onClose,
-}: ModalContentProps) => {
+const ModalContent = ({ account, zna, onClose }: ModalContentProps) => {
 	return account ? (
-		<CancelBidForm zna={zna} tokenBalance={tokenBalance} onClose={onClose} />
+		<CancelBidForm zna={zna} onClose={onClose} />
 	) : (
 		<ConnectWallet message={'Connect your wallet to cancel a bid.'} />
 	);

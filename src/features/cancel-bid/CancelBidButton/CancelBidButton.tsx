@@ -1,8 +1,7 @@
 import { FC } from 'react';
 
-import { useCancelBidData } from '../useCancelBidData';
-
 import { CancelBidModal, CancelBidModalProps } from '..';
+import { IconLinkExternal1 } from '@zero-tech/zui/components/Icons';
 
 import styles from './CancelBidButton.module.scss';
 
@@ -15,18 +14,19 @@ export const CancelBidButton: FC<CancelBidButtonProps> = ({
 	zna,
 	variant = 'primary',
 }) => {
-	const { balanceAsString } = useCancelBidData(zna);
-
-	const textButton = <p className={styles.TextButton}>{'Cancel Bid'}</p>;
-
 	const triggerVariant: CancelBidModalProps['trigger'] =
 		variant === 'text' ? textButton : 'Cancel Bid';
 
-	return (
-		<CancelBidModal
-			zna={zna}
-			tokenBalance={balanceAsString}
-			trigger={triggerVariant}
-		/>
-	);
+	return <CancelBidModal zna={zna} trigger={triggerVariant} />;
 };
+
+/**************
+ * textButton
+ **************/
+
+const textButton = (
+	<div className={styles.Container}>
+		<p className={styles.TextButton}>{'Cancel Bid'}</p>
+		<IconLinkExternal1 className={styles.Icon} size={'1.15rem'} isFilled />
+	</div>
+);
