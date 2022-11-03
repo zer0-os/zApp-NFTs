@@ -33,10 +33,8 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		zna,
 	});
 
-	const buyNowPriceString = buyNowPrice ? buyNowPrice : highestBid;
-
-	const label =
-		(buyNowPriceString ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
+	const metric = buyNowPrice ? buyNowPrice : highestBid;
+	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
 
 	const button = buyNowPrice ? (
 		<BuyNowButton />
@@ -44,9 +42,14 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		<PlaceBidButton zna={zna} trigger={'Bid'} />
 	);
 
-	const handleOnClick = useCallback(() => {
-		onClick(undefined, zna);
-	}, [zna, onClick]);
+	const handleOnClick = useCallback(
+		(event: any) => {
+			if (event.currentTarget.contains(event.target)) {
+				onClick(undefined, zna);
+			}
+		},
+		[zna, onClick],
+	);
 
 	return (
 		<GridCard
@@ -71,7 +74,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 				zna={zna}
 				label={label}
 				primaryText={{
-					text: buyNowPriceString,
+					text: metric,
 					isLoading: isLoadingMetrics,
 				}}
 				secondaryText={''}

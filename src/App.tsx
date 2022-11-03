@@ -3,6 +3,7 @@ import { Switch } from 'react-router-dom';
 import { useCurrentRoute } from './lib/hooks/useCurrentRoute';
 import { useSubdomainData } from './lib/hooks/useSubdomainData';
 
+import { ZAppContent } from '@zero-tech/zapp-utils/components/ZAppContent';
 import { Domains } from './pages/Domains';
 import { NFT } from './pages/NFT';
 
@@ -16,14 +17,16 @@ export const App = () => {
 	const { data: subdomains } = useSubdomainData(currentDomainId);
 
 	return (
-		<main
-			className={cx(styles.Main, {
-				isRoot: isRootDomain,
-			})}
-		>
-			<Switch>
-				{isNftView || subdomains?.length === 0 ? <NFT /> : <Domains />}
-			</Switch>
-		</main>
+		<ZAppContent>
+			<main
+				className={cx(styles.Main, {
+					isRoot: isRootDomain,
+				})}
+			>
+				<Switch>
+					{isNftView || subdomains?.length === 0 ? <NFT /> : <Domains />}
+				</Switch>
+			</main>
+		</ZAppContent>
 	);
 };
