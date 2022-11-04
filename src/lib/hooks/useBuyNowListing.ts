@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 
 import { useZnsSdk } from './useZnsSdk';
 
-export const useBuyNowPrice = (domainId: string) => {
+export const useBuyNowListing = (domainId: string) => {
 	const sdk = useZnsSdk();
 
 	return useQuery(

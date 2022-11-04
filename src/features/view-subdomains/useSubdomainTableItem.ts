@@ -1,5 +1,5 @@
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
-import { useBuyNowPrice } from '../../lib/hooks/useBuyNowPrice';
+import { useBuyNowListing } from '../../lib/hooks/useBuyNowListing';
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
 import { getDomainId, getParentZna } from '../../lib/util/domains/domains';
 import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
@@ -16,7 +16,7 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 	const { data: metrics, isLoading: isLoadingMetrics } =
 		useDomainMetrics(domainId);
 	const { data: buyNowPrice, isLoading: isLoadingBuyNowPrice } =
-		useBuyNowPrice(domainId);
+		useBuyNowListing(domainId);
 	const { data: metadata, isLoading: isLoadingMetadata } =
 		useDomainMetadata(domainId);
 	const { data: paymentToken } = usePaymentToken(parentZna);
