@@ -35,8 +35,10 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	});
 
 	const handleOnClick = useCallback(
-		(e) => {
-			onClick(e, zna);
+		(event: any) => {
+			if (event.currentTarget.contains(event.target)) {
+				onClick(event, zna);
+			}
 		},
 		[zna, onClick],
 	);
