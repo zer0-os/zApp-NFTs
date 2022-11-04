@@ -5,6 +5,7 @@ import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
 import { getDomainId } from '../../lib/util/domains/domains';
 import { MemberTitle } from '../../lib/constants/labels';
 
+import { Options } from './Options';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
 import { ArrowLink } from '@zero-tech/zui/components/Link';
@@ -94,7 +95,14 @@ export const DomainPreview: FC<DomainPreviewProps> = ({ zna, variant }) => {
 				<div className={styles.TextContainer}>
 					<Title title={title} />
 
-					{variant === 'full' && <Members members={members} />}
+					<div className={styles.FlexRow}>
+						{variant === 'full' && (
+							<>
+								<Members members={members} />
+								<Options zna={zna} />
+							</>
+						)}
+					</div>
 
 					<Description description={description} />
 

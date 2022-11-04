@@ -54,14 +54,20 @@
 				margin: 0.5rem 0 0 0;
 			}
 
-			.MemberContainer {
+			.FlexRow {
 				display: flex;
-				padding: 0;
-				margin: 1.5rem 0 0 0;
-				list-style: none;
+				justify-content: space-between;
+				align-items: center;
 
-				> *:not(:first-child) {
-					margin-left: 2rem;
+				.MemberContainer {
+					display: flex;
+					padding: 0;
+					margin: 1.5rem 0 0 0;
+					list-style: none;
+
+					> *:not(:first-child) {
+						margin-left: 2rem;
+					}
 				}
 			}
 

@@ -12,9 +12,14 @@ import styles from './Member.module.scss';
 export interface MemberProps {
 	title: string;
 	walletAddress: string | AsyncText;
+	variant?: 'primary' | 'secondary';
 }
 
-export const Member = ({ title, walletAddress }: MemberProps) => {
+export const Member = ({
+	title,
+	walletAddress,
+	variant = 'primary',
+}: MemberProps) => {
 	const { chainId } = useWeb3();
 
 	const isAsyncText = typeof walletAddress === 'object';
@@ -23,7 +28,9 @@ export const Member = ({ title, walletAddress }: MemberProps) => {
 
 	return (
 		<div className={styles.Member}>
-			<label className={styles.Title}>{title}</label>
+			<label className={styles.Title} data-variant={variant}>
+				{title}
+			</label>
 			<Link href={url}>
 				<Address walletAddress={walletAddress} />
 			</Link>

@@ -2,18 +2,25 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Member {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-    .Title {
-        color: $purple-lightest;
-        font-size: $size-tiny;
-        margin-bottom: 0.125rem;
-    }
+	.Title {
+		font-size: $size-tiny;
+		margin-bottom: 0.125rem;
 
-    .Address {
-        font-size: $size-medium;
-        margin-bottom: 1rem;
-        min-width: 4.375rem; // 70px - width of truncated address
-    }
+		&[data-variant='primary'] {
+			color: $purple-lightest;
+		}
+
+		&[data-variant='secondary'] {
+			color: $grey-lighter-2;
+		}
+	}
+
+	.Address {
+		font-size: $size-medium;
+		margin-bottom: 1rem;
+		min-width: 4.375rem; // 70px - width of truncated address
+	}
 }
