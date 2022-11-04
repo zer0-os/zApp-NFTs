@@ -20,9 +20,9 @@ export const Confirm: FC<ConfirmProps> = ({
 	bidAmount,
 	onConfirm,
 }) => {
-	const { paymentTokenLabel } = usePlaceBidData(zna);
+	const { paymentTokenSymbol } = usePlaceBidData(zna);
 
-	const textContent = `Are you sure you want to place a bid of ${bidAmount} ${paymentTokenLabel} for 0://${zna}.`;
+	const textContent = `Are you sure you want to place a bid of ${bidAmount} ${paymentTokenSymbol} on 0://${zna}.`;
 
 	const primaryButtonText: ButtonsProps['primaryButtonText'] = errorText
 		? 'Retry'

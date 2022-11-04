@@ -9,15 +9,10 @@ import styles from './PlaceBidForm.module.scss';
 
 interface PlaceBidFormProps {
 	zna: string;
-	tokenBalance: string;
 	onClose: useFormStepsProps['onClose'];
 }
 
-export const PlaceBidForm: FC<PlaceBidFormProps> = ({
-	zna,
-	tokenBalance,
-	onClose,
-}) => {
+export const PlaceBidForm: FC<PlaceBidFormProps> = ({ zna, onClose }) => {
 	const {
 		step,
 		error,
@@ -34,7 +29,6 @@ export const PlaceBidForm: FC<PlaceBidFormProps> = ({
 		step,
 		error,
 		statusText,
-		tokenBalance,
 		bidAmount,
 		setBidAmount,
 		onCheckZAuction,

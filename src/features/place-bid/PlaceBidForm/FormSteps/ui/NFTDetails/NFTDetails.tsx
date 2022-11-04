@@ -24,7 +24,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		imageAlt,
 		imageSrc,
 		highestBid,
-		paymentTokenLabel,
+		paymentTokenSymbol,
 		isLoadingDomain,
 		isLoadingMetrics,
 		isLoadingMetadata,
@@ -51,9 +51,9 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		},
 		{
 			id: 'highest-bid',
-			title: 'HighestBid',
+			title: 'Highest Bid',
 			className: styles.InfoValue,
-			text: `${formattedHighestBid} ${paymentTokenLabel}`,
+			text: `${formattedHighestBid} ${paymentTokenSymbol}`,
 			isLoading: isLoadingMetrics,
 			as: 'span' as const,
 		},
@@ -91,7 +91,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 				</ul>
 
 				<div className={styles.ActionContainer}>
-					<ViewBidsButton variant="text" />
+					<ViewBidsButton zna={zna} variant="text" />
 				</div>
 			</div>
 		</div>

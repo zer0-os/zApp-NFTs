@@ -81,11 +81,11 @@ export const Actions = ({ zna }: ActionsProps) => {
 			isVisible: isBiddable || isViewBids,
 			dataTestId: DataTestId.BID,
 			buttonComponent: !isOwnedByUser ? (
-				<PlaceBidButton zna={zna} />
+				<PlaceBidButton zna={zna} trigger={'Place A Bid'} />
 			) : !isViewBids ? (
 				<></>
 			) : (
-				<ViewBidsButton />
+				<ViewBidsButton zna={zna} variant="primary" />
 			),
 		},
 		[ActionTypes.USER_BID]: {

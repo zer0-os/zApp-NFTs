@@ -1,0 +1,74 @@
+@import '../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+
+$width: 440px;
+$gutter: 16px;
+
+.Container {
+	display: flex;
+	flex-direction: column;
+	width: $width;
+	min-width: $width;
+	max-width: $width;
+	max-height: 80vh;
+	overflow: hidden;
+
+	.Header {
+		margin: 3rem 2.5rem 0.25rem 2.5rem;
+
+		h1 {
+			margin: 0 0 0.5rem 0;
+		}
+	}
+
+	.BidList {
+		height: 100%;
+		max-height: 100%;
+		margin: -2.5rem 0 0 0;
+		padding: 0 0 1.5rem 0;
+
+		overflow-y: auto;
+		overflow-x: visible;
+
+		&::-webkit-scrollbar-corner {
+			background: $black;
+			height: 0;
+			width: 0;
+		}
+
+		&::-webkit-scrollbar-track {
+			background-color: none;
+		}
+
+		&::-webkit-scrollbar {
+			width: 0.375rem;
+			background-color: none;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			border-radius: 0.625rem;
+			background-color: rgba(60, 161, 255, 0.2);
+		}
+
+		.BidItem {
+			&:hover {
+				background: $purple-10;
+			}
+
+			.BidContent {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				margin: 0 2.1rem 0 2.5rem;
+
+				.TextContent {
+					margin: 0.813rem 0;
+				}
+			}
+		}
+	}
+
+	.Loading {
+		margin-bottom: 2.5rem;
+	}
+}

@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { usePlaceBidData } from '../../../usePlaceBidData';
+
 import {
 	ExternalLinks,
 	NFTDetails,
@@ -14,23 +16,23 @@ import styles from '../FormSteps.module.scss';
 
 export interface DetailsProps {
 	zna: string;
-	error: string;
+	errorText: string;
 	bidAmount: string;
-	tokenBalance: string;
 	setBidAmount?: InputProps['onChange'];
 	onCheckZAuction?: ButtonProps['onPress'];
 	onClose: ButtonProps['onPress'];
 }
 
 export const Details: FC<DetailsProps> = ({
-	error,
 	zna,
+	errorText,
 	bidAmount,
-	tokenBalance,
 	setBidAmount,
 	onCheckZAuction,
 	onClose,
 }) => {
+	const { tokenBalanceString: tokenBalance } = usePlaceBidData(zna);
+
 	const isTokenBalance = tokenBalance !== '0.0';
 
 	const isInputValueValid =
@@ -45,7 +47,7 @@ export const Details: FC<DetailsProps> = ({
 		: false;
 
 	const buttonText: ButtonProps['children'] = isTokenBalance
-		? error
+		? errorText
 			? 'Retry'
 			: 'Continue'
 		: 'Cancel';
@@ -96,7 +98,7 @@ export const Details: FC<DetailsProps> = ({
 					</>
 				)}
 
-				{error !== undefined && <ErrorText text={error} />}
+				{errorText !== undefined && <ErrorText text={errorText} />}
 
 				<Button
 					className={styles.Button}

@@ -61,7 +61,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	const button = buyNowPrice ? (
 		<BuyNowButton />
 	) : (
-		<PlaceBidButton zna={zna} isRoot />
+		<PlaceBidButton zna={zna} trigger={'Bid'} />
 	);
 
 	const handleOnClick = useCallback(

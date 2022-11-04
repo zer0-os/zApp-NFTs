@@ -1,0 +1,15 @@
+.Container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+
+	.Button {
+		margin-top: 2.5rem;
+	}
+
+	.Confirmation {
+		margin-bottom: 1.125rem;
+		white-space: pre-line;
+	}
+}
