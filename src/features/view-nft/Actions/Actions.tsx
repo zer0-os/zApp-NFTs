@@ -44,6 +44,8 @@ export const Actions = ({ zna }: ActionsProps) => {
 		? bigNumberToLocaleString(buyNowPrice)
 		: '-';
 
+	const bidsButton = getBidsButton(zna, isOwnedByUser, isViewBids);
+
 	const actions = [
 		{
 			label: `Buy Now ${paymentTokenLabel}`,
@@ -60,13 +62,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 		{
 			label: `Highest Bid ${paymentTokenLabel}`,
 			value: highestBidString,
-			button: (
-				<BidsButton
-					zna={zna}
-					isOwnedByUser={isOwnedByUser}
-					isViewBids={isViewBids}
-				/>
-			),
+			button: bidsButton,
 			isVisible: isDomainBiddable || isViewBids,
 		},
 		{
@@ -101,16 +97,14 @@ export const Actions = ({ zna }: ActionsProps) => {
 };
 
 /*************
- * BidsButton
+ * getBidsButton
  *************/
 
-interface BidsButtonProps {
-	zna: string;
-	isOwnedByUser: boolean;
-	isViewBids: boolean;
-}
-
-const BidsButton = ({ zna, isOwnedByUser, isViewBids }: BidsButtonProps) =>
+const getBidsButton = (
+	zna: string,
+	isOwnedByUser: boolean,
+	isViewBids: boolean,
+) =>
 	!isOwnedByUser ? (
 		<PlaceBidButton zna={zna} trigger={'Place A Bid'} />
 	) : (
