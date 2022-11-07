@@ -15,7 +15,11 @@ export interface DetailsProps {
 }
 
 export const Details: FC<DetailsProps> = ({ zna, errorText, onNext }) => {
-	const { tokenBalanceString: tokenBalance, isLoading } = useCancelBidData(zna);
+	const {
+		tokenBalanceString: tokenBalance,
+		paymentTokenSymbol,
+		isLoading,
+	} = useCancelBidData(zna);
 
 	const primaryButtonText: ButtonsProps['primaryButtonText'] = errorText
 		? 'Retry'
@@ -26,7 +30,11 @@ export const Details: FC<DetailsProps> = ({ zna, errorText, onNext }) => {
 			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
-				<UserBalance tokenBalance={tokenBalance} isLoading={isLoading} />
+				<UserBalance
+					tokenBalance={tokenBalance}
+					paymentTokenSymbol={paymentTokenSymbol}
+					isLoading={isLoading}
+				/>
 
 				<Wizard.Buttons
 					className={styles.Button}
@@ -45,17 +53,25 @@ export const Details: FC<DetailsProps> = ({ zna, errorText, onNext }) => {
 
 interface UserBalanceProps {
 	tokenBalance: string;
+	paymentTokenSymbol: string;
 	isLoading: boolean;
 }
 
-const UserBalance = ({ tokenBalance, isLoading }: UserBalanceProps) => {
+const UserBalance = ({
+	tokenBalance,
+	paymentTokenSymbol,
+	isLoading,
+}: UserBalanceProps) => {
 	return (
 		<div className={styles.UserBalanceContainer}>
 			<label className={styles.Label}>{'Your Balance'}</label>
 			<SkeletonText
 				className={styles.Balance}
 				as={'span'}
-				asyncText={{ text: tokenBalance, isLoading: isLoading }}
+				asyncText={{
+					text: `${tokenBalance} ${paymentTokenSymbol}`,
+					isLoading: isLoading,
+				}}
 			/>
 		</div>
 	);

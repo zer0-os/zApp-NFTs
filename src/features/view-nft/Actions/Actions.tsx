@@ -1,9 +1,8 @@
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { useBuyNowPrice } from '../../../lib/hooks/useBuyNowPrice';
 import { useBidData } from '../../../lib/hooks/useBidData';
-import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
 import { formatEthers } from '../../../lib/util/number/number';
-import { getUserBids } from '../../../lib/util/bids/bids';
+import { getUserBids, sortBidsByAmount } from '../../../lib/util/bids/bids';
 import { getDomainId } from '../../../lib/util/domains/domains';
 import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 import { useDomainData } from '../../../lib/hooks/useDomainData';
@@ -36,22 +35,25 @@ export const Actions = ({ zna }: ActionsProps) => {
 	const { data: paymentToken } = usePaymentToken(zna);
 	const { data: domain } = useDomainData(domainId);
 	const { data: buyNowPriceData } = useBuyNowPrice(domainId);
-	const { data: metrics } = useDomainMetrics(domainId);
 	const { data: bids } = useBidData(domainId);
 	const { data: metadata } = useDomainMetadata(domainId);
+
+	const { sortedBids, highestBid } = sortBidsByAmount(bids);
+	const { userBids, highestUserBid } = getUserBids(account, sortedBids);
+
+	const highestBidString = highestBid ? formatEthers(highestBid?.amount) : '-';
+
+	const highestUserBidString = highestUserBid
+		? formatEthers(highestUserBid?.amount)
+		: '-';
 
 	const buyNowPrice = buyNowPriceData
 		? bigNumberToLocaleString(buyNowPriceData?.price)
 		: '-';
-	const userBids = getUserBids(account, bids) ?? [];
-	const highestUserBid =
-		userBids.length > 0 ? formatEthers(userBids[0]?.amount) : '-';
-	const highestBid =
-		metrics?.highestBid > '0' ? formatEthers(metrics?.highestBid) : '-';
 
 	const isOwnedByUser = domain?.owner?.toLowerCase() === account?.toLowerCase();
 	const isBiddable = !isOwnedByUser || Boolean(metadata?.isBiddable);
-	const isUserBid = !isOwnedByUser && userBids.length > 0;
+	const isUserBid = !isOwnedByUser && userBids?.length > 0;
 	const isSetBuyNow = isOwnedByUser && Boolean(domain?.name);
 	const isBuyNow =
 		Boolean(buyNowPriceData) && !isOwnedByUser && Boolean(domain?.name);
@@ -77,7 +79,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 		},
 		[ActionTypes.BID]: {
 			label: `${Labels.HIGHEST_BID} ` + paymentTokenSymbol,
-			amountToken: highestBid,
+			amountToken: highestBidString,
 			isVisible: isBiddable || isViewBids,
 			dataTestId: DataTestId.BID,
 			buttonComponent: !isOwnedByUser ? (
@@ -90,8 +92,8 @@ export const Actions = ({ zna }: ActionsProps) => {
 		},
 		[ActionTypes.USER_BID]: {
 			label: `${Labels.YOUR_BID} ` + paymentTokenSymbol,
-			amountToken: highestUserBid,
-			isVisible: !isUserBid,
+			amountToken: highestUserBidString,
+			isVisible: isUserBid,
 			dataTestId: DataTestId.USER_BID,
 			buttonComponent: <CancelBidButton zna={zna} variant="text" />,
 		},

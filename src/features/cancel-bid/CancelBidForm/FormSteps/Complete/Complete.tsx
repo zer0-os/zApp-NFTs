@@ -7,15 +7,16 @@ import styles from '../FormSteps.module.scss';
 
 export interface CompleteProps {
 	zna: NFTDetailsProps['zna'];
+	step: NFTDetailsProps['step'];
 	onClose: ButtonsProps['onClickPrimaryButton'];
 }
 
-export const Complete: FC<CompleteProps> = ({ zna, onClose }) => {
+export const Complete: FC<CompleteProps> = ({ zna, step, onClose }) => {
 	const textContent = 'Success! Bid accepted and ownership transferred.';
 
 	return (
 		<>
-			<NFTDetails zna={zna} />
+			<NFTDetails zna={zna} step={step} />
 
 			<div className={styles.Container}>
 				<TextContent variant={'success'} textContent={textContent} />

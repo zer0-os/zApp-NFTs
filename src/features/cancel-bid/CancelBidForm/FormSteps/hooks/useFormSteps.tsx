@@ -59,7 +59,7 @@ export const useFormSteps = ({
 			break;
 
 		case Step.COMPLETE:
-			content = <Complete zna={zna} onClose={onClose} />;
+			content = <Complete zna={zna} step={step} onClose={onClose} />;
 			break;
 
 		case Step.LOADING:

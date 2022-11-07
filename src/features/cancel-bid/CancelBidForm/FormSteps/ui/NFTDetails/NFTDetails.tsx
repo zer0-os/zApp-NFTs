@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import { Step } from '../../hooks';
 import { useCancelBidData } from '../../../../useCancelBidData';
 import { formatEthers } from '../../../../../../lib/util/number';
 import { HTMLTextElement } from '@zero-tech/zui/lib/types';
@@ -15,9 +16,10 @@ import styles from './NFTDetails.module.scss';
 
 export interface NFTDetailsProps {
 	zna: string;
+	step?: Step;
 }
 
-export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
+export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 	const {
 		title,
 		creator,
@@ -71,7 +73,6 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 			isLoading: isLoading,
 			as: 'span' as const,
 		},
-
 		{
 			id: 'your-bid',
 			title: 'Your Bid',
@@ -82,10 +83,13 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		},
 	];
 
+	const content =
+		step === Step.COMPLETE ? detailContent.slice(0, -1) : detailContent;
+
 	return (
 		<div className={styles.Container}>
 			<Media alt={imageAlt} src={imageSrc} />
-			<Details content={detailContent} />
+			<Details content={content} />
 		</div>
 	);
 };
