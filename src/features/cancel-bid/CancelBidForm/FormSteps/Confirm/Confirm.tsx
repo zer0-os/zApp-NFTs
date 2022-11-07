@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import { useCancelBidData } from '../../../useCancelBidData';
 import { Bid } from '@zero-tech/zauction-sdk';
 
 import { TextContent, TextContentProps } from '../ui';
@@ -9,7 +10,6 @@ import styles from '../FormSteps.module.scss';
 
 export interface ConfirmProps {
 	zna: string;
-	bid: Bid;
 	errorText: TextContentProps['errorText'];
 	onClose: () => void;
 	onConfirm: (bid: Bid) => void;
@@ -17,19 +17,20 @@ export interface ConfirmProps {
 
 export const Confirm: FC<ConfirmProps> = ({
 	zna,
-	bid,
 	errorText,
 	onClose,
 	onConfirm,
 }) => {
+	const { highestUserBid } = useCancelBidData(zna);
+
 	const primaryButtonText: ConfirmationProps['primaryButtonText'] = errorText
 		? 'Retry'
 		: 'Cancel Bid';
 
 	const textContent =
-		'Are you sure you want to cancel your bid?  \n This will cost gas and cannot be undone.';
+		'Are you sure you want to cancel your bid? \n This will cost gas and cannot be undone.';
 
-	const onConfirmAcceptBid = () => onConfirm(bid);
+	const onConfirmAcceptBid = () => onConfirm(highestUserBid);
 
 	return (
 		<>

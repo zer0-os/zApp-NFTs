@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useCancelBidForm, ZAuctionVersionType } from './hooks';
+import { useCancelBidForm } from './hooks';
 
 import { Step, useFormSteps, useFormStepsProps } from './FormSteps/hooks';
 import { Wizard } from '@zero-tech/zui/components';
@@ -13,21 +13,13 @@ export interface CancelBidFormProps {
 }
 
 export const CancelBidForm: FC<CancelBidFormProps> = ({ zna, onClose }) => {
-	let bid;
-	const bidNonce = '';
-	const bidVersion = ZAuctionVersionType.V1;
+	const { step, error, statusText, isLeadingBid, onCancelBid, onNext } =
+		useCancelBidForm(zna);
 
-	const { step, error, statusText, onCancelBid, onNext } = useCancelBidForm(
-		zna,
-		bidNonce,
-		bidVersion,
-	);
-
-	const subHeader = getSubHeader(step, true);
+	const subHeader = getSubHeader(step, isLeadingBid);
 
 	const { content } = useFormSteps({
 		zna,
-		bid,
 		step,
 		error,
 		statusText,

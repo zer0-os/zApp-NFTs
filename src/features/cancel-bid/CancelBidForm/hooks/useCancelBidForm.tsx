@@ -13,15 +13,16 @@ export enum ZAuctionVersionType {
 }
 
 enum StatusText {
-	PROCESSING_BID = 'A',
-	WAITING_FOR_APPROVAL = 'Waiting for approval from your wallet...',
-	WAITING_FOR_SIGNATURE = 'Waiting for transaction to be confirmed from wallet...',
+	PROCESSING_BID = 'Cancelling your bid. This may take up to 20 mins... Please do not close this window or refresh the page.',
+	WAITING_FOR_APPROVAL_VERSION_1 = 'Waiting for signature approval. You should receive a request in your wallet.',
+	WAITING_FOR_APPROVAL_VERSION_2 = 'Waiting for signature and transaction approval. You should receive two requests in your wallet.',
 }
 
 export type UseCancelBidFormReturn = {
 	step: Step;
 	error: string;
 	statusText: string;
+	isLeadingBid: boolean;
 	onNext: () => void;
 	onCancelBid: () => void;
 };
@@ -29,28 +30,23 @@ export type UseCancelBidFormReturn = {
 /**
  * Drives the logic behind the cancel bid form.
  */
-export const useCancelBidForm = (
-	zna: string,
-	bidNonce: string,
-	bidVersion: ZAuctionVersionType,
-): UseCancelBidFormReturn => {
+export const useCancelBidForm = (zna: string): UseCancelBidFormReturn => {
 	const sdk = useZnsSdk();
 
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const { domainId } = useCancelBidData(zna);
+	const { domainId, isLeadingBid, highestBid: bid } = useCancelBidData(zna);
 
 	const [error, setError] = useState<string>();
 	const [step, setStep] = useState<Step>(Step.DETAILS);
 	const [statusText, setStatusText] = useState<string>();
 
+	const bidVersion = bid?.version;
+	const cancelBidOnChain = bidVersion === ZAuctionVersionType.V2;
 	const versionWaitingStatus =
 		bidVersion === ZAuctionVersionType.V1
-			? 'Waiting for signature approval. You should receive a request in your wallet.'
-			: 'Waiting for signature and transaction approval. You should receive two requests in your wallet.';
-
-	// v1 bid or v2 bid
-	const cancelBidOnChain = bidVersion === ZAuctionVersionType.V1 ? false : true;
+			? StatusText.WAITING_FOR_APPROVAL_VERSION_1
+			: StatusText.WAITING_FOR_APPROVAL_VERSION_2;
 
 	const onNext = () => {
 		setStep(Step.CONFIRM);
@@ -60,7 +56,7 @@ export const useCancelBidForm = (
 		setError(undefined);
 		return executeTransaction(
 			sdk.zauction.cancelBid,
-			[bidNonce, cancelBidOnChain, provider.getSigner()],
+			[bid, cancelBidOnChain, provider.getSigner()],
 			{
 				onStart: () => {
 					setStep(Step.LOADING);
@@ -73,7 +69,7 @@ export const useCancelBidForm = (
 					setStep(Step.CONFIRM);
 				},
 
-				invalidationKeys: [['user', { account, domainId, bidNonce }]],
+				invalidationKeys: [['user', { account, domainId, bid }]],
 			},
 		);
 	};
@@ -82,6 +78,7 @@ export const useCancelBidForm = (
 		step,
 		error,
 		statusText,
+		isLeadingBid,
 		onNext,
 		onCancelBid,
 	};

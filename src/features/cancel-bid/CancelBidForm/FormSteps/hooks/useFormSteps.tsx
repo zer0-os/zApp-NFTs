@@ -1,6 +1,4 @@
-import { ReactNode, useState } from 'react';
-
-import { Bid } from '@zero-tech/zauction-sdk';
+import { ReactNode } from 'react';
 
 import {
 	Complete,
@@ -25,7 +23,6 @@ interface UseFormStepsReturn {
 
 export interface useFormStepsProps {
 	zna: string;
-	bid: Bid;
 	step: Step;
 	error: string;
 	statusText: string;
@@ -36,7 +33,6 @@ export interface useFormStepsProps {
 
 export const useFormSteps = ({
 	zna,
-	bid,
 	step,
 	error,
 	statusText,
@@ -48,16 +44,13 @@ export const useFormSteps = ({
 
 	switch (step) {
 		case Step.DETAILS:
-			content = (
-				<Details zna={zna} bid={bid} errorText={error} onNext={onNext} />
-			);
+			content = <Details zna={zna} errorText={error} onNext={onNext} />;
 			break;
 
 		case Step.CONFIRM:
 			content = (
 				<Confirm
 					zna={zna}
-					bid={bid}
 					errorText={error}
 					onClose={onClose}
 					onConfirm={onCancelBid}
