@@ -9,6 +9,8 @@ export const chainIdToNetworkType = (chainId?: Network): NETWORK_TYPES => {
 			return NETWORK_TYPES.MAINNET;
 		case 4:
 			return NETWORK_TYPES.RINKEBY;
+		case 5:
+			return NETWORK_TYPES.GOERLI;
 		default:
 			return NETWORK_TYPES.LOCAL;
 	}

@@ -43,6 +43,12 @@ export const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
 				);
 			}
 
+			case NETWORK_TYPES.GOERLI: {
+				return zns.createInstance(
+					zns.configuration.goerliConfiguration(provider),
+				);
+			}
+
 			default: {
 				throw new Error('SDK isn´t available for this chainId');
 			}
