@@ -3,15 +3,18 @@ import { FC } from 'react';
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../../lib/types/ui';
 
-import { TransferOwnershipForm } from '../TransferOwnershipForm';
+import {
+	TransferOwnershipForm,
+	TransferOwnershipFormProps,
+} from '../TransferOwnershipForm';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
 import styles from './TransferOwnershipModal.module.scss';
 
 export interface TransferOwnershipModalProps extends BasicModalProps {
-	zna: string;
-	onClose: () => void;
+	zna: ModalContentProps['zna'];
+	onClose: ModalContentProps['onClose'];
 }
 
 export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
@@ -20,23 +23,36 @@ export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
 	trigger,
 	onClose,
 	onOpenChange,
+	...modalProps
 }) => {
 	const { account } = useWeb3();
-
-	const content = account ? (
-		<TransferOwnershipForm zna={zna} onClose={onClose} />
-	) : (
-		<ConnectWallet message={'Connect your wallet to place a bid.'} />
-	);
 
 	return (
 		<Modal
 			className={styles.Container}
 			open={open}
 			onOpenChange={onOpenChange}
-			trigger={trigger}
+			{...modalProps}
 		>
-			{content}
+			<ModalContent account={account} zna={zna} onClose={onClose} />
 		</Modal>
+	);
+};
+
+/*******************
+ * ModalContent
+ *******************/
+
+interface ModalContentProps {
+	account: string;
+	zna: TransferOwnershipFormProps['zna'];
+	onClose: TransferOwnershipFormProps['onClose'];
+}
+
+const ModalContent = ({ account, zna, onClose }: ModalContentProps) => {
+	return account ? (
+		<TransferOwnershipForm zna={zna} onClose={onClose} />
+	) : (
+		<ConnectWallet message={'Connect your wallet to transfer ownership.'} />
 	);
 };

@@ -1,56 +1,37 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
+import { useFormSteps, useFormStepsProps } from './FormSteps/hooks';
 import { useTransferOwnershipForm } from './hooks/useTransferOwnershipForm';
-import { Step } from './TransferOwnershipForm.constants';
 
-import { Confirm, Complete, Details, Transaction } from '../FormSteps';
 import { Wizard } from '@zero-tech/zui/components';
 
-interface TransferOwnershipFormProps {
+import styles from './TransferOwnershipForm.module.scss';
+
+export interface TransferOwnershipFormProps {
 	zna: string;
-	onClose: () => void;
+	onClose: useFormStepsProps['onClose'];
 }
 
 export const TransferOwnershipForm: FC<TransferOwnershipFormProps> = ({
 	zna,
 	onClose,
 }) => {
-	const { step, error, onConfirmInput, onConfirmTransaction } =
+	const { step, error, statusText, onConfirmInput, onConfirmTransfer } =
 		useTransferOwnershipForm(zna);
 
-	let content: ReactNode;
-
-	switch (step) {
-		case Step.DETAILS:
-			content = <Details zna={zna} error={error} onConfirm={onConfirmInput} />;
-			break;
-
-		case Step.CONFIRM:
-			content = (
-				<Confirm
-					errorMessage={error}
-					onClose={onClose}
-					onConfirm={onConfirmTransaction}
-				/>
-			);
-			break;
-
-		case Step.TRANSACTION_APPROVAL:
-			content = <Transaction />;
-			break;
-
-		case Step.TRANSACTION_IN_PROGRESS:
-			content = <Transaction isTransferring />;
-			break;
-
-		case Step.COMPLETE:
-			content = <Complete onClose={onClose} />;
-			break;
-	}
+	const { content } = useFormSteps({
+		zna,
+		step,
+		error,
+		statusText,
+		onClose,
+		onConfirmInput,
+		onConfirmTransfer,
+	});
 
 	return (
-		<form>
-			<Wizard.Container header="Transfer Ownership">{content}</Wizard.Container>
-		</form>
+		<Wizard.Container header="Transfer Ownership">
+			<form className={styles.Form}>{content}</form>
+		</Wizard.Container>
 	);
 };
