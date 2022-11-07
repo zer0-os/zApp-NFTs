@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
+import { formatEthers } from '../../../../../../lib/util';
 import { usePlaceBidData } from '../../../../usePlaceBidData';
-import { formatEthers } from '../../../../../../lib/util/number';
 import {
 	truncateAddress,
 	truncateDomain,

@@ -1,13 +1,16 @@
 import { FC } from 'react';
 
-import { StatsList } from '../../ui';
-
 import { useBidData } from '../../../lib/hooks/useBidData';
-
-import { formatEthers, formatNumber } from '../../../lib/util/number/number';
-import { getDomainId, getParentZna } from '../../../lib/util/domains/domains';
 import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
 import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
+import {
+	formatEthers,
+	formatNumber,
+	getDomainId,
+	getParentZna,
+} from '../../../lib/util';
+
+import { StatsList } from '../../ui';
 
 type NFTMetricsProps = {
 	zna: string;

@@ -1,14 +1,13 @@
 import { FC } from 'react';
 
-import { Skeleton } from '@zero-tech/zui/components';
-import { HistoryItem } from '../HistoryItem';
-
-import { getDomainId } from '../../../lib/util/domains/domains';
+import { getDomainId } from '../../../lib/util';
+import { DomainEvent } from '../../../lib/types/events';
+import { sortEventsByTimestamp } from './HistoryList.utils';
 import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
 import { useDomainEvents } from '../../../lib/hooks/useDomainEvents';
-import { DomainEvent } from '../../../lib/types/events';
 
-import { sortEventsByTimestamp } from './HistoryList.utils';
+import { HistoryItem } from '../HistoryItem';
+import { Skeleton } from '@zero-tech/zui/components';
 
 import styles from './HistoryList.module.scss';
 

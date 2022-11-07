@@ -1,6 +1,6 @@
 import { ActionBlock, ActionTypes } from './Actions.types';
 
-import { formatNumber } from '../../../lib/util/number/number';
+import { formatNumber } from '../../../lib/util';
 
 export const getOrderedActions = (
 	isOwnedByUser: boolean,

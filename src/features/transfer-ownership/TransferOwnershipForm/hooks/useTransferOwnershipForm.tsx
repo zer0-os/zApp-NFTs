@@ -6,13 +6,11 @@ import {
 	getInputErrorMessage,
 } from '../TransferOwnershipForm.utils';
 
+import { getDomainId } from '../../../../lib/util';
 import { useWeb3 } from '../../../../lib/hooks/useWeb3';
 import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
-import { getDomainId } from '../../../../lib/util/domains/domains';
 import { useDomainData } from '../../../../lib/hooks/useDomainData';
-import { TransactionErrors } from '../../../../lib/constants/messages';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
-import { ContractTransaction } from 'ethers';
 
 export type UseTransferOwnershipFormReturn = {
 	step: Step;

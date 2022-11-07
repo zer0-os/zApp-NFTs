@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
+import { formatEthers } from '../../../../../../lib/util';
 import { useAcceptBidData } from '../../../../useAcceptBidData';
-import { formatEthers } from '../../../../../../lib/util/number';
 import { HTMLTextElement } from '@zero-tech/zui/lib/types';
 import {
 	truncateAddress,

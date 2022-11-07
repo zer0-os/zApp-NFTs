@@ -1,15 +1,15 @@
 import { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AsyncTable } from '@zero-tech/zui/components';
-import { SubdomainTableCard } from '../SubdomainTableCard';
-import { SubdomainTableRow } from '../SubdomainTableRow';
-
-import styles from './SubdomainTable.module.scss';
-
+import { getDomainId } from '../../../lib/util';
 import { COLUMNS } from '../SubdomainTable.constants';
 import { useSubdomainData } from '../../../lib/hooks/useSubdomainData';
-import { getDomainId } from '../../../lib/util/domains/domains';
+
+import { SubdomainTableCard } from '../SubdomainTableCard';
+import { SubdomainTableRow } from '../SubdomainTableRow';
+import { AsyncTable } from '@zero-tech/zui/components';
+
+import styles from './SubdomainTable.module.scss';
 
 type SubdomainTableProps = {
 	zna: string;

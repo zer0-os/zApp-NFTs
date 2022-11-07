@@ -1,18 +1,18 @@
 import { FC } from 'react';
 
+import { getDomainId } from '../../lib/util';
+import { MemberTitle } from '../../lib/constants/labels';
 import { useDomainData } from '../../lib/hooks/useDomainData';
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
-import { getDomainId } from '../../lib/util/domains/domains';
-import { MemberTitle } from '../../lib/constants/labels';
 
 import { Options } from './Options';
+import { Member } from '../ui/Member';
+import { ArrowLink } from '@zero-tech/zui/components/Link';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
-import { ArrowLink } from '@zero-tech/zui/components/Link';
-import { Member } from '../ui/Member';
 
-import styles from './DomainPreview.module.scss';
 import classNames from 'classnames/bind';
+import styles from './DomainPreview.module.scss';
 
 const cx = classNames.bind(styles);
 

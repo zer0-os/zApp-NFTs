@@ -1,11 +1,10 @@
 import { FC } from 'react';
 
-import { StatsList } from '../../ui';
-
-import { formatEthers, formatNumber } from '../../../lib/util/number/number';
 import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
-import { getDomainId } from '../../../lib/util/domains/domains';
 import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
+import { formatEthers, formatNumber, getDomainId } from '../../../lib/util';
+
+import { StatsList } from '../../ui';
 
 interface SubdomainMetricsProps {
 	zna: string;
