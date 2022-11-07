@@ -9,7 +9,6 @@ export interface FormInputsProps {
 	label?: string;
 	errorMessage?: string;
 	placeholder?: string;
-	instructionText?: string;
 	isTransactionPending?: boolean;
 	onSubmit: (walletAddress: string) => void;
 }
@@ -19,7 +18,6 @@ export const FormInputs: FC<FormInputsProps> = ({
 	label,
 	errorMessage,
 	placeholder,
-	instructionText,
 	isTransactionPending,
 	onSubmit: onSubmitProps,
 }) => {
@@ -33,7 +31,6 @@ export const FormInputs: FC<FormInputsProps> = ({
 
 	return (
 		<div className={styles.Container}>
-			{instructionText && <p>{instructionText}</p>}
 			<Input
 				value={inputValue}
 				label={label}

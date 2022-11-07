@@ -1,8 +1,12 @@
 import { FC, useCallback } from 'react';
+import { useQuery } from 'react-query';
 
+import {
+	getCloudinaryUrlFromIpfs,
+	getCloudinaryVideoPoster,
+} from '@zero-tech/zapp-utils/utils/cloudinary';
+import { getHashFromIpfsUrl } from '@zero-tech/zapp-utils/utils/ipfs';
 import { useSubdomainTableItem } from '../useSubdomainTableItem';
-
-import { getCloudinaryUrlFromIpfs } from '@zero-tech/zapp-utils/utils/cloudinary';
 
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
@@ -33,6 +37,24 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		zna,
 	});
 
+	/*
+	 * NOTE: this query is here because some metadata `image`s are actually videos, which
+	 * have a different Cloudinary endpoint. This is not necessary in SubdomainTableRow
+	 * because we use IpfsMedia directly.
+	 */
+	const { data: imageSrc } = useQuery(['image', { image }], async () => {
+		const url = getCloudinaryUrlFromIpfs(image, 'image', {
+			size: 'medium',
+			fit: 'fill',
+		});
+		const res = await fetch(url, { method: 'HEAD' });
+		if (res.status === 200) {
+			return url;
+		} else {
+			return getCloudinaryVideoPoster(getHashFromIpfsUrl(image));
+		}
+	});
+
 	const metric = buyNowPrice ? buyNowPrice : highestBid;
 	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
 
@@ -54,13 +76,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	return (
 		<GridCard
 			className={styles.Container}
-			imageSrc={
-				image &&
-				getCloudinaryUrlFromIpfs(image, 'image', {
-					size: 'medium',
-					fit: 'fill',
-				})
-			}
+			imageSrc={imageSrc}
 			aspectRatio={1}
 			imageAlt={alt}
 			onClick={handleOnClick}
