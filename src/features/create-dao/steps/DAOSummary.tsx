@@ -64,7 +64,7 @@ export const DAOSummary: FC<DAOSummaryProps> = ({ onClose }) => {
 						/>
 						<DAOSummaryField 
 							label="zNA Address" 
-							value={details.znaAddress} 
+							value={truncateAddress(details.znaAddress)} 
 							className={styles.Summary_Second}
 							/>
 					</div>
