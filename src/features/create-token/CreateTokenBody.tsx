@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { MediaType } from '@zero-tech/zui/components/MediaInput';
-import { DetailsForm, TokenomicsForm, TokenSummary } from './Steps';
+import { DetailsForm, TokenomicsForm, TokenSummary } from './steps';
 import { DetailsFormSubmit, TokenomicsFormSubmit } from './CreateToken.types';
 
 type CreateTokenBodyProps = {

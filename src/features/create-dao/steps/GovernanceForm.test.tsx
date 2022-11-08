@@ -35,6 +35,7 @@ const DEFAULT_PROVIDER_VALUES = {
 	},
 	onStepUpdate: jest.fn(),
 	onTitleUpdate: jest.fn(),
+	onDetailsChange: jest.fn(),
 	onDetailsSubmit: jest.fn(),
 	onGovernanceSubmit: onSubmit,
 	onTreasurySubmit: jest.fn(),

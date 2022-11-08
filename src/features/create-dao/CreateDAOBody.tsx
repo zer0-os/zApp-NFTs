@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 
-import { DAOSummary, DetailsForm, GovernanceForm, TreasuryForm } from './Steps';
+import { DAOSummary, DetailsForm, GovernanceForm, TreasuryForm } from './steps';
 import { CreateDAOFormContext } from './';
 
 type CreateDAOBodyProps = {

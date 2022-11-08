@@ -30,6 +30,7 @@ export const CreateDAOFormContext = createContext({
 	},
 	onStepUpdate: (step: Step) => {},
 	onTitleUpdate: (title: string) => {},
+	onDetailsChange: (values: DetailsFormSubmit) => {},
 	onDetailsSubmit: (values: DetailsFormSubmit) => {},
 	onGovernanceSubmit: (values: GovernanceFormSubmit) => {},
 	onTreasurySubmit: (values: TreasuryFormSubmit) => {},
@@ -73,6 +74,10 @@ export const CreateDAOFormContextProvider: FC<Props> = ({ children }) => {
 		setTitle(title);
 	};
 
+	const onDetailsChange = (values: DetailsFormSubmit): void => {
+		setDetails(values);
+	};
+
 	const onDetailsSubmit = (values: DetailsFormSubmit): void => {
 		setTitle(`Create "${values.name}" DAO`);
 		setDetails(values);
@@ -103,6 +108,7 @@ export const CreateDAOFormContextProvider: FC<Props> = ({ children }) => {
 				treasury,
 				onStepUpdate,
 				onTitleUpdate,
+				onDetailsChange,
 				onDetailsSubmit,
 				onGovernanceSubmit,
 				onTreasurySubmit,

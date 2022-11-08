@@ -1,0 +1,17 @@
+@use '../../../../../zUI/src/styles/colors';
+
+.Footer {
+	margin-top: 5rem;
+}
+
+.InputExtraInfo {
+	text-align: right;
+	font-size: 0.75rem;
+	color: #{colors.$blue};
+	margin: 0.5rem 1.5rem 0 0;
+	display: block;
+
+	&.hasInputError {
+		margin-top: -0.6rem;
+	}
+}
