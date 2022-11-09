@@ -6,27 +6,20 @@ import { Modal } from '@zero-tech/zui/components';
 import { CreateTokenForm } from './';
 
 export interface CreateTokenModalProps extends BasicModalProps {
-	domainName: string;
+	zna: string;
+	onClose: () => string;
 }
 
 export const CreateTokenModal: FC<CreateTokenModalProps> = ({
-	domainName,
+	zna,
+	open,
+	onClose,
+	onOpenChange,
 	...props
 }) => {
-	const [isOpen, setIsOpen] = useState(false);
-
-	const onOpenChange = (open: boolean): void => {
-		if (!open) return;
-		setIsOpen(true);
-	};
-
-	const onClose = (): void => {
-		setIsOpen(false);
-	};
-
 	return (
-		<Modal {...props} open={isOpen} onOpenChange={onOpenChange}>
-			<CreateTokenForm domainName={domainName} onClose={onClose} />
+		<Modal {...props} open={open} onOpenChange={onOpenChange}>
+			<CreateTokenForm zna={zna} onClose={onClose} />
 		</Modal>
 	);
 };

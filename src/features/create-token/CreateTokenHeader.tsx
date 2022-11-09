@@ -1,8 +1,9 @@
 import { FC, useContext } from 'react';
 
-import { IconCross } from '@zero-tech/zui/components/Icons';
-import { Wizard, StepBar } from '@zero-tech/zui/components';
 import { CreateTokenFormContext, steps } from './';
+
+import { Wizard, StepBar } from '@zero-tech/zui/components';
+import { IconXClose } from '@zero-tech/zui/components/Icons';
 
 import styles from './CreateTokenHeader.module.scss';
 
@@ -26,7 +27,7 @@ export const CreateTokenHeader: FC<CreateTokenHeaderProps> = ({
 				sectionDivider={false}
 			>
 				<div className={styles.Close} onClick={onClose}>
-					<IconCross size={24} />
+					<IconXClose size={24} />
 				</div>
 				<StepBar
 					currentStepId={stepId}
