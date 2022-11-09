@@ -4,7 +4,7 @@ import { OptionLabel } from '../OptionLabel';
 import { CreateTokenModal } from '../../create-token';
 import { TransferOwnershipModal } from '../../transfer-ownership';
 import { DropdownMenu, DropdownMenuProps } from '@zero-tech/zui/components';
-import { IconSend3 } from '@zero-tech/zui/components/Icons';
+import { IconSend3, IconDatabase2 } from '@zero-tech/zui/components/Icons';
 
 export const enum OptionType {
 	TRANSFER = 'transfer',
@@ -24,7 +24,7 @@ const transferOptionLabel = (
 );
 
 const createTokenOptionLabel = (
-	<OptionLabel icon={<IconSend3 isFilled />} label="Create Token" />
+	<OptionLabel icon={<IconDatabase2 isFilled />} label="Create Token" />
 );
 
 /**
