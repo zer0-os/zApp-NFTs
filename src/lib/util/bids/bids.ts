@@ -21,7 +21,7 @@ export const sortBidsByAmount = (bids: Bid[]) => {
 		BigNumber.from(a.amount).gte(BigNumber.from(b.amount)) ? -1 : 1,
 	);
 
-	const highestBid = sortedBids?.length >= 0 ? sortedBids[0] : undefined;
+	const highestBid = sortedBids?.length > 0 ? sortedBids[0] : undefined;
 
 	return { sortedBids, highestBid };
 };
@@ -36,7 +36,7 @@ export const getUserBids = (accountId: string, bids: Bid[]) => {
 		(b) => b.bidder.toLowerCase() === accountId?.toLowerCase(),
 	);
 
-	const highestUserBid = userBids?.length >= 0 ? userBids[0] : undefined;
+	const highestUserBid = userBids?.length > 0 ? userBids[0] : undefined;
 
 	return { userBids, highestUserBid };
 };
