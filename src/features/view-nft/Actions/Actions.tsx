@@ -9,7 +9,7 @@ import { SetBuyNowButton } from '../../set-buy-now';
 import { PlaceBidButton } from '../../place-bid';
 import { ViewBidsButton } from '../../view-bids';
 import { CancelBidButton } from '../../cancel-bid';
-import { TextStack, TextStackProps } from '@zero-tech/zui/components';
+import { TextStack } from '@zero-tech/zui/components';
 
 import styles from './Actions.module.scss';
 
@@ -96,9 +96,9 @@ export const Actions = ({ zna }: ActionsProps) => {
 	);
 };
 
-/*************
+/***************
  * getBidsButton
- *************/
+ ***************/
 
 const getBidsButton = (
 	zna: string,
@@ -116,8 +116,8 @@ const getBidsButton = (
  *********/
 
 interface ActionProps {
-	label: TextStackProps['label'];
-	value: TextValueProps['value'];
+	label: string;
+	value: string;
 	button: ReactNode;
 	isLoading: boolean;
 }
