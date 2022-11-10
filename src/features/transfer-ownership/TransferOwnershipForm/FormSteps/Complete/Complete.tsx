@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
 import { TextContent } from '../ui/TextContent';
-import { Wizard, ConfirmationProps } from '@zero-tech/zui/components/Wizard';
+import { Wizard } from '@zero-tech/zui/components/Wizard';
 
 export interface CompleteProps {
-	onClose: ConfirmationProps['onClickPrimaryButton'];
+	onClose: () => void;
 }
 
 export const Complete: FC<CompleteProps> = ({ onClose }) => {

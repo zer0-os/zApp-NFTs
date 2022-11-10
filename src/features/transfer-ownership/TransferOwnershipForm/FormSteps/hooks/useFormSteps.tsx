@@ -1,13 +1,6 @@
 import { ReactNode } from 'react';
 
-import {
-	Complete,
-	CompleteProps,
-	Confirm,
-	ConfirmProps,
-	Details,
-	DetailsProps,
-} from '..';
+import { Complete, Confirm, Details } from '..';
 import { Wizard } from '@zero-tech/zui/components';
 
 export enum Step {
@@ -26,9 +19,9 @@ export interface useFormStepsProps {
 	step: Step;
 	error: string;
 	statusText: string;
-	onConfirmInput: DetailsProps['onConfirm'];
-	onConfirmTransfer: ConfirmProps['onConfirm'];
-	onClose: ConfirmProps['onClose'] | CompleteProps['onClose'];
+	onConfirmInput: (walletAddress: string) => void;
+	onConfirmTransfer: () => void;
+	onClose: () => void;
 }
 
 export const useFormSteps = ({

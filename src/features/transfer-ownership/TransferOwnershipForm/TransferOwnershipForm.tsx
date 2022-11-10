@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useFormSteps, useFormStepsProps } from './FormSteps/hooks';
+import { useFormSteps } from './FormSteps/hooks';
 import { useTransferOwnershipForm } from './hooks/useTransferOwnershipForm';
 
 import { Wizard } from '@zero-tech/zui/components';
@@ -9,7 +9,7 @@ import styles from './TransferOwnershipForm.module.scss';
 
 export interface TransferOwnershipFormProps {
 	zna: string;
-	onClose: useFormStepsProps['onClose'];
+	onClose: () => void;
 }
 
 export const TransferOwnershipForm: FC<TransferOwnershipFormProps> = ({

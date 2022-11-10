@@ -3,18 +3,15 @@ import { FC } from 'react';
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../../lib/types/ui';
 
-import {
-	TransferOwnershipForm,
-	TransferOwnershipFormProps,
-} from '../TransferOwnershipForm';
+import { TransferOwnershipForm } from '../TransferOwnershipForm';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
 import styles from './TransferOwnershipModal.module.scss';
 
 export interface TransferOwnershipModalProps extends BasicModalProps {
-	zna: ModalContentProps['zna'];
-	onClose: ModalContentProps['onClose'];
+	zna: string;
+	onClose: () => void;
 }
 
 export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
@@ -45,8 +42,8 @@ export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
 
 interface ModalContentProps {
 	account: string;
-	zna: TransferOwnershipFormProps['zna'];
-	onClose: TransferOwnershipFormProps['onClose'];
+	zna: TransferOwnershipModalProps['zna'];
+	onClose: TransferOwnershipModalProps['onClose'];
 }
 
 const ModalContent = ({ account, zna, onClose }: ModalContentProps) => {

@@ -5,8 +5,8 @@ import { Wizard, ConfirmationProps } from '@zero-tech/zui/components/Wizard';
 
 export interface ConfirmProps {
 	errorText?: string;
-	onConfirm: ConfirmationProps['onClickPrimaryButton'];
-	onClose: ConfirmationProps['onClickSecondaryButton'];
+	onConfirm: () => void;
+	onClose: () => void;
 }
 
 export const Confirm: FC<ConfirmProps> = ({

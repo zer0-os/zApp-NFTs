@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
 import { NFTDetails } from '../ui/NFTDetails';
-import { FormInputs, FormInputsProps } from '../../../../ui';
+import { FormInputs } from '../../../../ui';
 
 export interface DetailsProps {
 	zna: string;
-	errorText: FormInputsProps['errorMessage'];
-	onConfirm: FormInputsProps['onSubmit'];
+	errorText: string;
+	onConfirm: (walletAddress: string) => void;
 }
 
 export const Details: FC<DetailsProps> = ({ zna, errorText, onConfirm }) => {
