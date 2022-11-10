@@ -1,13 +1,8 @@
 import { ReactNode } from 'react';
 
-import {
-	Complete,
-	CompleteProps,
-	Confirm,
-	ConfirmProps,
-	Details,
-	DetailsProps,
-} from '..';
+import { Bid } from '@zero-tech/zauction-sdk';
+
+import { Complete, Confirm, Details } from '..';
 import { Wizard } from '@zero-tech/zui/components';
 
 export enum Step {
@@ -26,9 +21,9 @@ export interface useFormStepsProps {
 	step: Step;
 	error: string;
 	statusText: string;
-	onCancelBid: ConfirmProps['onConfirm'];
-	onNext: DetailsProps['onNext'];
-	onClose: CompleteProps['onClose'];
+	onCancelBid: (bid: Bid) => void;
+	onNext: () => void;
+	onClose: () => void;
 }
 
 export const useFormSteps = ({

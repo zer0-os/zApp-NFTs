@@ -25,7 +25,7 @@ export const PlaceBidModal: FC<PlaceBidModalProps> = ({
 		setIsModalOpen(false);
 	};
 
-	const content = account ? (
+	const content = !account ? (
 		<PlaceBidForm zna={zna} onClose={onClose} />
 	) : (
 		<ConnectWallet message={'Connect your wallet to place a bid.'} />

@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useCancelBidData } from '../../../useCancelBidData';
 
-import { NFTDetails, TextContentProps } from '../ui';
+import { NFTDetails } from '../ui';
 import { SkeletonText } from '@zero-tech/zui/components';
 import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
 
@@ -10,8 +10,8 @@ import styles from '../FormSteps.module.scss';
 
 export interface DetailsProps {
 	zna: string;
-	errorText: TextContentProps['errorText'];
-	onNext: ButtonsProps['onClickPrimaryButton'];
+	errorText: string;
+	onNext: () => void;
 }
 
 export const Details: FC<DetailsProps> = ({ zna, errorText, onNext }) => {

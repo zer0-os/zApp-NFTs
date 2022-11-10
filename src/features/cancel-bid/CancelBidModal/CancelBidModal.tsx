@@ -3,14 +3,14 @@ import { FC, useState } from 'react';
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../../lib/types/ui';
 
-import { CancelBidForm, CancelBidFormProps } from '..';
+import { CancelBidForm } from '..';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
 import styles from './CancelBidModal.module.scss';
 
 export interface CancelBidModalProps extends BasicModalProps {
-	zna: ModalContentProps['zna'];
+	zna: string;
 }
 
 export const CancelBidModal: FC<CancelBidModalProps> = ({
@@ -43,8 +43,8 @@ export const CancelBidModal: FC<CancelBidModalProps> = ({
 
 interface ModalContentProps {
 	account: string;
-	zna: CancelBidFormProps['zna'];
-	onClose: CancelBidFormProps['onClose'];
+	zna: CancelBidModalProps['zna'];
+	onClose: () => void;
 }
 
 const ModalContent = ({ account, zna, onClose }: ModalContentProps) => {

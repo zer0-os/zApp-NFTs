@@ -6,7 +6,7 @@ import { IconLinkExternal1 } from '@zero-tech/zui/components/Icons';
 import styles from './CancelBidButton.module.scss';
 
 interface CancelBidButtonProps {
-	zna: CancelBidModalProps['zna'];
+	zna: string;
 	variant?: 'primary' | 'text';
 }
 

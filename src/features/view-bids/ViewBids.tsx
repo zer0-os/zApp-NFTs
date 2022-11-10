@@ -8,16 +8,13 @@ import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
 import { Bid } from '@zero-tech/zauction-sdk';
 import moment from 'moment';
 
-import {
-	AcceptBidButton,
-	AcceptBidButtonProps,
-} from '../../features/accept-bid';
+import { AcceptBidButton } from '../../features/accept-bid';
 import { TextStack, TextStackProps, Wizard } from '@zero-tech/zui/components';
 
 import styles from './ViewBids.module.scss';
 
 export interface ViewBidsProps {
-	zna: BidListProps['zna'];
+	zna: string;
 }
 
 export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
@@ -84,10 +81,10 @@ const Header = () => {
  *******************/
 
 interface BidItemProps {
-	zna: AcceptBidButtonProps['zna'];
+	zna: BidListProps['zna'];
 	bid: Bid;
-	paymentTokenSymbol: string;
-	isAcceptBidEnabled: boolean;
+	paymentTokenSymbol: BidListProps['paymentTokenSymbol'];
+	isAcceptBidEnabled: BidListProps['isAcceptBidEnabled'];
 }
 
 const BidItem = ({
@@ -126,10 +123,10 @@ const BidItem = ({
  *******************/
 
 interface BidListProps {
-	zna: BidItemProps['zna'];
+	zna: ViewBidsProps['zna'];
 	bids: BidItemProps['bid'][];
-	paymentTokenSymbol: BidItemProps['paymentTokenSymbol'];
-	isAcceptBidEnabled: BidItemProps['isAcceptBidEnabled'];
+	paymentTokenSymbol: string;
+	isAcceptBidEnabled: boolean;
 }
 
 const BidList = ({

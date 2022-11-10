@@ -9,7 +9,7 @@ import {
 	TextContentProps,
 } from '../ui';
 import { ErrorText } from '../ui/ErrorText/ErrorText';
-import { Input, InputProps } from '@zero-tech/zui/components/Input';
+import { Input } from '@zero-tech/zui/components/Input';
 import { Button, ButtonProps } from '@zero-tech/zui/components/Button';
 
 import styles from '../FormSteps.module.scss';
@@ -18,9 +18,9 @@ export interface DetailsProps {
 	zna: string;
 	errorText: string;
 	bidAmount: string;
-	setBidAmount?: InputProps['onChange'];
-	onCheckZAuction?: ButtonProps['onPress'];
-	onClose: ButtonProps['onPress'];
+	setBidAmount?: (value: string) => void;
+	onCheckZAuction?: () => void;
+	onClose: () => void;
 }
 
 export const Details: FC<DetailsProps> = ({

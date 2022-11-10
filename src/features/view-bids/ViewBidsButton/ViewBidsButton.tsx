@@ -6,7 +6,7 @@ import { IconLinkExternal1 } from '@zero-tech/zui/components/Icons';
 import styles from './ViewBidsButton.module.scss';
 
 interface ViewBidsButtonProps {
-	zna: ViewBidsModalProps['zna'];
+	zna: string;
 	variant?: 'primary' | 'text';
 }
 
