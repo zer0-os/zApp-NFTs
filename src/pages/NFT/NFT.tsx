@@ -1,20 +1,21 @@
+import { useCurrentRoute } from '../../lib/hooks/useCurrentRoute';
+
 import {
-	Actions,
+	Banner,
+	DetailsCard,
 	HistoryList,
 	NFTMetrics,
 	TokenHashInfo,
 } from '../../features/view-nft';
-import { DomainPreview } from '../../features/domain-preview';
-
-import { useCurrentRoute } from '../../lib/hooks/useCurrentRoute';
 
 export const NFT = () => {
 	const { currentZna } = useCurrentRoute();
 
 	return (
 		<>
-			<DomainPreview zna={currentZna} variant={'full'} />
-			<Actions zna={currentZna} />
+			<Banner zna={currentZna} />
+			<DetailsCard zna={currentZna} />
+			{/* <Actions zna={currentZna} /> */}
 			<NFTMetrics zna={currentZna} />
 			<TokenHashInfo zna={currentZna} />
 			<HistoryList zna={currentZna} />

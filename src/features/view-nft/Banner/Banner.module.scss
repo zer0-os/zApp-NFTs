@@ -1,0 +1,27 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+
+.Container {
+	position: relative;
+
+	.Background {
+		height: 30rem;
+		width: calc(100vw - 20px);
+		margin-left: calc(-50vw + 50% + 10px);
+		background: radial-gradient(
+			rgba(241, 11, 9, 1) 0%,
+			rgba(243, 16, 15, 0) 100%
+		);
+		opacity: 0.16;
+		position: absolute;
+	}
+
+	.Banner {
+		padding-top: 96px;
+
+		.Media {
+			height: 22.5rem;
+			width: unset;
+			border-radius: $radius-primary;
+		}
+	}
+}

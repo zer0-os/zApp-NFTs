@@ -1,0 +1,51 @@
+.Content {
+	.TextContainer {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		margin-top: 3.5rem;
+
+		.Title {
+			font-size: 2.25rem;
+			line-height: 2.75rem;
+			margin: 0;
+		}
+	}
+
+	.FlexRowWrapper {
+		display: flex;
+		flex-direction: row;
+		margin-top: 1.5rem;
+		width: 100%;
+		justify-content: space-between;
+
+		gap: 2.5rem;
+
+		.FlexColumnWrapper {
+			.Description {
+				padding: 0;
+				margin: 0;
+				line-height: 1.5rem;
+				overflow: hidden;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+			}
+
+			.MemberContainer {
+				display: flex;
+				padding: 0;
+				margin: 2rem 0 0 0;
+				list-style: none;
+
+				gap: 2rem;
+
+				a {
+					line-height: 1.5rem;
+				}
+			}
+		}
+	}
+}

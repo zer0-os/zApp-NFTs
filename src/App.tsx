@@ -18,15 +18,17 @@ export const App = () => {
 
 	return (
 		<ZAppContent>
-			<main
-				className={cx(styles.Main, {
-					isRoot: isRootDomain,
-				})}
-			>
-				<Switch>
-					{isNftView || subdomains?.length === 0 ? <NFT /> : <Domains />}
-				</Switch>
-			</main>
+			<div className={styles.Container}>
+				<main
+					className={cx(styles.Main, {
+						isRoot: isRootDomain,
+					})}
+				>
+					<Switch>
+						{isNftView || subdomains?.length === 0 ? <NFT /> : <Domains />}
+					</Switch>
+				</main>
+			</div>
 		</ZAppContent>
 	);
 };

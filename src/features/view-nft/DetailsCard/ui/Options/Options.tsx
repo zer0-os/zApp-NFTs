@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { useWeb3 } from '../../../lib/hooks/useWeb3';
-import { getDomainId } from '../../../lib/util/domains/domains';
-import { useDomainData } from '../../../lib/hooks/useDomainData';
+import { useWeb3 } from '../../../../../lib/hooks/useWeb3';
+import { getDomainId } from '../../../../../lib/util/domains/domains';
+import { useDomainData } from '../../../../../lib/hooks/useDomainData';
 
-import { MoreNFTOptions } from '../../ui/MoreNFTOptions';
+import { MoreNFTOptions } from '../../../../ui/MoreNFTOptions';
 import { Tooltip } from '@zero-tech/zui/components';
 import {
 	IconDotsVertical,

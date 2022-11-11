@@ -1,10 +1,13 @@
-.Main {
-	margin: 100px auto 0 auto;
-	padding-bottom: 50px;
+.Container {
+	overflow-x: hidden;
 
-	max-width: 736px;
+	.Main {
+		margin: 0 auto;
+		padding-bottom: 50px;
+		max-width: 736px;
 
-	&.isRoot {
-		margin-top: 5.5rem;
+		&.isRoot {
+			margin-top: 5.5rem;
+		}
 	}
 }

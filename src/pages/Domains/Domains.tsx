@@ -1,15 +1,21 @@
 import { FC } from 'react';
 
-import { ViewSubdomains } from '../../features/view-subdomains/ViewSubdomains';
 import { useCurrentRoute } from '../../lib/hooks/useCurrentRoute';
-import { DomainPreview } from '../../features/domain-preview';
+
+import { Banner, DetailsCard } from '../../features/view-subdomains';
+import { ViewSubdomains } from '../../features/view-subdomains/ViewSubdomains';
 
 export const Domains: FC = () => {
 	const { currentZna, isRootDomain } = useCurrentRoute();
 
 	return (
 		<>
-			{!isRootDomain && <DomainPreview zna={currentZna} variant={'minimal'} />}
+			{!isRootDomain && (
+				<>
+					<Banner zna={currentZna} />
+					<DetailsCard zna={currentZna} />
+				</>
+			)}
 			<ViewSubdomains zna={currentZna} />
 		</>
 	);
