@@ -37,8 +37,8 @@ export const VOTING_PROCESS_OPTIONS: ToggleOptions = [
 	},
 ];
 
-export const getVotingPeriodItems = (setFieldValue: any): DropdownItem[] =>
-	[...Array(7)].map((_, i) => {
+export const getVotingPeriodItems = (setFieldValue: any): DropdownItem[] => {
+	return [...Array(7)].map((_, i) => {
 		const day = i + 1;
 		const dayString = i === 0 ? '1 Day' : `${day} Days`;
 
@@ -48,8 +48,11 @@ export const getVotingPeriodItems = (setFieldValue: any): DropdownItem[] =>
 			onSelect: () => setFieldValue('votingPeriod', dayString),
 		};
 	});
+};
 
-export const getVotingSystemItems = (setFieldValue: any): DropdownItem[] => [
+export const getVotingSystemItems = (
+	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+): DropdownItem[] => [
 	{
 		id: 'snapshot',
 		label: <DropdownIconLabel icon={<IconLightning2 />} label="Snapshot" />,

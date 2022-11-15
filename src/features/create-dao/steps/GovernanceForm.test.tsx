@@ -42,31 +42,6 @@ const DEFAULT_PROVIDER_VALUES = {
 	onLaunchSubmit: jest.fn(),
 };
 
-// We need to mock ResizeObserver to test the dropdown menu's.
-// See https://github.com/radix-ui/primitives/issues/420#issuecomment-1125837782.
-(global as any).ResizeObserver = class ResizeObserver {
-	constructor(cb: any) {
-		(this as any).cb = cb;
-	}
-
-	observe() {
-		(this as any).cb([{ borderBoxSize: { inlineSize: 0, blockSize: 0 } }]);
-	}
-
-	unobserve() {}
-};
-
-(global as any).DOMRect = {
-	fromRect: () => ({
-		top: 0,
-		left: 0,
-		bottom: 0,
-		right: 0,
-		width: 0,
-		height: 0,
-	}),
-};
-
 describe('<GovernanceForm />', () => {
 	beforeEach(() => jest.resetAllMocks());
 
@@ -87,9 +62,9 @@ describe('<GovernanceForm />', () => {
 		);
 
 		await waitFor(() =>
-			expect(screen.getByText('The voting period field is required.')).not.toBe(
-				null,
-			),
+			expect(
+				screen.getByText('The voting period field is required.'),
+			).not.toBeInTheDocument(),
 		);
 	});
 
@@ -110,9 +85,9 @@ describe('<GovernanceForm />', () => {
 		);
 
 		await waitFor(() =>
-			expect(screen.getByText('The voting system field is required.')).not.toBe(
-				null,
-			),
+			expect(
+				screen.getByText('The voting system field is required.'),
+			).not.toBeInTheDocument(),
 		);
 	});
 
@@ -135,7 +110,7 @@ describe('<GovernanceForm />', () => {
 		await waitFor(() =>
 			expect(
 				screen.getByText('The DAO token address field is required.'),
-			).not.toBe(null),
+			).not.toBeInTheDocument(),
 		);
 	});
 
@@ -158,7 +133,7 @@ describe('<GovernanceForm />', () => {
 		await waitFor(() =>
 			expect(
 				screen.getByText('The voting threshold field is required.'),
-			).not.toBe(null),
+			).not.toBeInTheDocument(),
 		);
 	});
 

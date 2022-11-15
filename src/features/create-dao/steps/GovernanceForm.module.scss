@@ -1,5 +1,6 @@
 .Row {
 	display: flex;
+	gap: 2rem;
 }
 
 .Column {
@@ -7,14 +8,9 @@
 	flex-direction: column;
 }
 
-.VotingProcess {
+.VotingProcess 
+.VotingPeriod{
 	width: 50%;
-	padding-right: 1rem;
-}
-
-.VotingPeriod {
-	width: 50%;
-	margin-left: 1rem;
 }
 
 .VotingSystem {

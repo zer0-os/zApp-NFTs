@@ -1,12 +1,7 @@
-//- React Imports
 import React, { FC } from 'react';
 
-//- Style Imports
-import styles from './WrappedInput.module.scss';
-
-//- Component Imports
-import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 import { Input } from '@zero-tech/zui/components/Input';
+import { Wrapper } from '../Wrapper/Wrapper';
 
 export type WrappedInputProps = {
 	className?: string;
@@ -31,11 +26,7 @@ export const WrappedInput: FC<WrappedInputProps> = ({
 	helperText,
 	onChange,
 }) => (
-	<div className={className}>
-		<div className={styles.Container}>
-			<p className={styles.Label}>{label}</p>
-			<InfoTooltip content={info} />
-		</div>
+	<Wrapper className={className} label={label} info={info}>
 		<Input
 			type={type}
 			value={value}
@@ -44,5 +35,5 @@ export const WrappedInput: FC<WrappedInputProps> = ({
 			helperText={helperText}
 			onChange={onChange}
 		/>
-	</div>
+	</Wrapper>
 );

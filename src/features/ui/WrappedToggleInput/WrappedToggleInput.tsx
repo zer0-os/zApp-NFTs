@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 import { ToggleGroup, ToggleOptions } from '@zero-tech/zui/components';
+import { Wrapper } from '../Wrapper/Wrapper';
 
 import styles from './WrappedToggleInput.module.scss';
 
@@ -24,12 +24,19 @@ export const WrappedToggleInput: FC<WrappedToggleInputProps> = ({
 	learnMoreHref,
 	onChange,
 }) => (
-	<div className={className}>
-		<div className={styles.Container}>
-			<p className={styles.Label}>{label}</p>
-			<InfoTooltip content={info} />
-		</div>
-		<ToggleGroup options={options} variant="default" selectionType='single' selection={value} onSelectionChange={onChange} isRequired />
-		{learnMoreHref && <a href={learnMoreHref} className={styles.LearnMore}>Learn more</a>}
-	</div>
+	<Wrapper className={className} label={label} info={info}>
+		<ToggleGroup
+			options={options}
+			variant="default"
+			selectionType="single"
+			selection={value}
+			onSelectionChange={onChange}
+			isRequired
+		/>
+		{learnMoreHref && (
+			<a href={learnMoreHref} className={styles.LearnMore}>
+				Learn more
+			</a>
+		)}
+	</Wrapper>
 );

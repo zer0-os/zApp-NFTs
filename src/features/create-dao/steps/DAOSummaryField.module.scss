@@ -3,10 +3,11 @@
 .Field {
 	display: flex;
 	flex-direction: column;
+	justify-content: start;
 
 	.FieldLabel {
 		font-size: 0.75rem;
-		color: #{colors.$grey-lighter-2};
+		color: $grey-lighter-2;
 		margin: 0;
 		line-height: 1rem;
 	}

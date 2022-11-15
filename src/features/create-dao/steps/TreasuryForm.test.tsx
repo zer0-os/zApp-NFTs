@@ -4,8 +4,8 @@ import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
-import { TreasuryForm,TreasuryFormProps } from './';
-import { CreateDAOFormContext } from "../";
+import { TreasuryForm, TreasuryFormProps } from './';
+import { CreateDAOFormContext } from '../';
 
 let onSubmit = jest.fn();
 
@@ -45,17 +45,18 @@ const DEFAULT_PROVIDER_VALUES = {
 describe('<TreasuryForm />', () => {
 	beforeEach(() => jest.resetAllMocks());
 
-
 	test('should correctly validate required Gnosis Safe field', async () => {
-		render (
+		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
 					<TreasuryForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
-			</ZUIProvider>
+			</ZUIProvider>,
 		);
 
-		fireEvent.blur(screen.getByPlaceholderText(/Enter gnosis safe address.../i));
+		fireEvent.blur(
+			screen.getByPlaceholderText(/Enter gnosis safe address.../i),
+		);
 		fireEvent.click(
 			screen.getByRole('button', {
 				name: 'Next',
@@ -63,19 +64,19 @@ describe('<TreasuryForm />', () => {
 		);
 
 		await waitFor(() =>
-			expect(screen.getByText('The gnosis safe field is required.')).not.toBe(
-				null,
-			),
+			expect(
+				screen.getByText('The gnosis safe field is required.'),
+			).not.toBeInTheDocument(),
 		);
 	});
 
 	test('should fire onSubmit with expected params when next button clicked and field values are valid', async () => {
-		render (
+		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
 					<TreasuryForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
-			</ZUIProvider>
+			</ZUIProvider>,
 		);
 
 		const user = userEvent.setup();
@@ -84,12 +85,12 @@ describe('<TreasuryForm />', () => {
 			screen.getByPlaceholderText(/Enter gnosis safe address.../i),
 			'0x29D7d1dd5B6f9C864d9db560D72a247c178aE86B',
 		);
-		
+
 		await user.click(screen.getByRole('button', { name: /Next/i }));
 
 		await waitFor(() =>
 			expect(onSubmit).toHaveBeenCalledWith({
-				gnosisSafe: '0x29D7d1dd5B6f9C864d9db560D72a247c178aE86B'
+				gnosisSafe: '0x29D7d1dd5B6f9C864d9db560D72a247c178aE86B',
 			}),
 		);
 	});
