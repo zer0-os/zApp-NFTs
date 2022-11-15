@@ -3,7 +3,7 @@
 .Field {
 	display: flex;
 	flex-direction: column;
-	justify-content: start;
+	justify-content: flex-start;
 
 	.FieldLabel {
 		font-size: 0.75rem;
