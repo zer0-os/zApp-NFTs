@@ -16,7 +16,7 @@ export interface DetailsProps {
 
 export const Details: FC<DetailsProps> = ({ zna, errorText, onNext }) => {
 	const {
-		tokenBalanceString: tokenBalance,
+		balanceAsString: tokenBalance,
 		paymentTokenSymbol,
 		isLoading,
 	} = useCancelBidData(zna);

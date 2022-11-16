@@ -35,7 +35,6 @@ export const useCancelBidData = (zna: string) => {
 	const imageSrc = metadata?.previewImage ?? metadata?.image;
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 	const paymentTokenSymbol = paymentToken?.symbol ?? '';
-	const tokenBalanceString = tokenBalance?.balanceAsString ?? '';
 	const isLeadingBid = highestUserBid?.amount > highestBid?.amount;
 
 	const isLoading =
@@ -56,7 +55,6 @@ export const useCancelBidData = (zna: string) => {
 		isLeadingBid,
 		balanceAsString,
 		paymentTokenSymbol,
-		tokenBalanceString,
 		isLoading,
 	};
 };

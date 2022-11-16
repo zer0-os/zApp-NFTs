@@ -44,9 +44,12 @@ export const CancelBidForm: FC<CancelBidFormProps> = ({ zna, onClose }) => {
  ***************/
 
 const getSubHeader = (step: Step, isLeadingBid: boolean) => {
+	if (step === Step.DETAILS) {
+		return;
+	}
 	const subHeader = isLeadingBid
 		? 'Your bid is leading the auction currently. \nAre you sure you want to cancel your bid?'
 		: 'Your bid is not leading the auction. \nAre you sure you want to cancel your bid?';
 
-	return step === Step.DETAILS ? subHeader : undefined;
+	return subHeader;
 };
