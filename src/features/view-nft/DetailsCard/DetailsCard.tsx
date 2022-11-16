@@ -47,11 +47,13 @@ export const DetailsCard: FC<DetailsCardProps> = ({ zna }) => {
 
 			<div className={styles.FlexRowWrapper}>
 				<div className={styles.FlexColumnWrapper}>
-					<Description description={description} />
+					{/* TODO: swap members and description in follow up task */}
 					<Members members={members} />
+					<Description description={description} />
 				</div>
 
-				<CTAContainer />
+				{/* TODO: to be added in follow up task */}
+				{/* <CTAContainer /> */}
 			</div>
 		</div>
 	);

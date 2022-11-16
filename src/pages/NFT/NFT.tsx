@@ -1,6 +1,7 @@
 import { useCurrentRoute } from '../../lib/hooks/useCurrentRoute';
 
 import {
+	Actions,
 	Banner,
 	DetailsCard,
 	HistoryList,
@@ -15,7 +16,8 @@ export const NFT = () => {
 		<>
 			<Banner zna={currentZna} />
 			<DetailsCard zna={currentZna} />
-			{/* <Actions zna={currentZna} /> */}
+			{/* TODO: remove Actions in follow up task */}
+			<Actions zna={currentZna} />
 			<NFTMetrics zna={currentZna} />
 			<TokenHashInfo zna={currentZna} />
 			<HistoryList zna={currentZna} />
