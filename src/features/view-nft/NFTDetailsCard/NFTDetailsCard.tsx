@@ -10,13 +10,13 @@ import { Options } from './ui/Options';
 import { Member } from '../../ui/Member';
 import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
 
-import styles from './DetailsCard.module.scss';
+import styles from './NFTDetailsCard.module.scss';
 
 export interface DetailsCardProps {
 	zna: string;
 }
 
-export const DetailsCard: FC<DetailsCardProps> = ({ zna }) => {
+export const NFTDetailsCard: FC<DetailsCardProps> = ({ zna }) => {
 	const domainId = getDomainId(zna);
 
 	const { data: domain } = useDomainData(domainId);

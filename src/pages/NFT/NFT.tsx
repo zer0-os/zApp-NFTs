@@ -2,9 +2,9 @@ import { useCurrentRoute } from '../../lib/hooks/useCurrentRoute';
 
 import {
 	Actions,
-	Banner,
-	DetailsCard,
 	HistoryList,
+	NFTBannerContainer,
+	NFTDetailsCard,
 	NFTMetrics,
 	TokenHashInfo,
 } from '../../features/view-nft';
@@ -14,8 +14,8 @@ export const NFT = () => {
 
 	return (
 		<>
-			<Banner zna={currentZna} />
-			<DetailsCard zna={currentZna} />
+			<NFTBannerContainer zna={currentZna} />
+			<NFTDetailsCard zna={currentZna} />
 			{/* TODO: remove Actions in follow up task */}
 			<Actions zna={currentZna} />
 			<NFTMetrics zna={currentZna} />

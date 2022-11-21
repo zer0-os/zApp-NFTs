@@ -6,13 +6,13 @@ import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
 import { ArrowLink } from '@zero-tech/zui/components/Link';
 
-import styles from './DetailsCard.module.scss';
+import styles from './DomainDetailsCard.module.scss';
 
 export interface DetailsCardProps {
 	zna: string;
 }
 
-export const DetailsCard: FC<DetailsCardProps> = ({ zna }) => {
+export const DomainDetailsCard: FC<DetailsCardProps> = ({ zna }) => {
 	const domainId = getDomainId(zna);
 
 	const { data: metadata, isLoading: isLoadingMetadata } =
