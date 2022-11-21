@@ -19,9 +19,12 @@
 		padding-top: 96px;
 
 		.Media {
-			height: 22.5rem;
 			width: unset;
 			border-radius: $radius-primary;
+
+			img {
+				max-height: 70vh;
+			}
 		}
 	}
 }
