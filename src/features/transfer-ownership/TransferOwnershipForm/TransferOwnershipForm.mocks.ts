@@ -13,3 +13,12 @@ export const domain = {
 export const metadata = {
 	title: 'Winter Time',
 };
+
+export const paymentToken = 'WILD';
+export const paymentTokenInfo = {
+	id: 'some-id',
+	name: 'WILD',
+	symbol: 'WILD',
+	priceInUsd: 'converted-price',
+	decimals: 18,
+};

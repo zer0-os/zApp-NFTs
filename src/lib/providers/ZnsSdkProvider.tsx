@@ -17,29 +17,30 @@ interface ZnsSdkProviderProps {
 }
 
 // @TODO: not sure if this is the best way to create default context
-export const ZnsSdkContext = createContext(
-	zns.createInstance(
-		zns.configuration.mainnetConfiguration(
-			new providers.JsonRpcProvider(NETWORK_CONFIGS[DEFAULT_NETWORK].rpcUrl),
-		),
-	),
-);
+export const ZnsSdkContext = createContext({} as zns.Instance);
 
 export const ZnsSdkProvider: FC<ZnsSdkProviderProps> = ({
 	chainId,
 	children,
 }: ZnsSdkProviderProps) => {
-	const { provider } = useWeb3();
+	const { provider: web3Provider } = useWeb3();
+	const provider =
+		web3Provider ||
+		new providers.JsonRpcProvider(NETWORK_CONFIGS[DEFAULT_NETWORK].rpcUrl);
 
 	const sdk = useMemo(() => {
-		const network = chainIdToNetworkType(
-			provider?._network?.chainId ?? DEFAULT_NETWORK,
-		);
+		const network = chainIdToNetworkType(chainId ?? DEFAULT_NETWORK);
 
 		switch (network) {
 			case NETWORK_TYPES.MAINNET: {
 				return zns.createInstance(
 					zns.configuration.mainnetConfiguration(provider),
+				);
+			}
+
+			case NETWORK_TYPES.GOERLI: {
+				return zns.createInstance(
+					zns.configuration.goerliConfiguration(provider),
 				);
 			}
 
