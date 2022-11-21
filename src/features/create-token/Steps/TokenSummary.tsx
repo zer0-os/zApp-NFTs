@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
+import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 
 import { TokenSummaryField } from './TokenSummaryField/TokenSummaryField';
 import { Wizard } from '@zero-tech/zui/components';

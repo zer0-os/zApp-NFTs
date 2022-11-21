@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { useWeb3 } from '../../lib/hooks/useWeb3';
 import { useViewBidsData } from './useViewBidsData';
 import { sortBidsByTime, formatEthers } from '../../lib/util';
-import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
+import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 import { Bid } from '@zero-tech/zauction-sdk';
 import moment from 'moment';
 

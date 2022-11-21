@@ -5,7 +5,7 @@ import { usePlaceBidData } from '../../../../usePlaceBidData';
 import {
 	truncateAddress,
 	truncateDomain,
-} from '@zero-tech/zapp-utils/formatting/addresses';
+} from '@zero-tech/zui/utils/formatting/addresses';
 
 import { ViewBidsButton } from '../../../../../view-bids';
 import { SkeletonText } from '@zero-tech/zui/components';
