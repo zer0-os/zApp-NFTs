@@ -23,17 +23,13 @@ export const NFTBannerContainer: FC<BannerProps> = ({ zna }) => {
 	const bannerSrc = metadata?.image_full ?? metadata?.image;
 
 	return (
-		<div className={styles.Container}>
-			<div className={styles.Background} />
-
-			<div className={styles.Banner}>
-				<IpfsMedia
-					alt={bannerAlt}
-					className={styles.Media}
-					src={bannerSrc}
-					options={{ size: 'full', fit: 'fit' }}
-				/>
-			</div>
+		<div className={styles.Banner}>
+			<IpfsMedia
+				alt={bannerAlt}
+				className={styles.Media}
+				src={bannerSrc}
+				options={{ size: 'full', fit: 'fit' }}
+			/>
 		</div>
 	);
 };

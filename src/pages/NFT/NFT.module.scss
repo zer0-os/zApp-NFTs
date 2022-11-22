@@ -1,5 +1,14 @@
-.Container {
-	display: flex;
-	flex-direction: column;
-	gap: 2.5rem;
+.Main {
+	margin: 0 auto;
+	padding-bottom: 50px;
+	max-width: 736px;
+
+	.ContentWrapper {
+		margin-top: 1rem;
+		> * {
+			&:first-child {
+				height: 100%;
+			}
+		}
+	}
 }

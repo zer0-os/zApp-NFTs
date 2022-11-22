@@ -8,11 +8,13 @@ import {
 	DomainDetailsCard,
 } from '../../features/view-subdomains';
 
+import styles from './Domains.module.scss';
+
 export const Domains: FC = () => {
 	const { currentZna, isRootDomain } = useCurrentRoute();
 
 	return (
-		<>
+		<main className={styles.Main}>
 			{!isRootDomain && (
 				<>
 					<DomainBannerContainer zna={currentZna} />
@@ -20,6 +22,6 @@ export const Domains: FC = () => {
 				</>
 			)}
 			<ViewSubdomains zna={currentZna} />
-		</>
+		</main>
 	);
 };
