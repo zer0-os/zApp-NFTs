@@ -9,7 +9,7 @@ import {
 } from '@zero-tech/zapp-utils/formatting/addresses';
 
 import { SkeletonText } from '@zero-tech/zui/components';
-import { IpfsMedia, IpfsMediaProps } from '@zero-tech/zapp-utils/components';
+import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './NFTDetails.module.scss';
 
@@ -89,8 +89,8 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
  *******************/
 
 interface MediaProps {
-	alt: IpfsMediaProps['alt'];
-	src: IpfsMediaProps['src'];
+	alt: string;
+	src: string;
 }
 
 const Media = ({ alt, src }: MediaProps) => {

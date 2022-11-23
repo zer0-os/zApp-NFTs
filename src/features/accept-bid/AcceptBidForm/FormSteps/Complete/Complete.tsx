@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import { NFTDetails, NFTDetailsProps, TextContent } from '../ui';
-import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
+import { NFTDetails, TextContent } from '../ui';
+import { Wizard } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
 
 export interface CompleteProps {
-	zna: NFTDetailsProps['zna'];
-	onClose: ButtonsProps['onClickPrimaryButton'];
+	zna: string;
+	onClose: () => void;
 }
 
 export const Complete: FC<CompleteProps> = ({ zna, onClose }) => {

@@ -25,12 +25,11 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 	const alt = (metadata?.name ?? zna) + ' preview image';
 	const isLoading = isLoadingMetrics || isLoadingBuyNowPrice;
 
-	const volume = metrics?.volume?.all
-		? formatEthers(metrics.volume.all)
-		: undefined;
+	const volume = metrics?.volume?.all ? formatEthers(metrics.volume.all) : '-';
+
 	const highestBid = metrics?.highestBid
 		? formatEthers(metrics.highestBid)
-		: undefined;
+		: '-';
 
 	return {
 		volume,

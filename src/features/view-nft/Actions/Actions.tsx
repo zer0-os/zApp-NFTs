@@ -32,15 +32,13 @@ export const Actions = ({ zna }: ActionsProps) => {
 		isLoading,
 	} = useActionsData(zna);
 
-	const highestBidString: ActionProps['value'] = highestBid
-		? formatEthers(highestBid?.amount)
-		: '-';
+	const highestBidString = highestBid ? formatEthers(highestBid?.amount) : '-';
 
-	const highestUserBidString: ActionProps['value'] = highestUserBid
+	const highestUserBidString = highestUserBid
 		? formatEthers(highestUserBid?.amount)
 		: '-';
 
-	const buyNowPriceString: ActionProps['value'] = buyNowPrice
+	const buyNowPriceString = buyNowPrice
 		? bigNumberToLocaleString(buyNowPrice)
 		: '-';
 

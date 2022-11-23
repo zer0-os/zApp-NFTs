@@ -2,16 +2,7 @@ import { ReactNode, useState } from 'react';
 
 import { usePlaceBidData } from '../../../usePlaceBidData';
 
-import {
-	ApproveZAuction,
-	ApproveZAuctionProps,
-	Complete,
-	CompleteProps,
-	Confirm,
-	ConfirmProps,
-	Details,
-	DetailsProps,
-} from '..';
+import { ApproveZAuction, Complete, Confirm, Details } from '..';
 import { Wizard } from '@zero-tech/zui/components';
 
 export enum Step {
@@ -32,14 +23,11 @@ export interface useFormStepsProps {
 	error: string;
 	statusText: string;
 	bidAmount: string;
-	setBidAmount: DetailsProps['setBidAmount'];
-	onCheckZAuction: DetailsProps['onCheckZAuction'];
-	onApproveZAuction: ApproveZAuctionProps['onApproveZAuction'];
-	onConfirmPlaceBid: ConfirmProps['onConfirm'];
-	onClose:
-		| DetailsProps['onClose']
-		| ApproveZAuctionProps['onClose']
-		| CompleteProps['onClose'];
+	setBidAmount: (value: string) => void;
+	onCheckZAuction: () => void;
+	onApproveZAuction: () => void;
+	onConfirmPlaceBid: (bidAmount: string) => void;
+	onClose: () => void;
 }
 
 export const useFormSteps = ({

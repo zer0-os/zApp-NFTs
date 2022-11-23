@@ -47,12 +47,12 @@ export const DomainPreview: FC<DomainPreviewProps> = ({ zna, variant }) => {
 	];
 
 	const title: SkeletonTextProps['asyncText'] = {
-		text: metadata?.title,
+		text: metadata?.title ?? '-',
 		isLoading: isLoadingMetadata,
 	};
 
 	const description: SkeletonTextProps['asyncText'] = {
-		text: metadata?.description,
+		text: metadata?.description ?? '-',
 		isLoading: isLoadingMetadata,
 	};
 

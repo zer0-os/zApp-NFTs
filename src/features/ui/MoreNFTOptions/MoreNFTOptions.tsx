@@ -1,8 +1,8 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, ReactNode, useState } from 'react';
 
 import { OptionLabel } from '../OptionLabel';
 import { TransferOwnershipModal } from '../../transfer-ownership';
-import { DropdownMenu, DropdownMenuProps } from '@zero-tech/zui/components';
+import { DropdownMenu } from '@zero-tech/zui/components';
 import { IconSend3 } from '@zero-tech/zui/components/Icons';
 
 export const enum OptionType {
@@ -14,7 +14,7 @@ export type Option = 'transfer' | 'dao';
 
 type MoreNFTOptionsProps = {
 	zna: string;
-	trigger: DropdownMenuProps['trigger'];
+	trigger: ReactNode;
 };
 
 // TODO: add option label to zUI

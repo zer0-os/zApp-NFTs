@@ -23,15 +23,15 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ zna }) => {
 		: '';
 
 	const itemsInDomain =
-		metrics?.items !== undefined ? formatNumber(metrics?.items) : undefined;
+		metrics?.items !== undefined ? formatNumber(metrics?.items) : '-';
 
 	const floorPriceString = metrics?.lowestSale
 		? formatEthers(metrics?.lowestSale)
-		: undefined;
+		: '-';
 
 	const volumeString = metrics?.volume?.all
 		? formatEthers(metrics?.volume?.all)
-		: undefined;
+		: '-';
 
 	const stats = [
 		{

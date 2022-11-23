@@ -21,16 +21,25 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({ zna }) => {
 	const { data: metrics, isLoading: isLoadingMetrics } =
 		useDomainMetrics(domainId);
 
-	let numberOfBids, lastSale, volumeString;
+	const numberOfBids =
+		bids?.length !== 0 ? formatNumber(bids?.length).toLocaleString() : '0';
 
-	if (!isLoadingBids && bids) {
-		numberOfBids = formatNumber(bids.length || 0).toLocaleString();
-	}
+	const lastSale = metrics?.lastSale ? formatEthers(metrics?.lastSale) : '-';
 
-	if (!isLoadingMetrics && metrics) {
-		lastSale = formatEthers(metrics.lastSale);
-		volumeString = formatEthers(metrics.volume.all);
-	}
+	const volumeString = metrics?.volume?.all
+		? formatEthers(metrics?.volume?.all)
+		: '-';
+
+	// let numberOfBids, lastSale, volumeString;
+
+	// if (!isLoadingBids && bids) {
+	// 	numberOfBids = formatNumber(bids.length || 0).toLocaleString();
+	// }
+
+	// if (!isLoadingMetrics && metrics) {
+	// 	lastSale = formatEthers(metrics.lastSale);
+	// 	volumeString = formatEthers(metrics.volume.all);
+	// }
 
 	const paymentTokenLabel = paymentToken?.label ?? '';
 
