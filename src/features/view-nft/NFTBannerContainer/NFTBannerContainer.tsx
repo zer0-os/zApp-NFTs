@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
 import { getDomainId } from '../../../lib/util/domains/domains';
-import { useColorPallette } from '../../../lib/hooks/useColorPallette';
 import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
@@ -22,16 +21,8 @@ export const NFTBannerContainer: FC<BannerProps> = ({ zna }) => {
 	const bannerAlt = altTemplate + ` banner`;
 	const bannerSrc = metadata?.image_full ?? metadata?.image;
 
-	const { data: prominentColor } = useColorPallette(bannerSrc);
-
-	const bannerBackground = {
-		background: Boolean(prominentColor?.length)
-			? `radial-gradient(rgba(${prominentColor[0].toLocaleString()}, 0.4) 0%, rgba(243, 16, 15, 0) 100%)`
-			: 'unset',
-	};
-
 	return (
-		<div className={styles.Banner} style={bannerBackground}>
+		<div className={styles.Banner}>
 			<IpfsMedia
 				alt={bannerAlt}
 				className={styles.Media}

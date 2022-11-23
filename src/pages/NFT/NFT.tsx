@@ -21,16 +21,14 @@ export const NFT = () => {
 			<NFTBannerContainer zna={currentZna} />
 
 			<main className={styles.Main}>
-				<div className={styles.ContentWrapper}>
-					<ZAppContent>
-						<NFTDetailsCard zna={currentZna} />
-						{/* TODO: remove Actions in follow up task */}
-						<Actions zna={currentZna} />
-						<NFTMetrics zna={currentZna} />
-						<TokenHashInfo zna={currentZna} />
-						<HistoryList zna={currentZna} />
-					</ZAppContent>
-				</div>
+				<ZAppContent className={styles.Content}>
+					<NFTDetailsCard zna={currentZna} />
+					{/* TODO: remove Actions in follow up task */}
+					<Actions zna={currentZna} />
+					<NFTMetrics zna={currentZna} />
+					<TokenHashInfo zna={currentZna} />
+					<HistoryList zna={currentZna} />
+				</ZAppContent>
 			</main>
 		</>
 	);

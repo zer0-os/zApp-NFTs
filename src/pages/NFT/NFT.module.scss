@@ -3,11 +3,12 @@
 	padding-bottom: 50px;
 	max-width: 736px;
 
-	.ContentWrapper {
+	.Content {
 		margin-top: 1rem;
+
 		> * {
 			&:first-child {
-				height: 100%;
+				overflow-y: unset;
 			}
 		}
 	}
