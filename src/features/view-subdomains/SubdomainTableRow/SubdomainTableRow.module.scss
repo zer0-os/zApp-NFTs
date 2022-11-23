@@ -1,7 +1,6 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
 
 .Container {
-
 	cursor: pointer;
 
 	&:hover {
@@ -40,11 +39,8 @@
 	}
 
 	.Button {
-		display: flex;
-		justify-content: flex-end;
-
-		width: 6.25rem;
-		max-width: 6.25rem;
-		min-width: 6.25rem;
+		button {
+			margin-left: 1rem;
+		}
 	}
 }
