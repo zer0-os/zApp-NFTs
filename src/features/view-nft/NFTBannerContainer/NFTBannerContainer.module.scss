@@ -18,10 +18,9 @@
 			width: unset;
 			max-height: 70vh;
 			max-width: 20.25rem;
-			// max-width: 25rem;
 
-			@media only screen and (min-width: 1000px) {
-				max-width: 36rem;
+			@media only screen and (min-width: 793px) {
+				max-width: 25rem;
 			}
 
 			@media only screen and (min-width: 1200px) {

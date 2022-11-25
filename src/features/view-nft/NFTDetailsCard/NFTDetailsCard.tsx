@@ -42,11 +42,13 @@ export const NFTDetailsCard: FC<DetailsCardProps> = ({ zna }) => {
 		<div className={styles.Content}>
 			<div className={styles.TextContainer}>
 				<Title title={title} />
+
+				<Options zna={zna} />
 			</div>
 
-			<CTAContainer />
-
 			<div className={styles.FlexRowWrapper}>
+				<CTAContainer />
+
 				<div className={styles.FlexColumnWrapper}>
 					<Description description={description} />
 					<Members members={members} />

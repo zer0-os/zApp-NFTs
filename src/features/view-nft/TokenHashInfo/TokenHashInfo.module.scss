@@ -4,6 +4,10 @@
 .Container {
 	margin-top: 1.5rem;
 
+	@media only screen and (min-width: 793px) {
+		margin: 0 0 3rem 0;
+	}
+
 	.Link {
 		color: $blue;
 		font-size: $size-tiny;
