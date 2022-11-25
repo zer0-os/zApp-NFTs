@@ -61,7 +61,9 @@ describe('<DetailsForm />', () => {
 		);
 
 		await waitFor(() =>
-			expect(screen.getByText('The name field is required.')).not.toBe(null),
+			expect(
+				screen.getByText('The name field is required.'),
+			).toBeInTheDocument(),
 		);
 	});
 

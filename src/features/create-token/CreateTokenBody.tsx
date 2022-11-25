@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react';
 import { CreateTokenFormContext } from './CreateTokenFormContext';
 
-import { DetailsForm, TokenomicsForm, TokenSummary } from './steps';
+import { DetailsForm, TokenomicsForm, TokenSummary } from './Steps';
 
 type CreateTokenBodyProps = {
 	onClose: () => void;

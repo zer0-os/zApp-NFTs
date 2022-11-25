@@ -8,8 +8,8 @@ import { ConnectWallet } from '../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
 export interface CreateTokenModalProps extends BasicModalProps {
-	zna: ModalContentProps['zna'];
-	onClose: ModalContentProps['onClose'];
+	zna: string;
+	onClose: () => void;
 }
 
 export const CreateTokenModal: FC<CreateTokenModalProps> = ({
