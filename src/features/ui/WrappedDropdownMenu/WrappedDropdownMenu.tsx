@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { IconChevronDown } from '@zero-tech/zui/components/Icons';
 import { DropdownItem, DropdownMenu, Input } from '@zero-tech/zui/components';
-import { Wrapper } from '../Wrapper/Wrapper';
+import { InputWrapper } from '../InputWrapper/InputWrapper';
 
 import styles from './WrappedDropdownMenu.module.scss';
 import classNames from 'classnames';
@@ -41,12 +41,12 @@ export const WrappedDropdownMenu: FC<WrappedDropdownMenuProps> = ({
 	);
 
 	return (
-		<Wrapper
+		<InputWrapper
 			className={classNames(styles.Container, className)}
 			label={label}
 			info={info}
 		>
 			<DropdownMenu trigger={trigger} items={items} />
-		</Wrapper>
+		</InputWrapper>
 	);
 };

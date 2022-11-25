@@ -2,17 +2,17 @@ import { FC } from 'react';
 
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 
-import styles from './Wrapper.module.scss';
+import styles from './InputWrapper.module.scss';
 import classNames from 'classnames';
 
-export type WrapperProps = {
+export type InputWrapperProps = {
 	children: React.ReactNode;
 	className?: string;
 	label: string;
 	info: string;
 };
 
-export const Wrapper: FC<WrapperProps> = ({
+export const InputWrapper: FC<InputWrapperProps> = ({
 	children,
 	className = '',
 	label,

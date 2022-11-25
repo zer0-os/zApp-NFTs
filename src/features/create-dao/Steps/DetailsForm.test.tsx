@@ -4,12 +4,12 @@ import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
-import { GovernanceForm, GovernanceFormProps } from './';
+import { DetailsForm, DetailsFormProps } from './';
 import { CreateDAOFormContext } from '../';
 
 let onSubmit = jest.fn();
 
-const DEFAULT_PROPS: GovernanceFormProps = {
+const DEFAULT_PROPS: DetailsFormProps = {
 	onClose: jest.fn(),
 };
 
@@ -36,25 +36,25 @@ const DEFAULT_PROVIDER_VALUES = {
 	onStepUpdate: jest.fn(),
 	onTitleUpdate: jest.fn(),
 	onDetailsChange: jest.fn(),
-	onDetailsSubmit: jest.fn(),
-	onGovernanceSubmit: onSubmit,
+	onDetailsSubmit: onSubmit,
+	onGovernanceSubmit: jest.fn(),
 	onTreasurySubmit: jest.fn(),
 	onLaunchSubmit: jest.fn(),
 };
 
-describe('<GovernanceForm />', () => {
+describe('<DetailsForm />', () => {
 	beforeEach(() => jest.resetAllMocks());
 
-	test('should correctly validate required voting period field', async () => {
+	test('should correctly validate required name field', async () => {
 		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<GovernanceForm {...DEFAULT_PROPS} />
+					<DetailsForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
 
-		fireEvent.blur(screen.getByPlaceholderText(/Select voting period.../i));
+		fireEvent.blur(screen.getByPlaceholderText(/Enter name.../i));
 		fireEvent.click(
 			screen.getByRole('button', {
 				name: 'Next',
@@ -62,22 +62,20 @@ describe('<GovernanceForm />', () => {
 		);
 
 		await waitFor(() =>
-			expect(
-				screen.getByText('The voting period field is required.'),
-			).not.toBeInTheDocument(),
+			expect(screen.getByText('The name field is required.')).toBeVisible(),
 		);
 	});
 
-	test('should correctly validate required voting system field', async () => {
+	test('should correctly validate required zNA address field', async () => {
 		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<GovernanceForm {...DEFAULT_PROPS} />
+					<DetailsForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
 
-		fireEvent.blur(screen.getByPlaceholderText(/Select voting system.../i));
+		fireEvent.blur(screen.getByPlaceholderText(/Enter zNA address.../i));
 		fireEvent.click(
 			screen.getByRole('button', {
 				name: 'Next',
@@ -86,21 +84,21 @@ describe('<GovernanceForm />', () => {
 
 		await waitFor(() =>
 			expect(
-				screen.getByText('The voting system field is required.'),
-			).not.toBeInTheDocument(),
+				screen.getByText('The zNA address field is required.'),
+			).toBeVisible(),
 		);
 	});
 
-	test('should correctly validate required DAO token address field', async () => {
+	test('should correctly validate required description field', async () => {
 		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<GovernanceForm {...DEFAULT_PROPS} />
+					<DetailsForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
 
-		fireEvent.blur(screen.getByPlaceholderText(/Enter DAO token address.../i));
+		fireEvent.blur(screen.getByPlaceholderText(/Enter description.../i));
 		fireEvent.click(
 			screen.getByRole('button', {
 				name: 'Next',
@@ -109,31 +107,8 @@ describe('<GovernanceForm />', () => {
 
 		await waitFor(() =>
 			expect(
-				screen.getByText('The DAO token address field is required.'),
-			).not.toBeInTheDocument(),
-		);
-	});
-
-	test('should correctly validate required voting threshold field', async () => {
-		render(
-			<ZUIProvider>
-				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<GovernanceForm {...DEFAULT_PROPS} />
-				</CreateDAOFormContext.Provider>
-			</ZUIProvider>,
-		);
-
-		fireEvent.blur(screen.getByPlaceholderText(/Enter voting threshold.../i));
-		fireEvent.click(
-			screen.getByRole('button', {
-				name: 'Next',
-			}),
-		);
-
-		await waitFor(() =>
-			expect(
-				screen.getByText('The voting threshold field is required.'),
-			).not.toBeInTheDocument(),
+				screen.getByText('The description field is required.'),
+			).toBeVisible(),
 		);
 	});
 
@@ -141,7 +116,7 @@ describe('<GovernanceForm />', () => {
 		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<GovernanceForm {...DEFAULT_PROPS} />
+					<DetailsForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
@@ -156,39 +131,32 @@ describe('<GovernanceForm />', () => {
 		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<GovernanceForm {...DEFAULT_PROPS} />
+					<DetailsForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
 
 		const user = userEvent.setup();
 
-		await user.click(screen.getByText(/MAJORITY/i));
-
-		await user.click(screen.getByPlaceholderText(/Select voting period.../i));
-		await user.click(screen.getByText('1 Day'));
-
-		await user.click(screen.getByPlaceholderText(/Select voting system.../i));
-		await user.click(screen.getByText('Polygon'));
-
+		await user.type(screen.getByPlaceholderText(/Enter name.../i), 'Test');
 		await user.type(
-			screen.getByPlaceholderText(/Enter DAO token address.../i),
+			screen.getByPlaceholderText(/Enter zNA address.../i),
 			'0x29D7d1dd5B6f9C864d9db560D72a247c178aE86B',
 		);
 		await user.type(
-			screen.getByPlaceholderText(/Enter voting threshold.../i),
-			'5',
+			screen.getByPlaceholderText(/Enter description.../i),
+			'Testing testing 123.',
 		);
 
 		await user.click(screen.getByRole('button', { name: /Next/i }));
 
 		await waitFor(() =>
 			expect(onSubmit).toHaveBeenCalledWith({
-				votingProcess: 'majority',
-				votingPeriod: '1 Day',
-				votingSystem: 'Polygon',
-				daoTokenAddress: '0x29D7d1dd5B6f9C864d9db560D72a247c178aE86B',
-				votingThreshold: '5',
+				mediaType: undefined,
+				previewUrl: '',
+				name: 'Test',
+				znaAddress: '0x29D7d1dd5B6f9C864d9db560D72a247c178aE86B',
+				description: 'Testing testing 123.',
 			}),
 		);
 	});

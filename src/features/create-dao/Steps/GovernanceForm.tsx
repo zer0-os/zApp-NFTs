@@ -55,7 +55,7 @@ export const GovernanceForm: FC<GovernanceFormProps> = ({ onClose }) => {
 								label="Which will be your voting process?"
 								value={values.votingProcess}
 								info={votingProcessInfo}
-								learnMoreHref="https://www.code2.io/blog/web3-dao-voting-mechanisms/#popular-voting-mechanisms-used-by-daos"
+								href="https://www.code2.io/blog/web3-dao-voting-mechanisms/#popular-voting-mechanisms-used-by-daos"
 								onChange={(selection: string) =>
 									setFieldValue('votingProcess', selection)
 								}

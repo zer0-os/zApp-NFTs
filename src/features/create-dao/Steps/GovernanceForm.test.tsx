@@ -4,12 +4,12 @@ import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
-import { DetailsForm, DetailsFormProps } from './';
+import { GovernanceForm, GovernanceFormProps } from './';
 import { CreateDAOFormContext } from '../';
 
 let onSubmit = jest.fn();
 
-const DEFAULT_PROPS: DetailsFormProps = {
+const DEFAULT_PROPS: GovernanceFormProps = {
 	onClose: jest.fn(),
 };
 
@@ -36,25 +36,25 @@ const DEFAULT_PROVIDER_VALUES = {
 	onStepUpdate: jest.fn(),
 	onTitleUpdate: jest.fn(),
 	onDetailsChange: jest.fn(),
-	onDetailsSubmit: onSubmit,
-	onGovernanceSubmit: jest.fn(),
+	onDetailsSubmit: jest.fn(),
+	onGovernanceSubmit: onSubmit,
 	onTreasurySubmit: jest.fn(),
 	onLaunchSubmit: jest.fn(),
 };
 
-describe('<DetailsForm />', () => {
+describe('<GovernanceForm />', () => {
 	beforeEach(() => jest.resetAllMocks());
 
-	test('should correctly validate required name field', async () => {
+	test('should correctly validate required voting period field', async () => {
 		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<DetailsForm {...DEFAULT_PROPS} />
+					<GovernanceForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
 
-		fireEvent.blur(screen.getByPlaceholderText(/Enter name.../i));
+		fireEvent.blur(screen.getByPlaceholderText(/Select voting period.../i));
 		fireEvent.click(
 			screen.getByRole('button', {
 				name: 'Next',
@@ -63,21 +63,21 @@ describe('<DetailsForm />', () => {
 
 		await waitFor(() =>
 			expect(
-				screen.getByText('The name field is required.'),
-			).not.toBeInTheDocument(),
+				screen.getByText('The voting period field is required.'),
+			).toBeVisible(),
 		);
 	});
 
-	test('should correctly validate required zNA address field', async () => {
+	test('should correctly validate required voting system field', async () => {
 		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<DetailsForm {...DEFAULT_PROPS} />
+					<GovernanceForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
 
-		fireEvent.blur(screen.getByPlaceholderText(/Enter zNA address.../i));
+		fireEvent.blur(screen.getByPlaceholderText(/Select voting system.../i));
 		fireEvent.click(
 			screen.getByRole('button', {
 				name: 'Next',
@@ -86,21 +86,21 @@ describe('<DetailsForm />', () => {
 
 		await waitFor(() =>
 			expect(
-				screen.getByText('The zNA address field is required.'),
-			).not.toBeInTheDocument(),
+				screen.getByText('The voting system field is required.'),
+			).toBeVisible(),
 		);
 	});
 
-	test('should correctly validate required description field', async () => {
+	test('should correctly validate required DAO token address field', async () => {
 		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<DetailsForm {...DEFAULT_PROPS} />
+					<GovernanceForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
 
-		fireEvent.blur(screen.getByPlaceholderText(/Enter description.../i));
+		fireEvent.blur(screen.getByPlaceholderText(/Enter DAO token address.../i));
 		fireEvent.click(
 			screen.getByRole('button', {
 				name: 'Next',
@@ -109,8 +109,31 @@ describe('<DetailsForm />', () => {
 
 		await waitFor(() =>
 			expect(
-				screen.getByText('The description field is required.'),
-			).not.toBeInTheDocument(),
+				screen.getByText('The DAO token address field is required.'),
+			).toBeVisible(),
+		);
+	});
+
+	test('should correctly validate required voting threshold field', async () => {
+		render(
+			<ZUIProvider>
+				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
+					<GovernanceForm {...DEFAULT_PROPS} />
+				</CreateDAOFormContext.Provider>
+			</ZUIProvider>,
+		);
+
+		fireEvent.blur(screen.getByPlaceholderText(/Enter voting threshold.../i));
+		fireEvent.click(
+			screen.getByRole('button', {
+				name: 'Next',
+			}),
+		);
+
+		await waitFor(() =>
+			expect(
+				screen.getByText('The voting threshold field is required.'),
+			).toBeVisible(),
 		);
 	});
 
@@ -118,7 +141,7 @@ describe('<DetailsForm />', () => {
 		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<DetailsForm {...DEFAULT_PROPS} />
+					<GovernanceForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
@@ -133,32 +156,39 @@ describe('<DetailsForm />', () => {
 		render(
 			<ZUIProvider>
 				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<DetailsForm {...DEFAULT_PROPS} />
+					<GovernanceForm {...DEFAULT_PROPS} />
 				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
 
 		const user = userEvent.setup();
 
-		await user.type(screen.getByPlaceholderText(/Enter name.../i), 'Test');
+		await user.click(screen.getByText(/MAJORITY/i));
+
+		await user.click(screen.getByPlaceholderText(/Select voting period.../i));
+		await user.click(screen.getByText('1 Day'));
+
+		await user.click(screen.getByPlaceholderText(/Select voting system.../i));
+		await user.click(screen.getByText('Polygon'));
+
 		await user.type(
-			screen.getByPlaceholderText(/Enter zNA address.../i),
+			screen.getByPlaceholderText(/Enter DAO token address.../i),
 			'0x29D7d1dd5B6f9C864d9db560D72a247c178aE86B',
 		);
 		await user.type(
-			screen.getByPlaceholderText(/Enter description.../i),
-			'Testing testing 123.',
+			screen.getByPlaceholderText(/Enter voting threshold.../i),
+			'5',
 		);
 
 		await user.click(screen.getByRole('button', { name: /Next/i }));
 
 		await waitFor(() =>
 			expect(onSubmit).toHaveBeenCalledWith({
-				mediaType: undefined,
-				previewUrl: '',
-				name: 'Test',
-				znaAddress: '0x29D7d1dd5B6f9C864d9db560D72a247c178aE86B',
-				description: 'Testing testing 123.',
+				votingProcess: 'majority',
+				votingPeriod: '1 Day',
+				votingSystem: 'Polygon',
+				daoTokenAddress: '0x29D7d1dd5B6f9C864d9db560D72a247c178aE86B',
+				votingThreshold: '5',
 			}),
 		);
 	});

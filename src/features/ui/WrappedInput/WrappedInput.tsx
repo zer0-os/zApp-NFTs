@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { Input } from '@zero-tech/zui/components/Input';
-import { Wrapper } from '../Wrapper/Wrapper';
+import { InputWrapper } from '../InputWrapper/InputWrapper';
 
 export type WrappedInputProps = {
 	className?: string;
@@ -26,7 +26,7 @@ export const WrappedInput: FC<WrappedInputProps> = ({
 	helperText,
 	onChange,
 }) => (
-	<Wrapper className={className} label={label} info={info}>
+	<InputWrapper className={className} label={label} info={info}>
 		<Input
 			type={type}
 			value={value}
@@ -35,5 +35,5 @@ export const WrappedInput: FC<WrappedInputProps> = ({
 			helperText={helperText}
 			onChange={onChange}
 		/>
-	</Wrapper>
+	</InputWrapper>
 );

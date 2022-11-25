@@ -66,7 +66,7 @@ describe('<TreasuryForm />', () => {
 		await waitFor(() =>
 			expect(
 				screen.getByText('The gnosis safe field is required.'),
-			).not.toBeInTheDocument(),
+			).toBeVisible(),
 		);
 	});
 

@@ -5,15 +5,18 @@ import { MediaInput, MediaType } from '@zero-tech/zui/components/MediaInput';
 import { CreateDAOFormContext } from '../';
 import { DAOSummaryField } from './DAOSummaryField';
 
-import styles from './DAOSummary.module.scss';
 import { truncateAddress } from '../../../lib/util/domains/domains';
+
+import styles from './DAOSummary.module.scss';
+import classNames from 'classnames/bind';
 
 export interface DAOSummaryProps {
 	onClose: () => void;
 }
 
 export const DAOSummary: FC<DAOSummaryProps> = ({ onClose }) => {
-	const { details, governance, treasury, onLaunchSubmit, onDetailsChange } = useContext(CreateDAOFormContext);
+	const { details, governance, treasury, onLaunchSubmit, onDetailsChange } =
+		useContext(CreateDAOFormContext);
 
 	const [avatarHasError, setAvatarHasError] = useState(false);
 
@@ -41,7 +44,7 @@ export const DAOSummary: FC<DAOSummaryProps> = ({ onClose }) => {
 	};
 
 	return (
-		<div>
+		<>
 			<div className={styles.Row}>
 				<div className={styles.Column}>
 					<MediaInput
@@ -56,54 +59,47 @@ export const DAOSummary: FC<DAOSummaryProps> = ({ onClose }) => {
 				</div>
 				<div className={styles.Column}>
 					<h2 className={styles.Heading}>Summary</h2>
-					<div className={styles.Row_Summary}>
-						<DAOSummaryField
-							className={styles.Summary}
-							label="DAO Name"
-							value={details.name}
-						/>
-						<DAOSummaryField 
-							label="zNA Address" 
-							value={truncateAddress(details.znaAddress)} 
-							className={styles.Summary_Second}
+					<div className={classNames(styles.Row, styles.SummaryRow)}>
+						<div className={classNames(styles.Column, styles.SummaryColumn)}>
+							<DAOSummaryField label="DAO Name" value={details.name} />
+							<DAOSummaryField
+								label="Voting Process"
+								value={governance.votingProcess}
 							/>
-					</div>
-					<div className={styles.Row_Summary}>
-						<DAOSummaryField
-							label="Voting Process"
-							value={governance.votingProcess}
-							className={styles.Summary}
-						/>
-						<DAOSummaryField
-							label="Gnosis Safe"
-							value={truncateAddress(treasury.gnosisSafe)}
-							className={styles.Summary_Second}
-						/>
-					</div>
-					<div className={styles.Row_Summary}>
-						<DAOSummaryField
-							className={styles.Summary}
-							label="Voting Threshold"
-							value={governance.votingThreshold}
+							<DAOSummaryField
+								label="Voting Threshold"
+								value={`${governance.votingThreshold}%`}
 							/>
-						<DAOSummaryField
-							label="Voting Period"
-							value={governance.votingPeriod}
-							className={styles.Summary_Second}
-						/>
+						</div>
+						<div className={classNames(styles.Column, styles.SummaryColumn)}>
+							<DAOSummaryField
+								label="zNA Address"
+								value={truncateAddress(details.znaAddress)}
+							/>
+							<DAOSummaryField
+								label="Gnosis Safe"
+								value={truncateAddress(treasury.gnosisSafe)}
+							/>
+							<DAOSummaryField
+								label="Voting Period"
+								value={governance.votingPeriod}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
 			<DAOSummaryField
+				className={styles.Description}
 				label="Description"
 				value={details.description}
-				className={styles.Text_Description}
 			/>
-			<div className={styles.Text_Confirmation}>
-				<div className={styles.Text_Bold}>Are you ready to launch your DAO?</div>
-				<div className={styles.Text}>
+			<div className={styles.Confirmation}>
+				<div className={styles.ConfirmationQuestion}>
+					Are you ready to launch your DAO?
+				</div>
+				<div>
 					DAO details cannot be changed once it has been launched,
-					<br/>
+					<br />
 					only the avatar image can be changed.
 				</div>
 			</div>
@@ -115,6 +111,6 @@ export const DAOSummary: FC<DAOSummaryProps> = ({ onClose }) => {
 				onClickPrimaryButton={onSubmit}
 				onClickSecondaryButton={onClose}
 			/>
-		</div>
+		</>
 	);
 };

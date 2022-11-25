@@ -51,7 +51,11 @@ export const getVotingPeriodItems = (setFieldValue: any): DropdownItem[] => {
 };
 
 export const getVotingSystemItems = (
-	setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+	setFieldValue: (
+		field: string,
+		value: string,
+		shouldValidate?: boolean,
+	) => void,
 ): DropdownItem[] => [
 	{
 		id: 'snapshot',
