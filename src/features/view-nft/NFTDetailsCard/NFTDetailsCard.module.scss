@@ -1,4 +1,8 @@
 .Content {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+
 	.TextContainer {
 		display: flex;
 		flex-direction: row;
@@ -6,20 +10,20 @@
 		align-items: center;
 
 		.Title {
-			font-size: 2.25rem;
-			line-height: 2.75rem;
+			font-size: 1.5rem;
+			line-height: 1.816rem;
 			margin: 0;
+
+			// font-size: 2.25rem;
+			// line-height: 2.75rem;
 		}
 	}
 
 	.FlexRowWrapper {
 		display: flex;
-		flex-direction: row;
-		margin-top: 1.5rem;
-		// TODO: remove margin bottom in follow up task
-		margin-bottom: 1.5rem;
-		width: 100%;
+		flex-direction: column;
 		justify-content: space-between;
+		width: 100%;
 
 		gap: 2.5rem;
 
@@ -37,8 +41,7 @@
 			.MemberContainer {
 				display: flex;
 				padding: 0;
-				// TODO: change 0rem to 2rem in follow up task
-				margin: 0rem 0 0 0;
+				margin: 2rem 0 0 0;
 				list-style: none;
 
 				gap: 2rem;
@@ -46,6 +49,10 @@
 				a {
 					line-height: 1.5rem;
 				}
+			}
+
+			.OptionsContainer {
+				margin-top: 0.25rem;
 			}
 		}
 	}

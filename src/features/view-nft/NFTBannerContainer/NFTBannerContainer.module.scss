@@ -10,14 +10,15 @@
 	.Media {
 		border-radius: unset;
 
-		@media only screen and (min-width: 510px) {
+		@media only screen and (min-width: 475px) {
 			border-radius: $radius-primary;
 		}
 
 		img {
 			width: unset;
 			max-height: 70vh;
-			max-width: 25rem;
+			max-width: 20.25rem;
+			// max-width: 25rem;
 
 			@media only screen and (min-width: 1000px) {
 				max-width: 36rem;
