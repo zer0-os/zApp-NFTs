@@ -42,7 +42,6 @@ export const NFTDetailsCard: FC<DetailsCardProps> = ({ zna }) => {
 		<div className={styles.Content}>
 			<div className={styles.TextContainer}>
 				<Title title={title} />
-
 				<Options zna={zna} />
 			</div>
 

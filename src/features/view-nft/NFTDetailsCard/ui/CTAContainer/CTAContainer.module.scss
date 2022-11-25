@@ -8,8 +8,12 @@
 	padding: 1.5rem;
 	background: #18101e;
 	border-radius: $radius-primary;
-
+	max-width: 20rem;
 	gap: 1rem;
+
+	@media only screen and (min-width: 793px) {
+		max-width: unset;
+	}
 
 	.Content {
 		display: flex;
