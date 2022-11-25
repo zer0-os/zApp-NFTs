@@ -1,12 +1,17 @@
 import { FC } from 'react';
 
 import { BuyNowButton } from '../../../../buy-now';
+import { PlaceBidButton } from '../../../../place-bid';
 
 import styles from './CTAContainer.module.scss';
 
-export interface CTAContainerProps {}
+export interface CTAContainerProps {
+	zna: string;
+}
 
-export const CTAContainer: FC<CTAContainerProps> = ({}) => {
+export const CTAContainer: FC<CTAContainerProps> = ({
+	zna,
+}: CTAContainerProps) => {
 	return (
 		<div className={styles.Container}>
 			<div className={styles.Content}>
@@ -21,7 +26,7 @@ export const CTAContainer: FC<CTAContainerProps> = ({}) => {
 				<BuyNowButton />
 			</div>
 
-			<div className={styles.TextButton}>Or make an offer</div>
+			<PlaceBidButton zna={zna} variant={'text'} trigger={'or make an offer'} />
 		</div>
 	);
 };
