@@ -1,0 +1,31 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_dimensions.scss';
+
+.Banner {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding: 5.375rem 0 1rem 0;
+
+	.Media {
+		border-radius: unset;
+
+		@media only screen and (min-width: 510px) {
+			border-radius: $radius-primary;
+		}
+
+		img {
+			width: unset;
+			max-height: 70vh;
+			max-width: 25rem;
+
+			@media only screen and (min-width: 1000px) {
+				max-width: 36rem;
+			}
+
+			@media only screen and (min-width: 1200px) {
+				max-width: 46rem;
+			}
+		}
+	}
+}

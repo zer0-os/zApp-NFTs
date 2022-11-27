@@ -1,0 +1,61 @@
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Container {
+	display: flex;
+	flex-direction: column;
+	padding: 1.5rem;
+	background: #18101e;
+	border-radius: $radius-primary;
+	margin-bottom: 2.25rem;
+
+	gap: 1rem;
+
+	.Content {
+		display: flex;
+		flex-direction: column;
+
+		.Label {
+			font-size: $size-tiny;
+			color: #c169ff;
+			line-height: 0.908rem;
+			margin-bottom: 4px;
+		}
+
+		.Values {
+			display: flex;
+			flex-direction: row;
+			align-items: baseline;
+			justify-content: space-between;
+
+			.TokenValue {
+				min-width: 11.125rem;
+				font-size: 20px;
+				line-height: 1.5rem;
+				font-weight: $font-weight-demi-bold;
+			}
+
+			.FiatValue {
+				color: #bfbfbf;
+				font-size: $size-tiny;
+				line-height: 0.908rem;
+			}
+		}
+	}
+
+	.Button {
+		width: 100%;
+
+		button {
+			width: 100%;
+		}
+	}
+
+	.TextButton {
+		font-size: 14px;
+		line-height: 16.94px;
+		text-align: center;
+		color: #52cbff;
+	}
+}
