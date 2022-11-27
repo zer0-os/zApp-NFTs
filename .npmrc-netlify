@@ -1,0 +1,4 @@
+@zer0-os:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_REGISTRY_TOKEN}
+legacy-peer-deps=true
+audit=false
