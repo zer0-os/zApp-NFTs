@@ -30,17 +30,6 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({ zna }) => {
 		? formatEthers(metrics?.volume?.all)
 		: '-';
 
-	// let numberOfBids, lastSale, volumeString;
-
-	// if (!isLoadingBids && bids) {
-	// 	numberOfBids = formatNumber(bids.length || 0).toLocaleString();
-	// }
-
-	// if (!isLoadingMetrics && metrics) {
-	// 	lastSale = formatEthers(metrics.lastSale);
-	// 	volumeString = formatEthers(metrics.volume.all);
-	// }
-
 	const paymentTokenLabel = paymentToken?.label ?? '';
 
 	const stats = [
@@ -66,43 +55,6 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({ zna }) => {
 			},
 		},
 	];
-
-	/*
-	 * LEAVING COMMENT HERE FOR REUSE
-	 */
-
-	// const stats = [
-	// 	{
-	// 		title: 'Bids',
-	// 		value: !isLoading && (bids?.length || 0).toLocaleString(),
-	// 	},
-	// 	{
-	// 		title: 'Last Sale',
-	// 		value: metrics?.lastSale
-	// 			? `${formatEthers(metrics.lastSale)} WILD`
-	// 			: 'No sales',
-	// 		text:
-	// 			metrics?.lowestSale && paymentTokenInfo?.price
-	// 				? `$${formatNumber(
-	// 						Number(ethers.utils.formatEther(metrics.lowestSale)) *
-	// 							paymentTokenInfo.price,
-	// 				  )}`
-	// 				: 0,
-	// 	},
-	// 	{
-	// 		title: 'Volume',
-	// 		value: (metrics?.volume as any)?.all
-	// 			? `${formatEthers((metrics.volume as any).all)} WILD`
-	// 			: String(0),
-	// 		text:
-	// 			(metrics?.volume as any)?.all && paymentTokenInfo?.price
-	// 				? `$${formatNumber(
-	// 						Number(ethers.utils.formatEther(metrics.volume.all)) *
-	// 							paymentTokenInfo.price,
-	// 				  )}`
-	// 				: 0,
-	// 	},
-	// ];
 
 	return <StatsList stats={stats} />;
 };
