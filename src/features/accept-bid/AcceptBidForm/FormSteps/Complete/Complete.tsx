@@ -1,24 +1,25 @@
 import { FC } from 'react';
 
-import { NFTDetails, NFTDetailsProps, TextContent } from '../ui';
-import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
+import { NFTDetails, TextContent } from '../ui';
+import { Wizard } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
 
 export interface CompleteProps {
-	zna: NFTDetailsProps['zna'];
-	onClose: ButtonsProps['onClickPrimaryButton'];
+	zna: string;
+	onClose: () => void;
 }
 
 export const Complete: FC<CompleteProps> = ({ zna, onClose }) => {
-	const textContent = 'Success! Bid accepted and ownership transferred.';
-
 	return (
 		<>
 			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
-				<TextContent variant={'success'} textContent={textContent} />
+				<TextContent
+					variant={'success'}
+					textContent={'Success! Bid accepted and ownership transferred.'}
+				/>
 
 				<Wizard.Buttons
 					className={styles.Button}

@@ -3,14 +3,14 @@ import { FC, useState } from 'react';
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../../lib/types/ui';
 
-import { ViewBids, ViewBidsProps } from '../ViewBids';
+import { ViewBids } from '../ViewBids';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
 import styles from './ViewBidsModal.module.scss';
 
 export interface ViewBidsModalProps extends BasicModalProps {
-	zna: ModalContentProps['zna'];
+	zna: string;
 }
 
 export const ViewBidsModal: FC<ViewBidsModalProps> = ({
@@ -38,7 +38,7 @@ export const ViewBidsModal: FC<ViewBidsModalProps> = ({
  *******************/
 
 interface ModalContentProps {
-	zna: ViewBidsProps['zna'];
+	zna: ViewBidsModalProps['zna'];
 	account: string;
 }
 
