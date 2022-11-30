@@ -85,7 +85,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 				title={{
 					text: metadata?.title,
 					isLoading: isLoadingMetadata,
-					errorText: 'Failed to load!',
+					errorText: '-',
 				}}
 				zna={zna}
 				label={label}

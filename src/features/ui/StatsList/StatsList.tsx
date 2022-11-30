@@ -1,13 +1,15 @@
 import { FC } from 'react';
 
-import { Card, CardProps } from '@zero-tech/zui/components/Card';
+import { AsyncText } from '@zero-tech/zui/lib/types';
+
+import { Card } from '@zero-tech/zui/components/Card';
 
 import styles from './StatsList.module.scss';
 
 type Stat = {
-	title: CardProps['label'];
-	value?: CardProps['primaryText'];
-	text?: CardProps['secondaryText'];
+	title: string;
+	value?: string | AsyncText;
+	text?: string | AsyncText;
 };
 
 type StatsListProps = {

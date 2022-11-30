@@ -29,6 +29,8 @@ export const NFTBannerContainer: FC<BannerProps> = ({ zna }) => {
 				src={bannerSrc}
 				options={{ size: 'full', fit: 'fit' }}
 			/>
+			{/* Red radial gradient */}
+			<div className={styles.Gradient} />
 		</div>
 	);
 };
