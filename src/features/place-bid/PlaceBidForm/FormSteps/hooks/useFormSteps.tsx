@@ -1,6 +1,7 @@
 import { ReactNode, useState } from 'react';
 
 import { usePlaceBidData } from '../../../usePlaceBidData';
+import { Bid } from '@zero-tech/zauction-sdk';
 
 import { ApproveZAuction, Complete, Confirm, Details } from '..';
 import { Wizard } from '@zero-tech/zui/components';

@@ -11,14 +11,15 @@ export interface CompleteProps {
 }
 
 export const Complete: FC<CompleteProps> = ({ zna, onClose }) => {
-	const textContent = 'Success! Bid accepted and ownership transferred.';
-
 	return (
 		<>
 			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
-				<TextContent variant={'success'} textContent={textContent} />
+				<TextContent
+					variant={'success'}
+					textContent={'Success! Bid accepted and ownership transferred.'}
+				/>
 
 				<Wizard.Buttons
 					className={styles.Button}

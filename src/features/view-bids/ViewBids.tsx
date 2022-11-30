@@ -82,8 +82,8 @@ const Header = () => {
 interface BidItemProps {
 	zna: string;
 	bid: Bid;
-	paymentTokenSymbol: string;
-	isAcceptBidEnabled: boolean;
+	paymentTokenSymbol: BidListProps['paymentTokenSymbol'];
+	isAcceptBidEnabled: BidListProps['isAcceptBidEnabled'];
 }
 
 const BidItem = ({

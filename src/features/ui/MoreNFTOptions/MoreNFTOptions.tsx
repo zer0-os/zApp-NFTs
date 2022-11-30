@@ -7,10 +7,9 @@ import { IconSend3 } from '@zero-tech/zui/components/Icons';
 
 export const enum OptionType {
 	TRANSFER = 'transfer',
-	DAO = 'dao',
 }
 
-export type Option = 'transfer' | 'dao';
+export type Option = 'transfer';
 
 type MoreNFTOptionsProps = {
 	zna: string;

@@ -66,7 +66,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 		{
 			label: `Your Bid ${paymentTokenLabel}`,
 			value: highestUserBidString,
-			button: <CancelBidButton />,
+			button: <CancelBidButton zna={zna} />,
 			isVisible: isUserBid,
 		},
 	];

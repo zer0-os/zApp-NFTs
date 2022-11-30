@@ -1,0 +1,15 @@
+.Main {
+	margin: 0 auto;
+	padding-bottom: 50px;
+	max-width: 736px;
+
+	.Content {
+		margin-top: 1rem;
+
+		> * {
+			&:first-child {
+				overflow-y: unset;
+			}
+		}
+	}
+}

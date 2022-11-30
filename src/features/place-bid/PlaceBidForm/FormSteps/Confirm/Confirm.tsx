@@ -33,7 +33,10 @@ export const Confirm: FC<ConfirmProps> = ({
 			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
-				<TextContent textContent={textContent} errorText={errorText} />
+				<TextContent
+					textContent={`Are you sure you want to place a bid of ${bidAmount} ${paymentTokenSymbol} on 0://${zna}.`}
+					errorText={errorText}
+				/>
 
 				<Wizard.Buttons
 					className={styles.Button}

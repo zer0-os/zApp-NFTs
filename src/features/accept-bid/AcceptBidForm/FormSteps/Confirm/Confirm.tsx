@@ -27,7 +27,6 @@ export const Confirm: FC<ConfirmProps> = ({
 
 	const bidder = truncateAddress(bid?.bidder);
 	const bidAmount = formatEthers(bid?.amount);
-	const textContent = `Are you sure you want to accept a bid of ${bidAmount} ${paymentTokenSymbol} and transfer ownership of 0://${zna} to ${bidder}?`;
 
 	const primaryButtonText = errorText ? 'Retry' : 'Continue';
 
@@ -38,7 +37,10 @@ export const Confirm: FC<ConfirmProps> = ({
 			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
-				<TextContent textContent={textContent} errorText={errorText} />
+				<TextContent
+					textContent={`Are you sure you want to accept a bid of ${bidAmount} ${paymentTokenSymbol} and transfer ownership of 0://${zna} to ${bidder}?`}
+					errorText={errorText}
+				/>
 
 				<Wizard.Buttons
 					className={styles.Button}
