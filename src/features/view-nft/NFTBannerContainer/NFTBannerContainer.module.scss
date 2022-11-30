@@ -9,7 +9,7 @@
 	height: 70vh;
 	padding: 5.375rem 2rem 1rem 2rem;
 
-	background: #0D0911;
+	background: #0d0911;
 
 	box-sizing: border-box;
 
@@ -18,7 +18,11 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		background: radial-gradient(50% 100% at 50% 100%, #F10B09 0%, rgba(243, 16, 15, 0) 100%);
+		background: radial-gradient(
+			50% 100% at 50% 100%,
+			#f10b09 0%,
+			rgba(243, 16, 15, 0) 100%
+		);
 		opacity: 0.2;
 		height: 100%;
 		width: 100%;
@@ -29,30 +33,16 @@
 		max-height: 100%;
 		z-index: 2;
 		margin: 0 auto;
-    
+
 		/*
 		 * Hide loading skeleton while we work on a better solution
 		 */
-		span[aria-busy="true"] {
+		span[aria-busy='true'] {
 			display: none;
 		}
 
 		@media only screen and (min-width: 475px) {
 			border-radius: $radius-primary;
 		}
-
-		img {
-			width: unset;
-			max-height: 70vh;
-			max-width: 20.25rem;
-
-			@media only screen and (min-width: 793px) {
-				max-width: 25rem;
-			}
-
-			@media only screen and (min-width: 1200px) {
-				max-width: 46rem;
-			}
-
 	}
 }
