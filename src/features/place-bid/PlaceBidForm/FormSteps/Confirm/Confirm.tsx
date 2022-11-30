@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { usePlaceBidData } from '../../../usePlaceBidData';
 
 import { NFTDetails, TextContent } from '../ui';
-import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
+import { Wizard } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
 
@@ -22,9 +22,9 @@ export const Confirm: FC<ConfirmProps> = ({
 }) => {
 	const { paymentTokenSymbol } = usePlaceBidData(zna);
 
-	const primaryButtonText: ButtonsProps['primaryButtonText'] = errorText
-		? 'Retry'
-		: 'Continue';
+	const textContent = `Are you sure you want to place a bid of ${bidAmount} ${paymentTokenSymbol} on 0://${zna}.`;
+
+	const primaryButtonText = errorText ? 'Retry' : 'Continue';
 
 	const onConfirmPlaceBid = () => onConfirm(bidAmount);
 

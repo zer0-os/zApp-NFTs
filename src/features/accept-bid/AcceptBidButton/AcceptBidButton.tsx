@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { AcceptBidModal } from '..';
-
 import { Bid } from '@zero-tech/zauction-sdk';
+
+import { AcceptBidModal } from '..';
 
 export interface AcceptBidButtonProps {
 	zna: string;

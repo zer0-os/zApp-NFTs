@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback, useState } from 'react';
+import { FC, useCallback, ReactNode, useState } from 'react';
 
 import { OptionLabel } from '../OptionLabel';
 import { TransferOwnershipModal } from '../../transfer-ownership';

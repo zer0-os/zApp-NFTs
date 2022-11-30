@@ -6,7 +6,7 @@ import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
 import { Bid } from '@zero-tech/zauction-sdk';
 
 import { NFTDetails, TextContent } from '../ui';
-import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
+import { Wizard } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
 
@@ -30,9 +30,7 @@ export const Details: FC<DetailsProps> = ({
 	const bidder = truncateAddress(bid?.bidder);
 	const bidAmount = formatEthers(bid?.amount);
 
-	const primaryButtonText: ButtonsProps['primaryButtonText'] = errorText
-		? 'Retry'
-		: 'Continue';
+	const primaryButtonText = errorText ? 'Retry' : 'Continue';
 
 	return (
 		<>

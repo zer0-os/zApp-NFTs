@@ -1,5 +1,5 @@
 import { TextContent } from '../ui';
-import { Wizard, ConfirmationProps } from '@zero-tech/zui/components/Wizard';
+import { Wizard } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
 
@@ -14,9 +14,7 @@ export const ApproveZAuction = ({
 	onClose,
 	onApproveZAuction,
 }: ApproveZAuctionProps) => {
-	const primaryButtonText: ConfirmationProps['primaryButtonText'] = errorText
-		? 'Retry'
-		: 'Continue';
+	const primaryButtonText = errorText ? 'Retry' : 'Continue';
 
 	const confirmationMessage = (
 		<TextContent
