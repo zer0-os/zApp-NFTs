@@ -4,13 +4,11 @@
 .Banner {
 	position: relative;
 	display: flex;
-
 	width: 100%;
 	height: 70vh;
+	max-height: 42rem;
 	padding: 5.375rem 2rem 1rem 2rem;
-
 	background: #0d0911;
-
 	box-sizing: border-box;
 
 	// Red radial gradient
@@ -41,7 +39,7 @@
 			display: none;
 		}
 
-		@media only screen and (min-width: 475px) {
+		@media only screen and (min-width: 485px) {
 			border-radius: $radius-primary;
 		}
 	}

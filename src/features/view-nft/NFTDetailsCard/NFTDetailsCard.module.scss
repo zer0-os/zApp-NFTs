@@ -3,7 +3,7 @@
 	flex-direction: column;
 	gap: 1.5rem;
 
-	@media only screen and (min-width: 793px) {
+	@media only screen and (min-width: 878px) {
 		margin-bottom: 3.625rem;
 	}
 
@@ -17,7 +17,7 @@
 			display: none;
 		}
 
-		@media only screen and (min-width: 793px) {
+		@media only screen and (min-width: 878px) {
 			> * :last-child {
 				display: flex;
 			}
@@ -28,7 +28,7 @@
 			line-height: 1.816rem;
 			margin: 0;
 
-			@media only screen and (min-width: 793px) {
+			@media only screen and (min-width: 878px) {
 				font-size: 2.25rem;
 				line-height: 2.75rem;
 			}
@@ -41,7 +41,7 @@
 		width: 100%;
 		gap: 1.5rem;
 
-		@media only screen and (min-width: 793px) {
+		@media only screen and (min-width: 878px) {
 			flex-direction: row-reverse;
 			justify-content: space-between;
 		}
@@ -73,7 +73,7 @@
 			.OptionsContainer {
 				margin-top: 0.25rem;
 
-				@media only screen and (min-width: 793px) {
+				@media only screen and (min-width: 878px) {
 					display: none;
 				}
 			}

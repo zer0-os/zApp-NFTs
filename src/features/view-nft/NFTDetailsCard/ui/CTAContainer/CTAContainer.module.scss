@@ -11,47 +11,12 @@
 	max-width: 20rem;
 	gap: 1rem;
 
-	@media only screen and (min-width: 793px) {
+	@media only screen and (min-width: 485px) {
 		max-width: unset;
 	}
 
-	.Content {
-		display: flex;
-		flex-direction: column;
-
-		.Label {
-			font-size: $size-tiny;
-			color: #c169ff;
-			line-height: 0.908rem;
-			margin-bottom: 4px;
-		}
-
-		.Values {
-			display: flex;
-			flex-direction: row;
-			align-items: baseline;
-			justify-content: space-between;
-
-			.TokenValue {
-				min-width: 11.125rem;
-				font-size: 20px;
-				line-height: 1.5rem;
-				font-weight: $font-weight-demi-bold;
-			}
-
-			.FiatValue {
-				color: #bfbfbf;
-				font-size: $size-tiny;
-				line-height: 0.908rem;
-			}
-		}
-	}
-
-	.Button {
+	@media only screen and (min-width: 878px) {
 		width: 100%;
-
-		button {
-			width: 100%;
-		}
+		max-width: 25rem;
 	}
 }

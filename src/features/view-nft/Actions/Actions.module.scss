@@ -3,11 +3,55 @@
 
 .Container {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 2.5rem;
+	flex-direction: column;
 	padding: 0;
-	margin: 0 0 3rem 0;
+	margin: 0;
 	list-style: none;
+
+	gap: 1rem;
+
+	@media only screen and (min-width: 878px) {
+		flex-direction: row;
+	}
+
+	.Item {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		gap: 1rem;
+
+		&:not(:first-child) {
+			padding-top: 1rem;
+			// TODO: add colour to zUI
+			border-top: 1px solid #37273f;
+
+			@media only screen and (min-width: 878px) {
+				padding-top: 0;
+				border-top: unset;
+			}
+		}
+
+		button {
+			width: 100%;
+			margin-top: 0.75rem;
+		}
+	}
+
+	.SubAction2 {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		.Subtext {
+			font-size: $size-small;
+			line-height: 1.063rem;
+			color: #a09fa6;
+		}
+
+		@media only screen and (min-width: 878px) {
+			display: none;
+		}
+	}
 
 	.Action {
 		label {
@@ -17,11 +61,48 @@
 
 		span:last-child {
 			overflow: unset;
-			margin-top: 0.75rem;
 		}
 
-		.Value {
-			font-size: $size-large;
+		.Values {
+			display: flex;
+			flex-direction: row;
+			align-items: baseline;
+			justify-content: space-between;
+
+			gap: 0.25rem;
+
+			@media only screen and (min-width: 878px) {
+				flex-direction: column;
+			}
+
+			.TokenValue {
+				font-size: 20px;
+				line-height: 1.5rem;
+				font-weight: $font-weight-demi-bold;
+			}
+
+			.FiatValue {
+				color: #bfbfbf;
+				font-size: $size-tiny;
+				font-weight: $font-weight-regular;
+				line-height: 0.908rem;
+			}
+		}
+	}
+}
+
+.SubAction {
+	display: none;
+
+	@media only screen and (min-width: 878px) {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		.Subtext {
+			font-size: $size-small;
+			line-height: 1.063rem;
+			color: #a09fa6;
 		}
 	}
 }

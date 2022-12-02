@@ -1,3 +1,4 @@
+import { Actions } from '../../../../../features/view-nft/Actions';
 import { FC } from 'react';
 
 import { BuyNowButton } from '../../../../buy-now';
@@ -14,7 +15,8 @@ export const CTAContainer: FC<CTAContainerProps> = ({
 }: CTAContainerProps) => {
 	return (
 		<div className={styles.Container}>
-			<div className={styles.Content}>
+			<Actions zna={zna} />
+			{/* <div className={styles.Content}>
 				<span className={styles.Label}>{'Buy Now (WILD)'}</span>
 				<div className={styles.Values}>
 					<span className={styles.TokenValue}>{'3,000,000.00'}</span>
@@ -23,10 +25,10 @@ export const CTAContainer: FC<CTAContainerProps> = ({
 			</div>
 
 			<div className={styles.Button}>
-				<BuyNowButton />
+				<BuyNowButton zna={zna} trigger={'Buy now'} />
 			</div>
 
-			<PlaceBidButton zna={zna} variant={'text'} trigger={'or make an offer'} />
+			<PlaceBidButton zna={zna} variant={'text'} trigger={'or make an offer'} /> */}
 		</div>
 	);
 };

@@ -22,7 +22,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 		highestBid,
 		highestUserBid,
 		buyNowPrice,
-		paymentTokenLabel,
+		paymentTokenSymbol,
 		isDomainBiddable,
 		isOwnedByUser,
 		isSetBuyNow,
@@ -42,55 +42,119 @@ export const Actions = ({ zna }: ActionsProps) => {
 		? bigNumberToLocaleString(buyNowPrice)
 		: '-';
 
-	const bidsButton = getBidsButton(zna, isOwnedByUser, isViewBids);
+	// const bidsButton = getBidsButton(zna, isOwnedByUser, isViewBids);
 
-	const actions = [
-		{
-			label: `Buy Now ${paymentTokenLabel}`,
-			value: buyNowPriceString,
-			button: <BuyNowButton />,
-			isVisible: isBuyNow,
-		},
-		{
-			label: `Buy Now ${paymentTokenLabel}`,
-			value: buyNowPriceString,
-			button: <SetBuyNowButton />,
-			isVisible: isSetBuyNow,
-		},
-		{
-			label: `Highest Bid ${paymentTokenLabel}`,
-			value: highestBidString,
-			button: bidsButton,
-			isVisible: isDomainBiddable || isViewBids,
-		},
-		{
-			label: `Your Bid ${paymentTokenLabel}`,
-			value: highestUserBidString,
-			button: <CancelBidButton zna={zna} />,
-			isVisible: isUserBid,
-		},
-	];
+	// const actions = [
+	// 	{
+	// 		label: `Buy Now ${paymentTokenSymbol}`,
+	// 		value: buyNowPriceString,
+	// 		button: <BuyNowButton zna={zna} trigger={'Buy now'} />,
+	// 		isVisible: !isBuyNow,
+	// 	},
+	// 	{
+	// 		label: `Buy Now ${paymentTokenSymbol}`,
+	// 		value: buyNowPriceString,
+	// 		button: <SetBuyNowButton />,
+	// 		isVisible: isSetBuyNow,
+	// 	},
+	// 	{
+	// 		label: `Highest Bid ${paymentTokenSymbol}`,
+	// 		value: highestBidString,
+	// 		button: bidsButton,
+	// 		isVisible: false,
+	// 		// isDomainBiddable || isViewBids,
+	// 	},
+	// 	{
+	// 		label: `Your Bid ${paymentTokenSymbol}`,
+	// 		value: highestUserBidString,
+	// 		button: <CancelBidButton zna={zna} />,
+	// 		isVisible: isUserBid,
+	// 	},
+	// ];
 
-	const orderedActions = isOwnedByUser
-		? [actions[2], actions[0], actions[1]]
-		: [actions[0], actions[2], actions[3]];
+	// const orderedActions = isOwnedByUser
+	// 	? [actions[2], actions[0], actions[1]]
+	// 	: [actions[0], actions[2], actions[3]];
 
 	return (
-		<ul className={styles.Container}>
-			{orderedActions.map(
-				(action, index) =>
-					action.isVisible && (
-						<li key={`action-${index}`}>
-							<Action
-								label={action.label}
-								value={action.value}
-								button={action.button}
-								isLoading={isLoading}
+		<>
+			<ul className={styles.Container}>
+				{/* OFFER */}
+				{isDomainBiddable && (
+					<li className={styles.Item} key={`action-make-offer`}>
+						<Action
+							label={`Highest Offer ${paymentTokenSymbol}`}
+							tokenValue={highestBidString}
+							fiatValue={
+								Boolean(highestBidString) ? 'No offers yet' : 'No offers yet'
+							}
+							button={<PlaceBidButton zna={zna} trigger={'Make new offer'} />}
+							isLoading={!isLoading}
+						/>
+
+						{isUserBid && (
+							<div className={styles.SubAction2}>
+								<span className={styles.Subtext}>
+									{`Your highest offer: ${highestUserBidString} ${paymentTokenSymbol}`}
+								</span>
+								<CancelBidButton
+									zna={zna}
+									trigger={'Cancel offer'}
+									variant={'text'}
+								/>
+							</div>
+						)}
+					</li>
+				)}
+
+				{/* BUY NOW */}
+				{isBuyNow && (
+					<li className={styles.Item} key={`action-buy-now`}>
+						<Action
+							label={`Buy Now ${paymentTokenSymbol}`}
+							tokenValue={buyNowPriceString}
+							fiatValue={'-'}
+							button={<BuyNowButton zna={zna} trigger={'Buy now'} />}
+							isLoading={!isLoading}
+						/>
+
+						{isDomainBiddable && !isUserBid && (
+							<PlaceBidButton
+								zna={zna}
+								variant={'text'}
+								trigger={'Or make an offer'}
 							/>
-						</li>
-					),
+						)}
+					</li>
+				)}
+
+				{/* SET BUY NOW */}
+				{/* {!isSetBuyNow && (
+					<li className={styles.Item} key={`action-set-buy-now`}>
+						<Action
+							label={`Buy Now ${paymentTokenSymbol}`}
+							tokenValue={'-'}
+							fiatValue={'Buy now not set'}
+							button={<SetBuyNowButton />}
+							isLoading={!isLoading}
+						/>
+					</li>
+				)} */}
+			</ul>
+
+			{isUserBid && (
+				<div className={styles.SubAction}>
+					<span className={styles.Subtext}>
+						{`Your highest offer: ${highestUserBidString} ${paymentTokenSymbol}`}
+					</span>
+					<CancelBidButton
+						zna={zna}
+						trigger={'Cancel offer'}
+						variant={'text'}
+					/>
+				</div>
 			)}
-		</ul>
+		</>
 	);
 };
 
@@ -98,16 +162,16 @@ export const Actions = ({ zna }: ActionsProps) => {
  * getBidsButton
  ***************/
 
-const getBidsButton = (
-	zna: string,
-	isOwnedByUser: boolean,
-	isViewBids: boolean,
-) =>
-	!isOwnedByUser ? (
-		<PlaceBidButton zna={zna} trigger={'Place A Bid'} />
-	) : (
-		isViewBids && <ViewBidsButton zna={zna} variant="primary" />
-	);
+// const getBidsButton = (
+// 	zna: string,
+// 	isOwnedByUser: boolean,
+// 	isViewBids: boolean,
+// ) =>
+// 	!isOwnedByUser ? (
+// 		<PlaceBidButton zna={zna} trigger={'Make new offer'} />
+// 	) : (
+// 		isViewBids && <ViewBidsButton zna={zna} variant="primary" />
+// 	);
 
 /*********
  * Action
@@ -115,17 +179,24 @@ const getBidsButton = (
 
 interface ActionProps {
 	label: string;
-	value: string;
+	tokenValue: string;
+	fiatValue: string;
 	button: ReactNode;
 	isLoading: boolean;
 }
 
-const Action = ({ label, value, button, isLoading }: ActionProps) => (
+const Action = ({
+	label,
+	tokenValue,
+	fiatValue,
+	button,
+	isLoading,
+}: ActionProps) => (
 	<TextStack
 		className={styles.Action}
 		label={label}
 		primaryText={{
-			text: <TextValue value={value} />,
+			text: <TextValue tokenValue={tokenValue} fiatValue={fiatValue ?? '-'} />,
 			isLoading: isLoading,
 		}}
 		secondaryText={{
@@ -140,9 +211,29 @@ const Action = ({ label, value, button, isLoading }: ActionProps) => (
  ************/
 
 interface TextValueProps {
-	value: string;
+	tokenValue: string;
+	fiatValue: string;
 }
 
-const TextValue = ({ value }: TextValueProps) => (
-	<span className={styles.Value}>{value}</span>
+const TextValue = ({ tokenValue, fiatValue }: TextValueProps) => (
+	<div className={styles.Values}>
+		<span className={styles.TokenValue}>{tokenValue}</span>
+		<span className={styles.FiatValue}>{fiatValue}</span>
+	</div>
 );
+
+{
+	/* {orderedActions.map(
+					(action, index) =>
+						action.isVisible && (
+							<li key={`action-${index}`}>
+								<Action
+									label={action.label}
+									value={action.value}
+									button={action.button}
+									isLoading={!isLoading}
+								/>
+							</li>
+						),
+				)} */
+}
