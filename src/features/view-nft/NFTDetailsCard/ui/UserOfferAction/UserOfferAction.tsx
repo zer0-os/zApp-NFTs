@@ -50,7 +50,7 @@ export const UserOfferAction: FC<UserOfferActionProps> = ({ zna }) => {
 				}}
 			/>
 
-			{!isUserBid && (
+			{isUserBid && (
 				<div className={styles.SecondaryAction}>
 					<span className={styles.Subtext}>
 						{`Your highest offer: ${highestUserBidString} ${paymentTokenSymbol}`}

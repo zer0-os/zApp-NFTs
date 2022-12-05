@@ -2,10 +2,12 @@ import { FC } from 'react';
 
 import { useActionsData } from '../../useActionsData';
 
-import { OwnerOfferAction } from '../OwnerOfferAction';
-import { OwnerSetBuyNowAction } from '../OwnerSetBuyNowAction';
-import { UserBuyNowAction } from '../UserBuyNowAction';
-import { UserOfferAction } from '../UserOfferAction';
+import {
+	OwnerOfferAction,
+	OwnerSetBuyNowAction,
+	UserBuyNowAction,
+	UserOfferAction,
+} from '..';
 
 import styles from './CTAContainer.module.scss';
 
