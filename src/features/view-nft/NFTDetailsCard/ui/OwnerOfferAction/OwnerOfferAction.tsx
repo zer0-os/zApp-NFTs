@@ -21,7 +21,8 @@ export const OwnerOfferAction: FC<OwnerOfferActionProps> = ({ zna }) => {
 
 	const fiatValue = isDomainBiddable
 		? Boolean(highestBid)
-			? '1,200,000'
+			? // TODO: wild to usd conversion here
+			  '1,200,000'
 			: 'No offers yet'
 		: 'Bidding disabled';
 
@@ -44,11 +45,11 @@ export const OwnerOfferAction: FC<OwnerOfferActionProps> = ({ zna }) => {
 					text: (
 						<TextValue tokenValue={highestBidString} fiatValue={fiatValue} />
 					),
-					isLoading: !isLoading,
+					isLoading: isLoading,
 				}}
 				secondaryText={{
-					text: Boolean(highestBid) && button,
-					isLoading: !isLoading,
+					text: !Boolean(highestBid) && button,
+					isLoading: isLoading,
 				}}
 			/>
 		</div>

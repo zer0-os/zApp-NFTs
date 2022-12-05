@@ -18,7 +18,7 @@ export const CTAContainer: FC<CTAContainerProps> = ({ zna }) => {
 
 	return (
 		<div className={styles.Container}>
-			{!isOwnedByUser && isDomainBiddable && <UserOfferAction zna={zna} />}
+			{isDomainBiddable && !isBuyNow && <UserOfferAction zna={zna} />}
 			{isBuyNow && <UserBuyNowAction zna={zna} />}
 			{isOwnedByUser && (
 				<>

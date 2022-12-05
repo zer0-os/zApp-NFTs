@@ -7,7 +7,7 @@ import styles from './ViewBidsButton.module.scss';
 
 interface ViewBidsButtonProps {
 	zna: string;
-	trigger?: ReactNode;
+	trigger: ReactNode;
 	variant?: 'primary' | 'text';
 }
 

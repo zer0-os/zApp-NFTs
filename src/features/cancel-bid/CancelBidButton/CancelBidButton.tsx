@@ -6,7 +6,7 @@ import styles from './CancelBidButton.module.scss';
 
 interface CancelBidButtonProps {
 	zna: string;
-	trigger?: string;
+	trigger: string;
 	variant?: 'primary' | 'text';
 }
 

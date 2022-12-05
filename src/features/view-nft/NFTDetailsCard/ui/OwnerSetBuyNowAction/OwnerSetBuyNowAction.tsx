@@ -33,11 +33,15 @@ export const OwnerSetBuyNowAction: FC<OwnerSetBuyNowActionProps> = ({
 					text: (
 						<TextValue tokenValue={buyNowPriceString} fiatValue={fiatValue} />
 					),
-					isLoading: !isLoading,
+					isLoading: isLoading,
 				}}
 				secondaryText={{
-					text: <SetBuyNowButton />,
-					isLoading: !isLoading,
+					text: (
+						<SetBuyNowButton
+							trigger={isSetBuyNow ? 'Edit buy now' : 'Set buy now'}
+						/>
+					),
+					isLoading: isLoading,
 				}}
 			/>
 		</div>

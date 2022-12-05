@@ -29,7 +29,8 @@ export const UserOfferAction: FC<UserOfferActionProps> = ({ zna }) => {
 		: '-';
 
 	const fiatValue = Boolean(highestBidString)
-		? 'No offers yet'
+		? // TODO: update to display wild to usd conversion
+		  'No offers yet'
 		: 'No offers yet';
 
 	return (
@@ -41,15 +42,15 @@ export const UserOfferAction: FC<UserOfferActionProps> = ({ zna }) => {
 					text: (
 						<TextValue tokenValue={highestBidString} fiatValue={fiatValue} />
 					),
-					isLoading: !isLoading,
+					isLoading: isLoading,
 				}}
 				secondaryText={{
 					text: <PlaceBidButton zna={zna} trigger={'Make offer'} />,
-					isLoading: !isLoading,
+					isLoading: isLoading,
 				}}
 			/>
 
-			{isUserBid && (
+			{!isUserBid && (
 				<div className={styles.SecondaryAction}>
 					<span className={styles.Subtext}>
 						{`Your highest offer: ${highestUserBidString} ${paymentTokenSymbol}`}

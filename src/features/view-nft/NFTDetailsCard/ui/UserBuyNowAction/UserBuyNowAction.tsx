@@ -28,11 +28,11 @@ export const UserBuyNowAction: FC<UserBuyNowActionProps> = ({ zna }) => {
 				label={`Buy Now ${paymentTokenSymbol}`}
 				primaryText={{
 					text: <TextValue tokenValue={buyNowPriceString} fiatValue={'-'} />,
-					isLoading: !isLoading,
+					isLoading: isLoading,
 				}}
 				secondaryText={{
 					text: <BuyNowButton zna={zna} trigger={'Buy now'} />,
-					isLoading: !isLoading,
+					isLoading: isLoading,
 				}}
 			/>
 
