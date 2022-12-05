@@ -108,7 +108,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 				)}
 
 				{/* BUY NOW */}
-				{isBuyNow && (
+				{/* {isBuyNow && (
 					<li className={styles.Item} key={`action-buy-now`}>
 						<Action
 							label={`Buy Now ${paymentTokenSymbol}`}
@@ -126,7 +126,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 							/>
 						)}
 					</li>
-				)}
+				)} */}
 
 				{/* SET BUY NOW */}
 				{/* {!isSetBuyNow && (
@@ -142,7 +142,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 				)} */}
 			</ul>
 
-			{isUserBid && (
+			{/* {isUserBid && (
 				<div className={styles.SubAction}>
 					<span className={styles.Subtext}>
 						{`Your highest offer: ${highestUserBidString} ${paymentTokenSymbol}`}
@@ -153,7 +153,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 						variant={'text'}
 					/>
 				</div>
-			)}
+			)} */}
 		</>
 	);
 };
