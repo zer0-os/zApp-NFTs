@@ -88,7 +88,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 							fiatValue={
 								Boolean(highestBidString) ? 'No offers yet' : 'No offers yet'
 							}
-							button={<PlaceBidButton zna={zna} trigger={'Make new offer'} />}
+							button={<PlaceBidButton zna={zna} trigger={'Make offer'} />}
 							isLoading={!isLoading}
 						/>
 
@@ -118,7 +118,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 							isLoading={!isLoading}
 						/>
 
-						{isDomainBiddable && !isUserBid && (
+						{isDomainBiddable && isUserBid && (
 							<PlaceBidButton
 								zna={zna}
 								variant={'text'}
