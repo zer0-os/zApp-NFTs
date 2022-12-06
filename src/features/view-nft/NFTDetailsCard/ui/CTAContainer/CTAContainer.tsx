@@ -32,25 +32,24 @@ export const CTAContainer: FC<CTAContainerProps> = ({ zna }) => {
 				isSingleAction: isSingleAction,
 			})}
 		>
-			<div style={{ display: 'flex', flexDirection: 'row' }}>
-				{/* Make offer */}
-				{(isDomainBiddable || !isBuyNow || isUserBid) && (
-					<UserOfferAction zna={zna} />
-				)}
+			{/* Make offer */}
+			{(isDomainBiddable || !isBuyNow || isUserBid) && (
+				<UserOfferAction zna={zna} />
+			)}
 
-				{/* Buy now */}
-				{isBuyNow && <UserBuyNowAction zna={zna} />}
+			{/* Buy now */}
+			{isBuyNow && <UserBuyNowAction zna={zna} />}
 
-				{/* View bids / Enable bids now && Set buy now / Edit buy now */}
-				{isOwnedByUser && (
-					<>
-						<OwnerOfferAction zna={zna} />
-						<OwnerSetBuyNowAction zna={zna} />
-					</>
-				)}
-			</div>
+			{/* View bids / Enable bids now && Set buy now / Edit buy now */}
+			{isOwnedByUser && (
+				<>
+					<OwnerOfferAction zna={zna} />
+					<OwnerSetBuyNowAction zna={zna} />
+				</>
+			)}
 
-			{!isSingleAction && isUserBid && <UserCancelOffer zna={zna} />}
+			{/* TODO: add styling to handle cancel offer with multiple actions */}
+			{/* {!isSingleAction && !isUserBid && <UserCancelOffer zna={zna} />} */}
 		</div>
 	);
 };
