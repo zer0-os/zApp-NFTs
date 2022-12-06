@@ -1,10 +1,11 @@
 import { FC } from 'react';
 
 import { useActionsData } from '../../useActionsData';
+import { formatNumber } from '../../../../../lib/util';
 import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
 import { SetBuyNowButton } from '../../../../set-buy-now';
-import { TextStack } from '@zero-tech/zui/components';
+import { Button, TextStack } from '@zero-tech/zui/components';
 
 import styles from './OwnerSetBuyNowAction.module.scss';
 
@@ -15,20 +16,32 @@ export interface OwnerSetBuyNowActionProps {
 export const OwnerSetBuyNowAction: FC<OwnerSetBuyNowActionProps> = ({
 	zna,
 }) => {
-	const { buyNowPrice, isSetBuyNow, paymentTokenSymbol, isLoading } =
-		useActionsData(zna);
+	const {
+		buyNowPriceString,
+		isSetBuyNow,
+		isViewBids,
+		paymentTokenSymbol,
+		buyNowPriceUsdConversionString,
+		isLoading,
+	} = useActionsData(zna);
 
-	const buyNowPriceString = buyNowPrice
-		? bigNumberToLocaleString(buyNowPrice)
-		: '-';
+	const fiatValue = isSetBuyNow
+		? buyNowPriceUsdConversionString
+		: 'Buy now not set';
 
-	const fiatValue = isSetBuyNow ? '1,200,000' : 'Buy now not set';
+	const buttonLabel = isSetBuyNow ? 'Edit buy now' : 'Set buy now';
+
+	const triggerVariant = isViewBids ? (
+		<Button variant={'secondary'}>{buttonLabel}</Button>
+	) : (
+		buttonLabel
+	);
 
 	return (
 		<div className={styles.Container}>
 			<TextStack
 				className={styles.PrimaryAction}
-				label={`Buy Now ${paymentTokenSymbol}`}
+				label={`Buy now (${paymentTokenSymbol})`}
 				primaryText={{
 					text: (
 						<TextValue tokenValue={buyNowPriceString} fiatValue={fiatValue} />
@@ -36,11 +49,7 @@ export const OwnerSetBuyNowAction: FC<OwnerSetBuyNowActionProps> = ({
 					isLoading: isLoading,
 				}}
 				secondaryText={{
-					text: (
-						<SetBuyNowButton
-							trigger={isSetBuyNow ? 'Edit buy now' : 'Set buy now'}
-						/>
-					),
+					text: <SetBuyNowButton trigger={triggerVariant} />,
 					isLoading: isLoading,
 				}}
 			/>

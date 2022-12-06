@@ -14,20 +14,25 @@ export interface OwnerOfferActionProps {
 }
 
 export const OwnerOfferAction: FC<OwnerOfferActionProps> = ({ zna }) => {
-	const { highestBid, paymentTokenSymbol, isDomainBiddable, isLoading } =
-		useActionsData(zna);
+	const {
+		highestBid,
+		highestUserBid,
+		paymentTokenSymbol,
+		highestBidUsdConversionString,
+		isDomainBiddable,
+		isLoading,
+	} = useActionsData(zna);
 
 	const highestBidString = highestBid ? formatEthers(highestBid?.amount) : '-';
 
 	const fiatValue = isDomainBiddable
 		? Boolean(highestBid)
-			? // TODO: wild to usd conversion here
-			  '1,200,000'
+			? highestBidUsdConversionString
 			: 'No offers yet'
 		: 'Bidding disabled';
 
-	const label = Boolean(highestBid)
-		? `Highest offer ${paymentTokenSymbol}`
+	const label = !Boolean(highestUserBid)
+		? `Highest offer (${paymentTokenSymbol})`
 		: 'Your current offer';
 
 	const button = isDomainBiddable ? (
@@ -48,7 +53,7 @@ export const OwnerOfferAction: FC<OwnerOfferActionProps> = ({ zna }) => {
 					isLoading: isLoading,
 				}}
 				secondaryText={{
-					text: !Boolean(highestBid) && button,
+					text: Boolean(highestBid) && button,
 					isLoading: isLoading,
 				}}
 			/>

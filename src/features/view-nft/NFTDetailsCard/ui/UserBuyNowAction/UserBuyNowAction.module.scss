@@ -7,20 +7,16 @@
 	width: 100%;
 	gap: 1rem;
 
-	// &:not(:first-child) {
-	// 	padding-top: 1rem;
-	// 	// TODO: add colour to zUI
-	// 	border-top: 1px solid #37273f;
-
-	// 	@media only screen and (min-width: 878px) {
-	// 		padding-top: 0;
-	// 		border-top: unset;
-	// 	}
-	// }
+	@media only screen and (min-width: 878px) {
+		&.isSingleAction {
+			padding: 0.75rem;
+		}
+	}
 
 	button {
 		width: 100%;
 		margin-top: 0.75rem;
+		text-transform: unset;
 	}
 
 	.PrimaryAction {
@@ -43,6 +39,10 @@
 
 			@media only screen and (min-width: 878px) {
 				flex-direction: column;
+
+				&.isSingleAction {
+					flex-direction: row;
+				}
 			}
 
 			.TokenValue {

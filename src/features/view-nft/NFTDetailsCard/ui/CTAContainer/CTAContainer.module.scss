@@ -18,7 +18,10 @@
 	@media only screen and (min-width: 878px) {
 		display: flex;
 		flex-direction: row;
-		width: 100%;
-		max-width: 25rem;
+		min-width: 19.5rem;
+
+		&.isSingleAction {
+			min-width: 17rem;
+		}
 	}
 }
