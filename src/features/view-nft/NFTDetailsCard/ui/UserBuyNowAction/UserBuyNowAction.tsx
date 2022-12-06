@@ -2,12 +2,13 @@ import { FC } from 'react';
 
 import { useActionsData } from '../../useActionsData';
 
+import { TextValue } from '../TextValue';
 import { BuyNowButton } from '../../../../buy-now';
 import { PlaceBidButton } from '../../../../place-bid';
 import { Button, TextStack } from '@zero-tech/zui/components';
 
 import classNames from 'classnames/bind';
-import styles from './UserBuyNowAction.module.scss';
+import styles from '../CTAContainer/CTAContainer.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +22,7 @@ export const UserBuyNowAction: FC<UserBuyNowActionProps> = ({ zna }) => {
 		buyNowPriceString,
 		paymentTokenSymbol,
 		buyNowPriceUsdConversionString,
-		highestBid,
+		isUserBid,
 		isLoading,
 	} = useActionsData(zna);
 
@@ -33,7 +34,7 @@ export const UserBuyNowAction: FC<UserBuyNowActionProps> = ({ zna }) => {
 
 	return (
 		<div
-			className={cx(styles.Container, {
+			className={cx(styles.ActionContainer, {
 				isSingleAction: !isDomainBiddable,
 			})}
 		>
@@ -56,7 +57,7 @@ export const UserBuyNowAction: FC<UserBuyNowActionProps> = ({ zna }) => {
 				}}
 			/>
 
-			{!Boolean(highestBid) && (
+			{!isUserBid && isDomainBiddable && (
 				<PlaceBidButton
 					zna={zna}
 					variant={'text'}
@@ -66,28 +67,3 @@ export const UserBuyNowAction: FC<UserBuyNowActionProps> = ({ zna }) => {
 		</div>
 	);
 };
-
-/************
- * TextValue
- ************/
-
-interface TextValueProps {
-	tokenValue: string;
-	fiatValue: string;
-	isSingleAction?: boolean;
-}
-
-const TextValue = ({
-	tokenValue,
-	fiatValue,
-	isSingleAction,
-}: TextValueProps) => (
-	<div
-		className={cx(styles.Values, {
-			isSingleAction: isSingleAction,
-		})}
-	>
-		<span className={styles.TokenValue}>{tokenValue}</span>
-		<span className={styles.FiatValue}>{fiatValue}</span>
-	</div>
-);

@@ -3,11 +3,12 @@ import { FC } from 'react';
 import { useActionsData } from '../../useActionsData';
 import { formatEthers } from '../../../../../lib/util';
 
+import { TextValue } from '../TextValue';
 import { ViewBidsButton } from '../../../../view-bids';
 import { DomainSettingsButton } from '../../../../domain-settings';
 import { TextStack } from '@zero-tech/zui/components';
 
-import styles from './OwnerOfferAction.module.scss';
+import styles from '../CTAContainer/CTAContainer.module.scss';
 
 export interface OwnerOfferActionProps {
 	zna: string;
@@ -42,7 +43,7 @@ export const OwnerOfferAction: FC<OwnerOfferActionProps> = ({ zna }) => {
 	);
 
 	return (
-		<div className={styles.Container}>
+		<div className={styles.ActionContainer}>
 			<TextStack
 				className={styles.PrimaryAction}
 				label={label}
@@ -60,19 +61,3 @@ export const OwnerOfferAction: FC<OwnerOfferActionProps> = ({ zna }) => {
 		</div>
 	);
 };
-
-/************
- * TextValue
- ************/
-
-interface TextValueProps {
-	tokenValue: string;
-	fiatValue: string;
-}
-
-const TextValue = ({ tokenValue, fiatValue }: TextValueProps) => (
-	<div className={styles.Values}>
-		<span className={styles.TokenValue}>{tokenValue}</span>
-		<span className={styles.FiatValue}>{fiatValue}</span>
-	</div>
-);

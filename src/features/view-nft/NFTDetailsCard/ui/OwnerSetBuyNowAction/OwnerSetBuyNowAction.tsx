@@ -1,13 +1,12 @@
 import { FC } from 'react';
 
 import { useActionsData } from '../../useActionsData';
-import { formatNumber } from '../../../../../lib/util';
-import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
+import { TextValue } from '../TextValue';
 import { SetBuyNowButton } from '../../../../set-buy-now';
 import { Button, TextStack } from '@zero-tech/zui/components';
 
-import styles from './OwnerSetBuyNowAction.module.scss';
+import styles from '../CTAContainer/CTAContainer.module.scss';
 
 export interface OwnerSetBuyNowActionProps {
 	zna: string;
@@ -38,7 +37,7 @@ export const OwnerSetBuyNowAction: FC<OwnerSetBuyNowActionProps> = ({
 	);
 
 	return (
-		<div className={styles.Container}>
+		<div className={styles.ActionContainer}>
 			<TextStack
 				className={styles.PrimaryAction}
 				label={`Buy now (${paymentTokenSymbol})`}
@@ -56,19 +55,3 @@ export const OwnerSetBuyNowAction: FC<OwnerSetBuyNowActionProps> = ({
 		</div>
 	);
 };
-
-/************
- * TextValue
- ************/
-
-interface TextValueProps {
-	tokenValue: string;
-	fiatValue: string;
-}
-
-const TextValue = ({ tokenValue, fiatValue }: TextValueProps) => (
-	<div className={styles.Values}>
-		<span className={styles.TokenValue}>{tokenValue}</span>
-		<span className={styles.FiatValue}>{fiatValue}</span>
-	</div>
-);

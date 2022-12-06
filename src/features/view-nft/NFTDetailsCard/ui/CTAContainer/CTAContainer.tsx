@@ -6,6 +6,7 @@ import {
 	OwnerOfferAction,
 	OwnerSetBuyNowAction,
 	UserBuyNowAction,
+	UserCancelOffer,
 	UserOfferAction,
 } from '..';
 
@@ -19,30 +20,37 @@ export interface CTAContainerProps {
 }
 
 export const CTAContainer: FC<CTAContainerProps> = ({ zna }) => {
-	const { isDomainBiddable, isBuyNow, isOwnedByUser } = useActionsData(zna);
+	const { isDomainBiddable, isBuyNow, isUserBid, isOwnedByUser } =
+		useActionsData(zna);
 
 	const isSingleAction =
 		(!isBuyNow && isDomainBiddable) || (isBuyNow && !isDomainBiddable);
 
 	return (
 		<div
-			className={cx(styles.Container, {
+			className={cx(styles.CTAContainer, {
 				isSingleAction: isSingleAction,
 			})}
 		>
-			{/* Make offer */}
-			{isDomainBiddable && isOwnedByUser && <UserOfferAction zna={zna} />}
+			<div style={{ display: 'flex', flexDirection: 'row' }}>
+				{/* Make offer */}
+				{(isDomainBiddable || !isBuyNow || isUserBid) && (
+					<UserOfferAction zna={zna} />
+				)}
 
-			{/* Buy now */}
-			{!isBuyNow && <UserBuyNowAction zna={zna} />}
+				{/* Buy now */}
+				{isBuyNow && <UserBuyNowAction zna={zna} />}
 
-			{/* View bids / Enable bids now && Set buy now / Edit buy now */}
-			{isOwnedByUser && (
-				<>
-					<OwnerOfferAction zna={zna} />
-					<OwnerSetBuyNowAction zna={zna} />
-				</>
-			)}
+				{/* View bids / Enable bids now && Set buy now / Edit buy now */}
+				{isOwnedByUser && (
+					<>
+						<OwnerOfferAction zna={zna} />
+						<OwnerSetBuyNowAction zna={zna} />
+					</>
+				)}
+			</div>
+
+			{!isSingleAction && isUserBid && <UserCancelOffer zna={zna} />}
 		</div>
 	);
 };
