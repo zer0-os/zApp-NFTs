@@ -4,10 +4,7 @@ import { Step } from '../../hooks';
 import { useCancelBidData } from '../../../../useCancelBidData';
 import { formatEthers } from '../../../../../../lib/util/number';
 import { HTMLTextElement } from '@zero-tech/zui/lib/types';
-import {
-	truncateAddress,
-	truncateDomain,
-} from '@zero-tech/zui/formatting/addresses';
+import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
 import { SkeletonText } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';

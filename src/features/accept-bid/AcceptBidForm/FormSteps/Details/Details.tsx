@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { formatEthers } from '../../../../../lib/util';
 import { useAcceptBidData } from '../../../useAcceptBidData';
-import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
+import { truncateAddress } from '@zero-tech/zui/utils';
 import { Bid } from '@zero-tech/zauction-sdk';
 
 import { NFTDetails, TextContent } from '../ui';
