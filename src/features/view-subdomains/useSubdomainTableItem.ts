@@ -1,4 +1,4 @@
-import { useBuyNowPrice } from '../../lib/hooks/useBuyNowPrice';
+import { useBuyNowListing } from '../../lib/hooks';
 import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
 import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
 import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
