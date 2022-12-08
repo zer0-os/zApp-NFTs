@@ -31,7 +31,7 @@ export type UseAcceptBidFormReturn = {
 };
 
 /**
- * Drives the logic behind the place bid form.
+ * Drives the logic behind the accept bid form.
  */
 export const useAcceptBidForm = (
 	zna: string,

@@ -2,15 +2,10 @@ import { FC } from 'react';
 
 import { usePlaceBidData } from '../../../usePlaceBidData';
 
-import {
-	ExternalLinks,
-	NFTDetails,
-	TextContent,
-	TextContentProps,
-} from '../ui';
+import { ExternalLinks, NFTDetails, TextContent } from '../ui';
 import { ErrorText } from '../ui/ErrorText/ErrorText';
-import { Input, InputProps } from '@zero-tech/zui/components/Input';
-import { Button, ButtonProps } from '@zero-tech/zui/components/Button';
+import { Input } from '@zero-tech/zui/components/Input';
+import { Button } from '@zero-tech/zui/components/Button';
 
 import styles from '../FormSteps.module.scss';
 
@@ -18,9 +13,9 @@ export interface DetailsProps {
 	zna: string;
 	errorText: string;
 	bidAmount: string;
-	setBidAmount?: InputProps['onChange'];
-	onCheckZAuction?: ButtonProps['onPress'];
-	onClose: ButtonProps['onPress'];
+	setBidAmount?: (value: string) => void;
+	onCheckZAuction?: () => void;
+	onClose: () => void;
 }
 
 export const Details: FC<DetailsProps> = ({
@@ -38,28 +33,21 @@ export const Details: FC<DetailsProps> = ({
 	const isInputValueValid =
 		Number(bidAmount) && !Number.isNaN(parseFloat(bidAmount));
 
-	const onPress: ButtonProps['onPress'] = isTokenBalance
-		? onCheckZAuction
-		: onClose;
+	const onPress = isTokenBalance ? onCheckZAuction : onClose;
 
-	const isDisabled: ButtonProps['isDisabled'] = isTokenBalance
-		? !isInputValueValid
-		: false;
+	const isDisabled = isTokenBalance ? !isInputValueValid : false;
 
-	const buttonText: ButtonProps['children'] = isTokenBalance
+	const buttonText = isTokenBalance
 		? errorText
 			? 'Retry'
 			: 'Continue'
 		: 'Cancel';
 
-	const buttonVariant: ButtonProps['variant'] = !isTokenBalance
-		? 'negative'
-		: 'primary';
+	const buttonVariant = !isTokenBalance ? 'negative' : 'primary';
 
-	const primaryTextContent: TextContentProps['textContent'] =
-		'Enter the amount you wish to bid:';
+	const primaryTextContent = 'Enter the amount you wish to bid:';
 
-	const secondaryTextContent: TextContentProps['textContent'] =
+	const secondaryTextContent =
 		'You need WILD tokens to bid on this domain. To buy WILD tokens simply go to one of the exhanges below and head back here when you’re ready.';
 
 	const onChange = (val: string) => {

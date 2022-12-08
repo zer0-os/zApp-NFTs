@@ -6,7 +6,7 @@ import { HTMLTextElement } from '@zero-tech/zui/lib/types';
 import {
 	truncateAddress,
 	truncateDomain,
-} from '@zero-tech/zapp-utils/formatting/addresses';
+} from '@zero-tech/zui/utils/formatting/addresses';
 
 import { SkeletonText } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { TextContent } from '../ui/TextContent';
-import { Wizard, ConfirmationProps } from '@zero-tech/zui/components/Wizard';
+import { Wizard } from '@zero-tech/zui/components/Wizard';
 
 export interface ConfirmProps {
 	errorText?: string;
@@ -14,9 +14,7 @@ export const Confirm: FC<ConfirmProps> = ({
 	onConfirm,
 	onClose,
 }) => {
-	const primaryButtonText: ConfirmationProps['primaryButtonText'] = errorText
-		? 'Retry'
-		: 'Confirm';
+	const primaryButtonText = errorText ? 'Retry' : 'Confirm';
 
 	const transferText = (
 		<TextContent

@@ -7,16 +7,13 @@ import { truncateAddress } from '@zero-tech/zui/utils/formatting/addresses';
 import { Bid } from '@zero-tech/zauction-sdk';
 import moment from 'moment';
 
-import {
-	AcceptBidButton,
-	AcceptBidButtonProps,
-} from '../../features/accept-bid';
-import { TextStack, TextStackProps, Wizard } from '@zero-tech/zui/components';
+import { AcceptBidButton } from '../../features/accept-bid';
+import { TextStack, Wizard } from '@zero-tech/zui/components';
 
 import styles from './ViewBids.module.scss';
 
 export interface ViewBidsProps {
-	zna: BidListProps['zna'];
+	zna: string;
 }
 
 export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
@@ -29,10 +26,9 @@ export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 
 	const sortedBids = sortBidsByTime(bids);
 
-	const isOwnedByUser: BidListProps['isAcceptBidEnabled'] =
-		owner?.toLowerCase() === account?.toLowerCase();
+	const isOwnedByUser = owner?.toLowerCase() === account?.toLowerCase();
 
-	const bidsToShow: BidListProps['bids'] = isOwnedByUser
+	const bidsToShow = isOwnedByUser
 		? sortedBids.filter(
 				(bid) => bid.bidder.toLowerCase() !== account?.toLowerCase(),
 		  )
@@ -83,10 +79,10 @@ const Header = () => {
  *******************/
 
 interface BidItemProps {
-	zna: AcceptBidButtonProps['zna'];
+	zna: string;
 	bid: Bid;
-	paymentTokenSymbol: string;
-	isAcceptBidEnabled: boolean;
+	paymentTokenSymbol: BidListProps['paymentTokenSymbol'];
+	isAcceptBidEnabled: BidListProps['isAcceptBidEnabled'];
 }
 
 const BidItem = ({
@@ -95,17 +91,11 @@ const BidItem = ({
 	paymentTokenSymbol,
 	isAcceptBidEnabled,
 }: BidItemProps) => {
-	const label: TextStackProps['label'] = moment(
-		Number(bid.timestamp),
-	).fromNow();
+	const label = moment(Number(bid.timestamp)).fromNow();
 
-	const primaryText: TextStackProps['primaryText'] = `${formatEthers(
-		bid.amount,
-	)} ${paymentTokenSymbol}`;
+	const primaryText = `${formatEthers(bid.amount)} ${paymentTokenSymbol}`;
 
-	const secondaryText: TextStackProps['secondaryText'] = `by ${truncateAddress(
-		bid.bidder,
-	)}`;
+	const secondaryText = `by ${truncateAddress(bid.bidder)}`;
 
 	return (
 		<div className={styles.BidContent}>
@@ -125,10 +115,10 @@ const BidItem = ({
  *******************/
 
 interface BidListProps {
-	zna: BidItemProps['zna'];
-	bids: BidItemProps['bid'][];
-	paymentTokenSymbol: BidItemProps['paymentTokenSymbol'];
-	isAcceptBidEnabled: BidItemProps['isAcceptBidEnabled'];
+	zna: string;
+	bids: Bid[];
+	paymentTokenSymbol: string;
+	isAcceptBidEnabled: boolean;
 }
 
 const BidList = ({

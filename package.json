@@ -1,6 +1,6 @@
 {
 	"name": "@zero-tech/zapp-nfts",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"description": "zns marketplace app for zos",
 	"repository": {
 		"type": "git",
@@ -73,6 +73,7 @@
 		"@ethersproject/units": "^5.6.1",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/user-event": "^14.4.3",
+		"@zer0-os/zapp-scripts": "^0.0.3",
 		"@zero-tech/zapp-utils": "^0.5.1",
 		"@zero-tech/zero-contracts": "^0.0.7",
 		"@zero-tech/zns-sdk": "0.9.1",
