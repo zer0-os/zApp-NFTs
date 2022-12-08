@@ -37,16 +37,6 @@ export const getParentZna = (childZna: string) => {
 	return domains.join('.');
 };
 
-export const truncateAddress = (
-	address: string,
-	startingCharacters?: number,
-) => {
-	return `${address?.substring(
-		0,
-		2 + (startingCharacters ?? 0),
-	)}...${address?.substring(address.length - 4)}`;
-};
-
 export const getEtherscanLink = (domain: Domain, chainId: Network) => {
 	const domainIdInteger = domain && BigNumber.from(domain.id);
 	const networkType = chainIdToNetworkType(chainId);

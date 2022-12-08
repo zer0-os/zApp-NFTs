@@ -1,11 +1,8 @@
 import { FC } from 'react';
 
+import { formatEthers } from '../../../../../../lib/util';
 import { usePlaceBidData } from '../../../../usePlaceBidData';
-import { formatEthers } from '../../../../../../lib/util/number';
-import {
-	truncateAddress,
-	truncateDomain,
-} from '@zero-tech/zapp-utils/formatting/addresses';
+import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
 import { ViewBidsButton } from '../../../../../view-bids';
 import { SkeletonText } from '@zero-tech/zui/components';

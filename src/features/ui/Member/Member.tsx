@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { AsyncText } from '@zero-tech/zui/lib/types';
+import { truncateAddress } from '@zero-tech/zui/utils';
 import { getEtherscanWalletUrl } from '@zero-tech/zapp-utils/web3/etherscan';
-import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
 
 import { SkeletonText } from '@zero-tech/zui/components';
 

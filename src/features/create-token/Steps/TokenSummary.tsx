@@ -1,16 +1,12 @@
-//- React Imports
-import React, { FC } from 'react';
+import { FC } from 'react';
 
-//- Style Imports
-import styles from './TokenSummary.module.scss';
+import { truncateAddress } from '@zero-tech/zui/utils';
 
-//- Component Imports
 import { TokenSummaryField } from './TokenSummaryField/TokenSummaryField';
 import { Wizard } from '@zero-tech/zui/components';
 import { MediaInput, MediaType } from '@zero-tech/zui/components/MediaInput';
 
-//- Lib Imports
-import { truncateAddress } from '../../../lib/util/domains/domains';
+import styles from './TokenSummary.module.scss';
 
 export interface TokenSummaryProps {
 	mediaType: MediaType;

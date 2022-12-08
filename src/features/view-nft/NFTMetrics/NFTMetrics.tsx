@@ -1,10 +1,14 @@
 import { FC } from 'react';
 
 import { useBidData } from '../../../lib/hooks/useBidData';
-import { formatEthers, formatNumber } from '../../../lib/util/number';
-import { getDomainId, getParentZna } from '../../../lib/util/domains';
 import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
 import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
+import {
+	formatEthers,
+	formatNumber,
+	getDomainId,
+	getParentZna,
+} from '../../../lib/util';
 
 import { StatsList } from '../../ui';
 

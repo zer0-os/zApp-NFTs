@@ -1,9 +1,8 @@
-import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
-import { useBuyNowListing } from '../../lib/hooks/useBuyNowListing';
-import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
-import { getDomainId, getParentZna } from '../../lib/util/domains/domains';
+import { useBuyNowListing } from '../../lib/hooks';
 import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
-import { formatEthers } from '../../lib/util/number/number';
+import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
+import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
+import { getDomainId, getParentZna, formatEthers } from '../../lib/util';
 
 interface UseSubdomainTableItem {
 	zna: string;

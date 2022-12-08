@@ -1,12 +1,9 @@
 import { FC } from 'react';
 
+import { formatEthers } from '../../../../../../lib/util';
 import { useAcceptBidData } from '../../../../useAcceptBidData';
-import { formatEthers } from '../../../../../../lib/util/number';
 import { HTMLTextElement } from '@zero-tech/zui/lib/types';
-import {
-	truncateAddress,
-	truncateDomain,
-} from '@zero-tech/zapp-utils/formatting/addresses';
+import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
 import { SkeletonText } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';

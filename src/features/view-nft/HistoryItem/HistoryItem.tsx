@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 
-import moment from 'moment';
+import { formatEthers } from '../../../lib/util';
+import { DomainEvent } from '../../../lib/types/events';
+import { truncateAddress } from '@zero-tech/zui/utils';
 import {
 	DomainBidEvent,
 	DomainBuyNowSaleEvent,
@@ -9,9 +11,7 @@ import {
 	DomainSaleEvent,
 	DomainTransferEvent,
 } from '@zero-tech/zns-sdk';
-import { DomainEvent } from '../../../lib/types/events';
-import { truncateAddress } from '../../../lib/util/domains/domains';
-import { formatEthers } from '../../../lib/util/number/number';
+import moment from 'moment';
 
 import styles from './HistoryItem.module.scss';
 
