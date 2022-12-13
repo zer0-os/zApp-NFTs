@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { CancelBidModal, CancelBidModalProps } from '..';
+import { CancelBidModal } from '..';
 
 import styles from './CancelBidButton.module.scss';
 

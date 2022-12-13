@@ -6,7 +6,7 @@ import { TextValue } from '../TextValue';
 import { SetBuyNowButton } from '../../../../set-buy-now';
 import { Button, TextStack } from '@zero-tech/zui/components';
 
-import styles from '../CTAContainer/CTAContainer.module.scss';
+import styles from '../ActionContainer/ActionContainer.module.scss';
 
 export interface OwnerSetBuyNowActionProps {
 	zna: string;
@@ -37,7 +37,7 @@ export const OwnerSetBuyNowAction: FC<OwnerSetBuyNowActionProps> = ({
 	);
 
 	return (
-		<div className={styles.ActionContainer}>
+		<div className={styles.ActionContent}>
 			<TextStack
 				className={styles.PrimaryAction}
 				label={`Buy now (${paymentTokenSymbol})`}

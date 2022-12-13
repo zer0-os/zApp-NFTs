@@ -11,15 +11,15 @@ import {
 } from '..';
 
 import classNames from 'classnames/bind';
-import styles from './CTAContainer.module.scss';
+import styles from './ActionContainer.module.scss';
 
 const cx = classNames.bind(styles);
 
-export interface CTAContainerProps {
+export interface ActionContainerProps {
 	zna: string;
 }
 
-export const CTAContainer: FC<CTAContainerProps> = ({ zna }) => {
+export const ActionContainer: FC<ActionContainerProps> = ({ zna }) => {
 	const { isDomainBiddable, isBuyNow, isUserBid, isOwnedByUser } =
 		useActionsData(zna);
 
@@ -28,7 +28,7 @@ export const CTAContainer: FC<CTAContainerProps> = ({ zna }) => {
 
 	return (
 		<div
-			className={cx(styles.CTAContainer, {
+			className={cx(styles.ActionContainer, {
 				isSingleAction: isSingleAction,
 			})}
 		>

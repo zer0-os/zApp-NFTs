@@ -9,7 +9,7 @@ import { PlaceBidButton } from '../../../../place-bid';
 import { TextStack } from '@zero-tech/zui/components';
 
 import classNames from 'classnames/bind';
-import styles from '../CTAContainer/CTAContainer.module.scss';
+import styles from '../ActionContainer/ActionContainer.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -35,7 +35,7 @@ export const UserOfferAction: FC<UserOfferActionProps> = ({ zna }) => {
 
 	return (
 		<div
-			className={cx(styles.ActionContainer, {
+			className={cx(styles.ActionContent, {
 				isSingleAction: !isBuyNow,
 			})}
 		>

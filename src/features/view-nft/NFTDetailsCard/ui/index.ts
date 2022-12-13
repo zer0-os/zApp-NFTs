@@ -1,4 +1,4 @@
-export * from './CTAContainer';
+export * from './ActionContainer';
 export * from './Options';
 export * from './OwnerOfferAction';
 export * from './OwnerSetBuyNowAction';

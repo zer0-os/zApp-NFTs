@@ -2,7 +2,7 @@
 @import '../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
 @import '../../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
-.CTAContainer {
+.ActionContainer {
 	display: flex;
 	flex-direction: column;
 	padding: 1.5rem;
@@ -25,7 +25,7 @@
 		}
 	}
 
-	.ActionContainer {
+	.ActionContent {
 		display: flex;
 		flex-direction: column;
 		width: 100%;

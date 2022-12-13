@@ -8,7 +8,7 @@ import { ViewBidsButton } from '../../../../view-bids';
 import { DomainSettingsButton } from '../../../../domain-settings';
 import { TextStack } from '@zero-tech/zui/components';
 
-import styles from '../CTAContainer/CTAContainer.module.scss';
+import styles from '../ActionContainer/ActionContainer.module.scss';
 
 export interface OwnerOfferActionProps {
 	zna: string;
@@ -43,7 +43,7 @@ export const OwnerOfferAction: FC<OwnerOfferActionProps> = ({ zna }) => {
 	);
 
 	return (
-		<div className={styles.ActionContainer}>
+		<div className={styles.ActionContent}>
 			<TextStack
 				className={styles.PrimaryAction}
 				label={label}
