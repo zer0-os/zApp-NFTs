@@ -1,5 +1,12 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { BuyNowModal } from './BuyNowModal';
 
-export const BuyNowButton: FC = () => <BuyNowModal trigger={'Buy'} />;
+type BuyNowButtonProps = {
+	zna: string;
+	trigger: ReactNode;
+};
+
+export const BuyNowButton: FC<BuyNowButtonProps> = ({ zna, trigger }) => (
+	<BuyNowModal trigger={trigger} />
+);

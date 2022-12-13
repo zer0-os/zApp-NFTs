@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { ViewBidsModal } from '../ViewBidsModal';
 import { IconLinkExternal1 } from '@zero-tech/zui/components/Icons';
@@ -7,14 +7,16 @@ import styles from './ViewBidsButton.module.scss';
 
 interface ViewBidsButtonProps {
 	zna: string;
+	trigger: ReactNode;
 	variant?: 'primary' | 'text';
 }
 
 export const ViewBidsButton: FC<ViewBidsButtonProps> = ({
 	zna,
+	trigger,
 	variant = 'primary',
 }) => {
-	const triggerVariant = variant === 'text' ? textButton : 'View Bids';
+	const triggerVariant = variant === 'text' ? textButton : trigger;
 
 	return <ViewBidsModal zna={zna} trigger={triggerVariant} />;
 };

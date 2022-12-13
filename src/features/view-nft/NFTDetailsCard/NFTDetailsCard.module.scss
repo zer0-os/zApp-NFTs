@@ -1,27 +1,50 @@
 .Content {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+
+	@media only screen and (min-width: 878px) {
+		margin-bottom: 3.625rem;
+	}
+
 	.TextContainer {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
 
+		> * :last-child {
+			display: none;
+		}
+
+		@media only screen and (min-width: 878px) {
+			> * :last-child {
+				display: flex;
+			}
+		}
+
 		.Title {
-			font-size: 2.25rem;
-			line-height: 2.75rem;
+			font-size: 1.5rem;
+			line-height: 1.816rem;
 			margin: 0;
+
+			@media only screen and (min-width: 878px) {
+				font-size: 2.25rem;
+				line-height: 2.75rem;
+			}
 		}
 	}
 
 	.FlexRowWrapper {
 		display: flex;
-		flex-direction: row;
-		margin-top: 1.5rem;
-		// TODO: remove margin bottom in follow up task
-		margin-bottom: 1.5rem;
+		flex-direction: column;
 		width: 100%;
-		justify-content: space-between;
+		gap: 1.5rem;
 
-		gap: 2.5rem;
+		@media only screen and (min-width: 878px) {
+			flex-direction: row-reverse;
+			justify-content: space-between;
+		}
 
 		.FlexColumnWrapper {
 			.Description {
@@ -37,14 +60,21 @@
 			.MemberContainer {
 				display: flex;
 				padding: 0;
-				// TODO: change 0rem to 2rem in follow up task
-				margin: 0rem 0 0 0;
+				margin: 2rem 0 0 0;
 				list-style: none;
 
 				gap: 2rem;
 
 				a {
 					line-height: 1.5rem;
+				}
+			}
+
+			.OptionsContainer {
+				margin-top: 0.25rem;
+
+				@media only screen and (min-width: 878px) {
+					display: none;
 				}
 			}
 		}

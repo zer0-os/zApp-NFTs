@@ -10,7 +10,7 @@ export const SetBuyNow: FC = () => {
 	const content = account ? (
 		<>Set Buy Now</>
 	) : (
-		<ConnectWallet message={'Connect your wallet.'} />
+		<ConnectWallet message={'Connect your wallet to set buy now price.'} />
 	);
 
 	return content;

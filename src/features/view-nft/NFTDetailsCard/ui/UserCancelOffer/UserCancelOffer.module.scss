@@ -1,0 +1,14 @@
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Container {
+	display: none;
+	font-size: $size-small;
+	line-height: 1.063rem;
+	color: #a09fa6;
+
+	@media only screen and (min-width: 878px) {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+}

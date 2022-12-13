@@ -5,7 +5,7 @@ import { getDomainId } from '../../../lib/util/domains/domains';
 import { useDomainData } from '../../../lib/hooks/useDomainData';
 import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 
-import { CTAContainer } from './ui';
+import { ActionContainer } from './ui';
 import { Options } from './ui/Options';
 import { Member } from '../../ui/Member';
 import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
@@ -46,14 +46,16 @@ export const NFTDetailsCard: FC<DetailsCardProps> = ({ zna }) => {
 			</div>
 
 			<div className={styles.FlexRowWrapper}>
-				<div className={styles.FlexColumnWrapper}>
-					{/* TODO: swap members and description in follow up task */}
-					<Members members={members} />
-					<Description description={description} />
-				</div>
+				<ActionContainer zna={zna} />
 
-				{/* TODO: to be added in follow up task */}
-				{/* <CTAContainer /> */}
+				<div className={styles.FlexColumnWrapper}>
+					<Description description={description} />
+					<Members members={members} />
+
+					<div className={styles.OptionsContainer}>
+						<Options zna={zna} />
+					</div>
+				</div>
 			</div>
 		</div>
 	);

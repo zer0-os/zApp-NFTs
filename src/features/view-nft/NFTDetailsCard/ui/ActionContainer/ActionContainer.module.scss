@@ -1,0 +1,57 @@
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.ActionContainer {
+	display: flex;
+	flex-direction: column;
+	padding: 1.5rem;
+	background: #18101e;
+	border-radius: $radius-primary;
+	max-width: 20rem;
+	gap: 1rem;
+
+	@media only screen and (min-width: 485px) {
+		max-width: unset;
+	}
+
+	@media only screen and (min-width: 878px) {
+		display: flex;
+		flex-direction: row;
+		min-width: 19.5rem;
+
+		&.isSingleAction {
+			min-width: 17rem;
+		}
+	}
+
+	.ActionContent {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		gap: 1rem;
+
+		@media only screen and (min-width: 878px) {
+			&.isSingleAction {
+				padding: 0.75rem;
+			}
+		}
+
+		button {
+			width: 100%;
+			margin-top: 0.75rem;
+			text-transform: unset;
+		}
+
+		.PrimaryAction {
+			label {
+				color: $purple-lightest;
+				font-size: $size-tiny;
+			}
+
+			span:last-child {
+				overflow: unset;
+			}
+		}
+	}
+}

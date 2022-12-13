@@ -3,7 +3,6 @@ import { useCurrentRoute } from '../../lib/hooks/useCurrentRoute';
 import { ZAppContent } from '@zero-tech/zapp-utils/components/ZAppContent';
 
 import {
-	Actions,
 	HistoryList,
 	NFTBannerContainer,
 	NFTDetailsCard,
@@ -23,8 +22,6 @@ export const NFT = () => {
 			<main className={styles.Main}>
 				<ZAppContent className={styles.Content}>
 					<NFTDetailsCard zna={currentZna} />
-					{/* TODO: remove Actions in follow up task */}
-					<Actions zna={currentZna} />
 					<NFTMetrics zna={currentZna} />
 					<TokenHashInfo zna={currentZna} />
 					<HistoryList zna={currentZna} />

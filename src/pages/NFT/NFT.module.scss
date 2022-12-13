@@ -4,7 +4,9 @@
 	max-width: 736px;
 
 	.Content {
-		margin-top: 1rem;
+		margin-top: 1.5rem;
+		height: unset;
+		overflow: unset;
 
 		> * {
 			&:first-child {

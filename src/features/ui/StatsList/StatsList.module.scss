@@ -1,11 +1,19 @@
 .Stats {
 	display: flex;
-	margin: 0.5rem 0 1rem 0;
+	flex-direction: column;
+	margin: 1rem 0;
 	padding: 0;
-	gap: 1rem;
 	list-style: none;
+
+	gap: 0.5rem;
 
 	> * {
 		flex: 1;
+	}
+
+	@media only screen and (min-width: 878px) {
+		flex-direction: row;
+
+		gap: 1rem;
 	}
 }

@@ -1,7 +1,11 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { SetBuyNowModal } from './SetBuyNowModal';
 
-export const SetBuyNowButton: FC = () => (
-	<SetBuyNowModal trigger={'Set Buy Now'} />
+type SetBuyNowButtonProps = {
+	trigger: ReactNode;
+};
+
+export const SetBuyNowButton: FC<SetBuyNowButtonProps> = ({ trigger }) => (
+	<SetBuyNowModal trigger={trigger} />
 );
