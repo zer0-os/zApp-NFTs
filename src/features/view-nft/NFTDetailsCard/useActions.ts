@@ -16,7 +16,7 @@ import {
 import { ethers } from 'ethers';
 import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
-export const useActionsData = (zna: string) => {
+export const useActions = (zna: string) => {
 	const domainId = getDomainId(zna);
 	const parentZna = getParentZna(zna);
 

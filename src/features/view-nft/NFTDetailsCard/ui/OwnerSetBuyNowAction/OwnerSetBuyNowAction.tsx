@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useActionsData } from '../../useActionsData';
+import { useActions } from '../../useActions';
 
 import { TextValue } from '../TextValue';
 import { SetBuyNowButton } from '../../../../set-buy-now';
@@ -22,7 +22,7 @@ export const OwnerSetBuyNowAction: FC<OwnerSetBuyNowActionProps> = ({
 		paymentTokenSymbol,
 		buyNowPriceUsdConversionString,
 		isLoading,
-	} = useActionsData(zna);
+	} = useActions(zna);
 
 	const fiatValue = isSetBuyNow
 		? buyNowPriceUsdConversionString

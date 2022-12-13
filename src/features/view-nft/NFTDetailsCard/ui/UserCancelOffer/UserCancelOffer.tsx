@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useActionsData } from '../../useActionsData';
+import { useActions } from '../../useActions';
 import { formatEthers } from '../../../../../lib/util';
 
 import { CancelBidButton } from '../../../../cancel-bid';
@@ -12,7 +12,7 @@ export interface UserCancelOfferProps {
 }
 
 export const UserCancelOffer: FC<UserCancelOfferProps> = ({ zna }) => {
-	const { highestUserBid, paymentTokenSymbol } = useActionsData(zna);
+	const { highestUserBid, paymentTokenSymbol } = useActions(zna);
 
 	const highestUserBidString = highestUserBid
 		? formatEthers(highestUserBid?.amount)

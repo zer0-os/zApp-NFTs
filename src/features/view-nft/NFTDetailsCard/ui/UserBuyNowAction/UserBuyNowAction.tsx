@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useActionsData } from '../../useActionsData';
+import { useActions } from '../../useActions';
 
 import { TextValue } from '../TextValue';
 import { BuyNowButton } from '../../../../buy-now';
@@ -24,7 +24,7 @@ export const UserBuyNowAction: FC<UserBuyNowActionProps> = ({ zna }) => {
 		buyNowPriceUsdConversionString,
 		isUserBid,
 		isLoading,
-	} = useActionsData(zna);
+	} = useActions(zna);
 
 	const triggerVariant = isDomainBiddable ? (
 		<Button variant={'secondary'}>Buy now</Button>

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useActionsData } from '../../useActionsData';
+import { useActions } from '../../useActions';
 import { formatEthers } from '../../../../../lib/util';
 
 import { TextValue } from '../TextValue';
@@ -22,7 +22,7 @@ export const OwnerOfferAction: FC<OwnerOfferActionProps> = ({ zna }) => {
 		highestBidUsdConversionString,
 		isDomainBiddable,
 		isLoading,
-	} = useActionsData(zna);
+	} = useActions(zna);
 
 	const highestBidString = highestBid ? formatEthers(highestBid?.amount) : '-';
 

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useActionsData } from '../../useActionsData';
+import { useActions } from '../../useActions';
 
 import {
 	OwnerOfferAction,
@@ -21,7 +21,7 @@ export interface ActionContainerProps {
 
 export const ActionContainer: FC<ActionContainerProps> = ({ zna }) => {
 	const { isDomainBiddable, isBuyNow, isUserBid, isOwnedByUser } =
-		useActionsData(zna);
+		useActions(zna);
 
 	const isSingleAction =
 		(!isBuyNow && isDomainBiddable) || (isBuyNow && !isDomainBiddable);
