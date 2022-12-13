@@ -19,7 +19,9 @@ export const NFTBannerContainer: FC<BannerProps> = ({ zna }) => {
 	const altTemplate = `${metadata?.title ?? zna} nft `;
 
 	const bannerAlt = altTemplate + ` banner`;
-	const bannerSrc = metadata?.image_full ?? metadata?.image;
+
+	const bannerSrc =
+		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
 
 	return (
 		<div className={styles.Banner}>
