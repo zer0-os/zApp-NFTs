@@ -27,6 +27,9 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 	const { account } = useWeb3();
 	const { data: domain } = useDomainData(domainId);
 
+	console.log('AC', account);
+	console.log('OW', domain?.owner);
+
 	return (
 		<div className={styles.Container}>
 			{/* TODO: wire up share to twitter */}
@@ -43,7 +46,7 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 				</button>
 			</Tooltip>
 
-			{domain?.owner === account && (
+			{domain?.owner.toLowerCase() === account.toLowerCase() && (
 				<MoreNFTOptions
 					zna={zna}
 					trigger={<IconDotsVertical className={styles.Icon} isFilled />}
