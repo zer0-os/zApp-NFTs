@@ -27,9 +27,6 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 	const { account } = useWeb3();
 	const { data: domain } = useDomainData(domainId);
 
-	console.log('AC', account);
-	console.log('OW', domain?.owner);
-
 	return (
 		<div className={styles.Container}>
 			{/* TODO: wire up share to twitter */}
