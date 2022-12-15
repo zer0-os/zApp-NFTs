@@ -10,7 +10,7 @@ export enum NETWORK_TYPES {
 }
 
 const ENV_NETWORK = process.env.REACT_APP_DEFAULT_NETWORK;
-export const DEFAULT_NETWORK = Network.MAINNET;
+export const DEFAULT_NETWORK = Network.GOERLI;
 
 interface NetworkConfig {
 	rpcUrl: string;

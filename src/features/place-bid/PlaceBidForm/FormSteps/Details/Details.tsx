@@ -50,10 +50,6 @@ export const Details: FC<DetailsProps> = ({
 	const secondaryTextContent =
 		'You need WILD tokens to bid on this domain. To buy WILD tokens simply go to one of the exhanges below and head back here when you’re ready.';
 
-	// const onChange = (val: string) => {
-	// 	setBidAmount(val);
-	// };
-
 	return (
 		<>
 			<NFTDetails zna={zna} />

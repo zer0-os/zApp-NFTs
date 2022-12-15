@@ -43,7 +43,7 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 				</button>
 			</Tooltip>
 
-			{domain?.owner.toLowerCase() === account.toLowerCase() && (
+			{domain?.owner?.toLowerCase() === account?.toLowerCase() && (
 				<MoreNFTOptions
 					zna={zna}
 					trigger={<IconDotsVertical className={styles.Icon} isFilled />}

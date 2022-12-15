@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAcceptBidData } from '../../useAcceptBidData';
 import { useWeb3 } from '../../../../lib/hooks/useWeb3';
 import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
-import { useZAuctionCheck } from '../../../../lib/hooks/useZAuctionCheck';
+import { useZAuctionCheckByBid } from '../../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 import { Bid } from '@zero-tech/zauction-sdk';
 
@@ -27,7 +27,7 @@ export type UseAcceptBidFormReturn = {
 	statusText: string;
 	onCheckZAuction: () => void;
 	onApproveZAuction: () => void;
-	onConfirmAcceptBid: () => void;
+	onConfirmAcceptBid: (bid: Bid) => void;
 };
 
 /**
@@ -43,7 +43,7 @@ export const useAcceptBidForm = (
 	const { executeTransaction } = useTransaction();
 	const { domainId, paymentTokenId } = useAcceptBidData(zna);
 	const { data: isZAuctionCheckRequired, error: zAuctionCheckError } =
-		useZAuctionCheck(account, paymentTokenId);
+		useZAuctionCheckByBid(account, bid);
 
 	const [error, setError] = useState<string>();
 	const [step, setStep] = useState<Step>(Step.DETAILS);
@@ -70,8 +70,8 @@ export const useAcceptBidForm = (
 	const onApproveZAuction = () => {
 		setError(undefined);
 		return executeTransaction(
-			sdk.zauction.approveZAuctionToSpendPaymentToken,
-			[paymentTokenId, provider.getSigner()],
+			sdk.zauction.approveZAuctionToTransferNftsByBid,
+			[bid, provider.getSigner()],
 			{
 				onStart: () => {
 					setStep(Step.LOADING);

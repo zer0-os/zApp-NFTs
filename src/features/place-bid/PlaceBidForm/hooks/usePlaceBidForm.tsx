@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { usePlaceBidData } from '../../usePlaceBidData';
 import { useWeb3 } from '../../../../lib/hooks/useWeb3';
 import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
-import { useZAuctionCheck } from '../../../../lib/hooks/useZAuctionCheck';
+import { useZAuctionCheckByPaymentToken } from '../../../../lib/hooks/useZAuctionCheckByPaymentToken';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { Step } from '../FormSteps/hooks';
@@ -42,7 +42,7 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 	const { executeTransaction } = useTransaction();
 	const { domainId, paymentTokenId } = usePlaceBidData(zna);
 	const { data: isZAuctionCheckRequired, error: zAuctionCheckError } =
-		useZAuctionCheck(account, paymentTokenId);
+		useZAuctionCheckByPaymentToken(account, paymentTokenId);
 
 	const [step, setStep] = useState<Step>(Step.DETAILS);
 	const [error, setError] = useState<string>();

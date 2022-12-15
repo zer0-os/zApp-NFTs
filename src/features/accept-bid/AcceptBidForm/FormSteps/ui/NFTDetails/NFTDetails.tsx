@@ -24,13 +24,13 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		paymentTokenSymbol,
 		isMetadataLocked,
 		isLoadingDomain,
-		isLoadingMetrics,
+		isLoadingBidData,
 		isLoadingMetadata,
 	} = useAcceptBidData(zna);
 
 	const truncatedZna = truncateDomain(zna, 20);
 	const truncatedCreatorAddress = truncateAddress(creator);
-	const formattedHighestBid = formatEthers(highestBid);
+	const highestBidString = highestBid ? formatEthers(highestBid?.amount) : '-';
 
 	const detailContent: DetailsContentType[] = [
 		{
@@ -51,8 +51,8 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 			id: 'highest-bid',
 			title: 'Highest Bid',
 			className: styles.InfoValue,
-			text: `${formattedHighestBid} ${paymentTokenSymbol}`,
-			isLoading: isLoadingMetrics,
+			text: `${highestBidString} ${paymentTokenSymbol}`,
+			isLoading: isLoadingBidData,
 			as: 'span' as const,
 		},
 		{

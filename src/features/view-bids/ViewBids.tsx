@@ -47,12 +47,19 @@ export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 
 			{/* Loading bids needs to be handlded prior to mapping each bid */}
 			{!showBidLoader ? (
-				<BidList
-					zna={zna}
-					bids={bidsToShow}
-					paymentTokenSymbol={paymentTokenSymbol}
-					isAcceptBidEnabled={isOwnedByUser}
-				/>
+				<>
+					{bidsToShow.length === 0 && (
+						<div className={styles.Message}>
+							{'No bids are available to accept'}
+						</div>
+					)}
+					<BidList
+						zna={zna}
+						bids={bidsToShow}
+						paymentTokenSymbol={paymentTokenSymbol}
+						isAcceptBidEnabled={isOwnedByUser}
+					/>
+				</>
 			) : (
 				<div className={styles.Loading}>
 					<Wizard.Loading message={'Loading Bids...'} />
@@ -93,9 +100,11 @@ const BidItem = ({
 }: BidItemProps) => {
 	const label = moment(Number(bid.timestamp)).fromNow();
 
-	const primaryText = `${formatEthers(bid.amount)} ${paymentTokenSymbol}`;
+	const primaryText = bid?.amount
+		? `${formatEthers(bid.amount)} ${paymentTokenSymbol}`
+		: '-';
 
-	const secondaryText = `by ${truncateAddress(bid.bidder)}`;
+	const secondaryText = bid?.bidder ? `by ${truncateAddress(bid.bidder)}` : '-';
 
 	return (
 		<div className={styles.BidContent}>
