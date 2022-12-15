@@ -29,7 +29,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 
 	const truncatedZna = truncateDomain(zna, 20);
 	const truncatedCreatorAddress = truncateAddress(creator);
-	const formattedHighestBid = formatEthers(highestBid);
+	const highestBidString = highestBid ? formatEthers(highestBid) : '-';
 
 	const textContent = [
 		{
@@ -50,7 +50,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 			id: 'highest-bid',
 			title: 'Highest Bid',
 			className: styles.InfoValue,
-			text: `${formattedHighestBid} ${paymentTokenSymbol}`,
+			text: `${highestBidString} ${paymentTokenSymbol}`,
 			isLoading: isLoadingMetrics,
 			as: 'span' as const,
 		},
