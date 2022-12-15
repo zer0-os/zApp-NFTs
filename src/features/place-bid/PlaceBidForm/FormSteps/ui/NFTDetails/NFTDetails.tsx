@@ -16,6 +16,7 @@ export interface NFTDetailsProps {
 
 export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 	const {
+		bids,
 		title,
 		creator,
 		imageAlt,
@@ -27,6 +28,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		isLoadingMetadata,
 	} = usePlaceBidData(zna);
 
+	const isExistingBids = bids?.length !== 0;
 	const truncatedZna = truncateDomain(zna, 20);
 	const truncatedCreatorAddress = truncateAddress(creator);
 	const highestBidString = highestBid ? formatEthers(highestBid) : '-';
@@ -50,7 +52,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 			id: 'highest-bid',
 			title: 'Highest Bid',
 			className: styles.InfoValue,
-			text: `${highestBidString} ${paymentTokenSymbol}`,
+			text: `${highestBidString} ${isExistingBids ? paymentTokenSymbol : ''}`,
 			isLoading: isLoadingMetrics,
 			as: 'span' as const,
 		},
@@ -87,9 +89,11 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 					))}
 				</ul>
 
-				<div className={styles.ActionContainer}>
-					<ViewBidsButton zna={zna} variant="text" />
-				</div>
+				{isExistingBids && (
+					<div className={styles.ActionContainer}>
+						<ViewBidsButton zna={zna} variant="text" />
+					</div>
+				)}
 			</div>
 		</div>
 	);

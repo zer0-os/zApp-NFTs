@@ -1,9 +1,12 @@
-import { useWeb3 } from '../../lib/hooks/useWeb3';
-import { useDomainData } from '../../lib/hooks/useDomainData';
-import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
-import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
-import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
-import { useUserTokenBalance } from '../../lib/hooks/useUserTokenBalance';
+import {
+	useWeb3,
+	useBidData,
+	useDomainData,
+	usePaymentToken,
+	useDomainMetrics,
+	useDomainMetadata,
+	useUserTokenBalance,
+} from '../../lib/hooks';
 import { getDomainId, getParentZna } from '../../lib/util';
 
 export const usePlaceBidData = (zna: string) => {
@@ -12,6 +15,7 @@ export const usePlaceBidData = (zna: string) => {
 	const domainId = getDomainId(zna);
 	const parentZna = getParentZna(zna);
 
+	const { data: bids } = useBidData(domainId);
 	const { data: domain, isLoading: isLoadingDomain } = useDomainData(domainId);
 	const { data: metrics, isLoading: isLoadingMetrics } =
 		useDomainMetrics(domainId);
@@ -33,6 +37,7 @@ export const usePlaceBidData = (zna: string) => {
 
 	return {
 		domainId,
+		bids,
 		title,
 		creator,
 		imageSrc,
