@@ -1,7 +1,9 @@
-import { useBidData } from '../../lib/hooks/useBidData';
-import { useDomainData } from '../../lib/hooks/useDomainData';
-import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
-import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
+import {
+	useBidData,
+	useDomainData,
+	usePaymentToken,
+	useDomainMetadata,
+} from '../../lib/hooks';
 import { getDomainId, getParentZna, sortBidsByAmount } from '../../lib/util';
 
 export const useTransferOwnershipData = (zna: string) => {

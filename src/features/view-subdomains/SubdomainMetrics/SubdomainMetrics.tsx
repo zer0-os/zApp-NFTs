@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
-import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
-import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
+import { useDomainMetrics, usePaymentToken } from '../../../lib/hooks';
 import { formatEthers, formatNumber, getDomainId } from '../../../lib/util';
 
 import { StatsList } from '../../ui';

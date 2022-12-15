@@ -1,7 +1,9 @@
 import { useBuyNowListing } from '../../lib/hooks';
-import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
-import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
-import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
+import {
+	usePaymentToken,
+	useDomainMetrics,
+	useDomainMetadata,
+} from '../../lib/hooks';
 import { getDomainId, getParentZna, formatEthers } from '../../lib/util';
 
 interface UseSubdomainTableItem {

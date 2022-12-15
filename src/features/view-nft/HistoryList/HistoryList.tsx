@@ -3,8 +3,7 @@ import { FC } from 'react';
 import { getDomainId } from '../../../lib/util';
 import { DomainEvent } from '../../../lib/types/events';
 import { sortEventsByTimestamp } from './HistoryList.utils';
-import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
-import { useDomainEvents } from '../../../lib/hooks/useDomainEvents';
+import { usePaymentToken, useDomainEvents } from '../../../lib/hooks';
 
 import { HistoryItem } from '../HistoryItem';
 import { Skeleton } from '@zero-tech/zui/components';

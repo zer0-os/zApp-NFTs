@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
 import { usePlaceBidData } from '../../usePlaceBidData';
-import { useWeb3 } from '../../../../lib/hooks/useWeb3';
-import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
-import { useZAuctionCheckByPaymentToken } from '../../../../lib/hooks/useZAuctionCheckByPaymentToken';
+import {
+	useWeb3,
+	useZnsSdk,
+	useZAuctionCheckByPaymentToken,
+} from '../../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { Step } from '../FormSteps/hooks';

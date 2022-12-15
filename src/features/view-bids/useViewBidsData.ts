@@ -1,7 +1,5 @@
 import { getDomainId } from '../../lib/util';
-import { useBidData } from '../../lib/hooks/useBidData';
-import { useDomainData } from '../../lib/hooks/useDomainData';
-import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
+import { useBidData, useDomainData, usePaymentToken } from '../../lib/hooks';
 
 export const useViewBidsData = (zna: string) => {
 	const domainId = getDomainId(zna);

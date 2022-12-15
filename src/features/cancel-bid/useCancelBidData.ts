@@ -1,9 +1,11 @@
-import { useWeb3 } from '../../lib/hooks/useWeb3';
-import { useBidData } from '../../lib/hooks/useBidData';
-import { useDomainData } from '../../lib/hooks/useDomainData';
-import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
-import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
-import { useUserTokenBalance } from '../../lib/hooks/useUserTokenBalance';
+import {
+	useWeb3,
+	useBidData,
+	useDomainData,
+	usePaymentToken,
+	useDomainMetadata,
+	useUserTokenBalance,
+} from '../../lib/hooks';
 import {
 	getDomainId,
 	getParentZna,

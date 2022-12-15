@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
+import {
+	useWeb3,
+	useZnsSdk,
+	useZAuctionCheckByBid,
+} from '../../../../lib/hooks';
 import { useAcceptBidData } from '../../useAcceptBidData';
-import { useWeb3 } from '../../../../lib/hooks/useWeb3';
-import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
-import { useZAuctionCheckByBid } from '../../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 import { Bid } from '@zero-tech/zauction-sdk';
 

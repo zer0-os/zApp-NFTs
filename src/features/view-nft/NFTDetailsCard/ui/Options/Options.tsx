@@ -1,8 +1,7 @@
 import { FC } from 'react';
 
 import { getDomainId } from '../../../../../lib/util';
-import { useWeb3 } from '../../../../../lib/hooks/useWeb3';
-import { useDomainData } from '../../../../../lib/hooks/useDomainData';
+import { useWeb3, useDomainData } from '../../../../../lib/hooks';
 
 import { MoreNFTOptions } from '../../../../ui/MoreNFTOptions';
 import { Tooltip } from '@zero-tech/zui/components';
