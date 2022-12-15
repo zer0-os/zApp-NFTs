@@ -15,8 +15,8 @@ export const usePlaceBidData = (zna: string) => {
 	const domainId = getDomainId(zna);
 	const parentZna = getParentZna(zna);
 
-	const { data: bids } = useBidData(domainId);
 	const { data: domain, isLoading: isLoadingDomain } = useDomainData(domainId);
+
 	const { data: metrics, isLoading: isLoadingMetrics } =
 		useDomainMetrics(domainId);
 	const { data: metadata, isLoading: isLoadingMetadata } =
@@ -24,6 +24,7 @@ export const usePlaceBidData = (zna: string) => {
 	const { data: paymentToken } = usePaymentToken(parentZna);
 	const { data: tokenBalance, isLoading: isLoadingTokenBalance } =
 		useUserTokenBalance(account, paymentToken?.id);
+	const { data: bids } = useBidData(domainId);
 
 	const title = metadata?.title;
 	const creator = domain?.minter;
