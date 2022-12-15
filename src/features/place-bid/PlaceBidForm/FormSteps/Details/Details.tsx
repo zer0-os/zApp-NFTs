@@ -13,7 +13,7 @@ export interface DetailsProps {
 	zna: string;
 	errorText: string;
 	bidAmount: string;
-	setBidAmount?: (value: string) => void;
+	setBidAmount?: (bid: string) => void;
 	onCheckZAuction?: () => void;
 	onClose: () => void;
 }
@@ -50,9 +50,9 @@ export const Details: FC<DetailsProps> = ({
 	const secondaryTextContent =
 		'You need WILD tokens to bid on this domain. To buy WILD tokens simply go to one of the exhanges below and head back here when you’re ready.';
 
-	const onChange = (val: string) => {
-		setBidAmount(val);
-	};
+	// const onChange = (val: string) => {
+	// 	setBidAmount(val);
+	// };
 
 	return (
 		<>
@@ -69,7 +69,7 @@ export const Details: FC<DetailsProps> = ({
 							type="text"
 							inputMode="numeric"
 							placeholder={'Bid Amount (WILD)'}
-							onChange={onChange}
+							onChange={(text: string) => setBidAmount && setBidAmount(text)}
 							error={bidAmount?.length > 0 && !isInputValueValid}
 						/>
 					</>
