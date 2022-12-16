@@ -48,8 +48,8 @@ export const Actions = ({ zna }: ActionsProps) => {
 		{
 			label: `Buy Now ${paymentTokenLabel}`,
 			value: buyNowPriceString,
-			button: <BuyNowButton zna={zna} />,
-			isVisible: isBuyNow,
+			button: <BuyNowButton zna={zna} trigger={'Buy Now'} />,
+			isVisible: !isBuyNow,
 		},
 		{
 			label: `Buy Now ${paymentTokenLabel}`,

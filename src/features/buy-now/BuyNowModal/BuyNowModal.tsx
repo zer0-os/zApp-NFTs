@@ -3,20 +3,17 @@ import { FC, useState } from 'react';
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../../lib/types/ui';
 
-import { CancelBidForm } from '..';
+import { BuyNowForm } from '..';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
-import styles from './CancelBidModal.module.scss';
+import styles from './BuyNowModal.module.scss';
 
-export interface CancelBidModalProps extends BasicModalProps {
+export interface BuyNowModalProps extends BasicModalProps {
 	zna: string;
 }
 
-export const CancelBidModal: FC<CancelBidModalProps> = ({
-	zna,
-	...modalProps
-}) => {
+export const BuyNowModal: FC<BuyNowModalProps> = ({ zna, ...modalProps }) => {
 	const { account } = useWeb3();
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -43,14 +40,14 @@ export const CancelBidModal: FC<CancelBidModalProps> = ({
 
 interface ModalContentProps {
 	account: string;
-	zna: CancelBidModalProps['zna'];
+	zna: BuyNowModalProps['zna'];
 	onClose: () => void;
 }
 
 const ModalContent = ({ account, zna, onClose }: ModalContentProps) => {
 	return account ? (
-		<CancelBidForm zna={zna} onClose={onClose} />
+		<BuyNowForm zna={zna} onClose={onClose} />
 	) : (
-		<ConnectWallet message={'Connect your wallet to cancel a bid.'} />
+		<ConnectWallet message={'Connect your wallet to buy now.'} />
 	);
 };

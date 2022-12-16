@@ -1,32 +1,12 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
-import { BuyNowModal, BuyNowModalProps } from '..';
-import { IconLinkExternal1 } from '@zero-tech/zui/components/Icons';
-
-import styles from './BuyNowButton.module.scss';
+import { BuyNowModal } from '..';
 
 interface BuyNowButtonProps {
 	zna: string;
-	variant?: 'primary' | 'text';
+	trigger?: ReactNode;
 }
 
-export const BuyNowButton: FC<BuyNowButtonProps> = ({
-	zna,
-	variant = 'primary',
-}) => {
-	const triggerVariant: BuyNowModalProps['trigger'] =
-		variant === 'text' ? textButton : 'Buy now';
-
-	return <BuyNowModal zna={zna} trigger={triggerVariant} />;
+export const BuyNowButton: FC<BuyNowButtonProps> = ({ zna, trigger }) => {
+	return <BuyNowModal zna={zna} trigger={trigger} />;
 };
-
-/**************
- * textButton
- **************/
-
-const textButton = (
-	<div className={styles.Container}>
-		<p className={styles.TextButton}>{'Buy now'}</p>
-		<IconLinkExternal1 className={styles.Icon} size={'1.15rem'} isFilled />
-	</div>
-);

@@ -1,1 +1,1 @@
-export * from './CancelBidModal';
+export * from './BuyNowModal';
