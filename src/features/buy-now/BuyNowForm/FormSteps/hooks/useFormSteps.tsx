@@ -1,12 +1,11 @@
 import { ReactNode } from 'react';
 
-import { Bid } from '@zero-tech/zauction-sdk';
-
-import { Complete, Confirm, Details } from '..';
+import { Complete, Details, ApproveZAuction } from '..';
 import { Wizard } from '@zero-tech/zui/components';
 
 export enum Step {
 	DETAILS,
+	ZAUCTION_APPROVE,
 	CONFIRM,
 	COMPLETE,
 	LOADING,
@@ -21,8 +20,9 @@ export interface useFormStepsProps {
 	step: Step;
 	error: string;
 	statusText: string;
-	onBuyNow: (bid: Bid) => void;
-	onNext: () => void;
+	onCheckZAuction: () => void;
+	onApproveZAuction: () => void;
+	onConfirmBuyNow: () => void;
 	onClose: () => void;
 }
 
@@ -31,24 +31,42 @@ export const useFormSteps = ({
 	step,
 	error,
 	statusText,
-	onBuyNow,
-	onNext,
+	onCheckZAuction,
+	onApproveZAuction,
+	onConfirmBuyNow,
 	onClose,
 }: useFormStepsProps): UseFormStepsReturn => {
 	let content: ReactNode;
 
 	switch (step) {
 		case Step.DETAILS:
-			content = <Details zna={zna} errorText={error} onNext={onNext} />;
+			content = (
+				<Details
+					zna={zna}
+					step={step}
+					errorText={error}
+					onCheckZAuction={onCheckZAuction}
+				/>
+			);
+			break;
+
+		case Step.ZAUCTION_APPROVE:
+			content = (
+				<ApproveZAuction
+					errorText={error}
+					onClose={onClose}
+					onApproveZAuction={onApproveZAuction}
+				/>
+			);
 			break;
 
 		case Step.CONFIRM:
 			content = (
-				<Confirm
+				<Details
 					zna={zna}
+					step={step}
 					errorText={error}
-					onClose={onClose}
-					onConfirm={onBuyNow}
+					onConfirmBuyNow={onConfirmBuyNow}
 				/>
 			);
 			break;

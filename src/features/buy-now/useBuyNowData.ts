@@ -8,12 +8,13 @@ import {
 	useBuyNowListing,
 } from '../../lib/hooks';
 import {
+	formatEthers,
+	formatNumber,
 	getDomainId,
 	getParentZna,
 	getUserBids,
 	sortBidsByAmount,
 } from '../../lib/util';
-import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
 export const useBuyNowData = (zna: string) => {
 	const { account } = useWeb3();
@@ -36,18 +37,22 @@ export const useBuyNowData = (zna: string) => {
 	const { data: buyNowListingData, isLoading: isLoadingBuyNowListing } =
 		useBuyNowListing(domainId);
 
-	const buyNowPriceString = buyNowListingData?.price
-		? bigNumberToLocaleString(buyNowListingData?.price)
-		: '-';
-
 	const title = metadata?.title;
 	const creator = domain?.minter;
-	const balanceAsString = tokenBalance?.balanceAsString ?? '';
 	const imageSrc = metadata?.previewImage ?? metadata?.image;
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 	const paymentTokenSymbol = paymentToken?.symbol ?? '';
 	const paymentTokenId = paymentToken?.id ?? '';
-	const isLeadingBid = highestUserBid?.amount >= highestBid?.amount;
+
+	const buyNowPrice = buyNowListingData?.price;
+
+	const balanceAsString = tokenBalance?.balanceAsString
+		? `${formatNumber(tokenBalance?.balanceAsString)} ${paymentTokenSymbol}`
+		: '-';
+
+	const highestBidAsString = highestBid
+		? `${formatEthers(highestBid.amount)} ${paymentTokenSymbol}`
+		: '-';
 
 	const isLoading =
 		isLoadingDomain ||
@@ -64,11 +69,11 @@ export const useBuyNowData = (zna: string) => {
 		highestBid,
 		allBids,
 		highestUserBid,
-		isLeadingBid,
 		balanceAsString,
+		highestBidAsString,
 		paymentTokenId,
 		paymentTokenSymbol,
 		isLoading,
-		buyNowPriceString,
+		buyNowPrice,
 	};
 };

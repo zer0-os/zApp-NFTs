@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useBuyNowForm } from './hooks';
 
-import { Step, useFormSteps } from './FormSteps/hooks';
+import { useFormSteps } from './FormSteps/hooks';
 import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './BuyNowForm.module.scss';
@@ -13,18 +13,23 @@ export interface BuyNowFormProps {
 }
 
 export const BuyNowForm: FC<BuyNowFormProps> = ({ zna, onClose }) => {
-	const { step, error, statusText, isLeadingBid, onBuyNow, onNext } =
-		useBuyNowForm(zna);
-
-	const subHeader = getSubHeader(step, isLeadingBid);
+	const {
+		step,
+		error,
+		statusText,
+		onConfirmBuyNow,
+		onCheckZAuction,
+		onApproveZAuction,
+	} = useBuyNowForm(zna);
 
 	const { content } = useFormSteps({
 		zna,
 		step,
 		error,
 		statusText,
-		onBuyNow,
-		onNext,
+		onCheckZAuction,
+		onApproveZAuction,
+		onConfirmBuyNow,
 		onClose,
 	});
 
@@ -32,24 +37,11 @@ export const BuyNowForm: FC<BuyNowFormProps> = ({ zna, onClose }) => {
 		<Wizard.Container
 			className={styles.Container}
 			header="Buy Now"
-			subHeader={subHeader}
+			subHeader={
+				'Please review the information and the art to make sure you are purchasing the right NFT.'
+			}
 		>
 			<form className={styles.Form}>{content}</form>
 		</Wizard.Container>
 	);
-};
-
-/***************
- * getSubHeader
- ***************/
-
-const getSubHeader = (step: Step, isLeadingBid: boolean) => {
-	if (step !== Step.DETAILS) {
-		return;
-	}
-	const subHeader = isLeadingBid
-		? 'Your bid is leading the auction currently. \nAre you sure you want to cancel your bid?'
-		: 'Your bid is not leading the auction. \nAre you sure you want to cancel your bid?';
-
-	return subHeader;
 };

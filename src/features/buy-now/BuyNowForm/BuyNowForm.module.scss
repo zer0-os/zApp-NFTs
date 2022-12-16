@@ -1,6 +1,10 @@
 .Container {
 	white-space: pre-line;
 
+	h2 {
+		margin: 0 3rem;
+	}
+
 	.Form {
 		display: flex;
 		flex-direction: column;

@@ -22,22 +22,13 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 		creator,
 		imageAlt,
 		imageSrc,
-		highestBid,
-		highestUserBid,
-		paymentTokenSymbol,
+		highestBidAsString,
+		buyNowPrice,
 		isLoading,
 	} = useBuyNowData(zna);
 
 	const truncatedZna = truncateDomain(zna, 20);
 	const truncatedCreatorAddress = truncateAddress(creator);
-
-	const formattedHighestBid = highestBid
-		? `${formatEthers(highestBid.amount)} ${paymentTokenSymbol}`
-		: '-';
-
-	const formattedUserBid = highestUserBid
-		? `${formatEthers(highestUserBid?.amount)} ${paymentTokenSymbol}`
-		: '-';
 
 	const detailContent: DetailsContentType[] = [
 		{
@@ -66,15 +57,15 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 			id: 'highest-bid',
 			title: 'Highest Bid',
 			className: styles.InfoValue,
-			text: formattedHighestBid,
+			text: highestBidAsString,
 			isLoading: isLoading,
 			as: 'span' as const,
 		},
 		{
-			id: 'your-bid',
-			title: 'Your Bid',
+			id: 'buy-now-price',
+			title: 'Buy Now',
 			className: styles.InfoValue,
-			text: formattedUserBid,
+			text: String(buyNowPrice),
 			isLoading: isLoading,
 			as: 'span' as const,
 		},

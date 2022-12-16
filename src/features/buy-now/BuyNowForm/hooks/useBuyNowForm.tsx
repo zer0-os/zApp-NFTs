@@ -3,27 +3,31 @@ import { useState } from 'react';
 import { useWeb3, useZnsSdk } from '../../../../lib/hooks';
 import { useBuyNowData } from '../../useBuyNowData';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
+import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
 import { Step } from '../FormSteps/hooks';
-
-export enum ZAuctionVersionType {
-	V1 = '1.0',
-	V2 = '2.0',
-}
+import { useZAuctionCheckTokensByDomain } from '../../../../lib/hooks/useZAuctionCheckTokensByDomain';
+import { ethers } from 'ethers';
 
 enum StatusText {
-	PROCESSING_BID = 'Cancelling your bid. This may take up to 20 mins... Please do not close this window or refresh the page.',
-	WAITING_FOR_APPROVAL_VERSION_1 = 'Waiting for signature approval. You should receive a request in your wallet.',
-	WAITING_FOR_APPROVAL_VERSION_2 = 'Waiting for signature and transaction approval. You should receive two requests in your wallet.',
+	APPROVING_ZAUCTION = 'Approving zAuction. This may take up to 20 mins... Please do not close this window or refresh the page.',
+	CHECK_ZAUCTION = 'Checking status of zAuction approval...',
+	PROCESSING_BUY_NOW = 'Buying NFT. This may take up to 20 mins... Please do not close this window or refresh the page.',
+	WAITING_FOR_APPROVAL = 'Waiting for approval from your wallet...',
+	WAITING_FOR_SIGNATURE = 'Waiting for buy now approval to be signed by wallet...',
+}
+
+enum ErrorText {
+	FAILED_ZAUCTION_CHECK = 'Failed to check zAuction approval status',
 }
 
 export type UseBuyNowFormReturn = {
 	step: Step;
 	error: string;
 	statusText: string;
-	isLeadingBid: boolean;
-	onNext: () => void;
-	onBuyNow: () => void;
+	onCheckZAuction: () => void;
+	onApproveZAuction: () => void;
+	onConfirmBuyNow: () => void;
 };
 
 /**
@@ -34,47 +38,79 @@ export const useBuyNowForm = (zna: string): UseBuyNowFormReturn => {
 
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const {
-		domainId,
-		isLeadingBid,
-		highestBid: bid,
-		paymentTokenId,
-		buyNowPriceString,
-	} = useBuyNowData(zna);
+	const { domainId, paymentTokenId, buyNowPrice } = useBuyNowData(zna);
+
+	const { data: isZAuctionCheckRequired, error: zAuctionCheckError } =
+		useZAuctionCheckTokensByDomain(account, domainId, buyNowPrice);
 
 	const [error, setError] = useState<string>();
 	const [step, setStep] = useState<Step>(Step.DETAILS);
 	const [statusText, setStatusText] = useState<string>();
 
-	const bidVersion = bid?.version;
-	const cancelBidOnChain = bidVersion === ZAuctionVersionType.V2;
-	const versionWaitingStatus =
-		bidVersion === ZAuctionVersionType.V1
-			? StatusText.WAITING_FOR_APPROVAL_VERSION_1
-			: StatusText.WAITING_FOR_APPROVAL_VERSION_2;
+	const onCheckZAuction = async () => {
+		setError(undefined);
+		setStep(Step.LOADING);
+		setStatusText(StatusText.CHECK_ZAUCTION);
 
-	const onNext = () => {
-		setStep(Step.CONFIRM);
+		// set timeout to prevent container jolt
+		await new Promise((r) => setTimeout(r, 1500));
+
+		if (isZAuctionCheckRequired) {
+			setStep(Step.ZAUCTION_APPROVE);
+		} else if (zAuctionCheckError) {
+			setError(ErrorText.FAILED_ZAUCTION_CHECK);
+			setStep(Step.DETAILS);
+		} else {
+			setStep(Step.CONFIRM);
+		}
 	};
 
-	const onBuyNow = () => {
+	const onApproveZAuction = () => {
 		setError(undefined);
 		return executeTransaction(
-			sdk.zauction.buyNow,
-			[{ buyNowPriceString, domainId, paymentTokenId }, provider.getSigner()],
+			sdk.zauction.approveZAuctionToSpendTokensByDomain,
+			[domainId, provider.getSigner()],
 			{
 				onStart: () => {
 					setStep(Step.LOADING);
-					setStatusText(versionWaitingStatus);
+					setStatusText(StatusText.WAITING_FOR_APPROVAL);
 				},
-				onProcessing: () => setStatusText(StatusText.PROCESSING_BID),
+				onProcessing: () => setStatusText(StatusText.APPROVING_ZAUCTION),
+				onSuccess: () => setStep(Step.CONFIRM),
+				onError: (error: any) => {
+					setError(error.message);
+					setStep(Step.ZAUCTION_APPROVE);
+				},
+
+				invalidationKeys: [['user', { account, domainId }]],
+			},
+		);
+	};
+
+	const onConfirmBuyNow = () => {
+		const buyNowPriceAsNumber = Number(buyNowPrice);
+		if (!buyNowPriceAsNumber) return;
+
+		const buyNowPriceAsString = ethers.utils.parseEther(buyNowPrice.toString());
+		console.log('YOLO', buyNowPriceAsString);
+
+		setError(undefined);
+		return executeTransaction(
+			sdk.zauction.buyNow,
+			[{ domainId, paymentTokenId }, provider.getSigner()],
+			{
+				onStart: () => {
+					setStep(Step.LOADING);
+					setStatusText(StatusText.WAITING_FOR_SIGNATURE);
+				},
+				onProcessing: () => setStatusText(StatusText.PROCESSING_BUY_NOW),
 				onSuccess: () => setStep(Step.COMPLETE),
 				onError: (error: any) => {
 					setError(error.message);
-					setStep(Step.CONFIRM);
+					setStep(Step.DETAILS);
 				},
 
-				invalidationKeys: [['user', { account, domainId, bid }]],
+				invalidationKeys: [['user', { account, domainId, buyNowPrice }]],
 			},
 		);
 	};
@@ -83,8 +119,8 @@ export const useBuyNowForm = (zna: string): UseBuyNowFormReturn => {
 		step,
 		error,
 		statusText,
-		isLeadingBid,
-		onNext,
-		onBuyNow,
+		onCheckZAuction,
+		onApproveZAuction,
+		onConfirmBuyNow,
 	};
 };
