@@ -1,0 +1,19 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+
+.Container {
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+	cursor: pointer;
+
+	.TextButton {
+		color: $blue;
+		line-height: 1.5rem;
+		padding: 0;
+		margin: 0;
+	}
+
+	.Icon {
+		color: $blue;
+	}
+}

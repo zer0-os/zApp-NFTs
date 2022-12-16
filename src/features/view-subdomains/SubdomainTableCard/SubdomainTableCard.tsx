@@ -59,7 +59,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
 
 	const button = buyNowPrice ? (
-		<BuyNowButton />
+		<BuyNowButton zna={zna} />
 	) : (
 		<PlaceBidButton zna={zna} trigger={'Bid'} />
 	);
