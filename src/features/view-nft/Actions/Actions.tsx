@@ -40,7 +40,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 		: '-';
 
 	const buyNowPriceString = buyNowPrice
-		? `${formatEthers(buyNowPrice?.toString())} ${paymentTokenSymbol}`
+		? formatEthers(buyNowPrice?.toString())
 		: '-';
 
 	const bidsButton = getBidsButton(zna, isOwnedByUser, isViewBids);

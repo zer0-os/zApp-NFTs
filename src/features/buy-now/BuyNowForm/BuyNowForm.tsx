@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useBuyNowForm } from './hooks';
 
-import { useFormSteps } from './FormSteps/hooks';
+import { Step, useFormSteps } from './FormSteps/hooks';
 import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './BuyNowForm.module.scss';
@@ -38,6 +38,7 @@ export const BuyNowForm: FC<BuyNowFormProps> = ({ zna, onClose }) => {
 			className={styles.Container}
 			header="Buy Now"
 			subHeader={
+				step === Step.DETAILS &&
 				'Please review the information and the art to make sure you are purchasing the right NFT.'
 			}
 		>

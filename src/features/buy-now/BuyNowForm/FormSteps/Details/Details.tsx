@@ -14,6 +14,7 @@ export interface DetailsProps {
 	errorText: string;
 	onCheckZAuction?: () => void;
 	onConfirmBuyNow?: () => void;
+	onClose: () => void;
 }
 
 export const Details: FC<DetailsProps> = ({
@@ -22,6 +23,7 @@ export const Details: FC<DetailsProps> = ({
 	errorText,
 	onCheckZAuction,
 	onConfirmBuyNow,
+	onClose,
 }) => {
 	const { balanceAsString: tokenBalance, isLoading } = useBuyNowData(zna);
 
@@ -43,8 +45,11 @@ export const Details: FC<DetailsProps> = ({
 				<Wizard.Buttons
 					className={styles.Button}
 					isPrimaryButtonActive
+					isSecondaryButtonActive
+					secondaryButtonText="Cancel"
 					primaryButtonText={primaryButtonText}
 					onClickPrimaryButton={primaryButtonEvent}
+					onClickSecondaryButton={onClose}
 				/>
 			</div>
 		</>

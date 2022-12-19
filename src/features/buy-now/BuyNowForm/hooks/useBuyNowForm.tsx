@@ -59,7 +59,8 @@ export const useBuyNowForm = (zna: string): UseBuyNowFormReturn => {
 			setError(ErrorText.FAILED_ZAUCTION_CHECK);
 			setStep(Step.DETAILS);
 		} else {
-			setStep(Step.CONFIRM);
+			setStep(Step.DETAILS);
+			onConfirmBuyNow();
 		}
 	};
 

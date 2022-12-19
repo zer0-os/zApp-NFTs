@@ -62,7 +62,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 		},
 		{
 			id: 'buy-now-price',
-			title: 'Buy Now',
+			title: 'Buy Now Price',
 			className: styles.InfoValue,
 			text: buyNowPriceAsString,
 			isLoading: isLoading,
