@@ -23,6 +23,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 		highestUserBid,
 		buyNowPrice,
 		paymentTokenLabel,
+		paymentTokenSymbol,
 		isDomainBiddable,
 		isOwnedByUser,
 		isSetBuyNow,
@@ -39,7 +40,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 		: '-';
 
 	const buyNowPriceString = buyNowPrice
-		? bigNumberToLocaleString(buyNowPrice)
+		? `${formatEthers(buyNowPrice?.toString())} ${paymentTokenSymbol}`
 		: '-';
 
 	const bidsButton = getBidsButton(zna, isOwnedByUser, isViewBids);
@@ -49,7 +50,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 			label: `Buy Now ${paymentTokenLabel}`,
 			value: buyNowPriceString,
 			button: <BuyNowButton zna={zna} trigger={'Buy Now'} />,
-			isVisible: !isBuyNow,
+			isVisible: isBuyNow,
 		},
 		{
 			label: `Buy Now ${paymentTokenLabel}`,

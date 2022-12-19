@@ -2,7 +2,6 @@ import { FC } from 'react';
 
 import { Step } from '../../hooks';
 import { useBuyNowData } from '../../../../useBuyNowData';
-import { formatEthers } from '../../../../../../lib/util/number';
 import { HTMLTextElement } from '@zero-tech/zui/lib/types';
 import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
@@ -23,7 +22,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 		imageAlt,
 		imageSrc,
 		highestBidAsString,
-		buyNowPrice,
+		buyNowPriceAsString,
 		isLoading,
 	} = useBuyNowData(zna);
 
@@ -65,7 +64,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 			id: 'buy-now-price',
 			title: 'Buy Now',
 			className: styles.InfoValue,
-			text: String(buyNowPrice),
+			text: buyNowPriceAsString,
 			isLoading: isLoading,
 			as: 'span' as const,
 		},

@@ -1,12 +1,13 @@
 import { FC, useCallback } from 'react';
 import { useQuery } from 'react-query';
 
+import { useSubdomainTableItem } from '../useSubdomainTableItem';
 import {
 	getCloudinaryUrlFromIpfs,
 	getCloudinaryVideoPoster,
 } from '@zero-tech/zapp-utils/utils/cloudinary';
 import { getHashFromIpfsUrl } from '@zero-tech/zapp-utils/utils/ipfs';
-import { useSubdomainTableItem } from '../useSubdomainTableItem';
+import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
@@ -14,6 +15,7 @@ import { GridCard } from '@zero-tech/zui/components/GridCard';
 import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
 
 import styles from './SubdomainTableCard.module.scss';
+import { formatEthers, formatNumber } from '../../../lib/util';
 
 type SubdomainTableCardProps = {
 	zna: string;
@@ -33,6 +35,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		isLoadingMetrics,
 		isLoadingMetadata,
 		paymentTokenLabel,
+		paymentTokenSymbol,
 	} = useSubdomainTableItem({
 		zna,
 	});
@@ -55,8 +58,13 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		}
 	});
 
-	const metric = buyNowPrice ? 'buyNowPrice' : 'highestBid';
-	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
+	const metric = buyNowPrice?.price
+		? `${formatEthers(buyNowPrice?.price.toString())} ${paymentTokenSymbol}`
+		: highestBid;
+
+	const label = buyNowPrice?.price
+		? 'Buy Now'
+		: 'Top Bid' + ' ' + paymentTokenLabel;
 
 	const button = buyNowPrice ? (
 		<BuyNowButton zna={zna} trigger={'Buy'} />

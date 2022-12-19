@@ -43,8 +43,11 @@ export const useBuyNowData = (zna: string) => {
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 	const paymentTokenSymbol = paymentToken?.symbol ?? '';
 	const paymentTokenId = paymentToken?.id ?? '';
-
 	const buyNowPrice = buyNowListingData?.price;
+
+	const buyNowPriceAsString = buyNowPrice
+		? `${formatEthers(buyNowPrice?.toString())} ${paymentTokenSymbol}`
+		: '-';
 
 	const balanceAsString = tokenBalance?.balanceAsString
 		? `${formatNumber(tokenBalance?.balanceAsString)} ${paymentTokenSymbol}`
@@ -58,7 +61,8 @@ export const useBuyNowData = (zna: string) => {
 		isLoadingDomain ||
 		isLoadingBids ||
 		isLoadingMetadata ||
-		isLoadingTokenBalance;
+		isLoadingTokenBalance ||
+		isLoadingBuyNowListing;
 
 	return {
 		domainId,
@@ -69,6 +73,7 @@ export const useBuyNowData = (zna: string) => {
 		highestBid,
 		allBids,
 		highestUserBid,
+		buyNowPriceAsString,
 		balanceAsString,
 		highestBidAsString,
 		paymentTokenId,

@@ -3,11 +3,9 @@ import { useState } from 'react';
 import { useWeb3, useZnsSdk } from '../../../../lib/hooks';
 import { useBuyNowData } from '../../useBuyNowData';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
-import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
 import { Step } from '../FormSteps/hooks';
 import { useZAuctionCheckTokensByDomain } from '../../../../lib/hooks/useZAuctionCheckTokensByDomain';
-import { ethers } from 'ethers';
 
 enum StatusText {
 	APPROVING_ZAUCTION = 'Approving zAuction. This may take up to 20 mins... Please do not close this window or refresh the page.',
@@ -88,16 +86,17 @@ export const useBuyNowForm = (zna: string): UseBuyNowFormReturn => {
 	};
 
 	const onConfirmBuyNow = () => {
-		const buyNowPriceAsNumber = Number(buyNowPrice);
-		if (!buyNowPriceAsNumber) return;
-
-		const buyNowPriceAsString = ethers.utils.parseEther(buyNowPrice.toString());
-		console.log('YOLO', buyNowPriceAsString);
-
 		setError(undefined);
 		return executeTransaction(
 			sdk.zauction.buyNow,
-			[{ domainId, paymentTokenId }, provider.getSigner()],
+			[
+				{
+					amount: buyNowPrice,
+					tokenId: domainId,
+					paymentToken: paymentTokenId,
+				},
+				provider.getSigner(),
+			],
 			{
 				onStart: () => {
 					setStep(Step.LOADING);

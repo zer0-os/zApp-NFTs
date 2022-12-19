@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useBuyNowData } from '../../../useBuyNowData';
 import { Step } from '../../FormSteps/hooks';
-import { NFTDetails } from '../ui';
+import { ErrorText, NFTDetails } from '../ui';
 import { SkeletonText } from '@zero-tech/zui/components';
 import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
 
@@ -23,11 +23,7 @@ export const Details: FC<DetailsProps> = ({
 	onCheckZAuction,
 	onConfirmBuyNow,
 }) => {
-	const {
-		balanceAsString: tokenBalance,
-		paymentTokenSymbol,
-		isLoading,
-	} = useBuyNowData(zna);
+	const { balanceAsString: tokenBalance, isLoading } = useBuyNowData(zna);
 
 	const primaryButtonText: ButtonsProps['primaryButtonText'] =
 		step === Step.DETAILS ? (errorText ? 'Retry' : 'Continue') : 'Confirm';
@@ -40,11 +36,9 @@ export const Details: FC<DetailsProps> = ({
 			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
-				<UserBalance
-					tokenBalance={tokenBalance}
-					paymentTokenSymbol={paymentTokenSymbol}
-					isLoading={isLoading}
-				/>
+				<UserBalance tokenBalance={tokenBalance} isLoading={isLoading} />
+
+				{errorText !== undefined && <ErrorText text={errorText} />}
 
 				<Wizard.Buttons
 					className={styles.Button}
@@ -63,15 +57,10 @@ export const Details: FC<DetailsProps> = ({
 
 interface UserBalanceProps {
 	tokenBalance: string;
-	paymentTokenSymbol: string;
 	isLoading: boolean;
 }
 
-const UserBalance = ({
-	tokenBalance,
-	paymentTokenSymbol,
-	isLoading,
-}: UserBalanceProps) => {
+const UserBalance = ({ tokenBalance, isLoading }: UserBalanceProps) => {
 	return (
 		<div className={styles.UserBalanceContainer}>
 			<label className={styles.Label}>{'Your Balance'}</label>
@@ -79,7 +68,7 @@ const UserBalance = ({
 				className={styles.Balance}
 				as={'span'}
 				asyncText={{
-					text: `${tokenBalance} ${paymentTokenSymbol}`,
+					text: tokenBalance,
 					isLoading: isLoading,
 				}}
 			/>
