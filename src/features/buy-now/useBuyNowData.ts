@@ -17,11 +17,10 @@ import {
 } from '../../lib/util';
 
 export const useBuyNowData = (zna: string) => {
-	const { account } = useWeb3();
-
 	const domainId = getDomainId(zna);
 	const parentZna = getParentZna(zna);
 
+	const { account } = useWeb3();
 	const { data: paymentToken } = usePaymentToken(parentZna);
 	const { data: allBids, isLoading: isLoadingBids } = useBidData(domainId);
 	const { data: domain, isLoading: isLoadingDomain } = useDomainData(domainId);
@@ -47,6 +46,13 @@ export const useBuyNowData = (zna: string) => {
 	const imageSrc =
 		metadata?.animation_url ?? metadata?.previewImage ?? metadata?.image;
 
+	const isLoading =
+		isLoadingDomain ||
+		isLoadingBids ||
+		isLoadingMetadata ||
+		isLoadingTokenBalance ||
+		isLoadingBuyNowListing;
+
 	const buyNowPriceAsString = buyNowPrice
 		? `${formatEthers(buyNowPrice?.toString())} ${paymentTokenSymbol}`
 		: '-';
@@ -58,13 +64,6 @@ export const useBuyNowData = (zna: string) => {
 	const highestBidAsString = highestBid
 		? `${formatEthers(highestBid.amount)} ${paymentTokenSymbol}`
 		: '-';
-
-	const isLoading =
-		isLoadingDomain ||
-		isLoadingBids ||
-		isLoadingMetadata ||
-		isLoadingTokenBalance ||
-		isLoadingBuyNowListing;
 
 	return {
 		domainId,
