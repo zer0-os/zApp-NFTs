@@ -27,9 +27,11 @@ export const Details: FC<DetailsProps> = ({
 }) => {
 	const { balanceAsString: tokenBalance, isLoading } = useBuyNowData(zna);
 
-	const primaryButtonText: ButtonsProps['primaryButtonText'] = errorText
-		? 'Retry'
-		: 'Continue';
+	const primaryButtonText: ButtonsProps['primaryButtonText'] =
+		step === Step.DETAILS ? (errorText ? 'Retry' : 'Continue') : 'Confirm';
+
+	const primaryButtonEvent: ButtonsProps['onClickPrimaryButton'] =
+		step === Step.DETAILS ? onCheckZAuction : onConfirmBuyNow;
 
 	return (
 		<>
@@ -46,7 +48,7 @@ export const Details: FC<DetailsProps> = ({
 					isSecondaryButtonActive
 					secondaryButtonText="Cancel"
 					primaryButtonText={primaryButtonText}
-					onClickPrimaryButton={onCheckZAuction}
+					onClickPrimaryButton={primaryButtonEvent}
 					onClickSecondaryButton={onClose}
 				/>
 			</div>

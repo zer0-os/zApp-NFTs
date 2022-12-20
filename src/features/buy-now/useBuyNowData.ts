@@ -12,7 +12,6 @@ import {
 	formatNumber,
 	getDomainId,
 	getParentZna,
-	getUserBids,
 	sortBidsByAmount,
 } from '../../lib/util';
 
@@ -24,8 +23,7 @@ export const useBuyNowData = (zna: string) => {
 	const { data: paymentToken } = usePaymentToken(parentZna);
 	const { data: allBids, isLoading: isLoadingBids } = useBidData(domainId);
 	const { data: domain, isLoading: isLoadingDomain } = useDomainData(domainId);
-	const { sortedBids, highestBid } = sortBidsByAmount(allBids);
-	const { highestUserBid } = getUserBids(account, sortedBids);
+	const { highestBid } = sortBidsByAmount(allBids);
 
 	const { data: metadata, isLoading: isLoadingMetadata } =
 		useDomainMetadata(domainId);
@@ -43,8 +41,7 @@ export const useBuyNowData = (zna: string) => {
 	const buyNowPrice = buyNowListingData?.price;
 
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
-	const imageSrc =
-		metadata?.animation_url ?? metadata?.previewImage ?? metadata?.image;
+	const imageSrc = metadata?.previewImage ?? metadata?.image;
 
 	const isLoading =
 		isLoadingDomain ||
@@ -66,20 +63,16 @@ export const useBuyNowData = (zna: string) => {
 		: '-';
 
 	return {
-		domainId,
 		title,
 		creator,
+		domainId,
 		imageSrc,
 		imageAlt,
-		highestBid,
-		allBids,
-		highestUserBid,
-		buyNowPriceAsString,
-		balanceAsString,
-		highestBidAsString,
-		paymentTokenId,
-		paymentTokenSymbol,
 		isLoading,
 		buyNowPrice,
+		paymentTokenId,
+		balanceAsString,
+		highestBidAsString,
+		buyNowPriceAsString,
 	};
 };

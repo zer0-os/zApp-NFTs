@@ -7,6 +7,7 @@ import { Wizard } from '@zero-tech/zui/components';
 export enum Step {
 	DETAILS,
 	ZAUCTION_APPROVE,
+	CONFIRM,
 	COMPLETE,
 	LOADING,
 }
@@ -46,7 +47,6 @@ export const useFormSteps = ({
 					step={step}
 					errorText={error}
 					onCheckZAuction={onCheckZAuction}
-					onConfirmBuyNow={onConfirmBuyNow}
 					onClose={onClose}
 				/>
 			);
@@ -59,6 +59,18 @@ export const useFormSteps = ({
 					errorText={error}
 					onClose={onClose}
 					onApproveZAuction={onApproveZAuction}
+				/>
+			);
+			break;
+
+		case Step.CONFIRM:
+			content = (
+				<Details
+					zna={zna}
+					step={step}
+					errorText={error}
+					onConfirmBuyNow={onConfirmBuyNow}
+					onClose={onClose}
 				/>
 			);
 			break;

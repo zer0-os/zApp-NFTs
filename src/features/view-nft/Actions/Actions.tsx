@@ -23,7 +23,6 @@ export const Actions = ({ zna }: ActionsProps) => {
 		highestUserBid,
 		buyNowPrice,
 		paymentTokenLabel,
-		paymentTokenSymbol,
 		isDomainBiddable,
 		isOwnedByUser,
 		isSetBuyNow,
