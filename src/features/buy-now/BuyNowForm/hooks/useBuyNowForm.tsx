@@ -75,7 +75,7 @@ export const useBuyNowForm = (zna: string): UseBuyNowFormReturn => {
 					setStatusText(StatusText.WAITING_FOR_APPROVAL);
 				},
 				onProcessing: () => setStatusText(StatusText.APPROVING_ZAUCTION),
-				onSuccess: () => setStep(Step.CONFIRM),
+				onSuccess: () => setStep(Step.DETAILS),
 				onError: (error: any) => {
 					setError(error.message);
 					setStep(Step.ZAUCTION_APPROVE);

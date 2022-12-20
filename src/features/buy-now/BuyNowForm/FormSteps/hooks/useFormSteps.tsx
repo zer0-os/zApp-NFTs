@@ -6,7 +6,6 @@ import { Wizard } from '@zero-tech/zui/components';
 export enum Step {
 	DETAILS,
 	ZAUCTION_APPROVE,
-	CONFIRM,
 	COMPLETE,
 	LOADING,
 }

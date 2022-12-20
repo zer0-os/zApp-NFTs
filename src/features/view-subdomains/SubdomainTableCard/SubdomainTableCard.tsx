@@ -36,6 +36,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		isLoadingMetadata,
 		paymentTokenLabel,
 		paymentTokenSymbol,
+		isOwnedByUser,
 	} = useSubdomainTableItem({
 		zna,
 	});
@@ -102,7 +103,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 					isLoading: isLoadingMetrics,
 				}}
 				secondaryText={''}
-				button={button}
+				button={!isOwnedByUser && button}
 			/>
 		</GridCard>
 	);

@@ -4,7 +4,7 @@ import { BuyNowModal } from '..';
 
 interface BuyNowButtonProps {
 	zna: string;
-	trigger?: ReactNode;
+	trigger: ReactNode;
 }
 
 export const BuyNowButton: FC<BuyNowButtonProps> = ({ zna, trigger }) => {
