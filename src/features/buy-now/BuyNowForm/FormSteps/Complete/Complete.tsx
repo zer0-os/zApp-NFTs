@@ -2,7 +2,8 @@ import { FC } from 'react';
 
 import { Step } from '../hooks';
 
-import { NFTDetails, TextContent } from '../ui';
+import { NFTDetails } from '../ui';
+import { FormTextContent } from '../../../../ui';
 import { Wizard } from '@zero-tech/zui/components';
 
 import styles from '../FormSteps.module.scss';
@@ -19,7 +20,7 @@ export const Complete: FC<CompleteProps> = ({ zna, step, onClose }) => {
 			<NFTDetails zna={zna} step={step} />
 
 			<div className={styles.Container}>
-				<TextContent variant={'success'} textContent={'Success!'} />
+				<FormTextContent variant={'success'} textContent={'Success!'} />
 
 				<Wizard.Buttons
 					className={styles.Button}

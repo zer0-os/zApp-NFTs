@@ -2,8 +2,8 @@ import { FC } from 'react';
 
 import { useBuyNowData } from '../../../useBuyNowData';
 import { Step } from '../../FormSteps/hooks';
-import { ErrorText, NFTDetails } from '../ui';
-import { SkeletonText } from '@zero-tech/zui/components';
+import { NFTDetails } from '../ui';
+import { FormErrorText, FormUserBalance } from '../../../../ui';
 import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
@@ -27,20 +27,18 @@ export const Details: FC<DetailsProps> = ({
 }) => {
 	const { balanceAsString: tokenBalance, isLoading } = useBuyNowData(zna);
 
-	const primaryButtonText: ButtonsProps['primaryButtonText'] =
-		step === Step.DETAILS ? (errorText ? 'Retry' : 'Continue') : 'Confirm';
-
-	const primaryButtonEvent: ButtonsProps['onClickPrimaryButton'] =
-		step === Step.DETAILS ? onCheckZAuction : onConfirmBuyNow;
+	const primaryButtonText: ButtonsProps['primaryButtonText'] = errorText
+		? 'Retry'
+		: 'Continue';
 
 	return (
 		<>
 			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
-				<UserBalance tokenBalance={tokenBalance} isLoading={isLoading} />
+				<FormUserBalance tokenBalance={tokenBalance} isLoading={isLoading} />
 
-				{errorText !== undefined && <ErrorText text={errorText} />}
+				{errorText !== undefined && <FormErrorText text={errorText} />}
 
 				<Wizard.Buttons
 					className={styles.Button}
@@ -48,35 +46,10 @@ export const Details: FC<DetailsProps> = ({
 					isSecondaryButtonActive
 					secondaryButtonText="Cancel"
 					primaryButtonText={primaryButtonText}
-					onClickPrimaryButton={primaryButtonEvent}
+					onClickPrimaryButton={onCheckZAuction}
 					onClickSecondaryButton={onClose}
 				/>
 			</div>
 		</>
-	);
-};
-
-/**************
- * UserBalance
- **************/
-
-interface UserBalanceProps {
-	tokenBalance: string;
-	isLoading: boolean;
-}
-
-const UserBalance = ({ tokenBalance, isLoading }: UserBalanceProps) => {
-	return (
-		<div className={styles.UserBalanceContainer}>
-			<label className={styles.Label}>{'Your Balance'}</label>
-			<SkeletonText
-				className={styles.Balance}
-				as={'span'}
-				asyncText={{
-					text: tokenBalance,
-					isLoading: isLoading,
-				}}
-			/>
-		</div>
 	);
 };

@@ -10,24 +10,4 @@
 	.Button {
 		margin-top: 2.5rem;
 	}
-
-	.Confirmation {
-		margin-bottom: 1.125rem;
-		white-space: pre-line;
-	}
-
-	.UserBalanceContainer {
-		display: flex;
-		flex-direction: column;
-
-		.Label {
-			color: $grey-lighter-2;
-			font-size: $size-tiny;
-			line-height: 0.908rem;
-		}
-
-		.Balance {
-			line-height: 1.5rem;
-		}
-	}
 }

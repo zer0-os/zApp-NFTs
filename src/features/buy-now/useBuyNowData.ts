@@ -39,12 +39,13 @@ export const useBuyNowData = (zna: string) => {
 
 	const title = metadata?.title;
 	const creator = domain?.minter;
-	const imageSrc =
-		metadata?.animation_url ?? metadata?.previewImage ?? metadata?.image;
-	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 	const paymentTokenSymbol = paymentToken?.symbol ?? '';
 	const paymentTokenId = paymentToken?.id ?? '';
 	const buyNowPrice = buyNowListingData?.price;
+
+	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
+	const imageSrc =
+		metadata?.animation_url ?? metadata?.previewImage ?? metadata?.image;
 
 	const buyNowPriceAsString = buyNowPrice
 		? `${formatEthers(buyNowPrice?.toString())} ${paymentTokenSymbol}`

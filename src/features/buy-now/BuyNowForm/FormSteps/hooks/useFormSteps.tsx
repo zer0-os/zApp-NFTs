@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
-import { Complete, Details, ApproveZAuction } from '..';
+import { Complete, Details } from '..';
+import { ApproveZAuction } from '../../../../ui';
 import { Wizard } from '@zero-tech/zui/components';
 
 export enum Step {
@@ -54,6 +55,7 @@ export const useFormSteps = ({
 		case Step.ZAUCTION_APPROVE:
 			content = (
 				<ApproveZAuction
+					action={'buy now'}
 					errorText={error}
 					onClose={onClose}
 					onApproveZAuction={onApproveZAuction}
