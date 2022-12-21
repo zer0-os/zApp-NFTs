@@ -71,6 +71,7 @@ export const HistoryItem = ({ item, tokenName }: HistoryItemProps) => {
 						secondaryAddress={item.seller}
 						amount={formatEthers(item.amount!) + tokenString}
 					/>
+					{/* NOTE: multiplying by 1000 here as transfer timestamps are in seconds for some reason */}
 					<Date timestamp={(Number(item.timestamp!) * 1000).toString()} />
 				</Container>
 			);
