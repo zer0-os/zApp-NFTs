@@ -1,8 +1,10 @@
 import { FC } from 'react';
 
-import { useBidData } from '../../../lib/hooks/useBidData';
-import { usePaymentToken } from '../../../lib/hooks/usePaymentToken';
-import { useDomainMetrics } from '../../../lib/hooks/useDomainMetrics';
+import {
+	useBidData,
+	usePaymentToken,
+	useDomainMetrics,
+} from '../../../lib/hooks';
 import {
 	formatEthers,
 	formatNumber,

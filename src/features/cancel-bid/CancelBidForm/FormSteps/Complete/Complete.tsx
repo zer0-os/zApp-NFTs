@@ -21,7 +21,7 @@ export const Complete: FC<CompleteProps> = ({ zna, step, onClose }) => {
 			<div className={styles.Container}>
 				<TextContent
 					variant={'success'}
-					textContent={'Success! Bid accepted and ownership transferred.'}
+					textContent={'Success! Bid Cancelled.'}
 				/>
 
 				<Wizard.Buttons

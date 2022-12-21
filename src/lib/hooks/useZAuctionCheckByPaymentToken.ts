@@ -2,11 +2,20 @@ import { useQuery } from 'react-query';
 
 import { useZnsSdk } from './useZnsSdk';
 
-export const useZAuctionCheck = (account: string, paymentToken: string) => {
+export const useZAuctionCheckByPaymentToken = (
+	account: string,
+	paymentToken: string,
+) => {
 	const sdk = useZnsSdk();
 
 	return useQuery(
-		['user', 'approval', 'z-auction', { account, paymentToken }],
+		[
+			'user',
+			'approval',
+			'z-auction',
+			'payment-token',
+			{ account, paymentToken },
+		],
 		async () =>
 			await sdk.zauction.needsToApproveZAuctionToSpendTokensByPaymentToken(
 				account,

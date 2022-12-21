@@ -12,5 +12,6 @@ export * from './useSubdomainData';
 export * from './useUserTokenBalance';
 export * from './useViewNavigation';
 export * from './useWeb3';
-export * from './useZAuctionCheck';
+export * from './useZAuctionCheckByBid';
+export * from './useZAuctionCheckByPaymentToken';
 export * from './useZnsSdk';

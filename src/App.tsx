@@ -1,7 +1,6 @@
 import { Switch } from 'react-router-dom';
 
-import { useCurrentRoute } from './lib/hooks/useCurrentRoute';
-import { useSubdomainData } from './lib/hooks/useSubdomainData';
+import { useCurrentRoute, useSubdomainData } from './lib/hooks';
 
 import { Domains } from './pages/Domains';
 import { NFT } from './pages/NFT';

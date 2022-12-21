@@ -1,12 +1,15 @@
 import { useState } from 'react';
 
 import { usePlaceBidData } from '../../usePlaceBidData';
-import { useWeb3 } from '../../../../lib/hooks/useWeb3';
-import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
-import { useZAuctionCheck } from '../../../../lib/hooks/useZAuctionCheck';
+import {
+	useWeb3,
+	useZnsSdk,
+	useZAuctionCheckByPaymentToken,
+} from '../../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { Step } from '../FormSteps/hooks';
+import { ethers } from 'ethers';
 
 enum StatusText {
 	APPROVING_ZAUCTION = 'Approving zAuction. This may take up to 20 mins... Please do not close this window or refresh the page.',
@@ -41,11 +44,11 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 	const { executeTransaction } = useTransaction();
 	const { domainId, paymentTokenId } = usePlaceBidData(zna);
 	const { data: isZAuctionCheckRequired, error: zAuctionCheckError } =
-		useZAuctionCheck(account, paymentTokenId);
+		useZAuctionCheckByPaymentToken(account, paymentTokenId);
 
 	const [step, setStep] = useState<Step>(Step.DETAILS);
 	const [error, setError] = useState<string>();
-	const [bidAmount, setBidAmount] = useState<string>();
+	const [bidAmount, setBidAmount] = useState<string>('');
 	const [statusText, setStatusText] = useState<string>();
 
 	const onCheckZAuction = async () => {
@@ -88,32 +91,36 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 		);
 	};
 
-	const onConfirmPlaceBid = () => {
+	const onConfirmPlaceBid = async () => {
+		const bidAmountAsNumber = Number(bidAmount);
+		if (!bidAmountAsNumber) return;
 		setError(undefined);
-		return executeTransaction(
-			sdk.zauction.placeBid,
-			[
-				{
-					domainId,
-					bidAmount: Number(bidAmount),
-				},
-				provider.getSigner(),
-			],
-			{
-				onStart: () => {
-					setStep(Step.LOADING);
-					setStatusText(StatusText.WAITING_FOR_SIGNATURE);
-				},
-				onProcessing: () => setStatusText(StatusText.PROCESSING_BID),
-				onSuccess: () => setStep(Step.COMPLETE),
-				onError: (error: any) => {
-					setError(error.message);
-					setStep(Step.CONFIRM);
-				},
+		setStep(Step.LOADING);
+		setStatusText(StatusText.WAITING_FOR_SIGNATURE);
 
-				invalidationKeys: [['user', { account, domainId, bidAmount }]],
-			},
-		);
+		try {
+			if (sdk?.zauction === undefined) {
+				console.warn('No zAuctionInstance');
+				return;
+			}
+
+			try {
+				await sdk.zauction.placeBid(
+					{
+						domainId: domainId,
+						bidAmount: ethers.utils.parseEther(bidAmountAsNumber.toString()),
+					},
+					provider.getSigner(),
+				);
+			} catch (e: any) {
+				console.warn(e);
+				throw new Error('Rejected by wallet');
+			}
+			setStep(Step.COMPLETE);
+		} catch (e: any) {
+			setError(e.message);
+			setStep(Step.CONFIRM);
+		}
 	};
 
 	return {

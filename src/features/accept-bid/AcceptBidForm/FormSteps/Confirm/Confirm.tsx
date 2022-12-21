@@ -25,8 +25,8 @@ export const Confirm: FC<ConfirmProps> = ({
 }) => {
 	const { paymentTokenSymbol } = useAcceptBidData(zna);
 
-	const bidder = truncateAddress(bid?.bidder);
-	const bidAmount = formatEthers(bid?.amount);
+	const bidder = bid?.bidder ? truncateAddress(bid?.bidder) : '-';
+	const bidAmount = bid?.amount ? `${formatEthers(bid?.amount)}` : '-';
 
 	const primaryButtonText = errorText ? 'Retry' : 'Continue';
 

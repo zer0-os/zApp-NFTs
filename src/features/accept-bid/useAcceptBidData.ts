@@ -1,23 +1,27 @@
-import { getDomainId, getParentZna } from '../../lib/util';
-import { useDomainData } from '../../lib/hooks/useDomainData';
-import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
-import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
-import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
+import { getDomainId, getParentZna, sortBidsByAmount } from '../../lib/util';
+import {
+	useBidData,
+	useDomainData,
+	usePaymentToken,
+	useDomainMetadata,
+} from '../../lib/hooks';
 
 export const useAcceptBidData = (zna: string) => {
 	const domainId = getDomainId(zna);
 	const parentZna = getParentZna(zna);
 
 	const { data: domain, isLoading: isLoadingDomain } = useDomainData(domainId);
-	const { data: metrics, isLoading: isLoadingMetrics } =
-		useDomainMetrics(domainId);
+
 	const { data: metadata, isLoading: isLoadingMetadata } =
 		useDomainMetadata(domainId);
+
 	const { data: paymentToken } = usePaymentToken(parentZna);
+
+	const { data: bids, isLoading: isLoadingBidData } = useBidData(domainId);
+	const { highestBid } = sortBidsByAmount(bids);
 
 	const title = metadata?.title;
 	const creator = domain?.minter;
-	const highestBid = metrics?.highestBid;
 	const isMetadataLocked = domain?.isLocked ? 'Locked' : 'Unlocked';
 	const imageSrc =
 		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
@@ -36,7 +40,7 @@ export const useAcceptBidData = (zna: string) => {
 		paymentTokenSymbol,
 		paymentTokenId,
 		isLoadingDomain,
-		isLoadingMetrics,
+		isLoadingBidData,
 		isLoadingMetadata,
 	};
 };

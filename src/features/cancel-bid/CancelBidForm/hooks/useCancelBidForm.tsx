@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
-import { useWeb3 } from '../../../../lib/hooks/useWeb3';
+import { useWeb3, useZnsSdk } from '../../../../lib/hooks';
 import { useCancelBidData } from '../../useCancelBidData';
-import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { Step } from '../FormSteps/hooks';

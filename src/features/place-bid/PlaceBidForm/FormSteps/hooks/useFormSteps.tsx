@@ -24,10 +24,10 @@ export interface useFormStepsProps {
 	error: string;
 	statusText: string;
 	bidAmount: string;
-	setBidAmount: (value: string) => void;
+	setBidAmount: (bid: string) => void;
 	onCheckZAuction: () => void;
 	onApproveZAuction: () => void;
-	onConfirmPlaceBid: (bidAmount: string) => void;
+	onConfirmPlaceBid: () => void;
 	onClose: () => void;
 }
 
