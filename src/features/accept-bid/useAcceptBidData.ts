@@ -23,7 +23,8 @@ export const useAcceptBidData = (zna: string) => {
 	const title = metadata?.title;
 	const creator = domain?.minter;
 	const isMetadataLocked = domain?.isLocked ? 'Locked' : 'Unlocked';
-	const imageSrc = metadata?.previewImage ?? metadata?.image;
+	const imageSrc =
+		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 	const paymentTokenSymbol = paymentToken?.symbol ?? '';
 	const paymentTokenId = paymentToken?.id ?? '';
