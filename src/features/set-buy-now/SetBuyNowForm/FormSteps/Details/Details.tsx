@@ -34,7 +34,9 @@ export const Details: FC<DetailsProps> = ({
 	const { paymentTokenLabel, paymentTokenSymbol } = useSetBuyNowData(zna);
 
 	const isInputValueValid =
-		Number(bidAmount) && !Number.isNaN(parseFloat(bidAmount));
+		Number(bidAmount) &&
+		!Number.isNaN(parseFloat(bidAmount)) &&
+		Number(bidAmount) !== 0;
 
 	const primaryButtonText: ButtonsProps['primaryButtonText'] =
 		step === Step.CONFIRM ? (errorText ? 'Retry' : 'Confirm') : 'Next';
@@ -67,7 +69,7 @@ export const Details: FC<DetailsProps> = ({
 
 				<Wizard.Buttons
 					className={styles.Button}
-					isPrimaryButtonActive
+					isPrimaryButtonActive={isInputValueValid}
 					isSecondaryButtonActive
 					secondaryButtonText="Cancel"
 					primaryButtonText={primaryButtonText}
