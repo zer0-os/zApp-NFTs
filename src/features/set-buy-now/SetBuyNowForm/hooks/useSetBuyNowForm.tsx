@@ -93,7 +93,6 @@ export const useSetBuyNowForm = (zna: string): UseSetBuyNowFormReturn => {
 
 	const onConfirmSetBuyNow = () => {
 		const bidAmountAsNumber = Number(bidAmount);
-		if (!bidAmountAsNumber) return;
 
 		setError(undefined);
 		return executeTransaction(

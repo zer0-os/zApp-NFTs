@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { Step } from '../hooks';
 import { formatNumber } from '../../../../../lib/util';
 import { useSetBuyNowData } from '../../../useSetBuyNowData';
 
 import { NFTDetails } from '../ui';
-import { FormTextContent } from '../../../../ui';
+import { FormTextContent, ToggleButton } from '../../../../ui';
 import { Input } from '@zero-tech/zui/components/Input';
 import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
 
@@ -33,6 +33,7 @@ export const Details: FC<DetailsProps> = ({
 	onClose,
 }) => {
 	const {
+		hasExistingBuyNow,
 		buyNowPriceAsString,
 		paymentTokenLabel,
 		paymentTokenSymbol,
@@ -43,6 +44,11 @@ export const Details: FC<DetailsProps> = ({
 		Number(bidAmount) &&
 		!Number.isNaN(parseFloat(bidAmount)) &&
 		Number(bidAmount) !== 0;
+
+	const [toggledValue, setToggledValue] = useState<boolean>(hasExistingBuyNow);
+
+	const isPrimaryButtonActive =
+		isInputValueValid || !toggledValue || step === Step.CONFIRM;
 
 	const primaryButtonText: ButtonsProps['primaryButtonText'] =
 		step === Step.CONFIRM ? (errorText ? 'Retry' : 'Confirm') : 'Next';
@@ -55,39 +61,58 @@ export const Details: FC<DetailsProps> = ({
 			? `$${formatNumber(Number(paymentTokenPriceInUsd) * Number(bidAmount))}`
 			: '-';
 
+	console.log('TOGG', toggledValue);
+	const isRemovingBuyNow = isInputValueValid && toggledValue === false;
+
 	return (
 		<>
 			<NFTDetails zna={zna} step={step} />
 
 			<div className={styles.Container}>
 				{step === Step.DETAILS && (
-					<>
-						<span className={styles.Subtext}>
-							This NFT has an existing buy now price of{' '}
-							<b>{buyNowPriceAsString}</b>
-						</span>
+					<div className={styles.InputWrapper}>
+						<ToggleButton
+							label={'Enable Buy Now price?'}
+							toggled={toggledValue}
+							onClick={() => setToggledValue(!toggledValue)}
+						/>
+
 						<Input
-							value={bidAmount ?? ''}
+							value={isRemovingBuyNow ? bidAmount : ''}
 							type="number"
 							inputMode="numeric"
 							placeholder={`Buy Now Price ${paymentTokenLabel}`}
-							onChange={(value: string) => setBidAmount && setBidAmount(value)}
+							onChange={(value: string) =>
+								setBidAmount &&
+								setBidAmount(isRemovingBuyNow ? undefined : value)
+							}
 							error={bidAmount?.length > 0 && !isInputValueValid}
+							isDisabled={!toggledValue}
 						/>
 						<span className={styles.Subtext}>{bidAmountConversionString}</span>
-					</>
+
+						<span className={styles.Subtext}>
+							{hasExistingBuyNow
+								? `This NFT has an existing buy now price of ${buyNowPriceAsString}`
+								: 'This NFT does not have an existing buy now price'}
+						</span>
+					</div>
 				)}
 
 				{step === Step.CONFIRM && (
 					<FormTextContent
-						textContent={`Are you sure you want to set a buy now price of ${bidAmount} ${paymentTokenSymbol} for ${zna}?`}
+						textContent={
+							isRemovingBuyNow
+								? `Are you sure you want to set a buy now price of ${bidAmount} ${paymentTokenSymbol} for ${zna}?`
+								: `Are you sure you want to turn off and remove the buy now price for ${zna}?`
+						}
 						errorText={errorText}
 					/>
 				)}
 
 				<Wizard.Buttons
 					className={styles.Button}
-					isPrimaryButtonActive={isInputValueValid}
+					isPrimaryButtonActive={isPrimaryButtonActive}
 					isSecondaryButtonActive
 					secondaryButtonText="Cancel"
 					primaryButtonText={primaryButtonText}

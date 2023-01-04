@@ -23,6 +23,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 		imageSrc,
 		highestBidAsString,
 		buyNowPriceAsString,
+		hasExistingBuyNow,
 		isLoading,
 	} = useSetBuyNowData(zna);
 
@@ -71,8 +72,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 	];
 
 	const content =
-		(Number(buyNowPriceAsString) > 0 && step === Step.DETAILS) ||
-		step === Step.CONFIRM
+		!hasExistingBuyNow && (step === Step.DETAILS || step === Step.CONFIRM)
 			? detailContent.slice(0, -1)
 			: detailContent;
 
