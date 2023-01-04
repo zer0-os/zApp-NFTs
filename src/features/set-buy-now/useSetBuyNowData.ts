@@ -36,6 +36,8 @@ export const useSetBuyNowData = (zna: string) => {
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 	const imageSrc = metadata?.previewImage ?? metadata?.image;
 
+	const isBuyNowSet = Boolean(buyNowPrice);
+
 	const isLoading =
 		isLoadingDomain ||
 		isLoadingBids ||
@@ -57,6 +59,7 @@ export const useSetBuyNowData = (zna: string) => {
 		imageAlt,
 		imageSrc,
 		isLoading,
+		isBuyNowSet,
 		paymentTokenLabel,
 		paymentTokenSymbol,
 		highestBidAsString,
