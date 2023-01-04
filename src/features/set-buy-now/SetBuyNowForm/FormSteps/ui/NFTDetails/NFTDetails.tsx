@@ -71,7 +71,8 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 	];
 
 	const content =
-		step === Step.DETAILS || step === Step.CONFIRM
+		(Number(buyNowPriceAsString) > 0 && step === Step.DETAILS) ||
+		step === Step.CONFIRM
 			? detailContent.slice(0, -1)
 			: detailContent;
 
