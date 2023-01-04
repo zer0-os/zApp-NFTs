@@ -11,9 +11,13 @@
 		margin-top: 2.5rem;
 	}
 
-	.ConvertedPriceLabel {
+	.Subtext {
 		font-size: $size-tiny;
 		color: $grey-lighter-2;
 		margin-top: 0.5rem;
+
+		&:first-child {
+			margin: 0 0 0.5rem 0;
+		}
 	}
 }

@@ -32,8 +32,12 @@ export const Details: FC<DetailsProps> = ({
 	onConfirmSetBuyNow,
 	onClose,
 }) => {
-	const { paymentTokenLabel, paymentTokenSymbol, paymentTokenPriceInUsd } =
-		useSetBuyNowData(zna);
+	const {
+		buyNowPriceAsString,
+		paymentTokenLabel,
+		paymentTokenSymbol,
+		paymentTokenPriceInUsd,
+	} = useSetBuyNowData(zna);
 
 	const isInputValueValid =
 		Number(bidAmount) &&
@@ -58,6 +62,10 @@ export const Details: FC<DetailsProps> = ({
 			<div className={styles.Container}>
 				{step === Step.DETAILS && (
 					<>
+						<span className={styles.Subtext}>
+							This NFT has an existing buy now price of{' '}
+							<b>{buyNowPriceAsString}</b>
+						</span>
 						<Input
 							value={bidAmount ?? ''}
 							type="number"
@@ -66,15 +74,13 @@ export const Details: FC<DetailsProps> = ({
 							onChange={(value: string) => setBidAmount && setBidAmount(value)}
 							error={bidAmount?.length > 0 && !isInputValueValid}
 						/>
-						<span className={styles.ConvertedPriceLabel}>
-							{bidAmountConversionString}
-						</span>
+						<span className={styles.Subtext}>{bidAmountConversionString}</span>
 					</>
 				)}
 
 				{step === Step.CONFIRM && (
 					<FormTextContent
-						textContent={`Are you sure you want to set a buy now price of ${bidAmount} ${paymentTokenSymbol} for NFT Name?`}
+						textContent={`Are you sure you want to set a buy now price of ${bidAmount} ${paymentTokenSymbol} for ${zna}?`}
 						errorText={errorText}
 					/>
 				)}
