@@ -21,7 +21,6 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	zna,
 	onClick,
 }) => {
-	const domainId = getDomainId(zna);
 	const {
 		volume,
 		buyNowPrice,
@@ -30,6 +29,7 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 		alt,
 		isLoadingMetrics,
 		isLoadingMetadata,
+		isOwnedByUser,
 	} = useSubdomainTableItem({
 		zna,
 	});
@@ -75,13 +75,15 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 				/>
 			</TableData>
 
-			<TableData alignment={'right'} className={styles.Button}>
-				{buyNowPrice ? (
-					<BuyNowButton />
-				) : (
-					<PlaceBidButton zna={zna} trigger={'Bid'} />
-				)}
-			</TableData>
+			{!isOwnedByUser && (
+				<TableData alignment={'right'} className={styles.Button}>
+					{buyNowPrice ? (
+						<BuyNowButton zna={zna} trigger={'Buy'} />
+					) : (
+						<PlaceBidButton zna={zna} trigger={'Bid'} />
+					)}
+				</TableData>
+			)}
 		</tr>
 	);
 };
