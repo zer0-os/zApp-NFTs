@@ -1,10 +1,11 @@
 import { FC } from 'react';
 
 import { Step } from '../hooks';
+import { formatNumber } from '../../../../../lib/util';
 import { useSetBuyNowData } from '../../../useSetBuyNowData';
 
 import { NFTDetails } from '../ui';
-import { FormErrorText, FormTextContent } from '../../../../ui';
+import { FormTextContent } from '../../../../ui';
 import { Input } from '@zero-tech/zui/components/Input';
 import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
 
@@ -31,7 +32,8 @@ export const Details: FC<DetailsProps> = ({
 	onConfirmSetBuyNow,
 	onClose,
 }) => {
-	const { paymentTokenLabel, paymentTokenSymbol } = useSetBuyNowData(zna);
+	const { paymentTokenLabel, paymentTokenSymbol, paymentTokenPriceInUsd } =
+		useSetBuyNowData(zna);
 
 	const isInputValueValid =
 		Number(bidAmount) &&
@@ -44,20 +46,30 @@ export const Details: FC<DetailsProps> = ({
 	const primaryButtonEvent: ButtonsProps['onClickPrimaryButton'] =
 		step === Step.DETAILS ? onCheckZAuction : onConfirmSetBuyNow;
 
+	const bidAmountConversionString =
+		paymentTokenSymbol && bidAmount
+			? `$${formatNumber(Number(paymentTokenPriceInUsd) * Number(bidAmount))}`
+			: '-';
+
 	return (
 		<>
 			<NFTDetails zna={zna} step={step} />
 
 			<div className={styles.Container}>
 				{step === Step.DETAILS && (
-					<Input
-						value={bidAmount ?? ''}
-						type="number"
-						inputMode="numeric"
-						placeholder={`Buy Now Price ${paymentTokenLabel}`}
-						onChange={(value: string) => setBidAmount && setBidAmount(value)}
-						error={bidAmount?.length > 0 && !isInputValueValid}
-					/>
+					<>
+						<Input
+							value={bidAmount ?? ''}
+							type="number"
+							inputMode="numeric"
+							placeholder={`Buy Now Price ${paymentTokenLabel}`}
+							onChange={(value: string) => setBidAmount && setBidAmount(value)}
+							error={bidAmount?.length > 0 && !isInputValueValid}
+						/>
+						<span className={styles.ConvertedPriceLabel}>
+							{bidAmountConversionString}
+						</span>
+					</>
 				)}
 
 				{step === Step.CONFIRM && (
