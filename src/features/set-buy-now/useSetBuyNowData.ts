@@ -34,14 +34,7 @@ export const useSetBuyNowData = (zna: string) => {
 	const paymentTokenPriceInUsd = paymentToken?.priceInUsd ?? '';
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 	const imageSrc = metadata?.previewImage ?? metadata?.image;
-
 	const hasExistingBuyNow = Boolean(buyNowListingData?.price);
-
-	const isLoading =
-		isLoadingDomain ||
-		isLoadingBids ||
-		isLoadingMetadata ||
-		isLoadingBuyNowListing;
 
 	const buyNowPriceAsString = buyNowListingData?.price
 		? `${formatEthers(
@@ -52,6 +45,12 @@ export const useSetBuyNowData = (zna: string) => {
 	const highestBidAsString = highestBid
 		? `${formatEthers(highestBid.amount)} ${paymentTokenSymbol}`
 		: '-';
+
+	const isLoading =
+		isLoadingDomain ||
+		isLoadingBids ||
+		isLoadingMetadata ||
+		isLoadingBuyNowListing;
 
 	return {
 		title,

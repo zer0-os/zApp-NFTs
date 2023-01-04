@@ -20,7 +20,7 @@ export const ToggleButton: FC<ToggleButtonProps> = ({
 			onClick={onClick}
 			className={`${styles.Toggle} ${toggled ? styles.On : ''}`}
 		>
-			<div className="no-select">
+			<div>
 				{hideOnOffLabels !== true && (
 					<>
 						<span>On</span>

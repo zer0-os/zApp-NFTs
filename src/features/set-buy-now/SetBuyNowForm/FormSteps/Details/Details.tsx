@@ -5,7 +5,7 @@ import { formatNumber } from '../../../../../lib/util';
 import { useSetBuyNowData } from '../../../useSetBuyNowData';
 
 import { NFTDetails } from '../ui';
-import { FormTextContent, ToggleButton } from '../../../../ui';
+import { ToggleButton } from '../../../../ui';
 import { Input } from '@zero-tech/zui/components/Input';
 import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
 
@@ -16,9 +16,8 @@ export interface DetailsProps {
 	step: Step;
 	errorText: string;
 	buyNowAmount: string;
-	setBuyNowAmount?: (bid: string) => void;
-	onCheckZAuction?: () => void;
-	onConfirmSetBuyNow?: () => void;
+	setBuyNowAmount: (bid: string) => void;
+	onCheckZAuction: () => void;
 	onClose: () => void;
 }
 
@@ -29,7 +28,6 @@ export const Details: FC<DetailsProps> = ({
 	buyNowAmount,
 	setBuyNowAmount,
 	onCheckZAuction,
-	onConfirmSetBuyNow,
 	onClose,
 }) => {
 	const {
@@ -40,21 +38,17 @@ export const Details: FC<DetailsProps> = ({
 		paymentTokenPriceInUsd,
 	} = useSetBuyNowData(zna);
 
+	const [toggledValue, setToggledValue] = useState<boolean>(hasExistingBuyNow);
+
 	const isInputValueValid =
 		Number(buyNowAmount) &&
 		!Number.isNaN(parseFloat(buyNowAmount)) &&
 		Number(buyNowAmount) !== 0;
 
-	const [toggledValue, setToggledValue] = useState<boolean>(hasExistingBuyNow);
-
-	const isPrimaryButtonActive =
-		isInputValueValid || !toggledValue || step === Step.CONFIRM;
-
-	const primaryButtonText: ButtonsProps['primaryButtonText'] =
-		step === Step.CONFIRM ? (errorText ? 'Retry' : 'Confirm') : 'Next';
-
-	const primaryButtonEvent: ButtonsProps['onClickPrimaryButton'] =
-		step === Step.DETAILS ? onCheckZAuction : onConfirmSetBuyNow;
+	const isError = buyNowAmount?.length > 0 && !isInputValueValid;
+	const primaryButtonText: ButtonsProps['primaryButtonText'] = errorText
+		? 'Retry'
+		: 'Next';
 
 	const bidAmountConversionString =
 		paymentTokenSymbol && buyNowAmount
@@ -62,8 +56,6 @@ export const Details: FC<DetailsProps> = ({
 					Number(paymentTokenPriceInUsd) * Number(buyNowAmount),
 			  )}`
 			: '-';
-
-	const isRemovingBuyNow = isInputValueValid && toggledValue === false;
 
 	return (
 		<>
@@ -75,21 +67,22 @@ export const Details: FC<DetailsProps> = ({
 						<ToggleButton
 							label={'Enable Buy Now price?'}
 							toggled={toggledValue}
-							onClick={() => setToggledValue(!toggledValue)}
+							onClick={() => {
+								setToggledValue(!toggledValue);
+								setBuyNowAmount('');
+							}}
 						/>
 
 						<Input
-							value={isRemovingBuyNow ? buyNowAmount : ''}
 							type="number"
+							error={isError}
 							inputMode="numeric"
-							placeholder={`Buy Now Price ${paymentTokenLabel}`}
-							onChange={(value: string) =>
-								setBuyNowAmount &&
-								setBuyNowAmount(isRemovingBuyNow ? undefined : value)
-							}
-							error={buyNowAmount?.length > 0 && !isInputValueValid}
+							value={buyNowAmount}
 							isDisabled={!toggledValue}
+							placeholder={`Buy Now Price ${paymentTokenLabel}`}
+							onChange={(value: string) => setBuyNowAmount(value)}
 						/>
+
 						<span className={styles.Subtext}>{bidAmountConversionString}</span>
 
 						<span className={styles.Subtext}>
@@ -100,24 +93,15 @@ export const Details: FC<DetailsProps> = ({
 					</div>
 				)}
 
-				{step === Step.CONFIRM && (
-					<FormTextContent
-						textContent={
-							isRemovingBuyNow
-								? `Are you sure you want to set a buy now price of ${buyNowAmount} ${paymentTokenSymbol} for ${zna}?`
-								: `Are you sure you want to turn off and remove the buy now price for ${zna}?`
-						}
-						errorText={errorText}
-					/>
-				)}
-
 				<Wizard.Buttons
 					className={styles.Button}
-					isPrimaryButtonActive={isPrimaryButtonActive}
+					isPrimaryButtonActive={
+						isInputValueValid || (!toggledValue && hasExistingBuyNow)
+					}
 					isSecondaryButtonActive
 					secondaryButtonText="Cancel"
 					primaryButtonText={primaryButtonText}
-					onClickPrimaryButton={primaryButtonEvent}
+					onClickPrimaryButton={onCheckZAuction}
 					onClickSecondaryButton={onClose}
 				/>
 			</div>

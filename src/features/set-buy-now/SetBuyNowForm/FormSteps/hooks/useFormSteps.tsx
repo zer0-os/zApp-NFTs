@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Complete, Details } from '..';
+import { Complete, Confirm, Details } from '..';
 import { ApproveZAuction } from '../../../../ui';
 import { Wizard } from '@zero-tech/zui/components';
 
@@ -71,7 +71,7 @@ export const useFormSteps = ({
 
 		case Step.CONFIRM:
 			content = (
-				<Details
+				<Confirm
 					zna={zna}
 					step={step}
 					errorText={error}
