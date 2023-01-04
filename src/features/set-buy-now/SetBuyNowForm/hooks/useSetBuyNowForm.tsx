@@ -26,8 +26,8 @@ export type UseSetBuyNowFormReturn = {
 	step: Step;
 	error: string;
 	statusText: string;
-	bidAmount: string;
-	setBidAmount: (bidAmount: string) => void;
+	buyNowAmount: string;
+	setBuyNowAmount: (bidAmount: string) => void;
 	onCheckZAuction: () => void;
 	onApproveZAuction: () => void;
 	onConfirmSetBuyNow: () => void;
@@ -48,7 +48,7 @@ export const useSetBuyNowForm = (zna: string): UseSetBuyNowFormReturn => {
 
 	const [error, setError] = useState<string>();
 	const [step, setStep] = useState<Step>(Step.DETAILS);
-	const [bidAmount, setBidAmount] = useState<string>('');
+	const [buyNowAmount, setBuyNowAmount] = useState<string>('');
 	const [statusText, setStatusText] = useState<string>();
 
 	const onCheckZAuction = async () => {
@@ -92,14 +92,14 @@ export const useSetBuyNowForm = (zna: string): UseSetBuyNowFormReturn => {
 	};
 
 	const onConfirmSetBuyNow = () => {
-		const bidAmountAsNumber = Number(bidAmount);
+		const buyNowAmountAsNumber = Number(buyNowAmount);
 
 		setError(undefined);
 		return executeTransaction(
 			sdk.zauction.setBuyNowPrice,
 			[
 				{
-					amount: ethers.utils.parseEther(bidAmountAsNumber.toString()),
+					amount: ethers.utils.parseEther(buyNowAmountAsNumber.toString()),
 					tokenId: domainId,
 				},
 				provider.getSigner(),
@@ -109,6 +109,7 @@ export const useSetBuyNowForm = (zna: string): UseSetBuyNowFormReturn => {
 					setStep(Step.LOADING);
 					setStatusText(StatusText.WAITING_FOR_SIGNATURE);
 				},
+				// buyNowAmountAsNumber
 				onProcessing: () => setStatusText(StatusText.PROCESSING_SET_BUY_NOW),
 				onSuccess: () => setStep(Step.COMPLETE),
 				onError: (error: any) => {
@@ -116,7 +117,7 @@ export const useSetBuyNowForm = (zna: string): UseSetBuyNowFormReturn => {
 					setStep(Step.CONFIRM);
 				},
 
-				invalidationKeys: [['user', { account, domainId, bidAmount }]],
+				invalidationKeys: [['user', { account, domainId, buyNowAmount }]],
 			},
 		);
 	};
@@ -125,8 +126,8 @@ export const useSetBuyNowForm = (zna: string): UseSetBuyNowFormReturn => {
 		step,
 		error,
 		statusText,
-		bidAmount,
-		setBidAmount,
+		buyNowAmount,
+		setBuyNowAmount,
 		onCheckZAuction,
 		onApproveZAuction,
 		onConfirmSetBuyNow,

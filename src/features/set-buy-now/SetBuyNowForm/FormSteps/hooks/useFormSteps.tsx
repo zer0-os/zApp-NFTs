@@ -21,8 +21,8 @@ export interface useFormStepsProps {
 	step: Step;
 	error: string;
 	statusText: string;
-	bidAmount: string;
-	setBidAmount: (bid: string) => void;
+	buyNowAmount: string;
+	setBuyNowAmount: (bid: string) => void;
 	onCheckZAuction: () => void;
 	onApproveZAuction: () => void;
 	onConfirmSetBuyNow: () => void;
@@ -34,8 +34,8 @@ export const useFormSteps = ({
 	step,
 	error,
 	statusText,
-	bidAmount,
-	setBidAmount,
+	buyNowAmount,
+	setBuyNowAmount,
 	onCheckZAuction,
 	onApproveZAuction,
 	onConfirmSetBuyNow,
@@ -50,8 +50,8 @@ export const useFormSteps = ({
 					zna={zna}
 					step={step}
 					errorText={error}
-					bidAmount={bidAmount}
-					setBidAmount={setBidAmount}
+					buyNowAmount={buyNowAmount}
+					setBuyNowAmount={setBuyNowAmount}
 					onCheckZAuction={onCheckZAuction}
 					onClose={onClose}
 				/>
@@ -75,7 +75,7 @@ export const useFormSteps = ({
 					zna={zna}
 					step={step}
 					errorText={error}
-					bidAmount={bidAmount}
+					buyNowAmount={buyNowAmount}
 					onConfirmSetBuyNow={onConfirmSetBuyNow}
 					onClose={onClose}
 				/>

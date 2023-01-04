@@ -15,8 +15,8 @@ export interface DetailsProps {
 	zna: string;
 	step: Step;
 	errorText: string;
-	bidAmount: string;
-	setBidAmount?: (bid: string) => void;
+	buyNowAmount: string;
+	setBuyNowAmount?: (bid: string) => void;
 	onCheckZAuction?: () => void;
 	onConfirmSetBuyNow?: () => void;
 	onClose: () => void;
@@ -26,8 +26,8 @@ export const Details: FC<DetailsProps> = ({
 	zna,
 	step,
 	errorText,
-	bidAmount,
-	setBidAmount,
+	buyNowAmount,
+	setBuyNowAmount,
 	onCheckZAuction,
 	onConfirmSetBuyNow,
 	onClose,
@@ -41,9 +41,9 @@ export const Details: FC<DetailsProps> = ({
 	} = useSetBuyNowData(zna);
 
 	const isInputValueValid =
-		Number(bidAmount) &&
-		!Number.isNaN(parseFloat(bidAmount)) &&
-		Number(bidAmount) !== 0;
+		Number(buyNowAmount) &&
+		!Number.isNaN(parseFloat(buyNowAmount)) &&
+		Number(buyNowAmount) !== 0;
 
 	const [toggledValue, setToggledValue] = useState<boolean>(hasExistingBuyNow);
 
@@ -57,11 +57,12 @@ export const Details: FC<DetailsProps> = ({
 		step === Step.DETAILS ? onCheckZAuction : onConfirmSetBuyNow;
 
 	const bidAmountConversionString =
-		paymentTokenSymbol && bidAmount
-			? `$${formatNumber(Number(paymentTokenPriceInUsd) * Number(bidAmount))}`
+		paymentTokenSymbol && buyNowAmount
+			? `$${formatNumber(
+					Number(paymentTokenPriceInUsd) * Number(buyNowAmount),
+			  )}`
 			: '-';
 
-	console.log('TOGG', toggledValue);
 	const isRemovingBuyNow = isInputValueValid && toggledValue === false;
 
 	return (
@@ -78,15 +79,15 @@ export const Details: FC<DetailsProps> = ({
 						/>
 
 						<Input
-							value={isRemovingBuyNow ? bidAmount : ''}
+							value={isRemovingBuyNow ? buyNowAmount : ''}
 							type="number"
 							inputMode="numeric"
 							placeholder={`Buy Now Price ${paymentTokenLabel}`}
 							onChange={(value: string) =>
-								setBidAmount &&
-								setBidAmount(isRemovingBuyNow ? undefined : value)
+								setBuyNowAmount &&
+								setBuyNowAmount(isRemovingBuyNow ? undefined : value)
 							}
-							error={bidAmount?.length > 0 && !isInputValueValid}
+							error={buyNowAmount?.length > 0 && !isInputValueValid}
 							isDisabled={!toggledValue}
 						/>
 						<span className={styles.Subtext}>{bidAmountConversionString}</span>
@@ -103,7 +104,7 @@ export const Details: FC<DetailsProps> = ({
 					<FormTextContent
 						textContent={
 							isRemovingBuyNow
-								? `Are you sure you want to set a buy now price of ${bidAmount} ${paymentTokenSymbol} for ${zna}?`
+								? `Are you sure you want to set a buy now price of ${buyNowAmount} ${paymentTokenSymbol} for ${zna}?`
 								: `Are you sure you want to turn off and remove the buy now price for ${zna}?`
 						}
 						errorText={errorText}
