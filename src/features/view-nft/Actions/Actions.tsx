@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 
 import { useActionsData } from './useActionsData';
 import { formatEthers } from '../../../lib/util/number';
-import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
 import { BuyNowButton } from '../../buy-now';
 import { SetBuyNowButton } from '../../set-buy-now';
@@ -54,7 +53,12 @@ export const Actions = ({ zna }: ActionsProps) => {
 		{
 			label: `Buy Now ${paymentTokenLabel}`,
 			value: buyNowPriceString,
-			button: <SetBuyNowButton zna={zna} trigger={'Set Buy Now'} />,
+			button: (
+				<SetBuyNowButton
+					zna={zna}
+					trigger={Boolean(buyNowPrice) ? 'Edit Buy Now' : 'Set Buy Now'}
+				/>
+			),
 			isVisible: isSetBuyNow,
 		},
 		{
