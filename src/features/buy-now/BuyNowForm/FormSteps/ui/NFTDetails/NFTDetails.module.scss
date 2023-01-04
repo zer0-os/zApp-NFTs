@@ -1,0 +1,67 @@
+@import '../../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Container {
+	display: flex;
+	flex-direction: row;
+	word-break: break-word;
+	gap: 1.5rem;
+	width: 100%;
+
+	// TODO: temporary
+	.Media {
+		height: 16.25rem;
+		width: 16.25rem;
+		flex-shrink: 0;
+		border-radius: 0.5rem;
+
+		.Image {
+			height: 100%;
+			width: 100%;
+			border-radius: inherit;
+		}
+	}
+
+	.Details {
+		margin-top: 1rem;
+
+		.TextContent {
+			margin: 0;
+			padding: 0;
+
+			li {
+				display: flex;
+				flex-direction: column;
+				list-style: none;
+
+				.Title {
+					font-size: $size-large;
+					font-weight: $font-weight-bold;
+					line-height: 1.816rem;
+					margin: 0;
+				}
+
+				.ZNA {
+					line-height: 1.5rem;
+					color: $blue;
+					margin-top: 0.25rem;
+				}
+
+				.InfoTitle {
+					font-size: $size-tiny;
+					line-height: 0.908rem;
+					color: $grey-lighter-2;
+					margin-top: 1rem;
+				}
+
+				.InfoValue {
+					line-height: 1.5rem;
+				}
+			}
+		}
+
+		.ActionContainer {
+			margin-top: 1rem;
+		}
+	}
+}
