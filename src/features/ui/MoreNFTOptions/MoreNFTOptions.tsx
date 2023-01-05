@@ -1,15 +1,17 @@
 import { FC, useCallback, ReactNode, useState } from 'react';
 
 import { OptionLabel } from '../OptionLabel';
+import { DomainSettingsModal } from '../../domain-settings';
 import { TransferOwnershipModal } from '../../transfer-ownership';
 import { DropdownMenu } from '@zero-tech/zui/components';
-import { IconSend3 } from '@zero-tech/zui/components/Icons';
+import { IconSend3, IconCube1 } from '@zero-tech/zui/components/Icons';
 
 export const enum OptionType {
 	TRANSFER = 'transfer',
+	DOMAIN_SETTINGS = 'domain-settings',
 }
 
-export type Option = 'transfer';
+export type Option = 'transfer' | 'domain-settings';
 
 type MoreNFTOptionsProps = {
 	zna: string;
@@ -19,6 +21,10 @@ type MoreNFTOptionsProps = {
 // TODO: add option label to zUI
 const transferOptionLabel = (
 	<OptionLabel icon={<IconSend3 isFilled />} label="Transfer Ownership" />
+);
+
+const domainSettingsOptionLabel = (
+	<OptionLabel icon={<IconCube1 isFilled />} label="My Domain Settings" />
 );
 
 /**
@@ -32,6 +38,12 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 			className: 'transfer',
 			id: OptionType.TRANSFER,
 			label: transferOptionLabel,
+			onSelect: (e: any) => onSelectOption(e),
+		},
+		{
+			className: 'domain-settings',
+			id: OptionType.DOMAIN_SETTINGS,
+			label: domainSettingsOptionLabel,
 			onSelect: (e: any) => onSelectOption(e),
 		},
 	];
@@ -61,6 +73,13 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 			<TransferOwnershipModal
 				zna={zna}
 				open={option === OptionType.TRANSFER}
+				onOpenChange={onChange}
+				onClose={onClose}
+			/>
+
+			<DomainSettingsModal
+				zna={zna}
+				open={option === OptionType.DOMAIN_SETTINGS}
 				onOpenChange={onChange}
 				onClose={onClose}
 			/>
