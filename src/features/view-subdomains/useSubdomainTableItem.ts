@@ -43,5 +43,6 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 		buyNowPrice,
 		metadata,
 		paymentTokenLabel: paymentToken?.label ?? '',
+		paymentTokenSymbol: paymentToken?.symbol ?? '',
 	};
 };
