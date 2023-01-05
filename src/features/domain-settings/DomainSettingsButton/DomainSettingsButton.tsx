@@ -22,11 +22,5 @@ export const DomainSettingsButton: FC<DomainSettingsButtonProps> = ({
 			trigger
 		);
 
-	return (
-		<DomainSettingsModal
-			zna={zna}
-			trigger={triggerVariant}
-			onClose={() => {}}
-		/>
-	);
+	return <DomainSettingsModal zna={zna} trigger={triggerVariant} />;
 };

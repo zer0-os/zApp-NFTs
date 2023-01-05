@@ -10,24 +10,25 @@ import styles from './DomainSettingsModal.module.scss';
 
 export interface DomainSettingsModalProps extends BasicModalProps {
 	zna: string;
-	onClose: () => void;
 }
 
 export const DomainSettingsModal: FC<DomainSettingsModalProps> = ({
 	zna,
-	open,
-	trigger,
-	onClose,
-	onOpenChange,
 	...modalProps
 }) => {
 	const { account } = useWeb3();
 
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+	const onClose = () => {
+		setIsModalOpen(false);
+	};
+
 	return (
 		<Modal
 			className={styles.Container}
-			open={open}
-			onOpenChange={onOpenChange}
+			open={isModalOpen}
+			onOpenChange={(isOpen: boolean) => setIsModalOpen(isOpen)}
 			{...modalProps}
 		>
 			<ModalContent account={account} zna={zna} onClose={onClose} />
@@ -42,11 +43,12 @@ export const DomainSettingsModal: FC<DomainSettingsModalProps> = ({
 interface ModalContentProps {
 	account: string;
 	zna: DomainSettingsModalProps['zna'];
-	onClose: DomainSettingsModalProps['onClose'];
+	onClose: () => void;
 }
 
 const ModalContent = ({ account, zna, onClose }: ModalContentProps) => {
 	return account ? (
+		// <DomainSettingsForm zna={zna} onClose={onClose} />
 		<>Domain Settings</>
 	) : (
 		<ConnectWallet message={'Connect your wallet to view domain settings.'} />
