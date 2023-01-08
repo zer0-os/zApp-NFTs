@@ -1,7 +1,9 @@
 import { FC, useContext } from 'react';
 import { CreateTokenFormContext } from './CreateTokenFormContext';
 
-import { DetailsForm, TokenomicsForm, TokenSummary } from './Steps';
+import { MediaType } from '@zero-tech/zui/components/MediaInput';
+import { DetailsForm, TokenomicsForm, TokenSummary } from './steps';
+import { DetailsFormSubmit, TokenomicsFormSubmit } from './CreateToken.types';
 
 type CreateTokenBodyProps = {
 	onClose: () => void;
