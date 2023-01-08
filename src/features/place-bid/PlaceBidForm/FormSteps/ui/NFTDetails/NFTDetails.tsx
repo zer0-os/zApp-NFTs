@@ -1,11 +1,8 @@
 import { FC } from 'react';
 
+import { formatEthers } from '../../../../../../lib/util';
 import { usePlaceBidData } from '../../../../usePlaceBidData';
-import { formatEthers } from '../../../../../../lib/util/number';
-import {
-	truncateAddress,
-	truncateDomain,
-} from '@zero-tech/zapp-utils/formatting/addresses';
+import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
 import { ViewBidsButton } from '../../../../../view-bids';
 import { SkeletonText } from '@zero-tech/zui/components';
@@ -19,6 +16,7 @@ export interface NFTDetailsProps {
 
 export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 	const {
+		bids,
 		title,
 		creator,
 		imageAlt,
@@ -26,13 +24,14 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		highestBid,
 		paymentTokenSymbol,
 		isLoadingDomain,
-		isLoadingMetrics,
+		isLoadingBidData,
 		isLoadingMetadata,
 	} = usePlaceBidData(zna);
 
+	const isExistingBids = bids?.length !== 0;
 	const truncatedZna = truncateDomain(zna, 20);
 	const truncatedCreatorAddress = truncateAddress(creator);
-	const formattedHighestBid = formatEthers(highestBid);
+	const highestBidString = highestBid ? formatEthers(highestBid?.amount) : '-';
 
 	const textContent = [
 		{
@@ -53,8 +52,8 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 			id: 'highest-bid',
 			title: 'Highest Bid',
 			className: styles.InfoValue,
-			text: `${formattedHighestBid} ${paymentTokenSymbol}`,
-			isLoading: isLoadingMetrics,
+			text: `${highestBidString} ${isExistingBids ? paymentTokenSymbol : ''}`,
+			isLoading: isLoadingBidData,
 			as: 'span' as const,
 		},
 		{
@@ -90,9 +89,11 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 					))}
 				</ul>
 
-				<div className={styles.ActionContainer}>
-					<ViewBidsButton zna={zna} variant="text" />
-				</div>
+				{isExistingBids && (
+					<div className={styles.ActionContainer}>
+						<ViewBidsButton zna={zna} variant="text" />
+					</div>
+				)}
 			</div>
 		</div>
 	);

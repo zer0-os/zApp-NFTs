@@ -1,24 +1,27 @@
 import { useState } from 'react';
 
-import { Step } from '../TransferOwnershipForm.constants';
 import {
 	isValidTransferAddress,
 	getInputErrorMessage,
 } from '../TransferOwnershipForm.utils';
 
-import { useWeb3 } from '../../../../lib/hooks/useWeb3';
-import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
-import { getDomainId } from '../../../../lib/util/domains/domains';
-import { useDomainData } from '../../../../lib/hooks/useDomainData';
-import { TransactionErrors } from '../../../../lib/constants/messages';
+import { Step } from '../FormSteps/hooks';
+import { getDomainId } from '../../../../lib/util';
+import { useWeb3, useZnsSdk, useDomainData } from '../../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
-import { ContractTransaction } from 'ethers';
+
+enum StatusText {
+	TRANSACTION_ALERT = 'This transaction is about to be seared upon the blockchain. There’s no going back.',
+	WAITING_FOR_SIGNATURE = '\n\nPlease accept wallet transaction..',
+	PROCESSING_TRANSFER = '\n\nYour transaction is being processed...',
+}
 
 export type UseTransferOwnershipFormReturn = {
 	step: Step;
 	error: string;
+	statusText: string;
 	onConfirmInput: (address: string) => void;
-	onConfirmTransaction: () => void;
+	onConfirmTransfer: () => void;
 };
 
 /**
@@ -36,6 +39,7 @@ export const useTransferOwnershipForm = (
 
 	const [error, setError] = useState<string>();
 	const [step, setStep] = useState<Step>(Step.DETAILS);
+	const [statusText, setStatusText] = useState<string>();
 	const [walletAddress, setWalletAddress] = useState<string>();
 
 	/**
@@ -55,14 +59,22 @@ export const useTransferOwnershipForm = (
 	/**
 	 * Triggers a series of wallet confirmations, and progresses steps accordingly.
 	 */
-	const onConfirmTransaction = () => {
+	const onConfirmTransfer = () => {
 		setError(undefined);
 		return executeTransaction(
 			sdk.transferDomainOwnership,
 			[walletAddress, domainId, provider.getSigner()],
 			{
-				onStart: () => setStep(Step.TRANSACTION_APPROVAL),
-				onProcessing: () => setStep(Step.TRANSACTION_IN_PROGRESS),
+				onStart: () => {
+					setStep(Step.LOADING);
+					setStatusText(
+						`${StatusText.TRANSACTION_ALERT} ${StatusText.WAITING_FOR_SIGNATURE}`,
+					);
+				},
+				onProcessing: () =>
+					setStatusText(
+						`${StatusText.TRANSACTION_ALERT} ${StatusText.PROCESSING_TRANSFER}`,
+					),
 				onSuccess: () => setStep(Step.COMPLETE),
 				onError: (error: any) => {
 					setError(error.message);
@@ -77,7 +89,8 @@ export const useTransferOwnershipForm = (
 	return {
 		step,
 		error,
+		statusText,
 		onConfirmInput,
-		onConfirmTransaction,
+		onConfirmTransfer,
 	};
 };

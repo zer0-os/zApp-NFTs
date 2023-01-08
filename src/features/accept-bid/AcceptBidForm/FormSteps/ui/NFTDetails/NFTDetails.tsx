@@ -1,15 +1,12 @@
 import { FC } from 'react';
 
+import { formatEthers } from '../../../../../../lib/util';
 import { useAcceptBidData } from '../../../../useAcceptBidData';
-import { formatEthers } from '../../../../../../lib/util/number';
 import { HTMLTextElement } from '@zero-tech/zui/lib/types';
-import {
-	truncateAddress,
-	truncateDomain,
-} from '@zero-tech/zapp-utils/formatting/addresses';
+import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
 import { SkeletonText } from '@zero-tech/zui/components';
-import { IpfsMedia, IpfsMediaProps } from '@zero-tech/zapp-utils/components';
+import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './NFTDetails.module.scss';
 
@@ -27,13 +24,13 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		paymentTokenSymbol,
 		isMetadataLocked,
 		isLoadingDomain,
-		isLoadingMetrics,
+		isLoadingBidData,
 		isLoadingMetadata,
 	} = useAcceptBidData(zna);
 
 	const truncatedZna = truncateDomain(zna, 20);
 	const truncatedCreatorAddress = truncateAddress(creator);
-	const formattedHighestBid = formatEthers(highestBid);
+	const highestBidString = highestBid ? formatEthers(highestBid?.amount) : '-';
 
 	const detailContent: DetailsContentType[] = [
 		{
@@ -54,8 +51,8 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 			id: 'highest-bid',
 			title: 'Highest Bid',
 			className: styles.InfoValue,
-			text: `${formattedHighestBid} ${paymentTokenSymbol}`,
-			isLoading: isLoadingMetrics,
+			text: `${highestBidString} ${paymentTokenSymbol}`,
+			isLoading: isLoadingBidData,
 			as: 'span' as const,
 		},
 		{
@@ -89,8 +86,8 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
  *******************/
 
 interface MediaProps {
-	alt: IpfsMediaProps['alt'];
-	src: IpfsMediaProps['src'];
+	alt: string;
+	src: string;
 }
 
 const Media = ({ alt, src }: MediaProps) => {

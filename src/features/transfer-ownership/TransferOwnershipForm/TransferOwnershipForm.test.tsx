@@ -9,7 +9,7 @@ import {
 	waitFor,
 } from '@testing-library/react';
 
-import { truncateAddress } from '../../../lib/util/domains/domains';
+import { truncateAddress } from '@zero-tech/zui/utils';
 
 import { TransferOwnershipForm } from './TransferOwnershipForm';
 
@@ -56,6 +56,27 @@ jest.mock('../../../lib/hooks/useDomainData', () => ({
 jest.mock('../../../lib/hooks/useDomainMetadata', () => ({
 	useDomainMetadata: () => ({
 		data: mock.metadata,
+	}),
+}));
+
+// domain payment token
+jest.mock('../../../lib/hooks/usePaymentTokenForDomain', () => ({
+	usePaymentTokenForDomain: () => ({
+		data: mock.paymentToken,
+	}),
+}));
+
+// domain payment token info
+jest.mock('../../../lib/hooks/usePaymentTokenInfo', () => ({
+	usePaymentTokenInfo: () => ({
+		data: mock.paymentToken,
+	}),
+}));
+
+// domain bids
+jest.mock('../../../lib/hooks/useBidData', () => ({
+	useBidData: () => ({
+		data: [],
 	}),
 }));
 
@@ -123,10 +144,14 @@ describe('TransferOwnershipForm', () => {
 		expect(screen.queryByText(/error/i)).not.toBeInTheDocument();
 
 		// transaction approval step
-		screen.getByText('Please accept wallet transaction..');
+		screen.getByText(
+			'This transaction is about to be seared upon the blockchain. There’s no going back. Please accept wallet transaction..',
+		);
 
 		// transaction in progress step
-		await screen.findByText('Your transaction is being processed...');
+		await screen.findByText(
+			'This transaction is about to be seared upon the blockchain. There’s no going back. Your transaction is being processed...',
+		);
 
 		// assert successful request
 		await waitFor(() => {
@@ -309,14 +334,16 @@ describe('TransferOwnershipForm', () => {
 
 			// assert transaction approval step
 			expect(screen.queryByText(/confirm/i)).not.toBeInTheDocument();
-			screen.getByText('Please accept wallet transaction..');
+			screen.getByText(
+				'This transaction is about to be seared upon the blockchain. There’s no going back. Please accept wallet transaction..',
+			);
 
 			await waitFor(() => {
 				expect(console.error).toHaveBeenCalled();
 			});
 
 			// assert confirm step
-			screen.getByText(/confirm/i);
+			screen.getByText(/retry/i);
 			screen.getByText(errorMessage);
 		});
 	});
@@ -338,14 +365,16 @@ describe('TransferOwnershipForm', () => {
 
 			// assert transaction in progress step
 			expect(screen.queryByText(/confirm/i)).not.toBeInTheDocument();
-			await screen.findByText('Your transaction is being processed...');
+			await screen.findByText(
+				'This transaction is about to be seared upon the blockchain. There’s no going back. Your transaction is being processed...',
+			);
 
 			await waitFor(() => {
 				expect(console.error).toHaveBeenCalled();
 			});
 
 			// assert confirm step
-			screen.getByText(/confirm/i);
+			screen.getByText(/retry/i);
 			screen.getByText(errorMessage);
 		});
 	});

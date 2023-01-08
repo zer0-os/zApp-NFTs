@@ -20,23 +20,36 @@ export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
 	trigger,
 	onClose,
 	onOpenChange,
+	...modalProps
 }) => {
 	const { account } = useWeb3();
-
-	const content = account ? (
-		<TransferOwnershipForm zna={zna} onClose={onClose} />
-	) : (
-		<ConnectWallet message={'Connect your wallet to place a bid.'} />
-	);
 
 	return (
 		<Modal
 			className={styles.Container}
 			open={open}
 			onOpenChange={onOpenChange}
-			trigger={trigger}
+			{...modalProps}
 		>
-			{content}
+			<ModalContent account={account} zna={zna} onClose={onClose} />
 		</Modal>
+	);
+};
+
+/*******************
+ * ModalContent
+ *******************/
+
+interface ModalContentProps {
+	account: string;
+	zna: TransferOwnershipModalProps['zna'];
+	onClose: TransferOwnershipModalProps['onClose'];
+}
+
+const ModalContent = ({ account, zna, onClose }: ModalContentProps) => {
+	return account ? (
+		<TransferOwnershipForm zna={zna} onClose={onClose} />
+	) : (
+		<ConnectWallet message={'Connect your wallet to transfer ownership.'} />
 	);
 };

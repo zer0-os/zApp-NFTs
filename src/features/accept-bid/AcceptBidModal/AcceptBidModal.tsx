@@ -2,16 +2,17 @@ import { FC, useState } from 'react';
 
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../../lib/types/ui';
+import { Bid } from '@zero-tech/zauction-sdk';
 
-import { AcceptBidForm, AcceptBidFormProps } from '..';
+import { AcceptBidForm } from '..';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
 import styles from './AcceptBidModal.module.scss';
 
 export interface AcceptBidModalProps extends BasicModalProps {
-	zna: ModalContentProps['zna'];
-	bid: ModalContentProps['bid'];
+	zna: string;
+	bid: Bid;
 }
 
 export const AcceptBidModal: FC<AcceptBidModalProps> = ({
@@ -45,9 +46,9 @@ export const AcceptBidModal: FC<AcceptBidModalProps> = ({
 
 interface ModalContentProps {
 	account: string;
-	zna: AcceptBidFormProps['zna'];
-	bid: AcceptBidFormProps['bid'];
-	onClose: AcceptBidFormProps['onClose'];
+	zna: AcceptBidModalProps['zna'];
+	bid: AcceptBidModalProps['bid'];
+	onClose: () => void;
 }
 
 const ModalContent = ({ account, zna, bid, onClose }: ModalContentProps) => {

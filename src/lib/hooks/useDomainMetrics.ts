@@ -11,12 +11,14 @@ export const useDomainMetrics = (domainId: string) => {
 		async () => {
 			const domainMetricsCollection: DomainMetricsCollection =
 				await sdk.getDomainMetrics([domainId]);
+
 			return domainMetricsCollection[domainId];
 		},
 		{
 			retry: false,
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
+			enabled: Boolean(domainId),
 		},
 	);
 };

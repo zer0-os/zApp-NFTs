@@ -1,4 +1,19 @@
-import { MediaType } from '@zero-tech/zui/components/MediaInput';
+import { Step, MediaType } from '@zero-tech/zui/components';
+
+export const steps: Step[] = [
+	{
+		id: 'details',
+		title: 'Details',
+	},
+	{
+		id: 'tokenomics',
+		title: 'Tokenomics',
+	},
+	{
+		id: 'launch',
+		title: 'Launch',
+	},
+];
 
 export interface DetailsFormSubmit {
 	mediaType: MediaType | undefined;
