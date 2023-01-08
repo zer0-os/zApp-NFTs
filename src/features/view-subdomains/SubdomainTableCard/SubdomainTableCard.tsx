@@ -1,6 +1,7 @@
 import { FC, useCallback } from 'react';
 import { useQuery } from 'react-query';
 
+import { formatEthers } from '../../../lib/util';
 import {
 	getCloudinaryUrlFromIpfs,
 	getCloudinaryVideoPoster,
@@ -33,6 +34,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		isLoadingMetrics,
 		isLoadingMetadata,
 		paymentTokenLabel,
+		paymentTokenSymbol,
 	} = useSubdomainTableItem({
 		zna,
 	});
@@ -55,8 +57,13 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		}
 	});
 
-	const metric = buyNowPrice ? buyNowPrice : highestBid;
-	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
+	const metric = buyNowPrice?.price
+		? `${formatEthers(buyNowPrice?.price.toString())} ${paymentTokenSymbol}`
+		: highestBid;
+
+	const label = buyNowPrice?.price
+		? 'Buy Now'
+		: 'Top Bid' + ' ' + paymentTokenLabel;
 
 	const button = buyNowPrice ? (
 		<BuyNowButton />
@@ -85,7 +92,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 				title={{
 					text: metadata?.title,
 					isLoading: isLoadingMetadata,
-					errorText: 'Failed to load!',
+					errorText: '-',
 				}}
 				zna={zna}
 				label={label}

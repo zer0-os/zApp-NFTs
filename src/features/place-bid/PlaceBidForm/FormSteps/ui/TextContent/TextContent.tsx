@@ -1,10 +1,10 @@
-import { ErrorText, ErrorTextProps } from '../ErrorText/ErrorText';
+import { ErrorText } from '../ErrorText/ErrorText';
 
 import styles from './TextContent.module.scss';
 
 export interface TextContentProps {
 	variant?: 'success' | 'warning';
-	errorText?: ErrorTextProps['text'];
+	errorText?: string;
 	textContent: string;
 }
 

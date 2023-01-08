@@ -1,9 +1,6 @@
 import { FC } from 'react';
 
-import {
-	useFormSteps,
-	useFormStepsProps,
-} from './FormSteps/hooks/useFormSteps';
+import { useFormSteps } from './FormSteps/hooks/useFormSteps';
 import { useAcceptBidForm } from './hooks/useAcceptBidForm';
 import { Bid } from '@zero-tech/zauction-sdk';
 
@@ -14,7 +11,7 @@ import styles from './AcceptBidForm.module.scss';
 export interface AcceptBidFormProps {
 	zna: string;
 	bid: Bid;
-	onClose: useFormStepsProps['onClose'];
+	onClose: () => void;
 }
 
 export const AcceptBidForm: FC<AcceptBidFormProps> = ({

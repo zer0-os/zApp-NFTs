@@ -1,9 +1,10 @@
-import { useDomainMetrics } from '../../lib/hooks/useDomainMetrics';
-import { useBuyNowPrice } from '../../lib/hooks/useBuyNowPrice';
-import { useDomainMetadata } from '../../lib/hooks/useDomainMetadata';
-import { getDomainId, getParentZna } from '../../lib/util/domains/domains';
-import { usePaymentToken } from '../../lib/hooks/usePaymentToken';
-import { formatEthers } from '../../lib/util/number/number';
+import { useBuyNowListing } from '../../lib/hooks';
+import {
+	usePaymentToken,
+	useDomainMetrics,
+	useDomainMetadata,
+} from '../../lib/hooks';
+import { getDomainId, getParentZna, formatEthers } from '../../lib/util';
 
 interface UseSubdomainTableItem {
 	zna: string;
@@ -16,7 +17,7 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 	const { data: metrics, isLoading: isLoadingMetrics } =
 		useDomainMetrics(domainId);
 	const { data: buyNowPrice, isLoading: isLoadingBuyNowPrice } =
-		useBuyNowPrice(domainId);
+		useBuyNowListing(domainId);
 	const { data: metadata, isLoading: isLoadingMetadata } =
 		useDomainMetadata(domainId);
 	const { data: paymentToken } = usePaymentToken(parentZna);
@@ -25,12 +26,11 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 	const alt = (metadata?.name ?? zna) + ' preview image';
 	const isLoading = isLoadingMetrics || isLoadingBuyNowPrice;
 
-	const volume = metrics?.volume?.all
-		? formatEthers(metrics.volume.all)
-		: undefined;
+	const volume = metrics?.volume?.all ? formatEthers(metrics.volume.all) : '-';
+
 	const highestBid = metrics?.highestBid
 		? formatEthers(metrics.highestBid)
-		: undefined;
+		: '-';
 
 	return {
 		volume,
@@ -43,5 +43,6 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 		buyNowPrice,
 		metadata,
 		paymentTokenLabel: paymentToken?.label ?? '',
+		paymentTokenSymbol: paymentToken?.symbol ?? '',
 	};
 };

@@ -1,21 +1,19 @@
 import { FC } from 'react';
 
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
+import { useDomainData } from '../../../lib/hooks/useDomainData';
 import {
 	getDomainId,
 	getEtherscanLink,
-	truncateAddress,
-} from '../../../lib/util/domains/domains';
-import {
 	getHashFromIPFSUrl,
 	getWebIPFSUrlFromHash,
-} from '../../../lib/util/ipfs/ipfs';
+} from '../../../lib/util';
+import { truncateAddress } from '@zero-tech/zui/utils';
 
 import { StatsList } from '../../ui';
 import { ArrowLink } from '@zero-tech/zui/components/Link/ArrowLink';
 
 import styles from './TokenHashInfo.module.scss';
-import { useDomainData } from '../../../lib/hooks/useDomainData';
 
 type TokenHashInfoProps = {
 	zna: string;

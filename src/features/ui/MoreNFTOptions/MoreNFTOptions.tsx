@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, ReactNode, useState } from 'react';
 
 import { OptionLabel } from '../OptionLabel';
 import { CreateTokenModal } from '../../create-token';
@@ -15,7 +15,7 @@ export type Option = 'transfer' | 'create-token';
 
 type MoreNFTOptionsProps = {
 	zna: string;
-	trigger: DropdownMenuProps['trigger'];
+	trigger: ReactNode;
 };
 
 // TODO: add option label to zUI

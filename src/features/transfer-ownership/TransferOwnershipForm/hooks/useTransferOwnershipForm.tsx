@@ -4,11 +4,10 @@ import {
 	isValidTransferAddress,
 	getInputErrorMessage,
 } from '../TransferOwnershipForm.utils';
+
 import { Step } from '../FormSteps/hooks';
-import { useWeb3 } from '../../../../lib/hooks/useWeb3';
-import { useZnsSdk } from '../../../../lib/hooks/useZnsSdk';
-import { getDomainId } from '../../../../lib/util/domains/domains';
-import { useDomainData } from '../../../../lib/hooks/useDomainData';
+import { getDomainId } from '../../../../lib/util';
+import { useWeb3, useZnsSdk, useDomainData } from '../../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 enum StatusText {
