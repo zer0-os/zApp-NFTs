@@ -1,65 +1,127 @@
-//- React Imports
 import React from 'react';
+
+import userEvent from '@testing-library/user-event';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 
-//- Component Imports
-import { DetailsForm, DetailsFormProps } from './DetailsForm';
 import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
-
-//- Type Imports
-import { DetailsFormSubmit } from '../CreateToken.types';
+import { DetailsForm, DetailsFormProps } from './';
+import { CreateTokenFormContext } from '../';
 
 let onSubmit = jest.fn();
 
 const DEFAULT_PROPS: DetailsFormProps = {
-	values: {
+	onClose: jest.fn(),
+};
+
+const DEFAULT_PROVIDER_VALUES = {
+	stepId: 'details',
+	title: 'Create Token',
+	details: {
 		mediaType: undefined,
 		previewUrl: '',
 		name: '',
 		symbol: '',
 	},
-	onSubmit,
-	onClose: jest.fn(),
+	tokenomics: {
+		tokenCount: '',
+		initialTokenSupplyWalletAddress: '',
+		adminWalletAddress: '',
+	},
+	onStepUpdate: jest.fn(),
+	onTitleUpdate: jest.fn(),
+	onDetailsChange: jest.fn(),
+	onDetailsSubmit: onSubmit,
+	onTokenomicsSubmit: jest.fn(),
+	onLaunchSubmit: jest.fn(),
 };
 
-describe('DetailsForm', () => {
+describe('<DetailsForm />', () => {
 	beforeEach(() => jest.resetAllMocks());
 
-	test('should not fire onSubmit when next button clicked and field values are invalid', async () => {
+	test('should correctly validate required name field', async () => {
 		render(
 			<ZUIProvider>
-				<DetailsForm {...DEFAULT_PROPS} />
+				<CreateTokenFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
+					<DetailsForm {...DEFAULT_PROPS} />
+				</CreateTokenFormContext.Provider>
 			</ZUIProvider>,
 		);
 
+		fireEvent.blur(screen.getByPlaceholderText(/Enter name.../i));
 		fireEvent.click(
 			screen.getByRole('button', {
 				name: 'Next',
 			}),
 		);
+
+		await waitFor(() =>
+			expect(
+				screen.getByText('The name field is required.'),
+			).toBeInTheDocument(),
+		);
+	});
+
+	test('should correctly validate required symbol field', async () => {
+		render(
+			<ZUIProvider>
+				<CreateTokenFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
+					<DetailsForm {...DEFAULT_PROPS} />
+				</CreateTokenFormContext.Provider>
+			</ZUIProvider>,
+		);
+
+		fireEvent.blur(screen.getByPlaceholderText(/Enter symbol.../i));
+		fireEvent.click(
+			screen.getByRole('button', {
+				name: 'Next',
+			}),
+		);
+
+		await waitFor(() =>
+			expect(
+				screen.getByText('The symbol field is required.'),
+			).toBeInTheDocument(),
+		);
+	});
+
+	test('should not fire onSubmit when next button clicked and field values are invalid', async () => {
+		render(
+			<ZUIProvider>
+				<CreateTokenFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
+					<DetailsForm {...DEFAULT_PROPS} />
+				</CreateTokenFormContext.Provider>
+			</ZUIProvider>,
+		);
+
+		const user = userEvent.setup();
+		await user.click(screen.getByRole('button', { name: /Next/i }));
 
 		await waitFor(() => expect(onSubmit).not.toHaveBeenCalled());
 	});
 
 	test('should fire onSubmit when next button clicked and field values are valid', async () => {
-		const values: DetailsFormSubmit = {
-			...DEFAULT_PROPS.values,
-			name: 'Test',
-			symbol: 'TEST',
-		};
-
 		render(
 			<ZUIProvider>
-				<DetailsForm {...DEFAULT_PROPS} values={values} />
+				<CreateTokenFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
+					<DetailsForm {...DEFAULT_PROPS} />
+				</CreateTokenFormContext.Provider>
 			</ZUIProvider>,
 		);
 
-		fireEvent.click(
-			screen.getByRole('button', {
-				name: 'Next',
+		const user = userEvent.setup();
+
+		await user.type(screen.getByPlaceholderText(/Enter name.../i), 'Test');
+		await user.type(screen.getByPlaceholderText(/Enter symbol.../i), 'TEST');
+
+		await user.click(screen.getByRole('button', { name: /Next/i }));
+
+		await waitFor(() =>
+			expect(onSubmit).toHaveBeenCalledWith({
+				mediaType: undefined,
+				previewUrl: '',
+				name: 'Test',
+				symbol: 'TEST',
 			}),
 		);
-
-		await waitFor(() => expect(onSubmit).toHaveBeenCalled());
 	});
 });
