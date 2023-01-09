@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../../lib/types/ui';
 
+import { DomainSettingsForm } from '../DomainSettingsForm';
 import { ConnectWallet } from '../../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
@@ -10,17 +11,20 @@ import styles from './DomainSettingsModal.module.scss';
 
 export interface DomainSettingsModalProps extends BasicModalProps {
 	zna: string;
+	onClose?: () => void;
 }
 
 export const DomainSettingsModal: FC<DomainSettingsModalProps> = ({
 	zna,
+	onClose,
 	...modalProps
 }) => {
 	const { account } = useWeb3();
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-	const onClose = () => {
+	const handleClose = () => {
+		onClose && onClose();
 		setIsModalOpen(false);
 	};
 
@@ -31,7 +35,7 @@ export const DomainSettingsModal: FC<DomainSettingsModalProps> = ({
 			onOpenChange={(isOpen: boolean) => setIsModalOpen(isOpen)}
 			{...modalProps}
 		>
-			<ModalContent account={account} zna={zna} onClose={onClose} />
+			<ModalContent account={account} zna={zna} onClose={handleClose} />
 		</Modal>
 	);
 };
@@ -48,8 +52,7 @@ interface ModalContentProps {
 
 const ModalContent = ({ account, zna, onClose }: ModalContentProps) => {
 	return account ? (
-		// <DomainSettingsForm zna={zna} onClose={onClose} />
-		<>Domain Settings</>
+		<DomainSettingsForm zna={zna} onClose={onClose} />
 	) : (
 		<ConnectWallet message={'Connect your wallet to view domain settings.'} />
 	);
