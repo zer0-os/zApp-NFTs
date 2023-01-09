@@ -81,7 +81,6 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 				zna={zna}
 				open={option === OptionType.DOMAIN_SETTINGS}
 				onOpenChange={onChange}
-				onClose={onClose}
 			/>
 
 			<DropdownMenu
