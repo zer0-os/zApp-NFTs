@@ -2,8 +2,9 @@ import { FC } from 'react';
 
 import { useDomainSettingsForm } from './hooks';
 import { useFormSteps } from './FormSteps/hooks';
-import { StepBar, Wizard } from '@zero-tech/zui/components';
-import { IconXClose } from '@zero-tech/zui/components/Icons';
+
+import { FormHeader } from './ui/FormHeader';
+import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './DomainSettingsForm.module.scss';
 
@@ -16,7 +17,8 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 	zna,
 	onClose,
 }) => {
-	const { step, error, statusText } = useDomainSettingsForm(zna);
+	const { step, stepId, error, statusText, onChangeStep } =
+		useDomainSettingsForm(zna);
 
 	const { content } = useFormSteps({
 		zna,
@@ -27,17 +29,17 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 	});
 
 	return (
-		<Wizard.Container
-			className={styles.Container}
-			header="My Domain Settings"
-			subHeader={zna}
-			sectionDivider={false}
-		>
-			<div className={styles.Close} onClick={onClose}>
-				<IconXClose size={24} />
-			</div>
-			{/* <StepBar currentStepId={''} steps={[]} onChangeStep={() => {}} /> */}
-			<form className={styles.Form}>{content}</form>
-		</Wizard.Container>
+		<div className={styles.Container}>
+			<FormHeader
+				zna={zna}
+				stepId={stepId}
+				onChangeStep={onChangeStep}
+				onClose={onClose}
+			/>
+
+			<Wizard.Container className={styles.WizardContainer}>
+				<form className={styles.Form}>{content}</form>
+			</Wizard.Container>
+		</div>
 	);
 };
