@@ -2,16 +2,22 @@ import { FC, useCallback, ReactNode, useState } from 'react';
 
 import { OptionLabel } from '../OptionLabel';
 import { DomainSettingsModal } from '../../domain-settings';
+import { CreateTokenModal } from '../../create-token';
 import { TransferOwnershipModal } from '../../transfer-ownership';
 import { DropdownMenu } from '@zero-tech/zui/components';
-import { IconSend3, IconCube1 } from '@zero-tech/zui/components/Icons';
+import {
+	IconSend3,
+	IconCube1,
+	IconDatabase2,
+} from '@zero-tech/zui/components/Icons';
 
 export const enum OptionType {
 	TRANSFER = 'transfer',
 	DOMAIN_SETTINGS = 'domain-settings',
+	CREATE_TOKEN = 'create-token',
 }
 
-export type Option = 'transfer' | 'domain-settings';
+export type Option = 'transfer' | 'domain-settings' | 'create-token';
 
 type MoreNFTOptionsProps = {
 	zna: string;
@@ -25,6 +31,10 @@ const transferOptionLabel = (
 
 const domainSettingsOptionLabel = (
 	<OptionLabel icon={<IconCube1 isFilled />} label="My Domain Settings" />
+);
+
+const createTokenOptionLabel = (
+	<OptionLabel icon={<IconDatabase2 isFilled />} label="Create Token" />
 );
 
 /**
@@ -44,6 +54,12 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 			className: 'domain-settings',
 			id: OptionType.DOMAIN_SETTINGS,
 			label: domainSettingsOptionLabel,
+			onSelect: (e: any) => onSelectOption(e),
+		},
+		{
+			className: 'create-token',
+			id: OptionType.CREATE_TOKEN,
+			label: createTokenOptionLabel,
 			onSelect: (e: any) => onSelectOption(e),
 		},
 	];
@@ -81,6 +97,13 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 				zna={zna}
 				open={option === OptionType.DOMAIN_SETTINGS}
 				onOpenChange={onChange}
+			/>
+
+			<CreateTokenModal
+				zna={zna}
+				open={option === OptionType.CREATE_TOKEN}
+				onOpenChange={onChange}
+				onClose={onClose}
 			/>
 
 			<DropdownMenu

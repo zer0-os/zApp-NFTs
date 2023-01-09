@@ -19,7 +19,7 @@ export const CreateDAOFormContext = createContext({
 		description: '',
 	},
 	governance: {
-		votingProcess: '',
+		votingProcess: 'absolute',
 		votingPeriod: '',
 		votingSystem: '',
 		daoTokenAddress: '',
@@ -30,6 +30,7 @@ export const CreateDAOFormContext = createContext({
 	},
 	onStepUpdate: (step: Step) => {},
 	onTitleUpdate: (title: string) => {},
+	onDetailsChange: (values: DetailsFormSubmit) => {},
 	onDetailsSubmit: (values: DetailsFormSubmit) => {},
 	onGovernanceSubmit: (values: GovernanceFormSubmit) => {},
 	onTreasurySubmit: (values: TreasuryFormSubmit) => {},
@@ -54,7 +55,7 @@ export const CreateDAOFormContextProvider: FC<Props> = ({ children }) => {
 	});
 
 	const [governance, setGovernance] = useState<GovernanceFormSubmit>({
-		votingProcess: '',
+		votingProcess: 'absolute',
 		votingPeriod: '',
 		votingSystem: '',
 		daoTokenAddress: '',
@@ -71,6 +72,10 @@ export const CreateDAOFormContextProvider: FC<Props> = ({ children }) => {
 
 	const onTitleUpdate = (title: string): void => {
 		setTitle(title);
+	};
+
+	const onDetailsChange = (values: DetailsFormSubmit): void => {
+		setDetails(values);
 	};
 
 	const onDetailsSubmit = (values: DetailsFormSubmit): void => {
@@ -103,6 +108,7 @@ export const CreateDAOFormContextProvider: FC<Props> = ({ children }) => {
 				treasury,
 				onStepUpdate,
 				onTitleUpdate,
+				onDetailsChange,
 				onDetailsSubmit,
 				onGovernanceSubmit,
 				onTreasurySubmit,
