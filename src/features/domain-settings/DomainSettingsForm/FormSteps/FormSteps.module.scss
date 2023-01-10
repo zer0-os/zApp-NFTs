@@ -1,0 +1,86 @@
+@import '../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Container {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+
+	.FlexRowWrapper {
+		display: flex;
+		flex-direction: row;
+		gap: 1.5rem;
+
+		.Media {
+			height: 16.25rem;
+			width: 16.25rem;
+			flex-shrink: 0;
+			border-radius: 0.5rem;
+
+			.Image {
+				height: 100%;
+				width: 100%;
+				border-radius: inherit;
+			}
+		}
+
+		.InputWrapper {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+			width: 100%;
+
+			.Input {
+				width: 100%;
+				gap: 0.25rem;
+			}
+		}
+	}
+
+	.TextAreaContainer {
+		display: flex;
+		align-items: center;
+		position: relative;
+		padding: 0.25rem 0.5rem;
+		gap: 0.5rem;
+
+		border-radius: 0.5rem;
+		border: 1px solid #404040;
+
+		cursor: text;
+
+		transition: border-color 0.1s ease;
+
+		.TextArea {
+			background: none;
+			color: white;
+			border: none;
+			font-size: 0.875rem;
+			line-height: 1.05625rem;
+			flex: 1;
+			outline: none;
+			min-height: 3.5rem;
+		}
+	}
+
+	.AdvancedSettings {
+		border-top: 2px solid $grey-lighter-2;
+
+		h5 {
+			margin: 0.5rem 0 1.5rem 0;
+			line-height: 1.5rem;
+		}
+
+		.SwitchGroup {
+			display: flex;
+			flex-direction: column;
+
+			.SwitchRow {
+				display: flex;
+				flex-direction: row;
+				padding: 1rem 0;
+				border-bottom: 1px solid $mine-shaft;
+			}
+		}
+	}
+}

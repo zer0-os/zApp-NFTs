@@ -1,0 +1,85 @@
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_animations.scss';
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Container {
+	display: flex;
+	align-items: center;
+	border-radius: 0.75rem;
+
+	.Label {
+		font-size: $size-small;
+	}
+
+	> *:not(:first-child) {
+		margin-left: 0.5rem;
+	}
+
+	.Toggle {
+		position: relative;
+		width: 3rem;
+		height: calc(3rem / 2);
+
+		border-radius: 0.75rem;
+		border: 1px solid $grey-lighter-2;
+
+		transition: border $time-medium ease;
+
+		overflow: hidden;
+		cursor: pointer;
+
+		> div {
+			position: absolute;
+			top: 2px;
+			left: 1px;
+
+			height: calc(3rem / 2 - 0.25rem);
+			width: calc(3rem / 2 - 0.25rem);
+			border-radius: 50%;
+
+			background-color: $grey-lighter-2;
+
+			transition: left $time-medium ease-in-out,
+				background-color $time-medium ease;
+
+			> span {
+				position: absolute;
+				font-size: 0.5rem;
+				top: 50%;
+				font-weight: $font-weight-bold;
+				text-transform: uppercase;
+				color: $grey-lighter-2;
+				transition: color $time-medium ease;
+
+				&:first-of-type {
+					left: 0;
+					transform: translateY(-50%) translateX(calc(-100% - 0.25rem));
+				}
+
+				&:last-of-type {
+					left: 100%;
+					transform: translateY(calc(-50%)) translateX(0.25rem);
+				}
+			}
+		}
+
+		&.On {
+			background: $ocean-10;
+			> div {
+				left: calc(100% - (3rem / 2) + 3px);
+			}
+		}
+	}
+
+	.Toggle.On {
+		border: 1px solid $blue;
+
+		> div {
+			background-color: $blue !important;
+
+			> span {
+				color: $blue;
+			}
+		}
+	}
+}
