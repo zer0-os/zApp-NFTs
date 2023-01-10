@@ -20,8 +20,7 @@ export const useDomainSettingsData = (zna: string) => {
 	const { data: bids, isLoading: isLoadingBidData } = useBidData(domainId);
 	const { highestBid } = sortBidsByAmount(bids);
 
-	const title = metadata?.title;
-	const creator = domain?.minter;
+	const description = metadata?.description;
 	const isMetadataLocked = domain?.isLocked ? 'Locked' : 'Unlocked';
 	const imageSrc =
 		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
@@ -30,9 +29,7 @@ export const useDomainSettingsData = (zna: string) => {
 	const paymentTokenId = paymentToken?.id ?? '';
 
 	return {
-		domainId,
-		title,
-		creator,
+		description,
 		imageSrc,
 		imageAlt,
 		highestBid,

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+import { Details } from '..';
 import { Wizard } from '@zero-tech/zui/components';
 
 export enum Step {
@@ -32,7 +33,7 @@ export const useFormSteps = ({
 
 	switch (step) {
 		case Step.DETAILS:
-			content = <>Details</>;
+			content = <Details zna={zna} errorText={error} />;
 			break;
 
 		case Step.CONFIRM:

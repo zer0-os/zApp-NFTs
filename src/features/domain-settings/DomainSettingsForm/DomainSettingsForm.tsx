@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useDomainSettingsForm } from './hooks';
 import { useFormSteps } from './FormSteps/hooks';
 
-import { FormHeader } from './ui/FormHeader';
+import { FormHeader } from './ui';
 import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './DomainSettingsForm.module.scss';
