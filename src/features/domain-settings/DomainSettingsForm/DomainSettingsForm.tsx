@@ -37,8 +37,8 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 				onClose={onClose}
 			/>
 
-			<Wizard.Container className={styles.WizardContainer}>
-				<form className={styles.Form}>{content}</form>
+			<Wizard.Container>
+				<form>{content}</form>
 			</Wizard.Container>
 		</div>
 	);

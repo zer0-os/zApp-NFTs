@@ -1,6 +1,31 @@
-.Close {
-	cursor: pointer;
-	position: absolute;
-	top: 0;
-	right: 0;
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Wrapper {
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+
+	> * {
+		&:first-child {
+			width: 100%;
+		}
+	}
+
+	h1 {
+		font-size: $size-large;
+		font-weight: $font-weight-bold;
+	}
+
+	h2 {
+		margin-top: 0;
+		font-size: 1rem;
+		font-weight: 400;
+	}
+
+	.Close {
+		display: flex;
+		justify-content: flex-end;
+		cursor: pointer;
+	}
 }

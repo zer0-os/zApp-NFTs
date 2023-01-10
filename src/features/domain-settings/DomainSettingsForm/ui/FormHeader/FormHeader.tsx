@@ -21,19 +21,22 @@ export const FormHeader: FC<FormHeaderProps> = ({
 	onClose,
 }) => {
 	return (
-		<Wizard.Header
-			header={'My Domain Settings'}
-			subHeader={zna}
-			sectionDivider={false}
-		>
+		<div className={styles.Wrapper}>
+			<Wizard.Header
+				header={'My Domain Settings'}
+				subHeader={zna}
+				sectionDivider={false}
+			>
+				<StepBar
+					currentStepId={stepId}
+					steps={steps}
+					onChangeStep={onChangeStep}
+				/>
+			</Wizard.Header>
+
 			<div className={styles.Close} onClick={onClose}>
 				<IconXClose size={24} />
 			</div>
-			<StepBar
-				currentStepId={stepId}
-				steps={steps}
-				onChangeStep={onChangeStep}
-			/>
-		</Wizard.Header>
+		</div>
 	);
 };
