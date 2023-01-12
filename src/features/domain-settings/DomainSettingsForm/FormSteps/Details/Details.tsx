@@ -15,17 +15,23 @@ export interface DetailsProps {
 }
 
 export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
-	const { description, imageAlt, imageSrc } = useDomainSettingsData(zna);
+	const { localState, localActions, formattedData, imageAlt, imageSrc } =
+		useDomainSettingsData(zna);
+
+	console.log(localState.isMintable);
 
 	return (
 		<>
 			<div className={styles.Container}>
 				<div className={styles.FlexRowWrapper}>
 					<Media alt={imageAlt} src={imageSrc} />
-					<InputGroup zna={zna} />
+					<InputGroup
+						zna={zna}
+						isDisabled={localState.isMetadataLocked === 'Locked'}
+					/>
 				</div>
 
-				<TextArea description={description} />
+				<TextArea description={localState.description} />
 
 				<div className={styles.AdvancedSettings}>
 					<h5>Advanced Domain Settings</h5>
@@ -34,8 +40,8 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 						<div className={styles.SwitchRow}>
 							<Switch
 								label={'Domain Mint Requests'}
-								toggled={false}
-								onPress={() => {}}
+								toggled={localState.isMintable}
+								onPress={localActions.setIsMintable}
 							/>
 							<InfoTooltip
 								content={
@@ -47,8 +53,8 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 						<div className={styles.SwitchRow}>
 							<Switch
 								label={'Domain Bidding'}
-								toggled={false}
-								onPress={() => {}}
+								toggled={localState.isBiddable}
+								onPress={localActions.setIsBiddable}
 							/>
 							<InfoTooltip
 								content={
@@ -60,8 +66,8 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 						<div className={styles.SwitchRow}>
 							<Switch
 								label={'Domain in Grid View by Default'}
-								toggled={false}
-								onPress={() => {}}
+								toggled={localState.gridViewByDefault}
+								onPress={localActions.setGridViewByDefault}
 							/>
 							<InfoTooltip
 								content={
@@ -73,8 +79,8 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 						<div className={styles.SwitchRow}>
 							<Switch
 								label={'Custom Domain Header'}
-								toggled={false}
-								onPress={() => {}}
+								toggled={localState.customDomainHeader}
+								onPress={localActions.setCustomDomainHeader}
 							/>
 							<InfoTooltip
 								content={
@@ -86,9 +92,8 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 				</div>
 			</div>
 
-			<div className={styles.Footer}>
-				<Button>Save</Button>
-				<Button>Save</Button>
+			<div className={styles.Buttons}>
+				<Button>Unlock</Button>
 			</div>
 		</>
 	);
@@ -117,9 +122,10 @@ const Media = ({ alt, src }: MediaProps) => {
 
 interface InputGroupProps {
 	zna: string;
+	isDisabled: boolean;
 }
 
-const InputGroup = ({ zna }: InputGroupProps) => {
+const InputGroup = ({ zna, isDisabled }: InputGroupProps) => {
 	return (
 		<div className={styles.InputWrapper}>
 			<Input
@@ -128,6 +134,7 @@ const InputGroup = ({ zna }: InputGroupProps) => {
 				label={'Title'}
 				placeholder={'NFT Name'}
 				value={''}
+				isDisabled={isDisabled}
 				onChange={() => {}}
 			/>
 

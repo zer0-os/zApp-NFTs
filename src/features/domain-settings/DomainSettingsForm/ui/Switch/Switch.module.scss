@@ -15,7 +15,7 @@
 		margin-left: 0.5rem;
 	}
 
-	.Toggle {
+	.Switch {
 		position: relative;
 		width: 3rem;
 		height: calc(3rem / 2);
@@ -71,7 +71,7 @@
 		}
 	}
 
-	.Toggle.On {
+	.Switch.On {
 		border: 1px solid $blue;
 
 		> div {

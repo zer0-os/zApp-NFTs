@@ -10,7 +10,7 @@ interface SwitchProps {
 	label?: string;
 	toggled: boolean;
 	hideOnOffLabels?: boolean;
-	onPress: () => void;
+	onPress: (toggled: boolean) => void;
 }
 
 export const Switch: FC<SwitchProps> = ({
@@ -22,9 +22,8 @@ export const Switch: FC<SwitchProps> = ({
 }) => (
 	<div className={cx(styles.Container, className)}>
 		<div
-			onClick={onPress}
-			// TODO: - use data variant
-			className={`${styles.Toggle} ${toggled ? styles.On : ''}`}
+			className={`${styles.Switch} ${toggled ? styles.On : ''}`}
+			onClick={() => onPress(!toggled)}
 		>
 			<div>
 				{hideOnOffLabels !== true && (
