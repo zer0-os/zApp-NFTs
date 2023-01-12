@@ -89,10 +89,10 @@ export const useDomainSettingsData = (zna: string) => {
 
 	const initialSettings = useMemo(() => {
 		// Domain
-		const name = domain?.name ?? '';
 		const isMetadataLocked = domain?.isLocked ? 'Locked' : 'Unlocked';
 
 		// Metadata
+		const title = metadata?.title ?? '';
 		const description = metadata?.description ?? '';
 		const isMintable = Boolean(metadata?.isMintable);
 		const isBiddable = Boolean(metadata?.isBiddable);
@@ -103,7 +103,7 @@ export const useDomainSettingsData = (zna: string) => {
 			(metadata?.customDomainHeaderValue as string) || '';
 
 		return {
-			name,
+			title,
 			imageAlt,
 			imageSrc,
 			isMintable,
@@ -120,12 +120,13 @@ export const useDomainSettingsData = (zna: string) => {
 		initialSettings.isMetadataLocked,
 	);
 
-	const [name, setName] = usePropsState<string>(initialSettings.name);
+	const [title, setTitle] = usePropsState<string>(initialSettings.title);
 
 	const [description, setDescription] = usePropsState<string>(
 		initialSettings.description,
 	);
 	const [errors, setErrors] = useState<DomainSettingsError>({});
+
 	/* Switches */
 	const [isMintable, setIsMintable] = usePropsState<boolean>(
 		initialSettings.isMintable,
@@ -145,7 +146,7 @@ export const useDomainSettingsData = (zna: string) => {
 
 	const localState = useMemo(
 		() => ({
-			name,
+			title,
 			domain,
 			description,
 			errors,
@@ -157,7 +158,7 @@ export const useDomainSettingsData = (zna: string) => {
 			isMetadataLocked,
 		}),
 		[
-			name,
+			title,
 			domain,
 			description,
 			errors,
@@ -172,7 +173,7 @@ export const useDomainSettingsData = (zna: string) => {
 
 	const localActions = useMemo(
 		() => ({
-			setName,
+			setTitle,
 			setDescription,
 			setErrors,
 			setIsMintable,
@@ -183,7 +184,7 @@ export const useDomainSettingsData = (zna: string) => {
 			setIsMetadataLocked,
 		}),
 		[
-			setName,
+			setTitle,
 			setDescription,
 			setErrors,
 			setIsMintable,
@@ -196,8 +197,9 @@ export const useDomainSettingsData = (zna: string) => {
 	);
 
 	const isChanged = useMemo(() => {
-		const nameChanged = initialSettings.name !== localState.name;
-		const storyChanged = initialSettings.description !== localState.description;
+		const titleChanged = initialSettings.title !== localState.title;
+		const descriptionChanged =
+			initialSettings.description !== localState.description;
 		const isMintableChanged =
 			initialSettings.isMintable !== localState.isMintable;
 		const isBiddableChanged =
@@ -211,8 +213,8 @@ export const useDomainSettingsData = (zna: string) => {
 			localState.customDomainHeaderValue;
 
 		return (
-			nameChanged ||
-			storyChanged ||
+			titleChanged ||
+			descriptionChanged ||
 			isMintableChanged ||
 			isBiddableChanged ||
 			gridViewByDefaultChanged ||

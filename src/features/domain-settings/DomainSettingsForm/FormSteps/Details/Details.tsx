@@ -1,6 +1,9 @@
 import { FC } from 'react';
 
-import { useDomainSettingsData } from '../../../useDomainSettingsData';
+import {
+	ERROR_KEYS,
+	useDomainSettingsData,
+} from '../../../useDomainSettingsData';
 
 import { Switch } from '../../ui';
 import { Button, Input } from '@zero-tech/zui/components';
@@ -18,8 +21,6 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 	const { localState, localActions, formattedData, imageAlt, imageSrc } =
 		useDomainSettingsData(zna);
 
-	console.log(localState.isMintable);
-
 	return (
 		<>
 			<div className={styles.Container}>
@@ -27,7 +28,11 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 					<Media alt={imageAlt} src={imageSrc} />
 					<InputGroup
 						zna={zna}
+						title={localState.title}
 						isDisabled={localState.isMetadataLocked === 'Locked'}
+						setTitle={localActions.setTitle}
+						error={!!localState.errors[ERROR_KEYS.NAME]}
+						errorMessage={localState.errors[ERROR_KEYS.NAME]}
 					/>
 				</div>
 
@@ -122,10 +127,21 @@ const Media = ({ alt, src }: MediaProps) => {
 
 interface InputGroupProps {
 	zna: string;
+	error?: boolean;
+	errorMessage?: string;
+	title: string;
 	isDisabled: boolean;
+	setTitle: (title: string) => void;
 }
 
-const InputGroup = ({ zna, isDisabled }: InputGroupProps) => {
+const InputGroup = ({
+	zna,
+	error,
+	errorMessage,
+	title,
+	isDisabled,
+	setTitle,
+}: InputGroupProps) => {
 	return (
 		<div className={styles.InputWrapper}>
 			<Input
@@ -133,9 +149,11 @@ const InputGroup = ({ zna, isDisabled }: InputGroupProps) => {
 				type={'text'}
 				label={'Title'}
 				placeholder={'NFT Name'}
-				value={''}
+				value={title}
 				isDisabled={isDisabled}
-				onChange={() => {}}
+				onChange={setTitle}
+				error={error}
+				alert={errorMessage && { variant: 'error', text: errorMessage }}
 			/>
 
 			<Input
