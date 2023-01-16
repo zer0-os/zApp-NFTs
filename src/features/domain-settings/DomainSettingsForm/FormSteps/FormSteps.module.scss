@@ -46,17 +46,8 @@
 
 	.TextAreaContainer {
 		display: flex;
-		align-items: center;
-		position: relative;
-		padding: 0.25rem 0.5rem;
-		gap: 0.5rem;
-
-		border-radius: 0.5rem;
-		border: 1px solid #404040;
-
-		cursor: text;
-
-		transition: border-color 0.1s ease;
+		flex-direction: column;
+		gap: 0.25rem;
 
 		.TextArea {
 			background: none;
@@ -64,9 +55,17 @@
 			border: none;
 			font-size: 0.875rem;
 			line-height: 1.05625rem;
-			flex: 1;
+
 			outline: none;
-			min-height: 2rem;
+			min-height: 2.5rem;
+			padding: 0.25rem 0.5rem;
+
+			border-radius: 0.5rem;
+			border: 1px solid #404040;
+			resize: vertical;
+			cursor: text;
+
+			transition: border-color 0.1s ease;
 		}
 	}
 
