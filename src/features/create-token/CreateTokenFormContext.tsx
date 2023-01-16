@@ -67,7 +67,7 @@ export const CreateTokenFormContextProvider: FC<Props> = ({ children }) => {
 	};
 
 	const onDetailsSubmit = (values: DetailsFormSubmit): void => {
-		setTitle(`Create "${values.name}" DAO`);
+		setTitle(`Create "${values.name}" Token`);
 		setDetails(values);
 		setStepId(steps[1].id);
 	};
