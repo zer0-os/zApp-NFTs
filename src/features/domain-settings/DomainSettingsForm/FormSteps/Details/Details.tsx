@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from 'react';
+import { FC } from 'react';
 
 import {
 	ERROR_KEYS,
@@ -7,6 +7,7 @@ import {
 
 import { Switch } from '../../ui';
 import { Button, Input } from '@zero-tech/zui/components';
+import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui/components/Icons';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 
@@ -122,9 +123,7 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 				</div>
 			</div>
 
-			<div className={styles.Buttons}>
-				<Button>Unlock</Button>
-			</div>
+			<ButtonGroup isDisabled={localState.isMetadataLocked} />
 		</>
 	);
 };
@@ -226,5 +225,39 @@ const TextArea = ({
 				/>
 			</div>
 		</>
+	);
+};
+
+/*******************
+ * ButtonGroup
+ *******************/
+
+interface ButtonGroupProps {
+	isDisabled: boolean;
+}
+
+const ButtonGroup = ({ isDisabled }: ButtonGroupProps) => {
+	return (
+		<div className={styles.Buttons}>
+			{isDisabled && (
+				<>
+					<IconLock1 className={styles.LockedIcon} />
+					<Button>Unlock Metadata</Button>
+				</>
+			)}
+			{!isDisabled && (
+				<>
+					<IconLockUnlocked1 className={styles.UnlockedIcon} />
+					<Button>Save Changes</Button> <Button>Save and Lock</Button>
+				</>
+			)}
+			<InfoTooltip
+				content={
+					isDisabled
+						? 'Metadata is locked. Only the person who locked it may unlock and make changes.'
+						: 'You may save changes leaving the metadata unlocked for the next owner to edit, or save & lock the metadata preventing future edits by anyone other than you.'
+				}
+			/>
+		</div>
 	);
 };
