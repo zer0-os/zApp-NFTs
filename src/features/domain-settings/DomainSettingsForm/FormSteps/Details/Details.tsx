@@ -36,7 +36,11 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 					/>
 				</div>
 
-				<TextArea label={'Story'} description={localState.description} />
+				<TextArea
+					label={'Story'}
+					description={localState.description}
+					setDescription={localActions.setDescription}
+				/>
 
 				<div className={styles.AdvancedSettings}>
 					<h5>Advanced Domain Settings</h5>
@@ -175,19 +179,20 @@ const InputGroup = ({
 interface TextAreaProps {
 	label?: string;
 	description?: string;
+	setDescription: (description: string) => void;
 }
 
-const TextArea = ({ label, description }: TextAreaProps) => {
+const TextArea = ({ label, description, setDescription }: TextAreaProps) => {
 	return (
 		<>
 			<div className={styles.TextAreaContainer}>
 				{label && <label className={styles.TextAreaLabel}>{label}</label>}
 				<textarea
 					className={styles.TextArea}
-					onChange={() => {}}
+					onChange={(event: any) => setDescription(event?.target?.value)}
 					inputMode={'text'}
 					placeholder={'Story (400 characters max)'}
-					value={description ?? ''}
+					value={description}
 				/>
 			</div>
 		</>
