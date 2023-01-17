@@ -23,13 +23,16 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 
 	return (
 		<>
-			<div className={styles.Container}>
+			<div
+				className={styles.Container}
+				data-variant={localState.isMetadataLocked}
+			>
 				<div className={styles.FlexRowWrapper}>
 					<Media alt={imageAlt} src={imageSrc} />
 					<InputGroup
 						zna={zna}
 						title={localState.title}
-						isDisabled={localState.isMetadataLocked === 'Locked'}
+						isDisabled={localState.isMetadataLocked === 'locked'}
 						setTitle={localActions.setTitle}
 						error={!!localState.errors[ERROR_KEYS.NAME]}
 						errorMessage={localState.errors[ERROR_KEYS.NAME]}
@@ -40,6 +43,7 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 					label={'Story'}
 					description={localState.description}
 					setDescription={localActions.setDescription}
+					isDisabled={localState.isMetadataLocked === 'locked'}
 				/>
 
 				<div className={styles.AdvancedSettings}>
@@ -50,6 +54,7 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 							<Switch
 								label={'Domain Mint Requests'}
 								toggled={localState.isMintable}
+								isDisabled={localState.isMetadataLocked === 'locked'}
 								onPress={localActions.setIsMintable}
 							/>
 							<InfoTooltip
@@ -63,6 +68,7 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 							<Switch
 								label={'Domain Bidding'}
 								toggled={localState.isBiddable}
+								isDisabled={localState.isMetadataLocked === 'locked'}
 								onPress={localActions.setIsBiddable}
 							/>
 							<InfoTooltip
@@ -76,6 +82,7 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 							<Switch
 								label={'Domain in Grid View by Default'}
 								toggled={localState.gridViewByDefault}
+								isDisabled={localState.isMetadataLocked === 'locked'}
 								onPress={localActions.setGridViewByDefault}
 							/>
 							<InfoTooltip
@@ -89,6 +96,7 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 							<Switch
 								label={'Custom Domain Header'}
 								toggled={localState.customDomainHeader}
+								isDisabled={localState.isMetadataLocked === 'locked'}
 								onPress={localActions.setCustomDomainHeader}
 							/>
 							<InfoTooltip
@@ -179,10 +187,16 @@ const InputGroup = ({
 interface TextAreaProps {
 	label?: string;
 	description?: string;
+	isDisabled?: boolean;
 	setDescription: (description: string) => void;
 }
 
-const TextArea = ({ label, description, setDescription }: TextAreaProps) => {
+const TextArea = ({
+	label,
+	description,
+	isDisabled,
+	setDescription,
+}: TextAreaProps) => {
 	return (
 		<>
 			<div className={styles.TextAreaContainer}>
@@ -193,6 +207,7 @@ const TextArea = ({ label, description, setDescription }: TextAreaProps) => {
 					inputMode={'text'}
 					placeholder={'Story (400 characters max)'}
 					value={description}
+					disabled={isDisabled}
 				/>
 			</div>
 		</>

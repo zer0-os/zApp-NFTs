@@ -28,6 +28,12 @@
 		overflow: hidden;
 		cursor: pointer;
 
+		&[data-variant='locked'] {
+			&:hover {
+				cursor: not-allowed;
+			}
+		}
+
 		> div {
 			position: absolute;
 			top: 2px;
@@ -65,6 +71,7 @@
 
 		&.On {
 			background: $ocean-10;
+
 			> div {
 				left: calc(100% - (3rem / 2) + 3px);
 			}
@@ -74,11 +81,23 @@
 	.Switch.On {
 		border: 1px solid $blue;
 
+		&[data-variant='locked'] {
+			border: 1px solid $grey-lighter-2;
+		}
+
 		> div {
 			background-color: $blue !important;
 
+			&[data-variant='locked'] {
+				background-color: $grey-lighter-2 !important;
+			}
+
 			> span {
 				color: $blue;
+
+				&[data-variant='locked'] {
+					color: $grey-lighter-2;
+				}
 			}
 		}
 	}

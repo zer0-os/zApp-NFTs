@@ -89,7 +89,7 @@ export const useDomainSettingsData = (zna: string) => {
 
 	const initialSettings = useMemo(() => {
 		// Domain
-		const isMetadataLocked = domain?.isLocked ? 'Locked' : 'Unlocked';
+		const isMetadataLocked = domain?.isLocked ? 'locked' : 'unlocked';
 
 		// Metadata
 		const title = metadata?.title ?? '';

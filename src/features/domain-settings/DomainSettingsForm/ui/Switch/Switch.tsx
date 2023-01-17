@@ -6,30 +6,33 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 interface SwitchProps {
-	className?: string;
 	label?: string;
 	toggled: boolean;
+	className?: string;
+	isDisabled?: boolean;
 	hideOnOffLabels?: boolean;
 	onPress: (toggled: boolean) => void;
 }
 
 export const Switch: FC<SwitchProps> = ({
-	className,
-	hideOnOffLabels,
 	label,
-	onPress,
 	toggled,
+	className,
+	isDisabled,
+	hideOnOffLabels,
+	onPress,
 }) => (
 	<div className={cx(styles.Container, className)}>
 		<div
 			className={`${styles.Switch} ${toggled ? styles.On : ''}`}
-			onClick={() => onPress(!toggled)}
+			data-variant={isDisabled ? 'locked' : 'unlocked'}
+			onClick={() => !isDisabled && onPress(!toggled)}
 		>
-			<div>
+			<div data-variant={isDisabled ? 'locked' : 'unlocked'}>
 				{hideOnOffLabels !== true && (
 					<>
-						<span>On</span>
-						<span>Off</span>
+						<span data-variant={isDisabled ? 'locked' : 'unlocked'}>On</span>
+						<span data-variant={isDisabled ? 'locked' : 'unlocked'}>Off</span>
 					</>
 				)}
 			</div>

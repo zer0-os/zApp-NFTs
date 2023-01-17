@@ -9,6 +9,9 @@
 	max-height: 60vh;
 	padding: 0 0.5rem;
 
+	&[data-variant='locked'] {
+	}
+
 	.FlexRowWrapper {
 		display: flex;
 		flex-direction: row;
@@ -66,6 +69,14 @@
 			cursor: text;
 
 			transition: border-color 0.1s ease;
+
+			&:disabled {
+				background: #1c1c1f;
+
+				&:hover {
+					cursor: not-allowed;
+				}
+			}
 		}
 	}
 
