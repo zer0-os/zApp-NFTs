@@ -10,6 +10,8 @@
 	padding: 0 0.5rem;
 
 	&[data-variant='locked'] {
+		opacity: 0.5;
+		overflow-y: hidden;
 	}
 
 	.FlexRowWrapper {
@@ -72,6 +74,7 @@
 
 			&:disabled {
 				background: #1c1c1f;
+				resize: none;
 
 				&:hover {
 					cursor: not-allowed;

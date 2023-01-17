@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, HTMLAttributes } from 'react';
 
 import {
 	ERROR_KEYS,
@@ -25,25 +25,30 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 		<>
 			<div
 				className={styles.Container}
-				data-variant={localState.isMetadataLocked}
+				data-variant={localState.isMetadataLocked ? 'locked' : 'unlocked'}
 			>
 				<div className={styles.FlexRowWrapper}>
 					<Media alt={imageAlt} src={imageSrc} />
 					<InputGroup
 						zna={zna}
 						title={localState.title}
-						isDisabled={localState.isMetadataLocked === 'locked'}
-						setTitle={localActions.setTitle}
+						isDisabled={localState.isMetadataLocked}
 						error={!!localState.errors[ERROR_KEYS.NAME]}
 						errorMessage={localState.errors[ERROR_KEYS.NAME]}
+						onChange={(event: any) =>
+							localActions.setTitle(event?.target?.value)
+						}
 					/>
 				</div>
 
 				<TextArea
 					label={'Story'}
 					description={localState.description}
-					setDescription={localActions.setDescription}
-					isDisabled={localState.isMetadataLocked === 'locked'}
+					placeholder={'Story (400 characters max)'}
+					isDisabled={localState.isMetadataLocked}
+					onChange={(event: any) =>
+						localActions.setDescription(event?.target?.value)
+					}
 				/>
 
 				<div className={styles.AdvancedSettings}>
@@ -54,56 +59,64 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 							<Switch
 								label={'Domain Mint Requests'}
 								toggled={localState.isMintable}
-								isDisabled={localState.isMetadataLocked === 'locked'}
+								isDisabled={localState.isMetadataLocked}
 								onPress={localActions.setIsMintable}
 							/>
-							<InfoTooltip
-								content={
-									'Allow members to make a stake offer in order to mint NFTs on your domain. Turn off if your domain is not intended to be open for others to mint upon'
-								}
-							/>
+							{!localState.isMetadataLocked && (
+								<InfoTooltip
+									content={
+										'Allow members to make a stake offer in order to mint NFTs on your domain. Turn off if your domain is not intended to be open for others to mint upon'
+									}
+								/>
+							)}
 						</div>
 
 						<div className={styles.SwitchRow}>
 							<Switch
 								label={'Domain Bidding'}
 								toggled={localState.isBiddable}
-								isDisabled={localState.isMetadataLocked === 'locked'}
+								isDisabled={localState.isMetadataLocked}
 								onPress={localActions.setIsBiddable}
 							/>
-							<InfoTooltip
-								content={
-									'Allow bidding on your domain. Turn off if the domain is not intended to be sold.'
-								}
-							/>
+							{!localState.isMetadataLocked && (
+								<InfoTooltip
+									content={
+										'Allow bidding on your domain. Turn off if the domain is not intended to be sold.'
+									}
+								/>
+							)}
 						</div>
 
 						<div className={styles.SwitchRow}>
 							<Switch
 								label={'Domain in Grid View by Default'}
 								toggled={localState.gridViewByDefault}
-								isDisabled={localState.isMetadataLocked === 'locked'}
+								isDisabled={localState.isMetadataLocked}
 								onPress={localActions.setGridViewByDefault}
 							/>
-							<InfoTooltip
-								content={
-									'Grid view has larger image previews which can benefit domains with a focus on art rather than statistics.'
-								}
-							/>
+							{!localState.isMetadataLocked && (
+								<InfoTooltip
+									content={
+										'Grid view has larger image previews which can benefit domains with a focus on art rather than statistics.'
+									}
+								/>
+							)}
 						</div>
 
 						<div className={styles.SwitchRow}>
 							<Switch
 								label={'Custom Domain Header'}
 								toggled={localState.customDomainHeader}
-								isDisabled={localState.isMetadataLocked === 'locked'}
+								isDisabled={localState.isMetadataLocked}
 								onPress={localActions.setCustomDomainHeader}
 							/>
-							<InfoTooltip
-								content={
-									'Change the first column header of list view. By default this is ‘Domain’.'
-								}
-							/>
+							{!localState.isMetadataLocked && (
+								<InfoTooltip
+									content={
+										'Change the first column header of list view. By default this is ‘Domain’.'
+									}
+								/>
+							)}
 						</div>
 					</div>
 				</div>
@@ -143,7 +156,7 @@ interface InputGroupProps {
 	errorMessage?: string;
 	title: string;
 	isDisabled: boolean;
-	setTitle: (title: string) => void;
+	onChange: (event: any) => void;
 }
 
 const InputGroup = ({
@@ -152,7 +165,7 @@ const InputGroup = ({
 	errorMessage,
 	title,
 	isDisabled,
-	setTitle,
+	onChange,
 }: InputGroupProps) => {
 	return (
 		<div className={styles.InputWrapper}>
@@ -163,7 +176,7 @@ const InputGroup = ({
 				placeholder={'NFT Name'}
 				value={title}
 				isDisabled={isDisabled}
-				onChange={setTitle}
+				onChange={onChange}
 				error={error}
 				alert={errorMessage && { variant: 'error', text: errorMessage }}
 			/>
@@ -187,15 +200,17 @@ const InputGroup = ({
 interface TextAreaProps {
 	label?: string;
 	description?: string;
+	placeholder?: string;
 	isDisabled?: boolean;
-	setDescription: (description: string) => void;
+	onChange: (event: any) => void;
 }
 
 const TextArea = ({
 	label,
 	description,
+	placeholder,
 	isDisabled,
-	setDescription,
+	onChange,
 }: TextAreaProps) => {
 	return (
 		<>
@@ -203,9 +218,9 @@ const TextArea = ({
 				{label && <label className={styles.TextAreaLabel}>{label}</label>}
 				<textarea
 					className={styles.TextArea}
-					onChange={(event: any) => setDescription(event?.target?.value)}
+					onChange={onChange}
 					inputMode={'text'}
-					placeholder={'Story (400 characters max)'}
+					placeholder={placeholder}
 					value={description}
 					disabled={isDisabled}
 				/>
