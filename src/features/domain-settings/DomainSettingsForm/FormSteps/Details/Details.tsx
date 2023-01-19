@@ -134,11 +134,9 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 			<div>
 				{localState.isMetadataLocked && (
 					<FooterLabel
-						primaryLabel={'You cannot unlock the metadata to make changes'}
-						secondaryLabel={`It was locked by ${truncateAddress(
-							domainLockedBy,
-						)}`}
 						variant={'warning'}
+						domainLockedBy={domainLockedBy}
+						isLockedByOwner={isLockedByOwner}
 					/>
 				)}
 				<ButtonGroup
@@ -255,20 +253,28 @@ const TextArea = ({
  *******************/
 
 interface FooterLabelProps {
-	primaryLabel: string;
-	secondaryLabel?: string;
-	variant?: 'warning';
+	variant?: 'error' | 'success' | 'warning';
+	domainLockedBy: string;
+	isLockedByOwner: boolean;
 }
 
 const FooterLabel = ({
-	primaryLabel,
-	secondaryLabel,
 	variant,
+	domainLockedBy,
+	isLockedByOwner,
 }: FooterLabelProps) => {
+	const label = isLockedByOwner ? (
+		<b>Please unlock to make changes</b>
+	) : (
+		<>
+			You cannot unlock the metadata to make changes
+			<b>It was locked by {truncateAddress(domainLockedBy)}</b>
+		</>
+	);
 	return (
 		<>
 			<label className={styles.FooterLabel} data-variant={variant}>
-				{primaryLabel} <b>{secondaryLabel}</b>
+				{label}
 			</label>
 		</>
 	);
