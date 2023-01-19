@@ -6,10 +6,11 @@ import {
 } from '../../../useDomainSettingsData';
 
 import { Switch } from '../../ui';
+import { truncateAddress } from '@zero-tech/zui/utils';
 import { Button, Input } from '@zero-tech/zui/components';
-import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui/components/Icons';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
+import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui/components/Icons';
 
 import styles from '../FormSteps.module.scss';
 
@@ -19,8 +20,15 @@ export interface DetailsProps {
 }
 
 export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
-	const { localState, localActions, formattedData, imageAlt, imageSrc } =
-		useDomainSettingsData(zna);
+	const {
+		localState,
+		localActions,
+		formattedData,
+		imageAlt,
+		imageSrc,
+		isLockedByOwner,
+		domainLockedBy,
+	} = useDomainSettingsData(zna);
 
 	return (
 		<>
@@ -123,7 +131,21 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 				</div>
 			</div>
 
-			<ButtonGroup isDisabled={localState.isMetadataLocked} />
+			<div>
+				{localState.isMetadataLocked && (
+					<FooterLabel
+						primaryLabel={'You cannot unlock the metadata to make changes'}
+						secondaryLabel={`It was locked by ${truncateAddress(
+							domainLockedBy,
+						)}`}
+						variant={'warning'}
+					/>
+				)}
+				<ButtonGroup
+					isDisabled={localState.isMetadataLocked}
+					isLockedByOwner={isLockedByOwner}
+				/>
+			</div>
 		</>
 	);
 };
@@ -229,20 +251,51 @@ const TextArea = ({
 };
 
 /*******************
+ * TextMessage
+ *******************/
+
+interface FooterLabelProps {
+	primaryLabel: string;
+	secondaryLabel?: string;
+	variant?: 'warning';
+}
+
+const FooterLabel = ({
+	primaryLabel,
+	secondaryLabel,
+	variant,
+}: FooterLabelProps) => {
+	return (
+		<>
+			<label className={styles.FooterLabel} data-variant={variant}>
+				{primaryLabel} <b>{secondaryLabel}</b>
+			</label>
+		</>
+	);
+};
+
+/*******************
  * ButtonGroup
  *******************/
 
 interface ButtonGroupProps {
+	isLockedByOwner: boolean;
 	isDisabled: boolean;
 }
 
-const ButtonGroup = ({ isDisabled }: ButtonGroupProps) => {
+const ButtonGroup = ({ isLockedByOwner, isDisabled }: ButtonGroupProps) => {
 	return (
 		<div className={styles.Buttons}>
-			{isDisabled && (
+			{isDisabled && isLockedByOwner && (
 				<>
 					<IconLock1 className={styles.LockedIcon} />
 					<Button>Unlock Metadata</Button>
+				</>
+			)}
+			{isDisabled && !isLockedByOwner && (
+				<>
+					<IconLock1 className={styles.LockedIcon} />
+					<Button isDisabled>Metadata Locked</Button>
 				</>
 			)}
 			{!isDisabled && (

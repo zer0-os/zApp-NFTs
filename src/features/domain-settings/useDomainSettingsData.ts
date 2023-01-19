@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
 
 import { getDomainId } from '../../lib/util';
-import { useDomainData, useDomainMetadata } from '../../lib/hooks';
+import { useWeb3, useDomainData, useDomainMetadata } from '../../lib/hooks';
 
 import { isEqual } from 'lodash';
 
@@ -76,6 +76,7 @@ export type DomainSettingsError = {
 };
 
 export const useDomainSettingsData = (zna: string) => {
+	const { account } = useWeb3();
 	const domainId = getDomainId(zna);
 
 	const { data: domain, isLoading: isLoadingDomain } = useDomainData(domainId);
@@ -86,6 +87,9 @@ export const useDomainSettingsData = (zna: string) => {
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 	const imageSrc =
 		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
+
+	const domainLockedBy = domain?.lockedBy ?? '';
+	const isLockedByOwner = domainLockedBy === account;
 
 	const initialSettings = useMemo(() => {
 		// Domain
@@ -231,5 +235,7 @@ export const useDomainSettingsData = (zna: string) => {
 		},
 		imageAlt,
 		imageSrc,
+		domainLockedBy,
+		isLockedByOwner,
 	};
 };
