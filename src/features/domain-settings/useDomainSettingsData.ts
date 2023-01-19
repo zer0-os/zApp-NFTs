@@ -89,7 +89,8 @@ export const useDomainSettingsData = (zna: string) => {
 		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
 
 	const domainLockedBy = domain?.lockedBy ?? '';
-	const isLockedByOwner = domainLockedBy === account;
+	const isLockedByOwner =
+		domainLockedBy?.toLowerCase() === account?.toLowerCase();
 
 	const initialSettings = useMemo(() => {
 		// Domain
@@ -233,6 +234,7 @@ export const useDomainSettingsData = (zna: string) => {
 		formattedData: {
 			isChanged,
 		},
+		domainId,
 		imageAlt,
 		imageSrc,
 		domainLockedBy,

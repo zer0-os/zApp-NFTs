@@ -17,14 +17,24 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 	zna,
 	onClose,
 }) => {
-	const { step, stepId, error, statusText, onChangeStep } =
-		useDomainSettingsForm(zna);
+	const {
+		step,
+		stepId,
+		error,
+		statusText,
+		onBack,
+		onChangeStep,
+		onLockMetadata,
+	} = useDomainSettingsForm(zna);
 
 	const { content } = useFormSteps({
 		zna,
 		step,
 		error,
 		statusText,
+		onBack,
+		onChangeStep,
+		onLockMetadata,
 		onClose,
 	});
 

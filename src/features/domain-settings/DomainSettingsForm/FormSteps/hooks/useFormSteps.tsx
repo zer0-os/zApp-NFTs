@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Details } from '..';
+import { Details, Confirm } from '..';
 import { Wizard } from '@zero-tech/zui/components';
 
 export enum Step {
@@ -19,6 +19,9 @@ export interface useFormStepsProps {
 	step: Step;
 	error: string;
 	statusText: string;
+	onBack: () => void;
+	onChangeStep: () => void;
+	onLockMetadata: () => void;
 	onClose: () => void;
 }
 
@@ -27,17 +30,27 @@ export const useFormSteps = ({
 	step,
 	error,
 	statusText,
+	onBack,
+	onChangeStep,
+	onLockMetadata,
 	onClose,
 }: useFormStepsProps): UseFormStepsReturn => {
 	let content: ReactNode;
 
 	switch (step) {
 		case Step.DETAILS:
-			content = <Details zna={zna} errorText={error} />;
+			content = <Details zna={zna} errorText={error} onNext={onChangeStep} />;
 			break;
 
 		case Step.CONFIRM:
-			content = <>Confirm</>;
+			content = (
+				<Confirm
+					zna={zna}
+					errorText={error}
+					onBack={onBack}
+					onConfirm={onLockMetadata}
+				/>
+			);
 			break;
 
 		case Step.COMPLETE:

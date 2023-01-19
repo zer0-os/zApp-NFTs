@@ -17,9 +17,10 @@ import styles from '../FormSteps.module.scss';
 export interface DetailsProps {
 	zna: string;
 	errorText: string;
+	onNext: () => void;
 }
 
-export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
+export const Details: FC<DetailsProps> = ({ zna, errorText, onNext }) => {
 	const {
 		localState,
 		localActions,
@@ -142,6 +143,7 @@ export const Details: FC<DetailsProps> = ({ zna, errorText }) => {
 				<ButtonGroup
 					isDisabled={localState.isMetadataLocked}
 					isLockedByOwner={isLockedByOwner}
+					onNext={onNext}
 				/>
 			</div>
 		</>
@@ -287,15 +289,20 @@ const FooterLabel = ({
 interface ButtonGroupProps {
 	isLockedByOwner: boolean;
 	isDisabled: boolean;
+	onNext?: () => void;
 }
 
-const ButtonGroup = ({ isLockedByOwner, isDisabled }: ButtonGroupProps) => {
+const ButtonGroup = ({
+	isLockedByOwner,
+	isDisabled,
+	onNext,
+}: ButtonGroupProps) => {
 	return (
 		<div className={styles.Buttons}>
 			{isDisabled && isLockedByOwner && (
 				<>
 					<IconLock1 className={styles.LockedIcon} />
-					<Button>Unlock Metadata</Button>
+					<Button onPress={onNext}>Unlock Metadata</Button>
 				</>
 			)}
 			{isDisabled && !isLockedByOwner && (
@@ -307,7 +314,8 @@ const ButtonGroup = ({ isLockedByOwner, isDisabled }: ButtonGroupProps) => {
 			{!isDisabled && (
 				<>
 					<IconLockUnlocked1 className={styles.UnlockedIcon} />
-					<Button>Save Changes</Button> <Button>Save and Lock</Button>
+					<Button>Save Changes</Button>
+					<Button onPress={onNext}>Save and Lock</Button>
 				</>
 			)}
 			<InfoTooltip
