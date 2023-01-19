@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 
 import { useActionsData } from './useActionsData';
 import { formatEthers } from '../../../lib/util/number';
-import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
 import { BuyNowButton } from '../../buy-now';
 import { SetBuyNowButton } from '../../set-buy-now';

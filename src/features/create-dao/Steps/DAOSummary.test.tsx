@@ -4,46 +4,55 @@ import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 
 import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
-import { TokenSummary, TokenSummaryProps } from './';
-import { CreateTokenFormContext } from '../CreateTokenFormContext';
+import { DAOSummary, DAOSummaryProps } from './';
+import { CreateDAOFormContext } from '../CreateDAOFormContext';
 
 let onSubmit = jest.fn();
 
-const DEFAULT_PROPS: TokenSummaryProps = {
+const DEFAULT_PROPS: DAOSummaryProps = {
 	onClose: jest.fn(),
 };
 
 const DEFAULT_PROVIDER_VALUES = {
 	stepId: 'launch',
-	title: 'Create Token',
+	title: 'Create DAO',
 	details: {
 		mediaType: undefined,
 		previewUrl: '',
 		name: '',
-		symbol: '',
+		znaAddress: '',
+		description: '',
 	},
-	tokenomics: {
-		tokenCount: '',
-		initialTokenSupplyWalletAddress: '',
-		adminWalletAddress: '',
+	governance: {
+		votingProcess: '',
+		votingPeriod: '',
+		votingSystem: '',
+		daoTokenAddress: '',
+		votingThreshold: '',
+	},
+	treasury: {
+		gnosisSafe: '',
 	},
 	onStepUpdate: jest.fn(),
 	onTitleUpdate: jest.fn(),
-	onDetailsChange: jest.fn(),
 	onDetailsSubmit: jest.fn(),
-	onTokenomicsSubmit: jest.fn(),
+	onDetailsChange: jest.fn(),
+	onGovernanceSubmit: jest.fn(),
+	onTreasurySubmit: jest.fn(),
 	onLaunchSubmit: onSubmit,
 };
 
-describe('<TokenSummary />', () => {
+
+
+describe('<DAOSummary />', () => {
 	beforeEach(() => jest.resetAllMocks());
 
 	test('should fire onSubmit on click of confirm button', async () => {
 		render(
 			<ZUIProvider>
-				<CreateTokenFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
-					<TokenSummary {...DEFAULT_PROPS} />
-				</CreateTokenFormContext.Provider>
+				<CreateDAOFormContext.Provider value={DEFAULT_PROVIDER_VALUES}>
+					<DAOSummary {...DEFAULT_PROPS} />
+				</CreateDAOFormContext.Provider>
 			</ZUIProvider>,
 		);
 

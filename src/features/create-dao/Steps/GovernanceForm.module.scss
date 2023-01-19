@@ -1,3 +1,22 @@
+.Row {
+	display: flex;
+	gap: 2rem;
+}
+
+.Column {
+	display: flex;
+	flex-direction: column;
+}
+
+.VotingProcess 
+.VotingPeriod{
+	width: 50%;
+}
+
+.VotingSystem {
+	margin-bottom: 2rem;
+}
+
 .Footer {
 	margin-top: 5rem;
 }

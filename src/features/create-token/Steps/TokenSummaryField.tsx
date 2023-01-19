@@ -1,7 +1,5 @@
-//- React Imports
 import { FC } from 'react';
 
-//- Style Imports
 import styles from './TokenSummaryField.module.scss';
 import classNames from 'classnames';
 
