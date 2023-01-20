@@ -37,18 +37,21 @@ export const useDomainSettingsForm = (
 
 	const onChangeStep = () => {
 		setStep(Step.CONFIRM);
+		setStepId(steps[1].id);
 	};
 
 	const onBack = () => {
 		setStep(Step.DETAILS);
 	};
 
+	// we can pass true/false in here (something like isLocking) and add a ternary for the status text either locking or unlocking
+
 	const onLockMetadata = () => {
 		setError(undefined);
-		console.log('YOLO');
+
 		return executeTransaction(
 			sdk.lockDomainMetadata,
-			[domainId, true, provider.getSigner()],
+			[domainId, false, provider.getSigner()],
 			{
 				onStart: () => {
 					setStep(Step.LOADING);
@@ -58,10 +61,9 @@ export const useDomainSettingsForm = (
 					setStatusText(
 						'Saving & locking metadata... \nThis may take up to 20 mins. Do not close this window or refresh your browser...',
 					),
-				onSuccess: () => setStep(Step.COMPLETE),
-				onError: (error: any) => {
-					setError(error.message);
-					setStep(Step.DETAILS);
+				onSuccess: () => {
+					setStep(Step.COMPLETE);
+					setStepId(steps[2].id);
 				},
 
 				invalidationKeys: [['user', { account, domainId }]],
