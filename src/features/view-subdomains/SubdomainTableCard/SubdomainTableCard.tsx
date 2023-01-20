@@ -17,7 +17,6 @@ import { GridCard } from '@zero-tech/zui/components/GridCard';
 import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
 
 import styles from './SubdomainTableCard.module.scss';
-import { formatEthers, formatNumber } from '../../../lib/util';
 
 type SubdomainTableCardProps = {
 	zna: string;
