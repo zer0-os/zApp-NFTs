@@ -1,38 +1,32 @@
-//- React Imports
-import { FC } from 'react';
+import { FC, useContext, useState } from 'react';
+
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 
-//- Style Imports
-import styles from './DetailsForm.module.scss';
-import classNames from 'classnames/bind';
-
-//- Component Imports
-import { MediaInput, MediaType } from '@zero-tech/zui/components/MediaInput';
-
 import { Wizard } from '@zero-tech/zui/components';
+import { MediaInput, MediaType } from '@zero-tech/zui/components/MediaInput';
 import { WrappedInput } from '../../ui/WrappedInput/WrappedInput';
 
-//- Type Imports
-import { DetailsFormSubmit } from '../CreateToken.types';
+import { CreateTokenFormContext } from '..';
+
+import styles from './DetailsForm.module.scss';
+import classNames from 'classnames';
 
 const validationSchema = Yup.object().shape({
-	name: Yup.string().required('This field is required'),
-	symbol: Yup.string().required('This field is required'),
+	name: Yup.string().required('The name field is required.'),
+	symbol: Yup.string().required('The symbol field is required.'),
 });
 
 export interface DetailsFormProps {
-	values: DetailsFormSubmit;
-	onSubmit: (values: DetailsFormSubmit) => void;
 	onClose: () => void;
 }
 
-export const DetailsForm: FC<DetailsFormProps> = ({
-	values,
-	onSubmit,
-	onClose,
-}) => {
-	const handleMediaInputChange = (
+export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
+	const { details, onDetailsSubmit } = useContext(CreateTokenFormContext);
+
+	const [avatarHasError, setAvatarHasError] = useState(false);
+
+	const onAvatarChange = (
 		mediaType: MediaType,
 		previewUrl: string,
 		image: Buffer,
@@ -42,15 +36,20 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 			shouldValidate?: boolean,
 		) => void,
 	): void => {
-		setFieldValue('mediaType', mediaType);
-		setFieldValue('previewUrl', previewUrl);
-		setFieldValue('avatar', image);
+		setAvatarHasError(false);
+		try {
+			setFieldValue('mediaType', mediaType);
+			setFieldValue('previewUrl', previewUrl);
+			setFieldValue('avatar', image);
+		} catch(_) {
+			setAvatarHasError(true);
+		}
 	};
 
 	return (
 		<Formik
-			initialValues={values}
-			onSubmit={onSubmit}
+			initialValues={details}
+			onSubmit={(values) => onDetailsSubmit(values)}
 			validationSchema={validationSchema}
 		>
 			{({ values, errors, touched, setFieldValue, submitForm }) => (
@@ -63,13 +62,13 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 								subtitle="(Optional)"
 								mediaType={values.mediaType}
 								previewUrl={values.previewUrl}
-								hasError={false}
+								hasError={avatarHasError}
 								onChange={(
 									mediaType: MediaType,
 									previewImage: string,
 									image: Buffer,
 								) =>
-									handleMediaInputChange(
+									onAvatarChange(
 										mediaType,
 										previewImage,
 										image,
