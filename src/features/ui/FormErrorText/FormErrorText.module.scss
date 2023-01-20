@@ -1,0 +1,10 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Error {
+	color: $red-300;
+	font-size: $size-default;
+	font-weight: $font-weight-bold;
+	line-height: 1.5rem;
+	margin-top: 2.5rem;
+}
