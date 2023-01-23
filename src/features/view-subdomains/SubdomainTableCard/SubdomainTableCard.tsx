@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 
 import { useSubdomainTableItem } from '../useSubdomainTableItem';
 import { formatEthers } from '../../../lib/util';
+
 import {
 	getCloudinaryUrlFromIpfs,
 	getCloudinaryVideoPoster,

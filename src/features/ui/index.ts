@@ -9,3 +9,4 @@ export * from './IconButton';
 export * from './OptionLabel';
 export * from './StatsList';
 export * from './TableCard';
+export * from './ToggleButton';

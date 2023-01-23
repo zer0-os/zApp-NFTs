@@ -14,4 +14,5 @@ export * from './useViewNavigation';
 export * from './useWeb3';
 export * from './useZAuctionCheckByBid';
 export * from './useZAuctionCheckByPaymentToken';
+export * from './useZAuctionCheckTransferNftsByDomain';
 export * from './useZnsSdk';
