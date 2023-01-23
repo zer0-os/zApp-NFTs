@@ -1,13 +1,15 @@
 import { FC, useCallback } from 'react';
 import { useQuery } from 'react-query';
 
+import { useSubdomainTableItem } from '../useSubdomainTableItem';
 import { formatEthers } from '../../../lib/util';
+
 import {
 	getCloudinaryUrlFromIpfs,
 	getCloudinaryVideoPoster,
 } from '@zero-tech/zapp-utils/utils/cloudinary';
 import { getHashFromIpfsUrl } from '@zero-tech/zapp-utils/utils/ipfs';
-import { useSubdomainTableItem } from '../useSubdomainTableItem';
+import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
@@ -35,6 +37,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		isLoadingMetadata,
 		paymentTokenLabel,
 		paymentTokenSymbol,
+		isOwnedByUser,
 	} = useSubdomainTableItem({
 		zna,
 	});
@@ -66,7 +69,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		: 'Top Bid' + ' ' + paymentTokenLabel;
 
 	const button = buyNowPrice ? (
-		<BuyNowButton />
+		<BuyNowButton zna={zna} trigger={'Buy'} />
 	) : (
 		<PlaceBidButton zna={zna} trigger={'Bid'} />
 	);
@@ -101,7 +104,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 					isLoading: isLoadingMetrics,
 				}}
 				secondaryText={''}
-				button={button}
+				button={!isOwnedByUser && button}
 			/>
 		</GridCard>
 	);

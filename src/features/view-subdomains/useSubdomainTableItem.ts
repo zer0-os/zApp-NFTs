@@ -1,4 +1,4 @@
-import { useBuyNowListing } from '../../lib/hooks';
+import { useBuyNowListing, useDomainData, useWeb3 } from '../../lib/hooks';
 import {
 	usePaymentToken,
 	useDomainMetrics,
@@ -11,9 +11,11 @@ interface UseSubdomainTableItem {
 }
 
 export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
+	const { account } = useWeb3();
 	const parentZna = getParentZna(zna);
 	const domainId = getDomainId(zna);
 
+	const { data: domain } = useDomainData(domainId);
 	const { data: metrics, isLoading: isLoadingMetrics } =
 		useDomainMetrics(domainId);
 	const { data: buyNowPrice, isLoading: isLoadingBuyNowPrice } =
@@ -25,6 +27,7 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 	const image = metadata?.previewImage ?? metadata?.image;
 	const alt = (metadata?.name ?? zna) + ' preview image';
 	const isLoading = isLoadingMetrics || isLoadingBuyNowPrice;
+	const isOwnedByUser = domain?.owner?.toLowerCase() === account?.toLowerCase();
 
 	const volume = metrics?.volume?.all ? formatEthers(metrics.volume.all) : '-';
 
@@ -44,5 +47,6 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 		metadata,
 		paymentTokenLabel: paymentToken?.label ?? '',
 		paymentTokenSymbol: paymentToken?.symbol ?? '',
+		isOwnedByUser,
 	};
 };

@@ -1,23 +1,31 @@
 import { FC, useCallback, ReactNode, useState } from 'react';
 
 import { OptionLabel } from '../OptionLabel';
-import { DomainSettingsModal } from '../../domain-settings';
+import { SetBuyNowModal } from '../../set-buy-now';
 import { CreateTokenModal } from '../../create-token';
+import { DomainSettingsModal } from '../../domain-settings';
 import { TransferOwnershipModal } from '../../transfer-ownership';
 import { DropdownMenu } from '@zero-tech/zui/components';
+
 import {
+	IconTag1,
 	IconSend3,
 	IconCube1,
 	IconDatabase2,
 } from '@zero-tech/zui/components/Icons';
 
 export const enum OptionType {
-	TRANSFER = 'transfer',
-	DOMAIN_SETTINGS = 'domain-settings',
 	CREATE_TOKEN = 'create-token',
+	DOMAIN_SETTINGS = 'domain-settings',
+	SET_BUY_NOW = 'set-buy-now',
+	TRANSFER = 'transfer',
 }
 
-export type Option = 'transfer' | 'domain-settings' | 'create-token';
+export type Option =
+	| 'create-token'
+	| 'domain-settings'
+	| 'set-buy-now'
+	| 'transfer';
 
 type MoreNFTOptionsProps = {
 	zna: string;
@@ -25,16 +33,20 @@ type MoreNFTOptionsProps = {
 };
 
 // TODO: add option label to zUI
-const transferOptionLabel = (
-	<OptionLabel icon={<IconSend3 isFilled />} label="Transfer Ownership" />
+const createTokenOptionLabel = (
+	<OptionLabel icon={<IconDatabase2 isFilled />} label="Create Token" />
 );
 
 const domainSettingsOptionLabel = (
 	<OptionLabel icon={<IconCube1 isFilled />} label="My Domain Settings" />
 );
 
-const createTokenOptionLabel = (
-	<OptionLabel icon={<IconDatabase2 isFilled />} label="Create Token" />
+const setBuyNowOptionLabel = (
+	<OptionLabel icon={<IconTag1 isFilled />} label="Set Buy Now" />
+);
+
+const transferOptionLabel = (
+	<OptionLabel icon={<IconSend3 isFilled />} label="Transfer Ownership" />
 );
 
 /**
@@ -45,9 +57,9 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 
 	const moreOptions = [
 		{
-			className: 'transfer',
-			id: OptionType.TRANSFER,
-			label: transferOptionLabel,
+			className: 'create-token',
+			id: OptionType.CREATE_TOKEN,
+			label: createTokenOptionLabel,
 			onSelect: (e: any) => onSelectOption(e),
 		},
 		{
@@ -57,9 +69,15 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 			onSelect: (e: any) => onSelectOption(e),
 		},
 		{
-			className: 'create-token',
-			id: OptionType.CREATE_TOKEN,
-			label: createTokenOptionLabel,
+			className: 'set-buy-now',
+			id: OptionType.SET_BUY_NOW,
+			label: setBuyNowOptionLabel,
+			onSelect: (e: any) => onSelectOption(e),
+		},
+		{
+			className: 'transfer',
+			id: OptionType.TRANSFER,
+			label: transferOptionLabel,
 			onSelect: (e: any) => onSelectOption(e),
 		},
 	];
@@ -86,9 +104,9 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 	/* Returns drop down menu including modals for each option - add additional modals here  */
 	return (
 		<>
-			<TransferOwnershipModal
+			<CreateTokenModal
 				zna={zna}
-				open={option === OptionType.TRANSFER}
+				open={option === OptionType.CREATE_TOKEN}
 				onOpenChange={onChange}
 				onClose={onClose}
 			/>
@@ -100,9 +118,15 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 				onClose={onClose}
 			/>
 
-			<CreateTokenModal
+			<SetBuyNowModal
 				zna={zna}
-				open={option === OptionType.CREATE_TOKEN}
+				open={option === OptionType.SET_BUY_NOW}
+				onOpenChange={onChange}
+			/>
+
+			<TransferOwnershipModal
+				zna={zna}
+				open={option === OptionType.TRANSFER}
 				onOpenChange={onChange}
 				onClose={onClose}
 			/>

@@ -36,6 +36,7 @@ export const useActionsData = (zna: string) => {
 
 	const buyNowPrice = buyNowListingData?.price;
 	const paymentTokenLabel = paymentToken?.label ?? '';
+	const paymentTokenSymbol = paymentToken?.symbol ?? '';
 
 	const isOwnedByUser = domain?.owner?.toLowerCase() === account?.toLowerCase();
 	const isDomainBiddable = !isOwnedByUser || Boolean(metadata?.isBiddable);
@@ -56,6 +57,7 @@ export const useActionsData = (zna: string) => {
 		highestUserBid,
 		buyNowPrice,
 		paymentTokenLabel,
+		paymentTokenSymbol,
 		isDomainBiddable,
 		isOwnedByUser,
 		isSetBuyNow,

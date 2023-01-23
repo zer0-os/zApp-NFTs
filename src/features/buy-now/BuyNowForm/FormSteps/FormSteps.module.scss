@@ -1,0 +1,13 @@
+@import '../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+
+	.Button {
+		margin-top: 2.5rem;
+	}
+}
