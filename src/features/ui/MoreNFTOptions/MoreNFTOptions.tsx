@@ -132,6 +132,7 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 				zna={zna}
 				open={option === OptionType.SET_BUY_NOW}
 				onOpenChange={onChange}
+				onClose={onClose}
 			/>
 
 			<TransferOwnershipModal

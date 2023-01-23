@@ -17,7 +17,7 @@ interface UseFormStepsReturn {
 export interface useFormStepsProps {
 	zna: string;
 	step: Step;
-	error: string;
+	errorText: string;
 	statusText: string;
 	onBack: () => void;
 	onChangeStep: () => void;
@@ -28,7 +28,7 @@ export interface useFormStepsProps {
 export const useFormSteps = ({
 	zna,
 	step,
-	error,
+	errorText,
 	statusText,
 	onBack,
 	onChangeStep,
@@ -43,7 +43,7 @@ export const useFormSteps = ({
 				<Details
 					zna={zna}
 					step={step}
-					errorText={error}
+					errorText={errorText}
 					onNext={onChangeStep}
 				/>
 			);
@@ -60,7 +60,7 @@ export const useFormSteps = ({
 				<Details
 					zna={zna}
 					step={step}
-					errorText={error}
+					errorText={errorText}
 					onNext={onChangeStep}
 					onClose={onClose}
 				/>

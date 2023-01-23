@@ -1,5 +1,10 @@
 .Container {
 	display: flex;
 	flex-direction: column;
-	gap: 2.625rem;
+
+	.Close {
+		display: flex;
+		justify-content: flex-end;
+		cursor: pointer;
+	}
 }

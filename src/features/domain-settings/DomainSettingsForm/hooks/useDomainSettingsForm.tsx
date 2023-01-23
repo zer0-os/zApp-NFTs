@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 import { Step } from '../FormSteps/hooks';
 import { steps } from '../DomainSettingsForm.types';
@@ -8,8 +8,7 @@ import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 export type UseDomainSettingsFormReturn = {
 	step: Step;
-	stepId: string;
-	error: string;
+	errorText: string;
 	statusText: string;
 	onBack: () => void;
 	onChangeStep: () => void;
@@ -26,16 +25,14 @@ export const useDomainSettingsForm = (
 
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const { domainId, localState, localActions } = useDomainSettingsData(zna);
+	const { domainId, localState } = useDomainSettingsData(zna);
 
 	const [step, setStep] = useState<Step>(Step.DETAILS);
-	const [stepId, setStepId] = useState<string>(steps[0].id);
-	const [error, setError] = useState<string>();
+	const [errorText, setErrorText] = useState<string>();
 	const [statusText, setStatusText] = useState<string>();
 
 	const onChangeStep = () => {
 		setStep(Step.CONFIRM);
-		setStepId(steps[1].id);
 	};
 
 	const onBack = () => {
@@ -45,7 +42,7 @@ export const useDomainSettingsForm = (
 	const onLockMetadataStatus = () => {
 		const lockStatus = localState.isMetadataLocked;
 
-		setError(undefined);
+		setErrorText(undefined);
 
 		return executeTransaction(
 			sdk.lockDomainMetadata,
@@ -63,10 +60,9 @@ export const useDomainSettingsForm = (
 					),
 				onSuccess: () => {
 					setStep(Step.COMPLETE);
-					setStepId(steps[2].id);
 				},
 				onError: (error: any) => {
-					setError(error.message);
+					setErrorText(error.message);
 					setStep(Step.DETAILS);
 				},
 
@@ -77,8 +73,7 @@ export const useDomainSettingsForm = (
 
 	return {
 		step,
-		stepId,
-		error,
+		errorText,
 		statusText,
 		onBack,
 		onChangeStep,

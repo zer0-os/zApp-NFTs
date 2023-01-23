@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { useDomainSettingsForm } from './hooks';
 import { useFormSteps } from './FormSteps/hooks';
 
-import { FormHeader } from './ui';
 import { Wizard } from '@zero-tech/zui/components';
+import { IconXClose } from '@zero-tech/zui/components/Icons';
 
 import styles from './DomainSettingsForm.module.scss';
 
@@ -19,8 +19,7 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 }) => {
 	const {
 		step,
-		stepId,
-		error,
+		errorText,
 		statusText,
 		onBack,
 		onChangeStep,
@@ -30,7 +29,7 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 	const { content } = useFormSteps({
 		zna,
 		step,
-		error,
+		errorText,
 		statusText,
 		onBack,
 		onChangeStep,
@@ -40,14 +39,15 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 
 	return (
 		<div className={styles.Container}>
-			<FormHeader
-				zna={zna}
-				stepId={stepId}
-				onChangeStep={onChangeStep}
-				onClose={onClose}
-			/>
+			<div className={styles.Close} onClick={onClose}>
+				<IconXClose size={24} />
+			</div>
 
-			<Wizard.Container>
+			<Wizard.Container
+				header={'My Domain Settings'}
+				subHeader={zna}
+				sectionDivider={false}
+			>
 				<form>{content}</form>
 			</Wizard.Container>
 		</div>

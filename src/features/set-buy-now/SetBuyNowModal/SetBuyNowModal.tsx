@@ -11,17 +11,20 @@ import styles from './SetBuyNowModal.module.scss';
 
 export interface SetBuyNowModalProps extends BasicModalProps {
 	zna: string;
+	onClose?: () => void;
 }
 
 export const SetBuyNowModal: FC<SetBuyNowModalProps> = ({
 	zna,
+	onClose,
 	...modalProps
 }) => {
 	const { account } = useWeb3();
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-	const onClose = () => {
+	const handleClose = () => {
+		onClose && onClose();
 		setIsModalOpen(false);
 	};
 
@@ -32,7 +35,7 @@ export const SetBuyNowModal: FC<SetBuyNowModalProps> = ({
 			onOpenChange={(isOpen: boolean) => setIsModalOpen(isOpen)}
 			{...modalProps}
 		>
-			<ModalContent account={account} zna={zna} onClose={onClose} />
+			<ModalContent account={account} zna={zna} onClose={handleClose} />
 		</Modal>
 	);
 };

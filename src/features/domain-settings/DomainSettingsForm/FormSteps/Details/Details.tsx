@@ -6,7 +6,7 @@ import {
 } from '../../../useDomainSettingsData';
 
 import { Step } from '../hooks';
-import { Switch } from '../../ui';
+import { Switch } from '../../../../ui';
 import { truncateAddress } from '@zero-tech/zui/utils';
 import { Button, Input } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';

@@ -5,7 +5,7 @@ import { formatNumber } from '../../../../../lib/util';
 import { useSetBuyNowData } from '../../../useSetBuyNowData';
 
 import { NFTDetails } from '../ui';
-import { ToggleButton } from '../../../../ui';
+import { Switch } from '../../../../ui';
 import { Input } from '@zero-tech/zui/components/Input';
 import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
 
@@ -64,10 +64,10 @@ export const Details: FC<DetailsProps> = ({
 			<div className={styles.Container}>
 				{step === Step.DETAILS && (
 					<div className={styles.InputWrapper}>
-						<ToggleButton
+						<Switch
 							label={'Enable Buy Now price?'}
 							toggled={toggledValue}
-							onClick={() => {
+							onPress={() => {
 								setToggledValue(!toggledValue);
 								setBuyNowAmount('');
 							}}
