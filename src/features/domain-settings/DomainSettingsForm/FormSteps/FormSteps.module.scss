@@ -140,6 +140,16 @@
 	&[data-variant='warning'] {
 		color: $red-100;
 	}
+
+	&[data-variant='error'] {
+		color: $red-300;
+		font-weight: $font-weight-bold;
+	}
+
+	&[data-variant='success'] {
+		color: $success-green;
+		font-weight: $font-weight-bold;
+	}
 }
 
 .Buttons {

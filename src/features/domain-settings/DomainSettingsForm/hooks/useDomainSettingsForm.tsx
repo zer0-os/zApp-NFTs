@@ -1,12 +1,10 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import { Step } from '../FormSteps/hooks';
 import { steps } from '../DomainSettingsForm.types';
 import { useWeb3, useZnsSdk } from '../../../../lib/hooks';
 import { useDomainSettingsData } from '../../useDomainSettingsData';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
-
-import { Step as StepType } from '@zero-tech/zui/components';
 
 export type UseDomainSettingsFormReturn = {
 	step: Step;
@@ -15,7 +13,7 @@ export type UseDomainSettingsFormReturn = {
 	statusText: string;
 	onBack: () => void;
 	onChangeStep: () => void;
-	onLockMetadata: () => void;
+	onLockMetadataStatus: () => void;
 };
 
 /**
@@ -28,7 +26,7 @@ export const useDomainSettingsForm = (
 
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const { domainId } = useDomainSettingsData(zna);
+	const { domainId, localState, localActions } = useDomainSettingsData(zna);
 
 	const [step, setStep] = useState<Step>(Step.DETAILS);
 	const [stepId, setStepId] = useState<string>(steps[0].id);
@@ -44,14 +42,14 @@ export const useDomainSettingsForm = (
 		setStep(Step.DETAILS);
 	};
 
-	// we can pass true/false in here (something like isLocking) and add a ternary for the status text either locking or unlocking
+	const onLockMetadataStatus = () => {
+		const lockStatus = localState.isMetadataLocked;
 
-	const onLockMetadata = () => {
 		setError(undefined);
 
 		return executeTransaction(
 			sdk.lockDomainMetadata,
-			[domainId, false, provider.getSigner()],
+			[domainId, !lockStatus, provider.getSigner()],
 			{
 				onStart: () => {
 					setStep(Step.LOADING);
@@ -59,14 +57,20 @@ export const useDomainSettingsForm = (
 				},
 				onProcessing: () =>
 					setStatusText(
-						'Saving & locking metadata... \nThis may take up to 20 mins. Do not close this window or refresh your browser...',
+						lockStatus
+							? 'Unlocking metadata... This may take up to 20 mins. Do not close this window or refresh your browser...'
+							: 'Saving & locking metadata... \nThis may take up to 20 mins. Do not close this window or refresh your browser...',
 					),
 				onSuccess: () => {
 					setStep(Step.COMPLETE);
 					setStepId(steps[2].id);
 				},
+				onError: (error: any) => {
+					setError(error.message);
+					setStep(Step.DETAILS);
+				},
 
-				invalidationKeys: [['user', { account, domainId }]],
+				invalidationKeys: [['user', { account, domainId, lockStatus }]],
 			},
 		);
 	};
@@ -78,6 +82,6 @@ export const useDomainSettingsForm = (
 		statusText,
 		onBack,
 		onChangeStep,
-		onLockMetadata,
+		onLockMetadataStatus,
 	};
 };

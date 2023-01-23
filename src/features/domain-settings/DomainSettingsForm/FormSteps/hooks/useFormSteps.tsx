@@ -21,7 +21,7 @@ export interface useFormStepsProps {
 	statusText: string;
 	onBack: () => void;
 	onChangeStep: () => void;
-	onLockMetadata: () => void;
+	onLockMetadataStatus: () => void;
 	onClose: () => void;
 }
 
@@ -32,29 +32,39 @@ export const useFormSteps = ({
 	statusText,
 	onBack,
 	onChangeStep,
-	onLockMetadata,
+	onLockMetadataStatus,
 	onClose,
 }: useFormStepsProps): UseFormStepsReturn => {
 	let content: ReactNode;
 
 	switch (step) {
 		case Step.DETAILS:
-			content = <Details zna={zna} errorText={error} onNext={onChangeStep} />;
-			break;
-
-		case Step.CONFIRM:
 			content = (
-				<Confirm
+				<Details
 					zna={zna}
+					step={step}
 					errorText={error}
-					onBack={onBack}
-					onConfirm={onLockMetadata}
+					onNext={onChangeStep}
 				/>
 			);
 			break;
 
+		case Step.CONFIRM:
+			content = (
+				<Confirm zna={zna} onBack={onBack} onConfirm={onLockMetadataStatus} />
+			);
+			break;
+
 		case Step.COMPLETE:
-			content = <>Complete</>;
+			content = (
+				<Details
+					zna={zna}
+					step={step}
+					errorText={error}
+					onNext={onChangeStep}
+					onClose={onClose}
+				/>
+			);
 			break;
 
 		case Step.LOADING:

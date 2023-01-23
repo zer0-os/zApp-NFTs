@@ -24,7 +24,7 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 		statusText,
 		onBack,
 		onChangeStep,
-		onLockMetadata,
+		onLockMetadataStatus,
 	} = useDomainSettingsForm(zna);
 
 	const { content } = useFormSteps({
@@ -34,7 +34,7 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 		statusText,
 		onBack,
 		onChangeStep,
-		onLockMetadata,
+		onLockMetadataStatus,
 		onClose,
 	});
 

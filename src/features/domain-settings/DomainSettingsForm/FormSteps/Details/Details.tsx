@@ -1,10 +1,11 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import {
 	ERROR_KEYS,
 	useDomainSettingsData,
 } from '../../../useDomainSettingsData';
 
+import { Step } from '../hooks';
 import { Switch } from '../../ui';
 import { truncateAddress } from '@zero-tech/zui/utils';
 import { Button, Input } from '@zero-tech/zui/components';
@@ -16,11 +17,19 @@ import styles from '../FormSteps.module.scss';
 
 export interface DetailsProps {
 	zna: string;
+	step: Step;
 	errorText: string;
 	onNext: () => void;
+	onClose?: () => void;
 }
 
-export const Details: FC<DetailsProps> = ({ zna, errorText, onNext }) => {
+export const Details: FC<DetailsProps> = ({
+	zna,
+	step,
+	errorText,
+	onNext,
+	onClose,
+}) => {
 	const {
 		localState,
 		localActions,
@@ -135,15 +144,18 @@ export const Details: FC<DetailsProps> = ({ zna, errorText, onNext }) => {
 			<div>
 				{localState.isMetadataLocked && (
 					<FooterLabel
-						variant={'warning'}
+						step={step}
+						errorText={errorText}
 						domainLockedBy={domainLockedBy}
 						isLockedByOwner={isLockedByOwner}
 					/>
 				)}
 				<ButtonGroup
+					step={step}
 					isDisabled={localState.isMetadataLocked}
 					isLockedByOwner={isLockedByOwner}
 					onNext={onNext}
+					onClose={onClose}
 				/>
 			</div>
 		</>
@@ -251,28 +263,42 @@ const TextArea = ({
 };
 
 /*******************
- * TextMessage
+ * FooterLabelProps
  *******************/
 
 interface FooterLabelProps {
-	variant?: 'error' | 'success' | 'warning';
+	step: Step;
+	errorText: string;
 	domainLockedBy: string;
 	isLockedByOwner: boolean;
 }
 
 const FooterLabel = ({
-	variant,
+	step,
+	errorText,
 	domainLockedBy,
 	isLockedByOwner,
 }: FooterLabelProps) => {
-	const label = isLockedByOwner ? (
-		<b>Please unlock to make changes</b>
-	) : (
-		<>
-			You cannot unlock the metadata to make changes
-			<b>It was locked by {truncateAddress(domainLockedBy)}</b>
-		</>
-	);
+	let label: ReactNode;
+	let variant: 'error' | 'success' | 'warning';
+
+	if (errorText !== undefined) {
+		label = errorText;
+		variant = 'error';
+	} else if (step === Step.COMPLETE) {
+		label = 'Your changes have been saved and the metadata is locked';
+		variant = 'success';
+	} else {
+		variant = 'warning';
+		label = isLockedByOwner ? (
+			<b>Please unlock to make changes</b>
+		) : (
+			<>
+				You cannot unlock the metadata to make changes
+				<b>It was locked by {truncateAddress(domainLockedBy)}</b>
+			</>
+		);
+	}
 	return (
 		<>
 			<label className={styles.FooterLabel} data-variant={variant}>
@@ -287,22 +313,28 @@ const FooterLabel = ({
  *******************/
 
 interface ButtonGroupProps {
+	step: Step;
 	isLockedByOwner: boolean;
 	isDisabled: boolean;
 	onNext?: () => void;
+	onClose?: () => void;
 }
 
 const ButtonGroup = ({
+	step,
 	isLockedByOwner,
 	isDisabled,
 	onNext,
+	onClose,
 }: ButtonGroupProps) => {
 	return (
 		<div className={styles.Buttons}>
 			{isDisabled && isLockedByOwner && (
 				<>
 					<IconLock1 className={styles.LockedIcon} />
-					<Button onPress={onNext}>Unlock Metadata</Button>
+					<Button onPress={step === Step.DETAILS ? onNext : onClose}>
+						{step === Step.DETAILS ? 'Unlock Metadata' : 'Finish'}
+					</Button>
 				</>
 			)}
 			{isDisabled && !isLockedByOwner && (
@@ -314,7 +346,7 @@ const ButtonGroup = ({
 			{!isDisabled && (
 				<>
 					<IconLockUnlocked1 className={styles.UnlockedIcon} />
-					<Button>Save Changes</Button>
+					<Button onPress={onNext}>Save Changes</Button>
 					<Button onPress={onNext}>Save and Lock</Button>
 				</>
 			)}
