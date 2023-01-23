@@ -19,19 +19,6 @@
 		flex-direction: row;
 		gap: 1.5rem;
 
-		.Media {
-			height: 16.25rem;
-			width: 16.25rem;
-			flex-shrink: 0;
-			border-radius: 0.5rem;
-
-			.Image {
-				height: 100%;
-				width: 100%;
-				border-radius: inherit;
-			}
-		}
-
 		.InputWrapper {
 			display: flex;
 			flex-direction: column;
@@ -44,40 +31,6 @@
 
 				> *:last-child {
 					width: unset;
-				}
-			}
-		}
-	}
-
-	.TextAreaContainer {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-
-		.TextArea {
-			background: none;
-			color: white;
-			border: none;
-			font-size: 0.875rem;
-			line-height: 1.05625rem;
-
-			outline: none;
-			min-height: 2.5rem;
-			padding: 0.25rem 0.5rem;
-
-			border-radius: 0.5rem;
-			border: 1px solid #404040;
-			resize: vertical;
-			cursor: text;
-
-			transition: border-color 0.1s ease;
-
-			&:disabled {
-				background: #1c1c1f;
-				resize: none;
-
-				&:hover {
-					cursor: not-allowed;
 				}
 			}
 		}

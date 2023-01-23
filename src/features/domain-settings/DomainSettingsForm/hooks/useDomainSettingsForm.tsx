@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { Step } from '../FormSteps/hooks';
-import { steps } from '../DomainSettingsForm.types';
 import { useWeb3, useZnsSdk } from '../../../../lib/hooks';
 import { useDomainSettingsData } from '../../useDomainSettingsData';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';

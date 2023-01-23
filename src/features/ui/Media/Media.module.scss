@@ -1,0 +1,12 @@
+.Media {
+	height: 16.25rem;
+	width: 16.25rem;
+	flex-shrink: 0;
+	border-radius: 0.5rem;
+
+	.Image {
+		height: 100%;
+		width: 100%;
+		border-radius: inherit;
+	}
+}

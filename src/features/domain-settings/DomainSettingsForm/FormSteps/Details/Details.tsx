@@ -6,10 +6,9 @@ import {
 } from '../../../useDomainSettingsData';
 
 import { Step } from '../hooks';
-import { Switch } from '../../../../ui';
+import { Media, Switch, TextArea } from '../../../../ui';
 import { truncateAddress } from '@zero-tech/zui/utils';
 import { Button, Input } from '@zero-tech/zui/components';
-import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui/components/Icons';
 
@@ -163,23 +162,6 @@ export const Details: FC<DetailsProps> = ({
 };
 
 /*******************
- * Media
- *******************/
-
-interface MediaProps {
-	alt: string;
-	src: string;
-}
-
-const Media = ({ alt, src }: MediaProps) => {
-	return (
-		<div className={styles.Media}>
-			<IpfsMedia className={styles.Image} alt={alt} src={src} />
-		</div>
-	);
-};
-
-/*******************
  * InputGroup
  *******************/
 
@@ -223,42 +205,6 @@ const InputGroup = ({
 				onChange={() => {}}
 			/>
 		</div>
-	);
-};
-
-/*******************
- * TextArea
- *******************/
-
-interface TextAreaProps {
-	label?: string;
-	description?: string;
-	placeholder?: string;
-	isDisabled?: boolean;
-	onChange: (event: any) => void;
-}
-
-const TextArea = ({
-	label,
-	description,
-	placeholder,
-	isDisabled,
-	onChange,
-}: TextAreaProps) => {
-	return (
-		<>
-			<div className={styles.TextAreaContainer}>
-				{label && <label className={styles.TextAreaLabel}>{label}</label>}
-				<textarea
-					className={styles.TextArea}
-					onChange={onChange}
-					inputMode={'text'}
-					placeholder={placeholder}
-					value={description}
-					disabled={isDisabled}
-				/>
-			</div>
-		</>
 	);
 };
 
