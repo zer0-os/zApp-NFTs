@@ -19,37 +19,39 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 }) => {
 	const {
 		step,
-		errorText,
-		statusText,
+		buttonGroup,
+		footerStatusText,
+		loadingStatusText,
 		onBack,
 		onChangeStep,
 		onLockMetadataStatus,
-	} = useDomainSettingsForm(zna);
+	} = useDomainSettingsForm(zna, onClose);
 
 	const { content } = useFormSteps({
 		zna,
 		step,
-		errorText,
-		statusText,
+		buttonGroup,
+		footerStatusText,
+		loadingStatusText,
 		onBack,
 		onChangeStep,
 		onLockMetadataStatus,
-		onClose,
 	});
 
 	return (
-		<div className={styles.Container}>
+		<div className={styles.FormContainer}>
+			<Wizard.Container
+				className={styles.Container}
+				header={'My Domain Settings'}
+				subHeader={zna}
+				sectionDivider
+			>
+				<form className={styles.Form}>{content}</form>
+			</Wizard.Container>
+
 			<div className={styles.Close} onClick={onClose}>
 				<IconXClose size={24} />
 			</div>
-
-			<Wizard.Container
-				header={'My Domain Settings'}
-				subHeader={zna}
-				sectionDivider={false}
-			>
-				<form>{content}</form>
-			</Wizard.Container>
 		</div>
 	);
 };

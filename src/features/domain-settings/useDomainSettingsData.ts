@@ -41,7 +41,7 @@ export const usePropsState = <T>(initial: T): [T, (v: T) => void] => {
 export enum ERROR_KEYS {
 	NAME = 'NAME',
 	SUB_DOMAIN = 'SUBDOMAIN',
-	STORY = 'STORY',
+	DESCRIPTION = 'DESCRIPTION',
 	CUSTOM_DOMAIN_HEADER = 'CUSTOM_DOMAIN_HEADER',
 }
 
@@ -49,6 +49,7 @@ export enum ERROR_TYPES {
 	REQUIRED = 'REQUIRED',
 	DUPLICATED = 'DUPLICATED',
 	LOWER_CASE = 'LOWER_CASE',
+	MAX_LENGTH = 'MAX_LENGTH',
 }
 
 export const ERROR_MESSAGES = {
@@ -60,8 +61,8 @@ export const ERROR_MESSAGES = {
 		[ERROR_TYPES.DUPLICATED]: 'Domain name already exists',
 		[ERROR_TYPES.LOWER_CASE]: 'Domain name must be lower case',
 	},
-	[ERROR_KEYS.STORY]: {
-		[ERROR_TYPES.REQUIRED]: 'Story is required',
+	[ERROR_KEYS.DESCRIPTION]: {
+		[ERROR_TYPES.REQUIRED]: 'Domain description is required',
 	},
 	[ERROR_KEYS.CUSTOM_DOMAIN_HEADER]: {
 		[ERROR_TYPES.REQUIRED]: 'Custom domain header is required',
@@ -71,7 +72,7 @@ export const ERROR_MESSAGES = {
 export type DomainSettingsError = {
 	[ERROR_KEYS.NAME]?: string;
 	[ERROR_KEYS.SUB_DOMAIN]?: string;
-	[ERROR_KEYS.STORY]?: string;
+	[ERROR_KEYS.DESCRIPTION]?: string;
 	[ERROR_KEYS.CUSTOM_DOMAIN_HEADER]?: string;
 };
 
@@ -90,6 +91,7 @@ export const useDomainSettingsData = (zna: string) => {
 
 	const domainLockedBy = domain?.lockedBy ?? '';
 	const isLockedByOwner =
+		domain?.isLocked &&
 		domainLockedBy?.toLowerCase() === account?.toLowerCase();
 
 	const initialSettings = useMemo(() => {
@@ -201,39 +203,9 @@ export const useDomainSettingsData = (zna: string) => {
 		],
 	);
 
-	const isChanged = useMemo(() => {
-		const titleChanged = initialSettings.title !== localState.title;
-		const descriptionChanged =
-			initialSettings.description !== localState.description;
-		const isMintableChanged =
-			initialSettings.isMintable !== localState.isMintable;
-		const isBiddableChanged =
-			initialSettings.isBiddable !== localState.isBiddable;
-		const gridViewByDefaultChanged =
-			initialSettings.gridViewByDefault !== localState.gridViewByDefault;
-		const customDomainHeaderChanged =
-			initialSettings.customDomainHeader !== localState.customDomainHeader;
-		const customDomainHeaderValueChanged =
-			initialSettings.customDomainHeaderValue !==
-			localState.customDomainHeaderValue;
-
-		return (
-			titleChanged ||
-			descriptionChanged ||
-			isMintableChanged ||
-			isBiddableChanged ||
-			gridViewByDefaultChanged ||
-			customDomainHeaderChanged ||
-			customDomainHeaderValueChanged
-		);
-	}, [initialSettings, localState]);
-
 	return {
 		localState,
 		localActions,
-		formattedData: {
-			isChanged,
-		},
 		domainId,
 		imageAlt,
 		imageSrc,

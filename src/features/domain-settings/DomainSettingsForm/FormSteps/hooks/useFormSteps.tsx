@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { ButtonType, StatusTextType } from '../../hooks';
+
 import { Details, Confirm } from '..';
 import { Wizard } from '@zero-tech/zui/components';
 
@@ -17,23 +19,22 @@ interface UseFormStepsReturn {
 export interface useFormStepsProps {
 	zna: string;
 	step: Step;
-	errorText: string;
-	statusText: string;
+	buttonGroup: ButtonType;
+	footerStatusText: StatusTextType;
+	loadingStatusText: string;
 	onBack: () => void;
 	onChangeStep: () => void;
 	onLockMetadataStatus: () => void;
-	onClose: () => void;
 }
 
 export const useFormSteps = ({
 	zna,
 	step,
-	errorText,
-	statusText,
+	buttonGroup,
+	footerStatusText,
+	loadingStatusText,
 	onBack,
-	onChangeStep,
 	onLockMetadataStatus,
-	onClose,
 }: useFormStepsProps): UseFormStepsReturn => {
 	let content: ReactNode;
 
@@ -42,9 +43,8 @@ export const useFormSteps = ({
 			content = (
 				<Details
 					zna={zna}
-					step={step}
-					errorText={errorText}
-					onNext={onChangeStep}
+					buttonGroup={buttonGroup}
+					footerStatusText={footerStatusText}
 				/>
 			);
 			break;
@@ -59,16 +59,14 @@ export const useFormSteps = ({
 			content = (
 				<Details
 					zna={zna}
-					step={step}
-					errorText={errorText}
-					onNext={onChangeStep}
-					onClose={onClose}
+					buttonGroup={buttonGroup}
+					footerStatusText={footerStatusText}
 				/>
 			);
 			break;
 
 		case Step.LOADING:
-			content = <Wizard.Loading message={statusText} />;
+			content = <Wizard.Loading message={loadingStatusText} />;
 			break;
 	}
 

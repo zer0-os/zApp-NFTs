@@ -1,0 +1,25 @@
+@import '../../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.Label {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	line-height: 1.5rem;
+	margin-top: 1.5rem;
+	font-weight: $font-weight-bold;
+	white-space: pre-line;
+	text-align: center;
+
+	&[data-variant='warning'] {
+		color: $red-100;
+	}
+
+	&[data-variant='error'] {
+		color: $red-300;
+	}
+
+	&[data-variant='success'] {
+		color: $success-green;
+	}
+}

@@ -1,0 +1,23 @@
+@import '../../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+
+.Container {
+	border-top: 2px solid $grey-lighter-2;
+
+	h5 {
+		margin: 0.5rem 0;
+		line-height: 1.5rem;
+	}
+
+	.SwitchGroup {
+		display: flex;
+		flex-direction: column;
+		padding: 0;
+
+		.SwitchRow {
+			display: flex;
+			flex-direction: row;
+			padding: 1rem 0;
+			border-bottom: 1px solid $mine-shaft;
+		}
+	}
+}

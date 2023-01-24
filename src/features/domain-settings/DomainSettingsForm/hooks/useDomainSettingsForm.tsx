@@ -1,14 +1,25 @@
-import { useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 
 import { Step } from '../FormSteps/hooks';
 import { useWeb3, useZnsSdk } from '../../../../lib/hooks';
 import { useDomainSettingsData } from '../../useDomainSettingsData';
+import { truncateAddress } from '@zero-tech/zui/utils';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
+
+export type StatusType = 'success' | 'error' | 'warning';
+export type StatusTextType = { variant: StatusType; text: ReactNode };
+
+export type ButtonType = {
+	primaryText: string;
+	secondaryText?: string;
+	action: () => void;
+};
 
 export type UseDomainSettingsFormReturn = {
 	step: Step;
-	errorText: string;
-	statusText: string;
+	buttonGroup: ButtonType;
+	footerStatusText: StatusTextType;
+	loadingStatusText: string;
 	onBack: () => void;
 	onChangeStep: () => void;
 	onLockMetadataStatus: () => void;
@@ -19,16 +30,21 @@ export type UseDomainSettingsFormReturn = {
  */
 export const useDomainSettingsForm = (
 	zna: string,
+	onClose: () => void,
 ): UseDomainSettingsFormReturn => {
 	const sdk = useZnsSdk();
 
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const { domainId, localState } = useDomainSettingsData(zna);
+	const { domainId, localState, isLockedByOwner, domainLockedBy } =
+		useDomainSettingsData(zna);
 
 	const [step, setStep] = useState<Step>(Step.DETAILS);
-	const [errorText, setErrorText] = useState<string>();
-	const [statusText, setStatusText] = useState<string>();
+	const [loadingStatusText, setLoadingStatusText] = useState<string>();
+	const [footerStatusText, setFooterStatusText] = useState<StatusTextType>();
+
+	// think of better naming here
+	const [buttonGroup, setButtonGroup] = useState<ButtonType>();
 
 	const onChangeStep = () => {
 		setStep(Step.CONFIRM);
@@ -38,10 +54,46 @@ export const useDomainSettingsForm = (
 		setStep(Step.DETAILS);
 	};
 
-	const onLockMetadataStatus = () => {
-		const lockStatus = localState.isMetadataLocked;
+	const onCheckInitialFooterStatusText = () => {
+		setFooterStatusText(undefined);
 
-		setErrorText(undefined);
+		if (isLockedByOwner) {
+			setFooterStatusText({
+				variant: 'warning',
+				text: 'Please unlock to make changes',
+			});
+		} else {
+			setFooterStatusText({
+				variant: 'warning',
+				text: `You cannot unlock the metadata to make changes \nIt was locked by ${truncateAddress(
+					domainLockedBy,
+				)}`,
+			});
+		}
+	};
+
+	const onCheckInitialButtonGroup = () => {
+		setButtonGroup(undefined);
+
+		if (localState.isMetadataLocked) {
+			setButtonGroup({ primaryText: 'Unlock Metadata', action: onChangeStep });
+		} else {
+			setButtonGroup({
+				primaryText: 'Save Changes',
+				secondaryText: 'Save and Lock',
+				action: onChangeStep,
+			});
+		}
+	};
+
+	// add handlers e.g. handleSuccess, handleProcessing etc
+	// add primary button action and secondary button action
+	// improve/tidy the below conditions
+
+	const onLockMetadataStatus = () => {
+		setFooterStatusText(undefined);
+
+		const lockStatus = localState.isMetadataLocked;
 
 		return executeTransaction(
 			sdk.lockDomainMetadata,
@@ -49,19 +101,32 @@ export const useDomainSettingsForm = (
 			{
 				onStart: () => {
 					setStep(Step.LOADING);
-					setStatusText('Waiting approval from your wallet...');
+					setLoadingStatusText('Waiting approval from your wallet...');
 				},
 				onProcessing: () =>
-					setStatusText(
+					setLoadingStatusText(
 						lockStatus
 							? 'Unlocking metadata... This may take up to 20 mins. Do not close this window or refresh your browser...'
 							: 'Saving & locking metadata... \nThis may take up to 20 mins. Do not close this window or refresh your browser...',
 					),
 				onSuccess: () => {
-					setStep(Step.COMPLETE);
+					setStep(lockStatus ? Step.DETAILS : Step.COMPLETE);
+					setFooterStatusText({
+						variant: 'success',
+						text: lockStatus
+							? 'Metadata unlocked, you may now make changes'
+							: 'Your changes have been saved and the metadata is locked',
+					});
+
+					// improve this
+					setButtonGroup({
+						primaryText: lockStatus ? 'Save Changes' : 'Finish',
+						secondaryText: lockStatus ? 'Save and Lock' : undefined,
+						action: lockStatus ? onChangeStep : onClose,
+					});
 				},
 				onError: (error: any) => {
-					setErrorText(error.message);
+					setFooterStatusText({ variant: 'error', text: error.message });
 					setStep(Step.DETAILS);
 				},
 
@@ -70,10 +135,19 @@ export const useDomainSettingsForm = (
 		);
 	};
 
+	useEffect(() => {
+		onCheckInitialButtonGroup();
+
+		if (localState.isMetadataLocked) {
+			onCheckInitialFooterStatusText();
+		}
+	}, [localState.isMetadataLocked]);
+
 	return {
 		step,
-		errorText,
-		statusText,
+		buttonGroup,
+		footerStatusText,
+		loadingStatusText,
 		onBack,
 		onChangeStep,
 		onLockMetadataStatus,
