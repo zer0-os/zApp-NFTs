@@ -53,8 +53,6 @@ export const DomainSettingsFormContext = createContext({
 	onConfirmActionUpdate: (action: ConfirmActionType) => {},
 });
 
-type ConfirmAction = 'save-and-lock' | 'unlock' | 'save-without-locking';
-
 export enum ConfirmActionType {
 	SAVE_AND_LOCK = 'save-and-lock',
 	UNLOCK = 'unlock',
