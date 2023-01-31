@@ -1,31 +1,29 @@
 import { FC, useContext, useState } from 'react';
 
 import { ConfirmActionType, DomainSettingsFormContext, steps } from '..';
+import { Form, Formik } from 'formik';
+import * as Yup from 'yup';
 
 import { FormErrorText, Media, Switch } from '../../ui';
 import { Button, Input } from '@zero-tech/zui/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui/components/Icons';
-import { Form, Formik } from 'formik';
-
-import * as Yup from 'yup';
 
 import styles from './DetailsForm.module.scss';
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string().required('The title field is required.'),
-	zna: Yup.string().required('The symbol field is required.'),
+	zna: Yup.string().required('The name field is required.'),
 	description: Yup.string().required('The description field is required.'),
 });
 
 interface DetailsFormProps {
 	zna: string;
-	onClose?: () => void;
 }
 
-export const DetailsForm: FC<DetailsFormProps> = ({ zna, onClose }) => {
+export const DetailsForm: FC<DetailsFormProps> = ({ zna }) => {
 	const {
-		stepId,
+		// zna,
 		details,
 		imageAlt,
 		imageSrc,
@@ -33,6 +31,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ zna, onClose }) => {
 		onDetailsSubmit,
 		onStepUpdate,
 		isMetadataLocked,
+		truncatedLockedByAddress,
 		isLockedByOwner,
 		onConfirmActionUpdate,
 		onTitleUpdate,
@@ -83,7 +82,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ zna, onClose }) => {
 									className={styles.Input}
 									type="text"
 									label="Subdomain Name"
-									value={values.zna}
+									value={zna}
 									placeholder={'Subdomain Name'}
 									isDisabled
 									onChange={(value) => setFieldValue('zna', value)}
@@ -190,18 +189,11 @@ export const DetailsForm: FC<DetailsFormProps> = ({ zna, onClose }) => {
 						<FormErrorText className={styles.ErrorText} text={errorText} />
 					)}
 
-					{!errorText && (
-						<label
-							className={styles.Label}
-							// data-variant={footerStatusText?.variant}
-						>
-							{isMetadataLocked
-								? isLockedByOwner
-									? 'Please unlock to make changes'
-									: 'You cannot unlock the metadata to make changes. \nIt was locked by 0x1234...abcd'
-								: stepId === 'complete'
-								? 'Success. Metadata is unlocked'
-								: ''}
+					{!errorText && isMetadataLocked && (
+						<label className={styles.Label}>
+							{isLockedByOwner
+								? 'Please unlock to make changes'
+								: `You cannot unlock the metadata to make changes. \nIt was locked by ${truncatedLockedByAddress} `}
 						</label>
 					)}
 
@@ -210,18 +202,14 @@ export const DetailsForm: FC<DetailsFormProps> = ({ zna, onClose }) => {
 							<>
 								<IconLock1 className={styles.LockedIcon} />
 								<Button
-									onPress={
-										stepId === 'details'
-											? () => {
-													submitForm;
-													onConfirmActionUpdate(ConfirmActionType.UNLOCK);
-													onStepUpdate(steps[1]);
-													onTitleUpdate('Unlock Metadata?');
-											  }
-											: onClose
-									}
+									onPress={() => {
+										submitForm;
+										onConfirmActionUpdate(ConfirmActionType.UNLOCK);
+										onStepUpdate(steps[1]);
+										onTitleUpdate('Unlock Metadata?');
+									}}
 								>
-									{stepId === 'details' ? 'Unlock Metadata' : 'Finish'}
+									Unlock Metadata
 								</Button>
 							</>
 						)}

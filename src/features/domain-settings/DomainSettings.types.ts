@@ -18,7 +18,7 @@ export const steps: Step[] = [
 ];
 
 export interface DetailsFormSubmit {
-	zna: string;
+	// zna?: string;
 	title: string;
 	description: string;
 	attributes: any;

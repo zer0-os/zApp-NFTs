@@ -5,18 +5,14 @@
 	display: flex;
 	flex-direction: column;
 
-	.ScrollSection {
+	.FormBody {
 		display: flex;
 		flex-direction: column;
 		max-height: 55vh;
 		gap: 1.5rem;
-		overflow-y: auto;
 		padding-right: 0.5rem;
-
-		&[data-variant='locked'] {
-			opacity: 0.5;
-			overflow-y: hidden;
-		}
+		opacity: 0.5;
+		overflow-y: hidden;
 
 		.DetailsContainer {
 			display: flex;
@@ -60,33 +56,6 @@
 				}
 			}
 		}
-
-		// Scrollbar
-		&::-webkit-scrollbar-corner {
-			background: $black;
-			height: 0;
-			width: 0;
-		}
-
-		&::-webkit-scrollbar-track {
-			background-color: none;
-		}
-
-		&::-webkit-scrollbar {
-			width: 0.25rem;
-			background-color: none;
-		}
-
-		&::-webkit-scrollbar-thumb {
-			border-radius: 0.625rem;
-			background-color: rgba(60, 161, 255, 0.2);
-		}
-	}
-
-	.ErrorText {
-		display: flex;
-		justify-content: center;
-		margin-top: 1.5rem;
 	}
 
 	.Label {
@@ -98,18 +67,7 @@
 		font-weight: $font-weight-bold;
 		white-space: pre-line;
 		text-align: center;
-
-		// &[data-variant='warning'] {
-		color: $red-100;
-		// }
-
-		// &[data-variant='error'] {
-		// 	color: $red-300;
-		// }
-
-		// &[data-variant='success'] {
-		// 	color: $success-green;
-		// }
+		color: $success-green;
 	}
 
 	.Buttons {
@@ -119,14 +77,6 @@
 		align-items: center;
 		gap: 0.5rem;
 		margin-top: 1.5rem;
-
-		> *:first-child {
-			margin-left: 0;
-		}
-
-		> *:last-child {
-			margin-left: 0;
-		}
 
 		.LockedIcon {
 			color: $blue;

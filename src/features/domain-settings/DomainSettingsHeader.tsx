@@ -2,7 +2,7 @@ import { FC, useContext } from 'react';
 
 import { DomainSettingsFormContext, steps } from '.';
 
-import { Wizard, StepBar, Step } from '@zero-tech/zui/components';
+import { Wizard, StepBar } from '@zero-tech/zui/components';
 import { IconXClose } from '@zero-tech/zui/components/Icons';
 
 import styles from './DomainSettingsHeader.module.scss';
@@ -23,18 +23,20 @@ export const DomainSettingsHeader: FC<DomainSettingsHeaderProps> = ({
 	return (
 		<div className={styles.Container}>
 			<Wizard.Header
-				header={header}
+				header={stepId === 'details' ? 'My Domain Settings' : header}
 				subHeader={subtitle}
-				sectionDivider={false}
+				sectionDivider={stepId === 'complete'}
 			>
 				<div className={styles.Close} onClick={onClose}>
 					<IconXClose size={24} />
 				</div>
-				<StepBar
-					currentStepId={stepId}
-					steps={steps}
-					onChangeStep={onStepUpdate}
-				/>
+				{stepId !== 'complete' && (
+					<StepBar
+						currentStepId={stepId}
+						steps={steps}
+						onChangeStep={onStepUpdate}
+					/>
+				)}
 			</Wizard.Header>
 		</div>
 	);

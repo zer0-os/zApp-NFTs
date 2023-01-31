@@ -7,19 +7,18 @@ import {
 	useDomainMetadata,
 } from '../../lib/hooks';
 import { getDomainId } from '../../lib/util';
+import { truncateAddress } from '@zero-tech/zui/utils';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { DetailsFormSubmit, steps } from '.';
 import { Step } from '@zero-tech/zui/components';
 
-export type StatusType = 'success' | 'error' | 'warning';
-export type StatusTextType = { variant: StatusType; text: ReactNode };
-
 export const DomainSettingsFormContext = createContext({
+	domainId: '',
 	stepId: 'details',
 	header: 'Domain Settings',
 	details: {
-		zna: '',
+		// zna: '',
 		title: '',
 		description: '',
 		attributes: undefined,
@@ -32,7 +31,7 @@ export const DomainSettingsFormContext = createContext({
 		isBiddable: undefined,
 		gridViewByDefault: undefined,
 		customDomainHeader: undefined,
-		customDomainHeaderValue: '',
+		customDomainHeaderValue: undefined,
 	},
 	imageAlt: '',
 	imageSrc: '',
@@ -40,6 +39,7 @@ export const DomainSettingsFormContext = createContext({
 	confirmActionType: undefined,
 	isMetadataLocked: undefined,
 	isLockedByOwner: undefined,
+	truncatedLockedByAddress: '',
 	loadingStatusText: '',
 	isLoading: undefined,
 	onBack: (step: Step) => {},
@@ -85,7 +85,7 @@ export const DomainSettingsFormContextProvider: FC<Props> = ({
 	const [loadingStatusText, setLoadingStatusText] = useState<string>();
 
 	const [details, setDetails] = useState<DetailsFormSubmit>({
-		zna,
+		// zna,
 		title: metadata?.title,
 		description: metadata?.description,
 		attributes: metadata?.attributes,
@@ -98,8 +98,7 @@ export const DomainSettingsFormContextProvider: FC<Props> = ({
 		isBiddable: Boolean(metadata?.isBiddable),
 		gridViewByDefault: Boolean(metadata?.gridViewByDefault),
 		customDomainHeader: Boolean(metadata?.customDomainHeader),
-		customDomainHeaderValue:
-			(metadata?.customDomainHeaderValue as string) || '',
+		customDomainHeaderValue: metadata?.customDomainHeaderValue,
 	});
 
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
@@ -107,12 +106,14 @@ export const DomainSettingsFormContextProvider: FC<Props> = ({
 		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
 
 	const isMetadataLocked = domain?.isLocked;
+	const truncatedLockedByAddress = truncateAddress(domain?.lockedBy) ?? '';
 	const isLockedByOwner =
 		domain?.isLocked &&
-		domain?.lockedBy?.toLowerCase() === account?.toLowerCase();
+		domain?.lockedBy.toLowerCase() === account?.toLowerCase();
 
 	const onBack = (): void => {
 		setStepId(steps[0].id);
+		setErrorText(undefined);
 	};
 
 	const onStepUpdate = (step: Step): void => {
@@ -132,39 +133,47 @@ export const DomainSettingsFormContextProvider: FC<Props> = ({
 	};
 
 	const onDetailsSubmit = (values: DetailsFormSubmit): void => {
+		console.log('here');
+		onStepUpdate(steps[1]);
 		setDetails(values);
+	};
 
-		// setStepId(steps[1].id);
+	const handleTransactionStart = (onLoadingHeader?: string) => {
+		setIsLoading(true);
+		setLoadingStatusText('Waiting approval from your wallet...');
+		onLoadingHeader && setHeader(onLoadingHeader);
+	};
+
+	const handleTransactionProcessing = (onLoadingText: string) => {
+		setLoadingStatusText(onLoadingText);
+	};
+
+	const handleTransactionSuccess = () => {
+		setIsLoading(false);
+		onStepUpdate(steps[2]);
+	};
+
+	const handleTransactionError = (errorMessage: string) => {
+		setIsLoading(false);
+		setErrorText(errorMessage);
+		onStepUpdate(steps[0]);
 	};
 
 	const onLockMetadataStatus = () => {
 		setErrorText(undefined);
 
 		const lockStatus = isMetadataLocked;
+		const onLoadingText =
+			'Unlocking metadata... This may take up to 20 mins. Do not close this window or refresh your browser...';
 
 		return executeTransaction(
 			sdk.lockDomainMetadata,
 			[domainId, !lockStatus, provider.getSigner()],
 			{
-				onStart: () => {
-					setIsLoading(true);
-					setLoadingStatusText('Waiting approval from your wallet...');
-				},
-				onProcessing: () =>
-					setLoadingStatusText(
-						'Unlocking metadata... This may take up to 20 mins. Do not close this window or refresh your browser...',
-					),
-				onSuccess: () => {
-					setIsLoading(false);
-					onStepUpdate(steps[2]);
-					setHeader('My Domain Settings');
-				},
-				onError: (error: any) => {
-					setIsLoading(false);
-					setErrorText(error.message);
-					onStepUpdate(steps[0]);
-				},
-
+				onStart: () => handleTransactionStart(),
+				onProcessing: () => handleTransactionProcessing(onLoadingText),
+				onSuccess: () => handleTransactionSuccess(),
+				onError: (error: any) => handleTransactionError(error.message),
 				invalidationKeys: [['user', { account, domainId, lockStatus }]],
 			},
 		);
@@ -173,30 +182,18 @@ export const DomainSettingsFormContextProvider: FC<Props> = ({
 	const onSetAndLockMetadata = () => {
 		setErrorText(undefined);
 
+		const onLoadingHeader = 'Save & Lock Metadata';
+		const onLoadingText =
+			'Saving & locking metadata... \nThis may take up to 20 mins. Do not close this window or refresh your browser...';
+
 		return executeTransaction(
 			sdk.setAndLockDomainMetadata,
 			[domainId, details, provider.getSigner()],
 			{
-				onStart: () => {
-					setIsLoading(true);
-					setHeader('Save & Lock Metadata');
-					setLoadingStatusText('Waiting approval from your wallet...');
-				},
-				onProcessing: () =>
-					setLoadingStatusText(
-						'Saving & locking metadata... \nThis may take up to 20 mins. Do not close this window or refresh your browser...',
-					),
-				onSuccess: () => {
-					setIsLoading(false);
-					onStepUpdate(steps[2]);
-					setHeader('My Domain Settings');
-				},
-				onError: (error: any) => {
-					setIsLoading(false);
-					setErrorText(error.message);
-					onStepUpdate(steps[0]);
-				},
-
+				onStart: () => handleTransactionStart(onLoadingHeader),
+				onProcessing: () => handleTransactionProcessing(onLoadingText),
+				onSuccess: () => handleTransactionSuccess(),
+				onError: (error: any) => handleTransactionError(error.message),
 				invalidationKeys: [['user', { account, domainId, details }]],
 			},
 		);
@@ -205,30 +202,18 @@ export const DomainSettingsFormContextProvider: FC<Props> = ({
 	const onSetMetadata = () => {
 		setErrorText(undefined);
 
+		const onLoadingHeader = 'Save Metadata Changes';
+		const onLoadingText =
+			'Saving metadata changes... This may take up to 20 mins. \nDo not close this window or refresh your browser...';
+
 		return executeTransaction(
 			sdk.setDomainMetadata,
 			[domainId, details, provider.getSigner()],
 			{
-				onStart: () => {
-					setIsLoading(true);
-					setHeader('Save Metadata Changes');
-					setLoadingStatusText('Waiting approval from your wallet...');
-				},
-				onProcessing: () =>
-					setLoadingStatusText(
-						'Saving metadata changes... This may take up to x mins. \nDo not close this window or refresh your browser...',
-					),
-				onSuccess: () => {
-					setIsLoading(false);
-					onStepUpdate(steps[2]);
-					setHeader('My Domain Settings');
-				},
-				onError: (error: any) => {
-					setIsLoading(false);
-					setErrorText(error.message);
-					onStepUpdate(steps[0]);
-				},
-
+				onStart: () => handleTransactionStart(onLoadingHeader),
+				onProcessing: () => handleTransactionProcessing(onLoadingText),
+				onSuccess: () => handleTransactionSuccess(),
+				onError: (error: any) => handleTransactionError(error.message),
 				invalidationKeys: [['user', { account, domainId, details }]],
 			},
 		);
@@ -246,7 +231,7 @@ export const DomainSettingsFormContextProvider: FC<Props> = ({
 	// 				setErrorText(error.message);
 	// 			},
 
-	// 			invalidationKeys: [['user', { account, domainId, details }]],
+	// 			invalidationKeys: [['user', { account, domainId }]],
 	// 		},
 	// 	);
 	// };
@@ -254,6 +239,7 @@ export const DomainSettingsFormContextProvider: FC<Props> = ({
 	return (
 		<DomainSettingsFormContext.Provider
 			value={{
+				domainId,
 				stepId,
 				header,
 				details,
@@ -262,6 +248,7 @@ export const DomainSettingsFormContextProvider: FC<Props> = ({
 				errorText,
 				confirmActionType,
 				isMetadataLocked,
+				truncatedLockedByAddress,
 				isLockedByOwner,
 				loadingStatusText,
 				isLoading,

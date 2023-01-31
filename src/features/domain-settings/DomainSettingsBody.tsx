@@ -2,7 +2,7 @@ import { FC, useContext } from 'react';
 
 import { DomainSettingsFormContext } from './DomainSettingsFormContext';
 
-import { DetailsForm, ConfirmForm } from './Steps';
+import { DetailsForm, CompleteForm, ConfirmForm } from './Steps';
 import { Wizard } from '@zero-tech/zui/components';
 
 type DomainSettingsBodyProps = {
@@ -30,6 +30,6 @@ export const DomainSettingsBody: FC<DomainSettingsBodyProps> = ({
 			);
 
 		case 'complete':
-			return <DetailsForm zna={zna} onClose={onClose} />;
+			return <CompleteForm zna={zna} onClose={onClose} />;
 	}
 };

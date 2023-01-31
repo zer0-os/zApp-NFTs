@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useWeb3 } from '../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../lib/types/ui';
@@ -11,26 +11,31 @@ import styles from './DomainSettingsModal.module.scss';
 
 export interface DomainSettingsModalProps extends BasicModalProps {
 	zna: string;
-	onClose: () => void;
+	onClose?: () => void;
 }
 
 export const DomainSettingsModal: FC<DomainSettingsModalProps> = ({
 	zna,
-	open,
 	onClose,
-	onOpenChange,
-	...props
+	...modalProps
 }) => {
 	const { account } = useWeb3();
+
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+	const handleClose = () => {
+		onClose && onClose();
+		setIsModalOpen(false);
+	};
 
 	return (
 		<Modal
 			className={styles.Container}
-			{...props}
-			open={open}
-			onOpenChange={onOpenChange}
+			open={isModalOpen}
+			onOpenChange={(isOpen: boolean) => setIsModalOpen(isOpen)}
+			{...modalProps}
 		>
-			<ModalContent account={account} zna={zna} onClose={onClose} />
+			<ModalContent account={account} zna={zna} onClose={handleClose} />
 		</Modal>
 	);
 };
@@ -41,8 +46,8 @@ export const DomainSettingsModal: FC<DomainSettingsModalProps> = ({
 
 interface ModalContentProps {
 	account: string;
-	zna: DomainSettingsFormProps['zna'];
-	onClose: DomainSettingsFormProps['onClose'];
+	zna: DomainSettingsModalProps['zna'];
+	onClose: DomainSettingsModalProps['onClose'];
 }
 
 const ModalContent = ({ account, zna, onClose }: ModalContentProps) => {

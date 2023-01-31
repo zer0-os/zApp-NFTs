@@ -10,7 +10,7 @@ import styles from './ConfirmForm.module.scss';
 export const ConfirmForm: FC = () => {
 	const {
 		confirmActionType,
-		onStepUpdate,
+		onBack,
 		onLockMetadataStatus,
 		onSetAndLockMetadata,
 		onSetMetadata,
@@ -22,15 +22,13 @@ export const ConfirmForm: FC = () => {
 		if (confirmActionType === 'unlock') {
 			await onLockMetadataStatus();
 		} else if (confirmActionType === 'save-and-lock') {
-			// update to onSetAndLockMetadata
-			await onLockMetadataStatus();
+			await onSetAndLockMetadata();
 		} else {
-			// update to onSetMetadata
-			await onLockMetadataStatus();
+			await onSetMetadata();
 		}
 	};
 
-	const onBack = () => onStepUpdate(steps[0]);
+	const handleBackStep = () => onBack(steps[0]);
 
 	const confirmationMessage = (
 		<FormTextContent textContent={confirmationStepContent.message} />
@@ -43,7 +41,7 @@ export const ConfirmForm: FC = () => {
 			isPrimaryButtonActive
 			isSecondaryButtonActive
 			onClickPrimaryButton={onSubmit}
-			onClickSecondaryButton={onBack}
+			onClickSecondaryButton={handleBackStep}
 			primaryButtonText={confirmationStepContent.primaryButtonText}
 			secondaryButtonText={'Return'}
 		/>
