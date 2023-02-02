@@ -1,38 +1,44 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
-import { DomainSettingsFormContext, steps } from '..';
+import { steps, ConfirmActionType } from '../DomainSettings.types';
 
 import { FormTextContent } from '../../ui';
-import { Wizard } from '@zero-tech/zui/components';
+import { Step, Wizard } from '@zero-tech/zui/components';
 
-import styles from './ConfirmForm.module.scss';
+import styles from './ConfirmStep.module.scss';
 
-export const ConfirmForm: FC = () => {
-	const {
-		confirmActionType,
-		onBack,
-		onLockMetadataStatus,
-		onSetAndLockMetadata,
-		onSetMetadata,
-	} = useContext(DomainSettingsFormContext);
+interface ConfirmFormProps {
+	confirmActionType: ConfirmActionType;
+	onStepUpdate: (step: Step) => void;
+	onLockMetadataStatus: () => void;
+	onSetAndLockMetadata: () => void;
+	onSetMetadata: () => void;
+}
 
+export const ConfirmForm: FC<ConfirmFormProps> = ({
+	confirmActionType,
+	onStepUpdate,
+	onLockMetadataStatus,
+	onSetAndLockMetadata,
+	onSetMetadata,
+}) => {
 	const confirmationStepContent = getStepTextContent(confirmActionType);
-
-	const onSubmit = async (): Promise<void> => {
-		if (confirmActionType === 'unlock') {
-			await onLockMetadataStatus();
-		} else if (confirmActionType === 'save-and-lock') {
-			await onSetAndLockMetadata();
-		} else {
-			await onSetMetadata();
-		}
-	};
-
-	const handleBackStep = () => onBack(steps[0]);
 
 	const confirmationMessage = (
 		<FormTextContent textContent={confirmationStepContent.message} />
 	);
+
+	const onBack = () => onStepUpdate(steps[0]);
+
+	const onSubmit = async (): Promise<void> => {
+		if (confirmActionType === 'unlock') {
+			onLockMetadataStatus();
+		} else if (confirmActionType === 'save-and-lock') {
+			onSetAndLockMetadata();
+		} else {
+			onSetMetadata();
+		}
+	};
 
 	return (
 		<Wizard.Confirmation
@@ -41,7 +47,7 @@ export const ConfirmForm: FC = () => {
 			isPrimaryButtonActive
 			isSecondaryButtonActive
 			onClickPrimaryButton={onSubmit}
-			onClickSecondaryButton={handleBackStep}
+			onClickSecondaryButton={onBack}
 			primaryButtonText={confirmationStepContent.primaryButtonText}
 			secondaryButtonText={'Return'}
 		/>

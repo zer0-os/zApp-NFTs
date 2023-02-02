@@ -1,37 +1,48 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
-import { DomainSettingsFormContext, steps } from '.';
+import { FormStep, steps } from '.';
+import classNames from 'classnames/bind';
 
-import { Wizard, StepBar } from '@zero-tech/zui/components';
 import { IconXClose } from '@zero-tech/zui/components/Icons';
+import { Wizard, StepBar, Step } from '@zero-tech/zui/components';
 
 import styles from './DomainSettingsHeader.module.scss';
 
+const cx = classNames.bind(styles);
+
 interface DomainSettingsHeaderProps {
-	subtitle: string;
+	zna: string;
+	stepId: string;
+	headerText: string;
+	isTransactionLoading: boolean;
 	onClose: () => void;
+	onStepUpdate: (step: Step) => void;
 }
 
 export const DomainSettingsHeader: FC<DomainSettingsHeaderProps> = ({
-	subtitle,
+	zna,
+	stepId,
+	headerText,
+	isTransactionLoading,
 	onClose,
+	onStepUpdate,
 }) => {
-	const { header, stepId, onStepUpdate } = useContext(
-		DomainSettingsFormContext,
-	);
-
 	return (
 		<div className={styles.Container}>
 			<Wizard.Header
-				header={stepId === 'details' ? 'My Domain Settings' : header}
-				subHeader={subtitle}
-				sectionDivider={stepId === 'complete'}
+				header={stepId !== FormStep.CONFIRM ? 'My Domain Settings' : headerText}
+				subHeader={zna}
+				sectionDivider={Boolean(isTransactionLoading)}
 			>
 				<div className={styles.Close} onClick={onClose}>
 					<IconXClose size={24} />
 				</div>
-				{stepId !== 'complete' && (
+
+				{!isTransactionLoading && (
 					<StepBar
+						className={cx(styles.StepBar, {
+							isDisabled: stepId === FormStep.COMPLETE,
+						})}
 						currentStepId={stepId}
 						steps={steps}
 						onChangeStep={onStepUpdate}

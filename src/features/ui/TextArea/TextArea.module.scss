@@ -21,6 +21,10 @@
 
 		transition: border-color 0.1s ease;
 
+		&:focus-within {
+			border-color: #8e4ec6;
+		}
+
 		&:disabled {
 			background: #1c1c1f;
 			resize: none;
@@ -28,6 +32,10 @@
 			&:hover {
 				cursor: not-allowed;
 			}
+		}
+
+		&[data-variant='error'] {
+			border-color: #aa2429;
 		}
 	}
 

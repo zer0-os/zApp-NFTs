@@ -2,6 +2,18 @@ import { StakingRequests } from '@zero-tech/zns-sdk';
 
 import { Step } from '@zero-tech/zui/components';
 
+export enum FormStep {
+	DETAILS = 'details',
+	CONFIRM = 'confirm',
+	COMPLETE = 'complete',
+}
+
+export enum ConfirmActionType {
+	SAVE_AND_LOCK = 'save-and-lock',
+	UNLOCK = 'unlock',
+	SAVE_WITHOUT_LOCKING = 'save-without-locking',
+}
+
 export const steps: Step[] = [
 	{
 		id: 'details',
@@ -17,8 +29,17 @@ export const steps: Step[] = [
 	},
 ];
 
+export type FieldValues = {
+	title: string;
+	description: string;
+	isMintable: boolean;
+	isBiddable: boolean;
+	gridViewByDefault: boolean;
+	customDomainHeader: boolean;
+	customDomainHeaderValue: string;
+};
+
 export interface DetailsFormSubmit {
-	// zna?: string;
 	title: string;
 	description: string;
 	attributes: any;

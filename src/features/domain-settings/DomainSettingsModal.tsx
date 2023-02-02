@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { useWeb3 } from '../../lib/hooks/useWeb3';
 import { BasicModalProps } from '../../lib/types/ui';
 
-import { DomainSettingsForm, DomainSettingsFormProps } from '.';
+import { DomainSettingsForm } from '.';
 import { ConnectWallet } from '../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 

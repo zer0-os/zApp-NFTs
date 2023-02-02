@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useCallback, useRef } from 'react';
 
 import { Alert, AlertProps } from '@zero-tech/zui/components';
 
@@ -7,35 +7,49 @@ import styles from './TextArea.module.scss';
 interface TextAreaProps {
 	label?: string;
 	maxLength?: number;
-	description: string;
+	minLength?: number;
+	value: string;
 	placeholder?: string;
 	isDisabled?: boolean;
 	alert?: { variant: AlertProps['variant']; text: ReactNode };
-	onChange: (event: any) => void;
+	onChange: (value: any) => void;
 }
 
 export const TextArea: FC<TextAreaProps> = ({
 	label,
 	alert,
 	maxLength,
-	description,
+	minLength,
+	value,
 	placeholder,
 	isDisabled,
 	onChange,
 }: TextAreaProps) => {
-	const isError = description.length >= maxLength;
+	const textAreaRef = useRef<HTMLTextAreaElement>();
+
+	const isError = value.length >= maxLength || value.length <= minLength;
+
+	const handleOnChange = useCallback(() => {
+		if (!isDisabled) {
+			onChange(textAreaRef.current.value);
+		}
+	}, [onChange, isDisabled]);
+
 	return (
 		<>
 			<div className={styles.TextAreaContainer}>
 				{label && <label className={styles.TextAreaLabel}>{label}</label>}
 				<textarea
 					className={styles.TextArea}
+					data-variant={isError && 'error'}
 					inputMode={'text'}
 					maxLength={maxLength}
-					value={description}
+					minLength={minLength}
+					value={value}
 					placeholder={placeholder}
 					disabled={isDisabled}
-					onChange={onChange}
+					ref={textAreaRef}
+					onChange={handleOnChange}
 				/>
 				{isError && alert && (
 					<Alert className={styles.Alert} variant={alert.variant}>

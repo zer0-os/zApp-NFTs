@@ -31,12 +31,12 @@
 
 				.Input {
 					gap: 0.25rem;
+
+					> *:last-child {
+						width: unset;
+					}
 				}
 			}
-		}
-
-		.TextArea {
-			gap: 0.25rem;
 		}
 
 		.SwitchSettingsContainer {
@@ -57,6 +57,14 @@
 					flex-direction: row;
 					padding: 1rem 0;
 					border-bottom: 1px solid $mine-shaft;
+				}
+
+				.SwitchInput {
+					gap: 0.25rem;
+
+					> *:last-child {
+						width: unset;
+					}
 				}
 			}
 		}
@@ -80,60 +88,6 @@
 		&::-webkit-scrollbar-thumb {
 			border-radius: 0.625rem;
 			background-color: rgba(60, 161, 255, 0.2);
-		}
-	}
-
-	.ErrorText {
-		display: flex;
-		justify-content: center;
-		margin-top: 1.5rem;
-	}
-
-	.Label {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		line-height: 1.5rem;
-		margin-top: 1.5rem;
-		font-weight: $font-weight-bold;
-		white-space: pre-line;
-		text-align: center;
-
-		// &[data-variant='warning'] {
-		color: $red-100;
-		// }
-
-		// &[data-variant='error'] {
-		// 	color: $red-300;
-		// }
-
-		// &[data-variant='success'] {
-		// 	color: $success-green;
-		// }
-	}
-
-	.Buttons {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		gap: 0.5rem;
-		margin-top: 1.5rem;
-
-		> *:first-child {
-			margin-left: 0;
-		}
-
-		> *:last-child {
-			margin-left: 0;
-		}
-
-		.LockedIcon {
-			color: $blue;
-		}
-
-		.UnlockedIcon {
-			color: $success-green;
 		}
 	}
 }
