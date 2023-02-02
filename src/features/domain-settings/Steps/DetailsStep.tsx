@@ -49,7 +49,9 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 		metadata?.customDomainHeader,
 	);
 	const [customDomainHeaderValue, setCustomDomainHeaderValue] =
-		useState<string>((metadata?.customDomainHeaderValue as string) || '');
+		useState<string>(
+			(metadata?.customDomainHeaderValue as string) || undefined,
+		);
 
 	const handleSubmit = (
 		action: ConfirmActionType,
@@ -192,7 +194,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 								isDisabled={isDisabled}
 								onPress={() => {
 									setCustomDomainHeaderValue(
-										(metadata?.customDomainHeaderValue as string) || '',
+										(metadata?.customDomainHeaderValue as string) || undefined,
 									);
 									setCustomDomainHeader(!customDomainHeader);
 								}}

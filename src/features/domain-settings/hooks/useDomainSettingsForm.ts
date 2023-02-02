@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import {
 	steps,
@@ -50,6 +50,8 @@ export const useDomainSettingsForm = (
 
 	// Form field data
 	const [details, setDetails] = useState<DetailsFormSubmit>();
+	console.log(details);
+	console.log(metadata);
 
 	// Set metadata form details
 	const onFormDetailsSubmit = ({
@@ -89,6 +91,16 @@ export const useDomainSettingsForm = (
 	const onTitleUpdate = (title: string): void => {
 		setFormHeader(title);
 	};
+
+	// an alternative call to determine if metadata is locked - should probably be used over useDomainData
+	const onCheckMetadataLockStatus = useCallback(async () => {
+		const isDomainMetadataLocked = await sdk.isDomainMetadataLocked(
+			domainId,
+			provider.getSigner(),
+		);
+
+		return isDomainMetadataLocked;
+	}, [domainId, provider]);
 
 	// Transaction handlers
 	const handleTransactionStart = (onLoadingHeader?: string) => {
