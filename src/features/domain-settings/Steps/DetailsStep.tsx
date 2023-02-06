@@ -5,7 +5,7 @@ import { useDomainSettingsData } from '../hooks';
 
 import { DetailsStepFooter, CompleteStepFooter } from './Footers';
 import { Media, Switch, TextArea } from '../../ui';
-import { Input, Step } from '@zero-tech/zui/components';
+import { Input, LoadingIndicator, Step } from '@zero-tech/zui/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 
 import styles from './DetailsStep.module.scss';
@@ -35,8 +35,13 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 	onConfirmActionUpdate,
 	onClose,
 }) => {
-	const { metadata, imageAlt, imageSrc, isMetadataLocked } =
-		useDomainSettingsData(zna);
+	const {
+		metadata,
+		imageAlt,
+		imageSrc,
+		metadataLockedStatus,
+		isLoadingSettingsData,
+	} = useDomainSettingsData(zna);
 
 	const [title, setTitle] = useState<string>(metadata?.title);
 	const [isBiddable, setIsBiddable] = useState<boolean>(metadata?.isBiddable);
@@ -45,9 +50,11 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 	const [gridViewByDefault, setGridViewByDefault] = useState<boolean>(
 		metadata?.gridViewByDefault,
 	);
+
 	const [customDomainHeader, setCustomDomainHeader] = useState<boolean>(
 		metadata?.customDomainHeader,
 	);
+
 	const [customDomainHeaderValue, setCustomDomainHeaderValue] =
 		useState<string>(
 			(metadata?.customDomainHeaderValue as string) || undefined,
@@ -72,9 +79,9 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 		});
 	};
 
-	const isDisabled = isMetadataLocked || stepId === FormStep.COMPLETE;
+	const isDisabled = metadataLockedStatus || stepId === FormStep.COMPLETE;
 
-	return (
+	return !isLoadingSettingsData ? (
 		<div className={styles.FormContainer}>
 			<div
 				className={styles.ScrollSection}
@@ -142,7 +149,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 									setIsMintable(!isMintable);
 								}}
 							/>
-							{!isMetadataLocked && (
+							{!metadataLockedStatus && (
 								<InfoTooltip
 									content={
 										'Allow members to make a stake offer in order to mint NFTs on your domain. Turn off if your domain is not intended to be open for others to mint upon'
@@ -160,7 +167,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 									setIsBiddable(!isBiddable);
 								}}
 							/>
-							{!isMetadataLocked && (
+							{!metadataLockedStatus && (
 								<InfoTooltip
 									content={
 										'Allow bidding on your domain. Turn off if the domain is not intended to be sold.'
@@ -178,7 +185,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 									setGridViewByDefault(!gridViewByDefault);
 								}}
 							/>
-							{!isMetadataLocked && (
+							{!metadataLockedStatus && (
 								<InfoTooltip
 									content={
 										'Grid view has larger image previews which can benefit domains with a focus on art rather than statistics.'
@@ -200,7 +207,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 								}}
 							/>
 
-							{!isMetadataLocked && (
+							{!metadataLockedStatus && (
 								<InfoTooltip
 									content={
 										'Change the first column header of list view. By default this is `Domain`.'
@@ -247,5 +254,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 				/>
 			)}
 		</div>
+	) : (
+		<LoadingIndicator text={'Loading data...'} />
 	);
 };

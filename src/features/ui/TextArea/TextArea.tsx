@@ -27,7 +27,8 @@ export const TextArea: FC<TextAreaProps> = ({
 }: TextAreaProps) => {
 	const textAreaRef = useRef<HTMLTextAreaElement>();
 
-	const isError = value.length >= maxLength || value.length <= minLength;
+	const isError =
+		value && (value.length >= maxLength || value.length <= minLength);
 
 	const handleOnChange = useCallback(() => {
 		if (!isDisabled) {

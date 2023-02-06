@@ -8,7 +8,7 @@ import {
 	ConfirmActionType,
 } from '../DomainSettings.types';
 import { useDomainSettingsData } from '.';
-import { useDomainMetadata, useWeb3, useZnsSdk } from '../../../lib/hooks';
+import { useWeb3, useZnsSdk } from '../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { Step } from '@zero-tech/zui/components';
@@ -37,8 +37,9 @@ export const useDomainSettingsForm = (
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
 
-	const { domainId, isMetadataLocked } = useDomainSettingsData(zna);
-	const { data: metadata } = useDomainMetadata(domainId);
+	// add isLoading to form
+	const { domainId, metadata, metadataLockedStatus } =
+		useDomainSettingsData(zna);
 
 	const [stepId, setStepId] = useState(steps[0].id);
 	const [errorText, setErrorText] = useState<string>();
@@ -48,10 +49,15 @@ export const useDomainSettingsForm = (
 	const [confirmActionType, setConfirmActionType] =
 		useState<ConfirmActionType>();
 
+	const [isMetadataLocked, setIsMetadataLocked] =
+		useState<boolean>(metadataLockedStatus);
+
 	// Form field data
 	const [details, setDetails] = useState<DetailsFormSubmit>();
 	console.log(details);
 	console.log(metadata);
+
+	console.log('BODY', isMetadataLocked);
 
 	// Set metadata form details
 	const onFormDetailsSubmit = ({
@@ -92,15 +98,30 @@ export const useDomainSettingsForm = (
 		setFormHeader(title);
 	};
 
-	// an alternative call to determine if metadata is locked - should probably be used over useDomainData
 	const onCheckMetadataLockStatus = useCallback(async () => {
 		const isDomainMetadataLocked = await sdk.isDomainMetadataLocked(
 			domainId,
 			provider.getSigner(),
 		);
 
+		setIsMetadataLocked(isDomainMetadataLocked);
+
 		return isDomainMetadataLocked;
-	}, [domainId, provider]);
+	}, [domainId, provider, setIsMetadataLocked]);
+
+	// const onGetDomainMetadata = useCallback(async () => {
+	// 	const domainMetadata = await sdk.getDomainMetadata(
+	// 		domainId,
+	// 		provider.getSigner(),
+	// 	);
+
+	// 	// setIsMetadataLocked(isDomainMetadataLocked);
+	// 	console.log('here');
+
+	// 	console.log('DOMINA', domainMetadata);
+
+	// 	return domainMetadata;
+	// }, [domainId, provider, setIsMetadataLocked]);
 
 	// Transaction handlers
 	const handleTransactionStart = (onLoadingHeader?: string) => {
@@ -116,6 +137,7 @@ export const useDomainSettingsForm = (
 	const handleTransactionSuccess = () => {
 		setIsTransactionLoading(false);
 		onStepUpdate(steps[2]);
+		onCheckMetadataLockStatus();
 	};
 
 	const handleTransactionError = (errorMessage: string) => {
@@ -128,7 +150,7 @@ export const useDomainSettingsForm = (
 	const onLockMetadataStatus = () => {
 		setErrorText(undefined);
 
-		const lockStatus = isMetadataLocked;
+		const lockStatus = metadataLockedStatus;
 		const onLoadingText = `${
 			lockStatus ? 'Unlocking' : 'Locking'
 		} metadata... This may take up to 20 mins. Do not close this window or refresh your browser...`;
@@ -160,6 +182,7 @@ export const useDomainSettingsForm = (
 				onStart: () => handleTransactionStart(onLoadingHeader),
 				onProcessing: () => handleTransactionProcessing(onLoadingText),
 				onSuccess: () => handleTransactionSuccess(),
+
 				onError: (error: any) => handleTransactionError(error.message),
 				invalidationKeys: [['user', { account, domainId, details }]],
 			},

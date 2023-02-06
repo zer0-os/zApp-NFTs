@@ -1,23 +1,36 @@
+import {
+	useWeb3,
+	useDomainData,
+	useDomainMetadata,
+	useIsDomainMetadataLocked,
+} from '../../../lib/hooks';
 import { getDomainId } from '../../../lib/util';
-import { useWeb3, useDomainData, useDomainMetadata } from '../../../lib/hooks';
 import { truncateAddress } from '@zero-tech/zui/utils';
 
 export const useDomainSettingsData = (zna: string) => {
 	const domainId = getDomainId(zna);
 
 	const { account } = useWeb3();
-	const { data: domain } = useDomainData(domainId);
-	const { data: metadata } = useDomainMetadata(domainId);
 
-	const isMetadataLocked = domain?.isLocked;
+	const { data: domain, isLoading: isLoadingDomainData } =
+		useDomainData(domainId);
+
+	const { data: metadata, isLoading: isLoadingMetadata } =
+		useDomainMetadata(domainId);
+
+	const { data: metadataLockedStatus, isLoading: isLoadingLockedStatus } =
+		useIsDomainMetadataLocked(domainId);
+
 	const truncatedLockedByAddress = truncateAddress(domain?.lockedBy) ?? '';
 	const isLockedByOwner =
-		domain?.isLocked &&
 		domain?.lockedBy.toLowerCase() === account?.toLowerCase();
 
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
 	const imageSrc =
-		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
+		metadata?.animation_url ?? metadata?.image_full ?? metadata?.image ?? '';
+
+	const isLoadingSettingsData =
+		isLoadingMetadata || isLoadingDomainData || isLoadingLockedStatus;
 
 	return {
 		domainId,
@@ -25,7 +38,8 @@ export const useDomainSettingsData = (zna: string) => {
 		imageAlt,
 		imageSrc,
 		isLockedByOwner,
-		isMetadataLocked,
+		isLoadingSettingsData,
+		metadataLockedStatus,
 		truncatedLockedByAddress,
 	};
 };
