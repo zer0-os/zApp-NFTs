@@ -8,7 +8,11 @@ import {
 	ConfirmActionType,
 } from '../DomainSettings.types';
 import { useDomainSettingsData } from '.';
-import { useWeb3, useZnsSdk } from '../../../lib/hooks';
+import {
+	useIsDomainMetadataLocked,
+	useWeb3,
+	useZnsSdk,
+} from '../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { Step } from '@zero-tech/zui/components';
@@ -49,15 +53,9 @@ export const useDomainSettingsForm = (
 	const [confirmActionType, setConfirmActionType] =
 		useState<ConfirmActionType>();
 
-	const [isMetadataLocked, setIsMetadataLocked] =
-		useState<boolean>(metadataLockedStatus);
-
-	// Form field data
 	const [details, setDetails] = useState<DetailsFormSubmit>();
 	console.log(details);
 	console.log(metadata);
-
-	console.log('BODY', isMetadataLocked);
 
 	// Set metadata form details
 	const onFormDetailsSubmit = ({
@@ -70,16 +68,16 @@ export const useDomainSettingsForm = (
 		customDomainHeaderValue,
 	}: FieldValues): void => {
 		setDetails({
+			attributes: metadata?.attributes,
 			title,
 			description,
-			attributes: metadata?.attributes,
 			image: metadata?.image,
 			image_full: metadata?.image_full,
 			previewImage: metadata?.previewImage,
 			animation_url: metadata?.animation_url,
 			stakingRequests: metadata?.stakingRequests,
-			isMintable,
 			isBiddable,
+			isMintable,
 			gridViewByDefault,
 			customDomainHeader,
 			customDomainHeaderValue,
@@ -104,24 +102,21 @@ export const useDomainSettingsForm = (
 			provider.getSigner(),
 		);
 
-		setIsMetadataLocked(isDomainMetadataLocked);
-
 		return isDomainMetadataLocked;
-	}, [domainId, provider, setIsMetadataLocked]);
+	}, [domainId, provider]);
 
-	// const onGetDomainMetadata = useCallback(async () => {
-	// 	const domainMetadata = await sdk.getDomainMetadata(
-	// 		domainId,
-	// 		provider.getSigner(),
-	// 	);
+	const onGetDomainMetadata = useCallback(async () => {
+		const domainMetadata = await sdk.getDomainMetadata(
+			domainId,
+			provider.getSigner(),
+		);
 
-	// 	// setIsMetadataLocked(isDomainMetadataLocked);
-	// 	console.log('here');
+		console.log('here');
 
-	// 	console.log('DOMINA', domainMetadata);
+		console.log('DOMINA', domainMetadata);
 
-	// 	return domainMetadata;
-	// }, [domainId, provider, setIsMetadataLocked]);
+		return domainMetadata;
+	}, [domainId, provider]);
 
 	// Transaction handlers
 	const handleTransactionStart = (onLoadingHeader?: string) => {
@@ -138,6 +133,7 @@ export const useDomainSettingsForm = (
 		setIsTransactionLoading(false);
 		onStepUpdate(steps[2]);
 		onCheckMetadataLockStatus();
+		onGetDomainMetadata();
 	};
 
 	const handleTransactionError = (errorMessage: string) => {
