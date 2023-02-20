@@ -1,7 +1,9 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
-import { DomainSettingsHeader } from '.';
-import { useDomainSettingsForm, useFormSteps } from './hooks';
+import { DomainSettingsHeader, FormStep } from '.';
+import { useDomainSettingsForm } from './hooks';
+
+import { DetailsForm, ConfirmForm } from './Steps';
 import { Wizard } from '@zero-tech/zui/components';
 
 export type DomainSettingsFormProps = {
@@ -13,7 +15,6 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 	zna,
 	onClose,
 }) => {
-	// Form data and handlers
 	const {
 		stepId,
 		errorText,
@@ -30,23 +31,54 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 		onConfirmActionUpdate,
 	} = useDomainSettingsForm(zna);
 
-	// Sets step content and calls actions
-	const { content } = useFormSteps({
-		zna,
-		stepId,
-		errorText,
-		confirmActionType,
-		loadingStatusText,
-		isTransactionLoading,
-		onStepUpdate,
-		onTitleUpdate,
-		onFormDetailsSubmit,
-		onLockMetadataStatus,
-		onSetAndLockMetadata,
-		onSetMetadata,
-		onConfirmActionUpdate,
-		onClose,
-	});
+	let content: ReactNode;
+
+	switch (stepId) {
+		case FormStep.DETAILS:
+			content = (
+				<DetailsForm
+					zna={zna}
+					stepId={stepId}
+					errorText={errorText}
+					onStepUpdate={onStepUpdate}
+					onTitleUpdate={onTitleUpdate}
+					onFormDetailsSubmit={onFormDetailsSubmit}
+					onConfirmActionUpdate={onConfirmActionUpdate}
+				/>
+			);
+			break;
+
+		case FormStep.CONFIRM:
+			content = !isTransactionLoading ? (
+				<ConfirmForm
+					confirmActionType={confirmActionType}
+					onStepUpdate={onStepUpdate}
+					onLockMetadataStatus={onLockMetadataStatus}
+					onSetAndLockMetadata={onSetAndLockMetadata}
+					onSetMetadata={onSetMetadata}
+				/>
+			) : (
+				<Wizard.Loading message={loadingStatusText} />
+			);
+			break;
+
+		case FormStep.COMPLETE:
+			content = !isTransactionLoading ? (
+				<DetailsForm
+					zna={zna}
+					stepId={stepId}
+					errorText={errorText}
+					confirmActionType={confirmActionType}
+					onLockMetadataStatus={onLockMetadataStatus}
+					onStepUpdate={onStepUpdate}
+					onConfirmActionUpdate={onConfirmActionUpdate}
+					onClose={onClose}
+				/>
+			) : (
+				<Wizard.Loading message={loadingStatusText} />
+			);
+			break;
+	}
 
 	return (
 		<Wizard.Container>

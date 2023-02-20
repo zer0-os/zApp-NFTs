@@ -8,11 +8,7 @@ import {
 	ConfirmActionType,
 } from '../DomainSettings.types';
 import { useDomainSettingsData } from '.';
-import {
-	useIsDomainMetadataLocked,
-	useWeb3,
-	useZnsSdk,
-} from '../../../lib/hooks';
+import { useWeb3, useZnsSdk } from '../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { Step } from '@zero-tech/zui/components';
@@ -54,8 +50,6 @@ export const useDomainSettingsForm = (
 		useState<ConfirmActionType>();
 
 	const [details, setDetails] = useState<DetailsFormSubmit>();
-	console.log(details);
-	console.log(metadata);
 
 	// Set metadata form details
 	const onFormDetailsSubmit = ({
