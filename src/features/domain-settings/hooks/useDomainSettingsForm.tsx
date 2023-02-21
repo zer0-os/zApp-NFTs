@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 
 import {
 	steps,
@@ -11,26 +11,20 @@ import { useDomainSettingsData } from '.';
 import { useWeb3, useZnsSdk } from '../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
-import { Step } from '@zero-tech/zui/components';
+import { ConfirmForm, DetailsForm } from '../Steps';
+import { Step, Wizard } from '@zero-tech/zui/components';
 
 export type UseDomainSettingsFormFormReturn = {
 	stepId: string;
 	formHeader: string;
-	errorText: string;
-	confirmActionType: ConfirmActionType;
-	loadingStatusText: string;
+	formContent: ReactNode;
 	isTransactionLoading: boolean;
 	onStepUpdate: (step: Step) => void;
-	onTitleUpdate: (title: string) => void;
-	onFormDetailsSubmit: (values: FieldValues) => void;
-	onLockMetadataStatus: () => void;
-	onSetAndLockMetadata: () => void;
-	onSetMetadata: () => void;
-	onConfirmActionUpdate: (action: ConfirmActionType) => void;
 };
 
 export const useDomainSettingsForm = (
 	zna: string,
+	onClose: () => void,
 ): UseDomainSettingsFormFormReturn => {
 	const sdk = useZnsSdk();
 
@@ -199,19 +193,61 @@ export const useDomainSettingsForm = (
 		);
 	};
 
+	// Form content structure
+	let formContent: ReactNode;
+
+	switch (stepId) {
+		case FormStep.DETAILS:
+			formContent = (
+				<DetailsForm
+					zna={zna}
+					stepId={stepId}
+					errorText={errorText}
+					onStepUpdate={onStepUpdate}
+					onTitleUpdate={onTitleUpdate}
+					onFormDetailsSubmit={onFormDetailsSubmit}
+					onConfirmActionUpdate={onConfirmActionUpdate}
+				/>
+			);
+			break;
+
+		case FormStep.CONFIRM:
+			formContent = !isTransactionLoading ? (
+				<ConfirmForm
+					confirmActionType={confirmActionType}
+					onStepUpdate={onStepUpdate}
+					onLockMetadataStatus={onLockMetadataStatus}
+					onSetAndLockMetadata={onSetAndLockMetadata}
+					onSetMetadata={onSetMetadata}
+				/>
+			) : (
+				<Wizard.Loading message={loadingStatusText} />
+			);
+			break;
+
+		case FormStep.COMPLETE:
+			formContent = !isTransactionLoading ? (
+				<DetailsForm
+					zna={zna}
+					stepId={stepId}
+					errorText={errorText}
+					confirmActionType={confirmActionType}
+					onLockMetadataStatus={onLockMetadataStatus}
+					onStepUpdate={onStepUpdate}
+					onConfirmActionUpdate={onConfirmActionUpdate}
+					onClose={onClose}
+				/>
+			) : (
+				<Wizard.Loading message={loadingStatusText} />
+			);
+			break;
+	}
+
 	return {
 		stepId,
 		formHeader,
-		errorText,
-		confirmActionType,
-		loadingStatusText,
+		formContent,
 		isTransactionLoading,
 		onStepUpdate,
-		onTitleUpdate,
-		onFormDetailsSubmit,
-		onLockMetadataStatus,
-		onSetAndLockMetadata,
-		onSetMetadata,
-		onConfirmActionUpdate,
 	};
 };
