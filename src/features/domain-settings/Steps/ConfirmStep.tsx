@@ -65,7 +65,7 @@ type StepData = {
 	message: string;
 };
 
-const getStepTextContent = (confirmActionType: string) => {
+const getStepTextContent = (confirmActionType: ConfirmActionType) => {
 	let stepData: StepData;
 
 	if (confirmActionType === 'unlock') {
