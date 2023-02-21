@@ -68,24 +68,32 @@ type StepData = {
 const getStepTextContent = (confirmActionType: ConfirmActionType) => {
 	let stepData: StepData;
 
-	if (confirmActionType === 'unlock') {
-		stepData = {
-			primaryButtonText: 'Unlock Metadata',
-			message:
-				'Unlocking metadata is a blockchain transaction that will cost gas. \nAdditional, optional, transactions are required to save changes and lock the metadata again.',
-		};
-	} else if (confirmActionType === 'save-and-lock') {
-		stepData = {
-			primaryButtonText: 'Save & Lock',
-			message:
-				'Your changes will be saved and the metadata will be locked. \nYou will be the only one who can unlock it in the future.',
-		};
-	} else {
-		stepData = {
-			primaryButtonText: 'Save Without Locking',
-			message:
-				'If you transfer ownership of the domain while metadata is unlocked, the new owner can edit the metadata and lock it. You may lose access forever.',
-		};
+	switch (confirmActionType) {
+		case ConfirmActionType.UNLOCK:
+			stepData = {
+				primaryButtonText: 'Unlock Metadata',
+				message:
+					'Unlocking metadata is a blockchain transaction that will cost gas. \nAdditional, optional, transactions are required to save changes and lock the metadata again.',
+			};
+
+			break;
+
+		case ConfirmActionType.SAVE_AND_LOCK:
+			stepData = {
+				primaryButtonText: 'Save & Lock',
+				message:
+					'Your changes will be saved and the metadata will be locked. \nYou will be the only one who can unlock it in the future.',
+			};
+
+			break;
+
+		case ConfirmActionType.SAVE_WITHOUT_LOCKING:
+			stepData = {
+				primaryButtonText: 'Save Without Locking',
+				message:
+					'If you transfer ownership of the domain while metadata is unlocked, the new owner can edit the metadata and lock it. You may lose access forever.',
+			};
+			break;
 	}
 
 	return stepData;
