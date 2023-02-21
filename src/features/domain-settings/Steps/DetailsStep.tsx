@@ -1,12 +1,13 @@
 import { FC, useState } from 'react';
 
-import { ConfirmActionType, FieldValues, FormStep } from '..';
 import { useDomainSettingsData } from '../hooks';
+import { Metadata } from '../../../lib/types/metadata';
+import { ConfirmActionType, FieldValues, FormStep } from '..';
 
-import { DetailsStepFooter, CompleteStepFooter } from './Footers';
 import { Media, Switch, TextArea } from '../../ui';
-import { Input, LoadingIndicator, Step } from '@zero-tech/zui/components';
+import { DetailsStepFooter, CompleteStepFooter } from './Footers';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
+import { Input, LoadingIndicator, Step } from '@zero-tech/zui/components';
 
 import styles from './DetailsStep.module.scss';
 
@@ -60,7 +61,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 			(metadata?.customDomainHeaderValue as string) || undefined,
 		);
 
-	const handleSubmit = (
+	const onSubmit = (
 		action: ConfirmActionType,
 		step: Step,
 		formHeader: string,
@@ -81,7 +82,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 
 	const isDisabled = metadataLockedStatus || stepId === FormStep.COMPLETE;
 
-	return !isLoadingSettingsData ? (
+	return isLoadingSettingsData ? (
 		<div className={styles.FormContainer}>
 			<div
 				className={styles.ScrollSection}
@@ -90,34 +91,12 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 				<div className={styles.DetailsContainer}>
 					<Media alt={imageAlt} src={imageSrc} />
 
-					<div className={styles.InputWrapper}>
-						<Input
-							className={styles.Input}
-							type="text"
-							label="Title"
-							value={title}
-							placeholder={'NFT Name'}
-							isDisabled={isDisabled}
-							onChange={(value: string) => setTitle(value)}
-							error={Boolean(!title)}
-							alert={
-								Boolean(!title) && {
-									variant: 'error',
-									text: 'The title field is required.',
-								}
-							}
-						/>
-
-						<Input
-							className={styles.Input}
-							type="text"
-							label="Subdomain Name"
-							value={zna}
-							placeholder={'Subdomain Name'}
-							isDisabled
-							onChange={() => {}}
-						/>
-					</div>
+					<InputWrapper
+						zna={zna}
+						title={title}
+						setTitle={setTitle}
+						isDisabled={isDisabled}
+					/>
 				</div>
 
 				<TextArea
@@ -140,106 +119,275 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 					<h5>Advanced Domain Settings</h5>
 
 					<div className={styles.SwitchGroup}>
-						<div className={styles.SwitchRow}>
-							<Switch
-								label={'Domain Mint Requests'}
-								toggled={isMintable}
-								isDisabled={isDisabled}
-								onPress={() => {
-									setIsMintable(!isMintable);
-								}}
-							/>
-							{!metadataLockedStatus && (
-								<InfoTooltip
-									content={
-										'Allow members to make a stake offer in order to mint NFTs on your domain. Turn off if your domain is not intended to be open for others to mint upon'
-									}
-								/>
-							)}
-						</div>
+						<SwitchGroup
+							metadata={metadata}
+							metadataLockedStatus={metadataLockedStatus}
+							isDisabled={isDisabled}
+							isMintable={isMintable}
+							setIsMintable={setIsMintable}
+							isBiddable={isBiddable}
+							setIsBiddable={setIsBiddable}
+							gridViewByDefault={gridViewByDefault}
+							setGridViewByDefault={setGridViewByDefault}
+							customDomainHeader={customDomainHeader}
+							setCustomDomainHeader={setCustomDomainHeader}
+							setCustomDomainHeaderValue={setCustomDomainHeaderValue}
+						/>
 
-						<div className={styles.SwitchRow}>
-							<Switch
-								label={'Domain Bidding'}
-								toggled={isBiddable}
-								isDisabled={isDisabled}
-								onPress={() => {
-									setIsBiddable(!isBiddable);
-								}}
-							/>
-							{!metadataLockedStatus && (
-								<InfoTooltip
-									content={
-										'Allow bidding on your domain. Turn off if the domain is not intended to be sold.'
-									}
-								/>
-							)}
-						</div>
-
-						<div className={styles.SwitchRow}>
-							<Switch
-								label={'Domain in Grid View by Default'}
-								toggled={gridViewByDefault}
-								isDisabled={isDisabled}
-								onPress={() => {
-									setGridViewByDefault(!gridViewByDefault);
-								}}
-							/>
-							{!metadataLockedStatus && (
-								<InfoTooltip
-									content={
-										'Grid view has larger image previews which can benefit domains with a focus on art rather than statistics.'
-									}
-								/>
-							)}
-						</div>
-
-						<div className={styles.SwitchRow}>
-							<Switch
-								label={'Custom Domain Header'}
-								toggled={customDomainHeader}
-								isDisabled={isDisabled}
-								onPress={() => {
-									setCustomDomainHeaderValue(
-										(metadata?.customDomainHeaderValue as string) || undefined,
-									);
-									setCustomDomainHeader(!customDomainHeader);
-								}}
-							/>
-
-							{!metadataLockedStatus && (
-								<InfoTooltip
-									content={
-										'Change the first column header of list view. By default this is `Domain`.'
-									}
-								/>
-							)}
-						</div>
 						{customDomainHeader && (
-							<Input
-								className={styles.SwitchInput}
-								type="text"
-								value={customDomainHeaderValue}
-								placeholder={'Custom Domain Header'}
-								onChange={(value: string) => setCustomDomainHeaderValue(value)}
-								error={!customDomainHeaderValue}
-								alert={
-									!customDomainHeaderValue && {
-										variant: 'error',
-										text: 'Please enter a custom header if selected.',
-									}
-								}
+							<CustomDomainHeaderInput
+								customDomainHeaderValue={customDomainHeaderValue}
+								setCustomDomainHeaderValue={setCustomDomainHeaderValue}
 							/>
 						)}
 					</div>
 				</div>
 			</div>
 
+			<Footer
+				zna={zna}
+				stepId={stepId}
+				errorText={errorText}
+				confirmActionType={confirmActionType}
+				onStepUpdate={onStepUpdate}
+				onConfirmActionUpdate={onConfirmActionUpdate}
+				onSubmit={onSubmit}
+				onClose={onClose}
+			/>
+		</div>
+	) : (
+		<LoadingIndicator text={'Loading data...'} />
+	);
+};
+
+/*******************
+ * InputWrapper
+ *******************/
+
+interface InputWrapperProps {
+	zna: DetailsFormProps['zna'];
+	title: string;
+	setTitle: (value: string) => void;
+	isDisabled: boolean;
+}
+
+const InputWrapper = ({
+	zna,
+	title,
+	setTitle,
+	isDisabled,
+}: InputWrapperProps) => {
+	return (
+		<div className={styles.InputWrapper}>
+			<Input
+				className={styles.Input}
+				type="text"
+				label="Title"
+				value={title}
+				placeholder={'NFT Name'}
+				isDisabled={isDisabled}
+				onChange={(value: string) => setTitle(value)}
+				error={Boolean(!title)}
+				alert={
+					Boolean(!title) && {
+						variant: 'error',
+						text: 'The title field is required.',
+					}
+				}
+			/>
+
+			<Input
+				className={styles.Input}
+				type="text"
+				label="Subdomain Name"
+				value={zna}
+				placeholder={'Subdomain Name'}
+				isDisabled
+				onChange={() => {}}
+			/>
+		</div>
+	);
+};
+
+/*******************
+ * SwitchGroup
+ *******************/
+
+interface SwitchGroupProps {
+	metadata: Metadata;
+	metadataLockedStatus: boolean;
+	isDisabled: boolean;
+	isMintable: boolean;
+	setIsMintable: (value: boolean) => void;
+	isBiddable: boolean;
+	setIsBiddable: (value: boolean) => void;
+	gridViewByDefault: boolean;
+	setGridViewByDefault: (value: boolean) => void;
+	customDomainHeader: boolean;
+	setCustomDomainHeader: (value: boolean) => void;
+	setCustomDomainHeaderValue: (value: string) => void;
+}
+
+const SwitchGroup = ({
+	metadata,
+	metadataLockedStatus,
+	isDisabled,
+	isMintable,
+	setIsMintable,
+	isBiddable,
+	setIsBiddable,
+	gridViewByDefault,
+	setGridViewByDefault,
+	customDomainHeader,
+	setCustomDomainHeader,
+	setCustomDomainHeaderValue,
+}: SwitchGroupProps) => {
+	return (
+		<>
+			<div className={styles.SwitchRow}>
+				<Switch
+					label={'Domain Mint Requests'}
+					toggled={isMintable}
+					isDisabled={isDisabled}
+					onPress={() => {
+						setIsMintable(!isMintable);
+					}}
+				/>
+				{!metadataLockedStatus && (
+					<InfoTooltip
+						content={
+							'Allow members to make a stake offer in order to mint NFTs on your domain. Turn off if your domain is not intended to be open for others to mint upon'
+						}
+					/>
+				)}
+			</div>
+
+			<div className={styles.SwitchRow}>
+				<Switch
+					label={'Domain Bidding'}
+					toggled={isBiddable}
+					isDisabled={isDisabled}
+					onPress={() => {
+						setIsBiddable(!isBiddable);
+					}}
+				/>
+				{!metadataLockedStatus && (
+					<InfoTooltip
+						content={
+							'Allow bidding on your domain. Turn off if the domain is not intended to be sold.'
+						}
+					/>
+				)}
+			</div>
+
+			<div className={styles.SwitchRow}>
+				<Switch
+					label={'Domain in Grid View by Default'}
+					toggled={gridViewByDefault}
+					isDisabled={isDisabled}
+					onPress={() => {
+						setGridViewByDefault(!gridViewByDefault);
+					}}
+				/>
+				{!metadataLockedStatus && (
+					<InfoTooltip
+						content={
+							'Grid view has larger image previews which can benefit domains with a focus on art rather than statistics.'
+						}
+					/>
+				)}
+			</div>
+
+			<div className={styles.SwitchRow}>
+				<Switch
+					label={'Custom Domain Header'}
+					toggled={customDomainHeader}
+					isDisabled={isDisabled}
+					onPress={() => {
+						setCustomDomainHeaderValue(
+							(metadata?.customDomainHeaderValue as string) || undefined,
+						);
+						setCustomDomainHeader(!customDomainHeader);
+					}}
+				/>
+
+				{!metadataLockedStatus && (
+					<InfoTooltip
+						content={
+							'Change the first column header of list view. By default this is `Domain`.'
+						}
+					/>
+				)}
+			</div>
+		</>
+	);
+};
+
+/**************************
+ * CustomDomainHeaderInput
+ **************************/
+
+interface CustomDomainHeaderInputProps {
+	customDomainHeaderValue: string;
+	setCustomDomainHeaderValue: (value: string) => void;
+}
+
+const CustomDomainHeaderInput = ({
+	customDomainHeaderValue,
+	setCustomDomainHeaderValue,
+}: CustomDomainHeaderInputProps) => {
+	return (
+		<Input
+			className={styles.SwitchInput}
+			type="text"
+			value={customDomainHeaderValue}
+			placeholder={'Custom Domain Header'}
+			onChange={(value: string) => setCustomDomainHeaderValue(value)}
+			error={!customDomainHeaderValue}
+			alert={
+				!customDomainHeaderValue && {
+					variant: 'error',
+					text: 'Please enter a custom header if selected.',
+				}
+			}
+		/>
+	);
+};
+
+/*************
+ * Footer
+ *************/
+
+interface FooterProps {
+	zna: string;
+	stepId: string;
+	errorText: string;
+	confirmActionType: ConfirmActionType;
+	onLockMetadataStatus?: () => void;
+	onStepUpdate: (step: Step) => void;
+	onConfirmActionUpdate: (action: ConfirmActionType) => void;
+	onSubmit: (action: ConfirmActionType, step: Step, formHeader: string) => void;
+	onClose: () => void;
+}
+
+const Footer = ({
+	zna,
+	stepId,
+	errorText,
+	confirmActionType,
+	onLockMetadataStatus,
+	onStepUpdate,
+	onConfirmActionUpdate,
+	onSubmit,
+	onClose,
+}: FooterProps) => {
+	return (
+		<>
 			{stepId === FormStep.DETAILS && (
 				<DetailsStepFooter
 					zna={zna}
 					errorText={errorText}
-					onSubmit={handleSubmit}
+					onSubmit={onSubmit}
 				/>
 			)}
 
@@ -253,8 +401,6 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 					onClose={onClose}
 				/>
 			)}
-		</div>
-	) : (
-		<LoadingIndicator text={'Loading data...'} />
+		</>
 	);
 };
