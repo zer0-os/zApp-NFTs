@@ -91,7 +91,7 @@ interface IconsProps {
 	confirmActionType: string;
 }
 
-const Icons = ({ confirmActionType }: SuccessLabelProps) => {
+const Icons = ({ confirmActionType }: IconsProps) => {
 	return (
 		<>
 			{confirmActionType === ConfirmActionType.SAVE_AND_LOCK ? (

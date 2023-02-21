@@ -31,11 +31,10 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 			)}
 
 			{!errorText && metadataLockedStatus && (
-				<label className={styles.Label}>
-					{isLockedByOwner
-						? 'Please unlock to make changes'
-						: `You cannot unlock the metadata to make changes. \nIt was locked by ${truncatedLockedByAddress} `}
-				</label>
+				<WarningLabel
+					isLockedByOwner={isLockedByOwner}
+					truncatedLockedByAddress={truncatedLockedByAddress}
+				/>
 			)}
 
 			<div className={styles.Buttons}>
@@ -93,5 +92,27 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 				/>
 			</div>
 		</>
+	);
+};
+
+/****************
+ * WarningLabel
+ ****************/
+
+interface WarningLabelProps {
+	isLockedByOwner: boolean;
+	truncatedLockedByAddress: string;
+}
+
+const WarningLabel = ({
+	isLockedByOwner,
+	truncatedLockedByAddress,
+}: WarningLabelProps) => {
+	return (
+		<label className={styles.Label}>
+			{isLockedByOwner
+				? 'Please unlock to make changes'
+				: `You cannot unlock the metadata to make changes. \nIt was locked by ${truncatedLockedByAddress} `}
+		</label>
 	);
 };
