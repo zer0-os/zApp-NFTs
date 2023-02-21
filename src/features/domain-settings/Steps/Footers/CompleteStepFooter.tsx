@@ -34,41 +34,20 @@ export const CompleteStepFooter: FC<CompleteStepFooterProps> = ({
 				<FormErrorText className={styles.ErrorText} text={errorText} />
 			)}
 
-			{!errorText && (
-				<label className={styles.Label} data-variant={'success'}>
-					{confirmActionType === ConfirmActionType.SAVE_AND_LOCK
-						? 'Your changes have been saved and the metadata is locked'
-						: confirmActionType === ConfirmActionType.UNLOCK
-						? 'Success. Metadata is unlocked'
-						: 'Your changes have been saved'}
-				</label>
-			)}
+			{!errorText && <SuccessLabel confirmActionType={confirmActionType} />}
 
 			<div className={styles.Buttons}>
 				<>
-					{confirmActionType === ConfirmActionType.SAVE_AND_LOCK ? (
-						<IconLock1 className={styles.LockedIcon} />
-					) : (
-						<IconLockUnlocked1 className={styles.UnlockedIcon} />
-					)}
+					<Icons confirmActionType={confirmActionType} />
 
-					{(confirmActionType === ConfirmActionType.SAVE_WITHOUT_LOCKING ||
-						Boolean(errorText)) && (
-						<Button
-							onPress={() => {
-								onLockMetadataStatus();
-								onConfirmActionUpdate(ConfirmActionType.SAVE_AND_LOCK);
-							}}
-						>
-							{'Lock Metadata'}
-						</Button>
-					)}
-
-					{confirmActionType === ConfirmActionType.UNLOCK && (
-						<Button onPress={onEdit}>{'Edit Metadata'}</Button>
-					)}
-
-					<Button onPress={onClose}>{'Finish'}</Button>
+					<ButtonGroup
+						errorText={errorText}
+						confirmActionType={confirmActionType}
+						onEdit={onEdit}
+						onClose={onClose}
+						onLockMetadataStatus={onLockMetadataStatus}
+						onConfirmActionUpdate={onConfirmActionUpdate}
+					/>
 
 					<InfoTooltip
 						content={
@@ -80,6 +59,90 @@ export const CompleteStepFooter: FC<CompleteStepFooterProps> = ({
 					/>
 				</>
 			</div>
+		</>
+	);
+};
+
+/****************
+ * SuccessLabel
+ ****************/
+
+interface SuccessLabelProps {
+	confirmActionType: string;
+}
+
+const SuccessLabel = ({ confirmActionType }: SuccessLabelProps) => {
+	return (
+		<label className={styles.Label} data-variant={'success'}>
+			{confirmActionType === ConfirmActionType.SAVE_AND_LOCK
+				? 'Your changes have been saved and the metadata is locked'
+				: confirmActionType === ConfirmActionType.UNLOCK
+				? 'Success. Metadata is unlocked'
+				: 'Your changes have been saved'}
+		</label>
+	);
+};
+
+/****************
+ * Icons
+ ****************/
+
+interface IconsProps {
+	confirmActionType: string;
+}
+
+const Icons = ({ confirmActionType }: SuccessLabelProps) => {
+	return (
+		<>
+			{confirmActionType === ConfirmActionType.SAVE_AND_LOCK ? (
+				<IconLock1 className={styles.LockedIcon} />
+			) : (
+				<IconLockUnlocked1 className={styles.UnlockedIcon} />
+			)}
+		</>
+	);
+};
+
+/****************
+ * SuccessLabel
+ ****************/
+
+interface ButtonGroupProps {
+	errorText: string;
+	confirmActionType: string;
+	onEdit: () => void;
+	onClose: () => void;
+	onLockMetadataStatus: () => void;
+	onConfirmActionUpdate: (action: ConfirmActionType) => void;
+}
+
+const ButtonGroup = ({
+	errorText,
+	confirmActionType,
+	onEdit,
+	onClose,
+	onLockMetadataStatus,
+	onConfirmActionUpdate,
+}: ButtonGroupProps) => {
+	return (
+		<>
+			{(confirmActionType === ConfirmActionType.SAVE_WITHOUT_LOCKING ||
+				Boolean(errorText)) && (
+				<Button
+					onPress={() => {
+						onLockMetadataStatus();
+						onConfirmActionUpdate(ConfirmActionType.SAVE_AND_LOCK);
+					}}
+				>
+					{'Lock Metadata'}
+				</Button>
+			)}
+
+			{confirmActionType === ConfirmActionType.UNLOCK && (
+				<Button onPress={onEdit}>{'Edit Metadata'}</Button>
+			)}
+
+			<Button onPress={onClose}>{'Finish'}</Button>
 		</>
 	);
 };
