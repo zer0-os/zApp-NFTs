@@ -28,7 +28,9 @@ export const ConfirmForm: FC<ConfirmFormProps> = ({
 		<FormTextContent textContent={confirmationStepContent.message} />
 	);
 
-	const onBack = () => onStepUpdate(steps[0]);
+	const onBack = () => {
+		onStepUpdate(steps[0]);
+	};
 
 	const onSubmit = async (): Promise<void> => {
 		if (confirmActionType === 'unlock') {
