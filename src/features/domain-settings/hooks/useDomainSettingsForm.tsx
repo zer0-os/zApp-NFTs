@@ -72,18 +72,6 @@ export const useDomainSettingsForm = (
 		});
 	};
 
-	// const onStepUpdate = (step: Step) => {
-	// 	setStepId(step.id);
-	// };
-
-	// const onConfirmActionUpdate = (action: ConfirmActionType): void => {
-	// 	setConfirmActionType(action);
-	// };
-
-	// const onTitleUpdate = (title: string): void => {
-	// 	setFormHeader(title);
-	// };
-
 	const onCheckMetadataLockStatus = useCallback(async () => {
 		const isDomainMetadataLocked = await sdk.isDomainMetadataLocked(
 			domainId,
