@@ -151,6 +151,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 				confirmActionType={confirmActionType}
 				onStepUpdate={onStepUpdate}
 				onConfirmActionUpdate={onConfirmActionUpdate}
+				onLockMetadataStatus={onLockMetadataStatus}
 				onSubmit={onSubmit}
 				onClose={onClose}
 			/>
