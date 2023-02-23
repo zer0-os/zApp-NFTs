@@ -10,7 +10,6 @@ import {
 import { useDomainSettingsData } from '.';
 import { useWeb3, useZnsSdk } from '../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
-import { Instance } from '@zero-tech/zns-sdk';
 
 import { ConfirmForm, DetailsForm } from '../Steps';
 import { Step, Wizard } from '@zero-tech/zui/components';
@@ -73,17 +72,17 @@ export const useDomainSettingsForm = (
 		});
 	};
 
-	const onStepUpdate = (step: Step) => {
-		setStepId(step.id);
-	};
+	// const onStepUpdate = (step: Step) => {
+	// 	setStepId(step.id);
+	// };
 
-	const onConfirmActionUpdate = (action: ConfirmActionType): void => {
-		setConfirmActionType(action);
-	};
+	// const onConfirmActionUpdate = (action: ConfirmActionType): void => {
+	// 	setConfirmActionType(action);
+	// };
 
-	const onTitleUpdate = (title: string): void => {
-		setFormHeader(title);
-	};
+	// const onTitleUpdate = (title: string): void => {
+	// 	setFormHeader(title);
+	// };
 
 	const onCheckMetadataLockStatus = useCallback(async () => {
 		const isDomainMetadataLocked = await sdk.isDomainMetadataLocked(
@@ -120,7 +119,7 @@ export const useDomainSettingsForm = (
 
 	const handleTransactionSuccess = () => {
 		setIsTransactionLoading(false);
-		onStepUpdate(steps[2]);
+		setStepId(steps[2].id);
 		onCheckMetadataLockStatus();
 		onGetDomainMetadata();
 	};
@@ -128,16 +127,16 @@ export const useDomainSettingsForm = (
 	const handleTransactionError = (errorMessage: string) => {
 		setIsTransactionLoading(false);
 		setErrorText(errorMessage);
-		onStepUpdate(stepId === FormStep.COMPLETE ? steps[2] : steps[0]);
+		setStepId(stepId === FormStep.COMPLETE ? steps[2].id : steps[0].id);
 	};
 
-	const getAction = () => {
+	const getAction = (confirmActionType: ConfirmActionType) => {
 		if (confirmActionType === ConfirmActionType.UNLOCK) {
-			sdk.lockDomainMetadata;
+			return sdk.lockDomainMetadata;
 		} else if (confirmActionType === ConfirmActionType.SAVE_AND_LOCK) {
-			sdk.setAndLockDomainMetadata;
+			return sdk.setAndLockDomainMetadata;
 		} else {
-			sdk.setDomainMetadata;
+			return sdk.setDomainMetadata;
 		}
 	};
 
@@ -150,8 +149,10 @@ export const useDomainSettingsForm = (
 			confirmActionType,
 		);
 
+		const sdkAction = getAction(confirmActionType);
+
 		return executeTransaction(
-			getAction(),
+			sdkAction,
 			[
 				domainId,
 				confirmActionType === ConfirmActionType.UNLOCK
@@ -161,9 +162,7 @@ export const useDomainSettingsForm = (
 			],
 			{
 				onStart: () =>
-					handleTransactionStart(
-						getLoadingText(metadataLockedStatus, confirmActionType),
-					),
+					handleTransactionStart(loadingTextContent?.onLoadingHeader),
 				onProcessing: () =>
 					handleTransactionProcessing(loadingTextContent.onLoadingText),
 				onSuccess: () => handleTransactionSuccess(),
@@ -186,10 +185,12 @@ export const useDomainSettingsForm = (
 					zna={zna}
 					stepId={stepId}
 					errorText={errorText}
-					onStepUpdate={onStepUpdate}
-					onTitleUpdate={onTitleUpdate}
+					onStepUpdate={(step: Step) => setStepId(step.id)}
+					onTitleUpdate={(title: string) => setFormHeader(title)}
 					onFormDetailsSubmit={onFormDetailsSubmit}
-					onConfirmActionUpdate={onConfirmActionUpdate}
+					onConfirmActionUpdate={(action: ConfirmActionType) =>
+						setConfirmActionType(action)
+					}
 				/>
 			);
 			break;
@@ -198,7 +199,7 @@ export const useDomainSettingsForm = (
 			formContent = !isTransactionLoading ? (
 				<ConfirmForm
 					confirmActionType={confirmActionType}
-					onStepUpdate={onStepUpdate}
+					onStepUpdate={(step: Step) => setStepId(step.id)}
 					onSubmit={onSubmitTransaction}
 				/>
 			) : (
@@ -214,8 +215,10 @@ export const useDomainSettingsForm = (
 					errorText={errorText}
 					confirmActionType={confirmActionType}
 					onLockMetadataStatus={onSubmitTransaction}
-					onStepUpdate={onStepUpdate}
-					onConfirmActionUpdate={onConfirmActionUpdate}
+					onStepUpdate={(step: Step) => setStepId(step.id)}
+					onConfirmActionUpdate={(action: ConfirmActionType) =>
+						setConfirmActionType(action)
+					}
 					onClose={onClose}
 				/>
 			) : (
@@ -229,7 +232,7 @@ export const useDomainSettingsForm = (
 		formHeader,
 		formContent,
 		isTransactionLoading,
-		onStepUpdate,
+		onStepUpdate: (step: Step) => setStepId(step.id),
 	};
 };
 
