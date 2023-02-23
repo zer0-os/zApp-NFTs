@@ -10,6 +10,7 @@ import {
 import { useDomainSettingsData } from '.';
 import { useWeb3, useZnsSdk } from '../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
+import { Instance } from '@zero-tech/zns-sdk';
 
 import { ConfirmForm, DetailsForm } from '../Steps';
 import { Step, Wizard } from '@zero-tech/zui/components';
@@ -130,65 +131,47 @@ export const useDomainSettingsForm = (
 		onStepUpdate(stepId === FormStep.COMPLETE ? steps[2] : steps[0]);
 	};
 
-	// Transactions
-	const onLockMetadataStatus = () => {
-		setErrorText(undefined);
-
-		const lockStatus = metadataLockedStatus;
-		const onLoadingText = `${
-			lockStatus ? 'Unlocking' : 'Locking'
-		} metadata... This may take up to 20 mins. Do not close this window or refresh your browser...`;
-
-		return executeTransaction(
-			sdk.lockDomainMetadata,
-			[domainId, !lockStatus, provider.getSigner()],
-			{
-				onStart: () => handleTransactionStart(),
-				onProcessing: () => handleTransactionProcessing(onLoadingText),
-				onSuccess: () => handleTransactionSuccess(),
-				onError: (error: any) => handleTransactionError(error.message),
-				invalidationKeys: [['user', { account, domainId, lockStatus }]],
-			},
-		);
+	const getAction = () => {
+		if (confirmActionType === ConfirmActionType.UNLOCK) {
+			sdk.lockDomainMetadata;
+		} else if (confirmActionType === ConfirmActionType.SAVE_AND_LOCK) {
+			sdk.setAndLockDomainMetadata;
+		} else {
+			sdk.setDomainMetadata;
+		}
 	};
 
-	const onSetAndLockMetadata = () => {
+	// Executes the transaction.
+	const onSubmitTransaction = () => {
 		setErrorText(undefined);
 
-		const onLoadingHeader = 'Save & Lock Metadata';
-		const onLoadingText =
-			'Saving & locking metadata... \nThis may take up to 20 mins. Do not close this window or refresh your browser...';
-
-		return executeTransaction(
-			sdk.setAndLockDomainMetadata,
-			[domainId, details, provider.getSigner()],
-			{
-				onStart: () => handleTransactionStart(onLoadingHeader),
-				onProcessing: () => handleTransactionProcessing(onLoadingText),
-				onSuccess: () => handleTransactionSuccess(),
-
-				onError: (error: any) => handleTransactionError(error.message),
-				invalidationKeys: [['user', { account, domainId, details }]],
-			},
+		const loadingTextContent = getLoadingText(
+			metadataLockedStatus,
+			confirmActionType,
 		);
-	};
-
-	const onSetMetadata = () => {
-		setErrorText(undefined);
-
-		const onLoadingHeader = 'Save Metadata Changes';
-		const onLoadingText =
-			'Saving metadata changes... This may take up to 20 mins. \nDo not close this window or refresh your browser...';
 
 		return executeTransaction(
-			sdk.setDomainMetadata,
-			[domainId, details, provider.getSigner()],
+			getAction(),
+			[
+				domainId,
+				confirmActionType === ConfirmActionType.UNLOCK
+					? !metadataLockedStatus
+					: details,
+				provider.getSigner(),
+			],
 			{
-				onStart: () => handleTransactionStart(onLoadingHeader),
-				onProcessing: () => handleTransactionProcessing(onLoadingText),
+				onStart: () =>
+					handleTransactionStart(
+						getLoadingText(metadataLockedStatus, confirmActionType),
+					),
+				onProcessing: () =>
+					handleTransactionProcessing(loadingTextContent.onLoadingText),
 				onSuccess: () => handleTransactionSuccess(),
+
 				onError: (error: any) => handleTransactionError(error.message),
-				invalidationKeys: [['user', { account, domainId, details }]],
+				invalidationKeys: [
+					['user', { account, domainId, details, metadataLockedStatus }],
+				],
 			},
 		);
 	};
@@ -216,9 +199,7 @@ export const useDomainSettingsForm = (
 				<ConfirmForm
 					confirmActionType={confirmActionType}
 					onStepUpdate={onStepUpdate}
-					onLockMetadataStatus={onLockMetadataStatus}
-					onSetAndLockMetadata={onSetAndLockMetadata}
-					onSetMetadata={onSetMetadata}
+					onSubmit={onSubmitTransaction}
 				/>
 			) : (
 				<Wizard.Loading message={loadingStatusText} />
@@ -232,7 +213,7 @@ export const useDomainSettingsForm = (
 					stepId={stepId}
 					errorText={errorText}
 					confirmActionType={confirmActionType}
-					onLockMetadataStatus={onLockMetadataStatus}
+					onLockMetadataStatus={onSubmitTransaction}
 					onStepUpdate={onStepUpdate}
 					onConfirmActionUpdate={onConfirmActionUpdate}
 					onClose={onClose}
@@ -250,4 +231,49 @@ export const useDomainSettingsForm = (
 		isTransactionLoading,
 		onStepUpdate,
 	};
+};
+
+/************************
+ * getTransactionType
+ ************************/
+
+const getLoadingText = (
+	metadataLockedStatus: boolean,
+	confirmActionType: ConfirmActionType,
+) => {
+	let loadingTextContent;
+
+	const transactionTimingPrompt =
+		'\nThis may take up to 20 mins. Do not close this window or refresh your browser...';
+
+	const savingLoadingTextVariant =
+		confirmActionType === ConfirmActionType.SAVE_AND_LOCK
+			? 'Saving & locking metadata...'
+			: 'Saving metadata changes...';
+
+	switch (confirmActionType) {
+		case ConfirmActionType.UNLOCK:
+			loadingTextContent = {
+				onLoadingText: `${
+					metadataLockedStatus ? 'Unlocking' : 'Locking'
+				} metadata. ${transactionTimingPrompt}`,
+			};
+			break;
+
+		case ConfirmActionType.SAVE_AND_LOCK:
+			loadingTextContent = {
+				onLoadingHeader: 'Save & Lock Metadata',
+				onLoadingText: `${savingLoadingTextVariant} ${transactionTimingPrompt}`,
+			};
+			break;
+
+		case ConfirmActionType.SAVE_WITHOUT_LOCKING:
+			loadingTextContent = {
+				onLoadingHeader: 'Save Metadata Changes',
+				onLoadingText: `${savingLoadingTextVariant} ${transactionTimingPrompt}`,
+			};
+			break;
+	}
+
+	return loadingTextContent;
 };

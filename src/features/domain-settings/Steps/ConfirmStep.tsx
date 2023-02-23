@@ -10,17 +10,13 @@ import styles from './ConfirmStep.module.scss';
 interface ConfirmFormProps {
 	confirmActionType: ConfirmActionType;
 	onStepUpdate: (step: Step) => void;
-	onLockMetadataStatus: () => void;
-	onSetAndLockMetadata: () => void;
-	onSetMetadata: () => void;
+	onSubmit: () => void;
 }
 
 export const ConfirmForm: FC<ConfirmFormProps> = ({
 	confirmActionType,
 	onStepUpdate,
-	onLockMetadataStatus,
-	onSetAndLockMetadata,
-	onSetMetadata,
+	onSubmit,
 }) => {
 	const confirmationStepContent = getStepTextContent(confirmActionType);
 
@@ -30,16 +26,6 @@ export const ConfirmForm: FC<ConfirmFormProps> = ({
 
 	const onBack = () => {
 		onStepUpdate(steps[0]);
-	};
-
-	const onSubmit = async (): Promise<void> => {
-		if (confirmActionType === 'unlock') {
-			onLockMetadataStatus();
-		} else if (confirmActionType === 'save-and-lock') {
-			onSetAndLockMetadata();
-		} else {
-			onSetMetadata();
-		}
 	};
 
 	return (
