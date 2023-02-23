@@ -82,7 +82,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 
 	const isDisabled = metadataLockedStatus || stepId === FormStep.COMPLETE;
 
-	return isLoadingSettingsData ? (
+	return !isLoadingSettingsData ? (
 		<div className={styles.FormContainer}>
 			<div
 				className={styles.ScrollSection}

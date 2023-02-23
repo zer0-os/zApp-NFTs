@@ -24,6 +24,10 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 	const { truncatedLockedByAddress, isLockedByOwner, metadataLockedStatus } =
 		useDomainSettingsData(zna);
 
+	const tooltipContent = metadataLockedStatus
+		? 'Metadata is locked. Only the person who locked it may unlock and make changes.'
+		: 'You may save changes leaving the metadata unlocked for the next owner to edit, or save & lock the metadata preventing future edits by anyone other than you.';
+
 	return (
 		<>
 			{errorText && (
@@ -83,13 +87,7 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 						</Button>
 					</>
 				)}
-				<InfoTooltip
-					content={
-						metadataLockedStatus
-							? 'Metadata is locked. Only the person who locked it may unlock and make changes.'
-							: 'You may save changes leaving the metadata unlocked for the next owner to edit, or save & lock the metadata preventing future edits by anyone other than you.'
-					}
-				/>
+				<InfoTooltip content={tooltipContent} />
 			</div>
 		</>
 	);
