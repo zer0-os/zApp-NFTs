@@ -26,6 +26,11 @@ export const CompleteStepFooter: FC<CompleteStepFooterProps> = ({
 	onLockMetadataStatus,
 	onClose,
 }) => {
+	const tooltipConetnt =
+		confirmActionType === ConfirmActionType.SAVE_AND_LOCK && !Boolean(errorText)
+			? 'Metadata is locked. Only the person who locked it may unlock and make changes.'
+			: 'Metadata is unlocked, if you transfer ownership of this domain, the new owner can edit metadata and lock it. You may lose access forever. You can lock the metadata preventing future edits by anyone other than you.';
+
 	const onEdit = () => onStepUpdate(steps[0]);
 
 	return (
@@ -49,14 +54,7 @@ export const CompleteStepFooter: FC<CompleteStepFooterProps> = ({
 						onConfirmActionUpdate={onConfirmActionUpdate}
 					/>
 
-					<InfoTooltip
-						content={
-							confirmActionType === ConfirmActionType.SAVE_AND_LOCK &&
-							!Boolean(errorText)
-								? 'Metadata is locked. Only the person who locked it may unlock and make changes.'
-								: 'Metadata is unlocked, if you transfer ownership of this domain, the new owner can edit metadata and lock it. You may lose access forever. You can lock the metadata preventing future edits by anyone other than you.'
-						}
-					/>
+					<InfoTooltip content={tooltipConetnt} />
 				</>
 			</div>
 		</>
@@ -72,13 +70,16 @@ interface SuccessLabelProps {
 }
 
 const SuccessLabel = ({ confirmActionType }: SuccessLabelProps) => {
+	const label =
+		confirmActionType === ConfirmActionType.SAVE_AND_LOCK
+			? 'Your changes have been saved and the metadata is locked'
+			: confirmActionType === ConfirmActionType.UNLOCK
+			? 'Success. Metadata is unlocked'
+			: 'Your changes have been saved';
+
 	return (
 		<label className={styles.Label} data-variant={'success'}>
-			{confirmActionType === ConfirmActionType.SAVE_AND_LOCK
-				? 'Your changes have been saved and the metadata is locked'
-				: confirmActionType === ConfirmActionType.UNLOCK
-				? 'Success. Metadata is unlocked'
-				: 'Your changes have been saved'}
+			{label}
 		</label>
 	);
 };
