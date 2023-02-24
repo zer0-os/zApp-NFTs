@@ -11,7 +11,7 @@ import { Input, LoadingIndicator, Step } from '@zero-tech/zui/components';
 
 import styles from './DetailsStep.module.scss';
 
-interface DetailsFormProps {
+interface DetailsStepProps {
 	zna: string;
 	stepId: string;
 	errorText: string;
@@ -24,7 +24,7 @@ interface DetailsFormProps {
 	onClose?: () => void;
 }
 
-export const DetailsForm: FC<DetailsFormProps> = ({
+export const DetailsStep: FC<DetailsStepProps> = ({
 	zna,
 	stepId,
 	errorText,
@@ -166,7 +166,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
  *******************/
 
 interface InputWrapperProps {
-	zna: DetailsFormProps['zna'];
+	zna: DetailsStepProps['zna'];
 	title: string;
 	setTitle: (value: string) => void;
 	isDisabled: boolean;

@@ -7,13 +7,13 @@ import { Step, Wizard } from '@zero-tech/zui/components';
 
 import styles from './ConfirmStep.module.scss';
 
-interface ConfirmFormProps {
+interface ConfirmStepProps {
 	confirmActionType: ConfirmActionType;
 	onStepUpdate: (step: Step) => void;
 	onSubmit: () => void;
 }
 
-export const ConfirmForm: FC<ConfirmFormProps> = ({
+export const ConfirmStep: FC<ConfirmStepProps> = ({
 	confirmActionType,
 	onStepUpdate,
 	onSubmit,
