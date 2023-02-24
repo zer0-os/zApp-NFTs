@@ -18,11 +18,9 @@ export const ConfirmStep: FC<ConfirmStepProps> = ({
 	onStepUpdate,
 	onSubmit,
 }) => {
-	const confirmationStepContent = getStepTextContent(confirmActionType);
+	const { primaryButtonText, message } = STEP_TEXT[confirmActionType];
 
-	const confirmationMessage = (
-		<FormTextContent textContent={confirmationStepContent.message} />
-	);
+	const confirmationMessage = <FormTextContent textContent={message} />;
 
 	const onBack = () => {
 		onStepUpdate(steps[0]);
@@ -36,51 +34,30 @@ export const ConfirmStep: FC<ConfirmStepProps> = ({
 			isSecondaryButtonActive
 			onClickPrimaryButton={onSubmit}
 			onClickSecondaryButton={onBack}
-			primaryButtonText={confirmationStepContent.primaryButtonText}
+			primaryButtonText={primaryButtonText}
 			secondaryButtonText={'Return'}
 		/>
 	);
 };
 
-/************************
- * getStepTextContent
- ************************/
+/*************
+ * STEP_TEXT
+ *************/
 
-type StepData = {
-	primaryButtonText: string;
-	message: string;
-};
-
-const getStepTextContent = (confirmActionType: ConfirmActionType) => {
-	let stepData: StepData;
-
-	switch (confirmActionType) {
-		case ConfirmActionType.UNLOCK:
-			stepData = {
-				primaryButtonText: 'Unlock Metadata',
-				message:
-					'Unlocking metadata is a blockchain transaction that will cost gas. \nAdditional, optional, transactions are required to save changes and lock the metadata again.',
-			};
-
-			break;
-
-		case ConfirmActionType.SAVE_AND_LOCK:
-			stepData = {
-				primaryButtonText: 'Save & Lock',
-				message:
-					'Your changes will be saved and the metadata will be locked. \nYou will be the only one who can unlock it in the future.',
-			};
-
-			break;
-
-		case ConfirmActionType.SAVE_WITHOUT_LOCKING:
-			stepData = {
-				primaryButtonText: 'Save Without Locking',
-				message:
-					'If you transfer ownership of the domain while metadata is unlocked, the new owner can edit the metadata and lock it. You may lose access forever.',
-			};
-			break;
-	}
-
-	return stepData;
+const STEP_TEXT = {
+	[ConfirmActionType.UNLOCK]: {
+		primaryButtonText: 'Unlock Metadata',
+		message:
+			'Unlocking metadata is a blockchain transaction that will cost gas. \nAdditional, optional, transactions are required to save changes and lock the metadata again.',
+	},
+	[ConfirmActionType.SAVE_AND_LOCK]: {
+		primaryButtonText: 'Save & Lock',
+		message:
+			'Your changes will be saved and the metadata will be locked. \nYou will be the only one who can unlock it in the future.',
+	},
+	[ConfirmActionType.SAVE_WITHOUT_LOCKING]: {
+		primaryButtonText: 'Save Without Locking',
+		message:
+			'If you transfer ownership of the domain while metadata is unlocked, the new owner can edit the metadata and lock it. You may lose access forever.',
+	},
 };

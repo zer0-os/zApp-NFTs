@@ -231,7 +231,7 @@ const getLoadingText = (
 	isMetadataLocked: boolean,
 	confirmActionType: ConfirmActionType,
 ) => {
-	let loadingTextContent;
+	let loadingTextContent: { onLoadingHeader?: string; onLoadingText: string };
 
 	const transactionTimingPrompt =
 		'\nThis may take up to 20 mins. Do not close this window or refresh your browser...';
