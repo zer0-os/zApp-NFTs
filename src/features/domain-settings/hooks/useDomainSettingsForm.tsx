@@ -32,8 +32,7 @@ export const useDomainSettingsForm = (
 	const { executeTransaction } = useTransaction();
 
 	// add isLoading to form
-	const { domainId, metadata, metadataLockedStatus } =
-		useDomainSettingsData(zna);
+	const { domainId, metadata, isMetadataLocked } = useDomainSettingsData(zna);
 
 	const [stepId, setStepId] = useState(steps[0].id);
 	const [errorText, setErrorText] = useState<string>();
@@ -133,7 +132,7 @@ export const useDomainSettingsForm = (
 		setErrorText(undefined);
 
 		const loadingTextContent = getLoadingText(
-			metadataLockedStatus,
+			isMetadataLocked,
 			confirmActionType,
 		);
 
@@ -144,7 +143,7 @@ export const useDomainSettingsForm = (
 			[
 				domainId,
 				confirmActionType === ConfirmActionType.UNLOCK
-					? !metadataLockedStatus
+					? !isMetadataLocked
 					: details,
 				provider.getSigner(),
 			],
@@ -157,7 +156,7 @@ export const useDomainSettingsForm = (
 
 				onError: (error: any) => handleTransactionError(error.message),
 				invalidationKeys: [
-					['user', { account, domainId, details, metadataLockedStatus }],
+					['user', { account, domainId, details, isMetadataLocked }],
 				],
 			},
 		);
@@ -229,7 +228,7 @@ export const useDomainSettingsForm = (
  ************************/
 
 const getLoadingText = (
-	metadataLockedStatus: boolean,
+	isMetadataLocked: boolean,
 	confirmActionType: ConfirmActionType,
 ) => {
 	let loadingTextContent;
@@ -246,7 +245,7 @@ const getLoadingText = (
 		case ConfirmActionType.UNLOCK:
 			loadingTextContent = {
 				onLoadingText: `${
-					metadataLockedStatus ? 'Unlocking' : 'Locking'
+					isMetadataLocked ? 'Unlocking' : 'Locking'
 				} metadata. ${transactionTimingPrompt}`,
 			};
 			break;

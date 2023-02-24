@@ -40,7 +40,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 		metadata,
 		imageAlt,
 		imageSrc,
-		metadataLockedStatus,
+		isMetadataLocked,
 		isLoadingSettingsData,
 	} = useDomainSettingsData(zna);
 
@@ -80,7 +80,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 		});
 	};
 
-	const isDisabled = metadataLockedStatus || stepId === FormStep.COMPLETE;
+	const isDisabled = isMetadataLocked || stepId === FormStep.COMPLETE;
 
 	return !isLoadingSettingsData ? (
 		<div className={styles.FormContainer}>
@@ -121,7 +121,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({
 					<div className={styles.SwitchGroup}>
 						<SwitchGroup
 							metadata={metadata}
-							metadataLockedStatus={metadataLockedStatus}
+							isMetadataLocked={isMetadataLocked}
 							isDisabled={isDisabled}
 							isMintable={isMintable}
 							setIsMintable={setIsMintable}
@@ -216,7 +216,7 @@ const InputWrapper = ({
 
 interface SwitchGroupProps {
 	metadata: Metadata;
-	metadataLockedStatus: boolean;
+	isMetadataLocked: boolean;
 	isDisabled: boolean;
 	isMintable: boolean;
 	setIsMintable: (value: boolean) => void;
@@ -231,7 +231,7 @@ interface SwitchGroupProps {
 
 const SwitchGroup = ({
 	metadata,
-	metadataLockedStatus,
+	isMetadataLocked,
 	isDisabled,
 	isMintable,
 	setIsMintable,
@@ -254,7 +254,7 @@ const SwitchGroup = ({
 						setIsMintable(!isMintable);
 					}}
 				/>
-				{!metadataLockedStatus && (
+				{!isMetadataLocked && (
 					<InfoTooltip
 						content={
 							'Allow members to make a stake offer in order to mint NFTs on your domain. Turn off if your domain is not intended to be open for others to mint upon'
@@ -272,7 +272,7 @@ const SwitchGroup = ({
 						setIsBiddable(!isBiddable);
 					}}
 				/>
-				{!metadataLockedStatus && (
+				{!isMetadataLocked && (
 					<InfoTooltip
 						content={
 							'Allow bidding on your domain. Turn off if the domain is not intended to be sold.'
@@ -290,7 +290,7 @@ const SwitchGroup = ({
 						setGridViewByDefault(!gridViewByDefault);
 					}}
 				/>
-				{!metadataLockedStatus && (
+				{!isMetadataLocked && (
 					<InfoTooltip
 						content={
 							'Grid view has larger image previews which can benefit domains with a focus on art rather than statistics.'
@@ -312,7 +312,7 @@ const SwitchGroup = ({
 					}}
 				/>
 
-				{!metadataLockedStatus && (
+				{!isMetadataLocked && (
 					<InfoTooltip
 						content={
 							'Change the first column header of list view. By default this is `Domain`.'

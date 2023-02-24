@@ -21,10 +21,10 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 	errorText,
 	onSubmit,
 }) => {
-	const { truncatedLockedByAddress, isLockedByOwner, metadataLockedStatus } =
+	const { truncatedLockedByAddress, isLockedByOwner, isMetadataLocked } =
 		useDomainSettingsData(zna);
 
-	const tooltipContent = metadataLockedStatus
+	const tooltipContent = isMetadataLocked
 		? 'Metadata is locked. Only the person who locked it may unlock and make changes.'
 		: 'You may save changes leaving the metadata unlocked for the next owner to edit, or save & lock the metadata preventing future edits by anyone other than you.';
 
@@ -34,7 +34,7 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 				<FormErrorText className={styles.ErrorText} text={errorText} />
 			)}
 
-			{!errorText && metadataLockedStatus && (
+			{!errorText && isMetadataLocked && (
 				<WarningLabel
 					isLockedByOwner={isLockedByOwner}
 					truncatedLockedByAddress={truncatedLockedByAddress}
@@ -42,7 +42,7 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 			)}
 
 			<div className={styles.Buttons}>
-				{metadataLockedStatus && isLockedByOwner && (
+				{isMetadataLocked && isLockedByOwner && (
 					<>
 						<IconLock1 className={styles.LockedIcon} />
 						<Button
@@ -54,13 +54,13 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 						</Button>
 					</>
 				)}
-				{metadataLockedStatus && !isLockedByOwner && (
+				{isMetadataLocked && !isLockedByOwner && (
 					<>
 						<IconLock1 className={styles.LockedIcon} />
 						<Button isDisabled>Metadata Locked</Button>
 					</>
 				)}
-				{!metadataLockedStatus && (
+				{!isMetadataLocked && (
 					<>
 						<IconLockUnlocked1 className={styles.UnlockedIcon} />
 						<Button

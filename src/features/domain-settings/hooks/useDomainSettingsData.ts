@@ -18,7 +18,7 @@ export const useDomainSettingsData = (zna: string) => {
 	const { data: metadata, isLoading: isLoadingMetadata } =
 		useDomainMetadata(domainId);
 
-	const { data: metadataLockedStatus, isLoading: isLoadingLockedStatus } =
+	const { data: isMetadataLocked, isLoading: isLoadingLockedStatus } =
 		useIsDomainMetadataLocked(domainId);
 
 	const truncatedLockedByAddress = truncateAddress(domain?.lockedBy) ?? '';
@@ -39,7 +39,7 @@ export const useDomainSettingsData = (zna: string) => {
 		imageSrc,
 		isLockedByOwner,
 		isLoadingSettingsData,
-		metadataLockedStatus,
+		isMetadataLocked,
 		truncatedLockedByAddress,
 	};
 };
