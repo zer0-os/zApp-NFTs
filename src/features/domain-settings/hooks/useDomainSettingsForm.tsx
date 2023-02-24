@@ -11,7 +11,7 @@ import { useDomainSettingsData } from '.';
 import { useWeb3, useZnsSdk } from '../../../lib/hooks';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
-import { ConfirmStep, DetailsStep } from '../Steps';
+import { ConfirmForm, DetailsForm } from '../Steps';
 import { Step, Wizard } from '@zero-tech/zui/components';
 
 export type UseDomainSettingsFormFormReturn = {
@@ -168,7 +168,7 @@ export const useDomainSettingsForm = (
 	switch (stepId) {
 		case FormStep.DETAILS:
 			formContent = (
-				<DetailsStep
+				<DetailsForm
 					zna={zna}
 					stepId={stepId}
 					errorText={errorText}
@@ -184,7 +184,7 @@ export const useDomainSettingsForm = (
 
 		case FormStep.CONFIRM:
 			formContent = !isTransactionLoading ? (
-				<ConfirmStep
+				<ConfirmForm
 					confirmActionType={confirmActionType}
 					onStepUpdate={(step: Step) => setStepId(step.id)}
 					onSubmit={onSubmitTransaction}
@@ -196,7 +196,7 @@ export const useDomainSettingsForm = (
 
 		case FormStep.COMPLETE:
 			formContent = !isTransactionLoading ? (
-				<DetailsStep
+				<DetailsForm
 					zna={zna}
 					stepId={stepId}
 					errorText={errorText}
