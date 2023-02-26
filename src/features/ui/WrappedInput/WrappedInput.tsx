@@ -9,7 +9,7 @@ export type WrappedInputProps = {
 	label: string;
 	value: string;
 	placeholder: string;
-	info: string;
+	infoTooltipText: string;
 	hasError: boolean;
 	helperText: string;
 	onChange: (event: any) => void;
@@ -21,12 +21,12 @@ export const WrappedInput: FC<WrappedInputProps> = ({
 	label,
 	value,
 	placeholder,
-	info,
+	infoTooltipText,
 	hasError,
 	helperText,
 	onChange,
 }) => (
-	<InputWrapper className={className} label={label} info={info}>
+	<InputWrapper className={className} label={label} infoTooltipText={infoTooltipText}>
 		<Input
 			type={type}
 			value={value}

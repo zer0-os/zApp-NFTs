@@ -36,7 +36,7 @@ export const TreasuryForm: FC<TreasuryFormProps> = ({ onClose }) => {
 							label="What Ethereum address do you want all of the DAO’s funds to be held in?"
 							value={values.gnosisSafe}
 							placeholder="Enter gnosis safe address..."
-							info="This is a smart contract wallet that allows users to store Ether and ERC-20 tokens securely and interact with the decentralized web. It requires minimum number of people to approve a transaction before it can occur."
+							infoTooltipText="This is a smart contract wallet that allows users to store Ether and ERC-20 tokens securely and interact with the decentralized web. It requires minimum number of people to approve a transaction before it can occur."
 							hasError={touched.gnosisSafe && !!errors.gnosisSafe}
 							helperText={touched.gnosisSafe && errors.gnosisSafe}
 							onChange={(value) => setFieldValue('gnosisSafe', value)}

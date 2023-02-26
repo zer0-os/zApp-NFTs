@@ -77,7 +77,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 								label="What is the name of your DAO?"
 								value={values.name}
 								placeholder="Enter name..."
-								info="Points for creativity."
+								infoTooltipText="Points for creativity."
 								hasError={touched.name && !!errors.name}
 								helperText={touched.name && errors.name}
 								onChange={(value) => setFieldValue('name', value)}
@@ -86,7 +86,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 								label="What will be the zNA address of your DAO be?"
 								value={values.znaAddress}
 								placeholder="Enter zNA address..."
-								info="This will be the zNA address of your DAO and must not be taken already. An example can be 0://name.dao or 0://wilder.dao."
+								infoTooltipText="This will be the zNA address of your DAO and must not be taken already. An example can be 0://name.dao or 0://wilder.dao."
 								hasError={touched.znaAddress && !!errors.znaAddress}
 								helperText={touched.znaAddress && errors.znaAddress}
 								onChange={(value) => setFieldValue('znaAddress', value)}
@@ -98,7 +98,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 							label="What is the description of your DAO?"
 							value={values.description}
 							placeholder="Enter description..."
-							info="Enter a description or story for your DAO. Maximum of 400 characters. "
+							infoTooltipText="Enter a description or story for your DAO. Maximum of 400 characters. "
 							hasError={touched.description && !!errors.description}
 							helperText={touched.description && errors.description}
 							onChange={(value) => setFieldValue('description', value)}

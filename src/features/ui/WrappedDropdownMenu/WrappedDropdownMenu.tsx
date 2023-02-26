@@ -12,7 +12,7 @@ export type WrappedDropdownMenuProps = {
 	value: string;
 	label: string;
 	placeholder: string;
-	info: string;
+	infoTooltipText: string;
 	hasError: boolean;
 	helperText: string;
 };
@@ -23,7 +23,7 @@ export const WrappedDropdownMenu: FC<WrappedDropdownMenuProps> = ({
 	value,
 	label,
 	placeholder,
-	info,
+	infoTooltipText,
 	hasError,
 	helperText,
 }) => {
@@ -31,7 +31,7 @@ export const WrappedDropdownMenu: FC<WrappedDropdownMenuProps> = ({
 		<InputWrapper
 			className={classNames(styles.Container, className)}
 			label={label}
-			info={info}
+			infoTooltipText={infoTooltipText}
 		>
 			<SelectInput
 				items={items}

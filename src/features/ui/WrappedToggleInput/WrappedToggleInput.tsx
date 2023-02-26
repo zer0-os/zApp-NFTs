@@ -10,7 +10,7 @@ export type WrappedToggleInputProps = {
 	options: ToggleOptions;
 	label: string;
 	value: string;
-	info: string;
+	infoTooltipText: string;
 	href?: string;
 	onChange: (selection: string) => void;
 };
@@ -20,11 +20,15 @@ export const WrappedToggleInput: FC<WrappedToggleInputProps> = ({
 	options = [],
 	label,
 	value,
-	info,
+	infoTooltipText,
 	href,
 	onChange,
 }) => (
-	<InputWrapper className={className} label={label} info={info}>
+	<InputWrapper
+		className={className}
+		label={label}
+		infoTooltipText={infoTooltipText}
+	>
 		<ToggleGroup
 			options={options}
 			variant="default"

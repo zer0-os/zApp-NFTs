@@ -14,7 +14,9 @@ const validationSchema = Yup.object().shape({
 	initialTokenSupplyWalletAddress: Yup.string().required(
 		'The initial wallet address field is required.',
 	),
-	adminWalletAddress: Yup.string().required('The admin wallet address field is required.'),
+	adminWalletAddress: Yup.string().required(
+		'The admin wallet address field is required.',
+	),
 });
 
 export interface TokenomicsFormProps {
@@ -38,7 +40,7 @@ export const TokenomicsForm: FC<TokenomicsFormProps> = ({ onClose }) => {
 						label="How many tokens do you want to create?"
 						value={values.tokenCount}
 						placeholder="Enter total supply..."
-						info="Initial number of tokens available. This will be put into an initial wallet account."
+						infoTooltipText="Initial number of tokens available. This will be put into an initial wallet account."
 						hasError={touched.tokenCount && !!errors.tokenCount}
 						helperText={touched.tokenCount && errors.tokenCount}
 						onChange={(value) => setFieldValue('tokenCount', value)}
@@ -48,7 +50,7 @@ export const TokenomicsForm: FC<TokenomicsFormProps> = ({ onClose }) => {
 						label="Where do you want to send your initial token supply?"
 						value={values.initialTokenSupplyWalletAddress}
 						placeholder="Enter initial wallet address..."
-						info="Usually the creator's wallet address and the tokens will be sent here first."
+						infoTooltipText="Usually the creator's wallet address and the tokens will be sent here first."
 						hasError={
 							touched.initialTokenSupplyWalletAddress &&
 							!!errors.initialTokenSupplyWalletAddress
@@ -66,7 +68,7 @@ export const TokenomicsForm: FC<TokenomicsFormProps> = ({ onClose }) => {
 						label="What wallet should hold the admin permissions?"
 						value={values.adminWalletAddress}
 						placeholder="Enter admin wallet address..."
-						info="Wallet address who will have the power to upgrade the contract if they wish. This can be the same as initial wallet address."
+						infoTooltipText="Wallet address who will have the power to upgrade the contract if they wish. This can be the same as initial wallet address."
 						hasError={touched.adminWalletAddress && !!errors.adminWalletAddress}
 						helperText={touched.adminWalletAddress && errors.adminWalletAddress}
 						onChange={(value) => setFieldValue('adminWalletAddress', value)}
