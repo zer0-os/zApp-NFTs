@@ -41,7 +41,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 			setFieldValue('mediaType', mediaType);
 			setFieldValue('previewUrl', previewUrl);
 			setFieldValue('avatar', image);
-		} catch(_) {
+		} catch (_) {
 			setAvatarHasError(true);
 		}
 	};
@@ -68,12 +68,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 									previewImage: string,
 									image: Buffer,
 								) =>
-									onAvatarChange(
-										mediaType,
-										previewImage,
-										image,
-										setFieldValue,
-									)
+									onAvatarChange(mediaType, previewImage, image, setFieldValue)
 								}
 							/>
 						</div>
@@ -82,7 +77,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 								label="What is the name of your token?"
 								value={values.name}
 								placeholder="Enter name..."
-								info="Points for creativity."
+								infoTooltipText="Points for creativity."
 								hasError={touched.name && !!errors.name}
 								helperText={touched.name && errors.name}
 								onChange={(value) => setFieldValue('name', value)}
@@ -91,7 +86,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 								label="What is your token symbol?"
 								value={values.symbol}
 								placeholder="Enter symbol..."
-								info="Bitcoin's symbol is BTC. This short name will appear on the exhanges and is no more than 5 characters."
+								infoTooltipText="Bitcoin's symbol is BTC. This short name will appear on the exhanges and is no more than 5 characters."
 								hasError={touched.symbol && !!errors.symbol}
 								helperText={touched.symbol && errors.symbol}
 								onChange={(value) => setFieldValue('symbol', value)}

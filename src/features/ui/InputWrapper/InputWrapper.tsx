@@ -9,20 +9,20 @@ export type InputWrapperProps = {
 	children: React.ReactNode;
 	className?: string;
 	label: string;
-	info: string;
+	infoTooltipText: string;
 };
 
 export const InputWrapper: FC<InputWrapperProps> = ({
 	children,
 	className = '',
 	label,
-	info,
+	infoTooltipText,
 }) => {
 	return (
 		<div className={classNames(styles.Container, className)}>
 			<div className={styles.LabelContainer}>
 				<p className={styles.Label}>{label}</p>
-				<InfoTooltip content={info} />
+				<InfoTooltip content={infoTooltipText} />
 			</div>
 			{children}
 		</div>

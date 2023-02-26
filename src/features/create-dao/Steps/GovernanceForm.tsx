@@ -54,7 +54,7 @@ export const GovernanceForm: FC<GovernanceFormProps> = ({ onClose }) => {
 								options={VOTING_PROCESS_OPTIONS}
 								label="Which will be your voting process?"
 								value={values.votingProcess}
-								info={votingProcessInfo}
+								infoTooltipText={votingProcessInfo}
 								href="https://www.code2.io/blog/web3-dao-voting-mechanisms/#popular-voting-mechanisms-used-by-daos"
 								onChange={(selection: string) =>
 									setFieldValue('votingProcess', selection)
@@ -67,7 +67,7 @@ export const GovernanceForm: FC<GovernanceFormProps> = ({ onClose }) => {
 								label="How long is the voting period?"
 								placeholder="Select voting period..."
 								items={getVotingPeriodItems(setFieldValue)}
-								info="Points for creativity."
+								infoTooltipText="Points for creativity."
 								hasError={touched.votingPeriod && !!errors.votingPeriod}
 								helperText={touched.votingPeriod && errors.votingPeriod}
 							/>
@@ -79,7 +79,7 @@ export const GovernanceForm: FC<GovernanceFormProps> = ({ onClose }) => {
 						label="What voting system do you prefer?"
 						placeholder="Select voting system..."
 						items={getVotingSystemItems(setFieldValue)}
-						info="An existing company for the backend of the voting system. More will be added soon."
+						infoTooltipText="An existing company for the backend of the voting system. More will be added soon."
 						hasError={touched.votingSystem && !!errors.votingSystem}
 						helperText={touched.votingSystem && errors.votingSystem}
 					/>
@@ -87,7 +87,7 @@ export const GovernanceForm: FC<GovernanceFormProps> = ({ onClose }) => {
 						label="What wallet address will govern the DAO?"
 						value={values.daoTokenAddress}
 						placeholder="Enter DAO token address..."
-						info="The wallet address that will the power and permissions of the DAO."
+						infoTooltipText="The wallet address that will the power and permissions of the DAO."
 						hasError={touched.daoTokenAddress && !!errors.daoTokenAddress}
 						helperText={touched.daoTokenAddress && errors.daoTokenAddress}
 						onChange={(value) => setFieldValue('daoTokenAddress', value)}
@@ -97,7 +97,7 @@ export const GovernanceForm: FC<GovernanceFormProps> = ({ onClose }) => {
 						label="What percentage will be your voting threshold?"
 						value={values.votingThreshold}
 						placeholder="Enter voting threshold..."
-						info="Points for creativity."
+						infoTooltipText="Points for creativity."
 						hasError={touched.votingThreshold && !!errors.votingThreshold}
 						helperText={touched.votingThreshold && errors.votingThreshold}
 						onChange={(value) => setFieldValue('votingThreshold', value)}

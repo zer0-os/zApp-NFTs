@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
-import { IconChevronDown } from '@zero-tech/zui/components/Icons';
-import { DropdownItem, DropdownMenu, Input } from '@zero-tech/zui/components';
+import { DropdownItem, SelectInput } from '@zero-tech/zui/components';
 import { InputWrapper } from '../InputWrapper/InputWrapper';
 
 import styles from './WrappedDropdownMenu.module.scss';
@@ -13,7 +12,7 @@ export type WrappedDropdownMenuProps = {
 	value: string;
 	label: string;
 	placeholder: string;
-	info: string;
+	infoTooltipText: string;
 	hasError: boolean;
 	helperText: string;
 };
@@ -24,29 +23,25 @@ export const WrappedDropdownMenu: FC<WrappedDropdownMenuProps> = ({
 	value,
 	label,
 	placeholder,
-	info,
+	infoTooltipText,
 	hasError,
 	helperText,
 }) => {
-	const trigger = (
-		<Input
-			type="text"
-			placeholder={placeholder}
-			value={value}
-			onChange={() => {}}
-			error={hasError}
-			helperText={helperText}
-			endEnhancer={<IconChevronDown />}
-		/>
-	);
-
 	return (
 		<InputWrapper
 			className={classNames(styles.Container, className)}
 			label={label}
-			info={info}
+			infoTooltipText={infoTooltipText}
 		>
-			<DropdownMenu trigger={trigger} items={items} />
+			<SelectInput
+				items={items}
+				className={className}
+				value={value}
+				label=""
+				helperText={helperText}
+				placeholder={placeholder}
+				error={hasError}
+			/>
 		</InputWrapper>
 	);
 };
