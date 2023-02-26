@@ -44,7 +44,12 @@ export const ConfirmStep: FC<ConfirmStepProps> = ({
  * STEP_TEXT
  *************/
 
-const STEP_TEXT = {
+interface StepTextType {
+	primaryButtonText: string;
+	message: string;
+}
+
+const STEP_TEXT: { [action in ConfirmActionType]: StepTextType } = {
 	[ConfirmActionType.UNLOCK]: {
 		primaryButtonText: 'Unlock Metadata',
 		message:

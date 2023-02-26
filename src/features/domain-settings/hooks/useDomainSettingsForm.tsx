@@ -80,19 +80,6 @@ export const useDomainSettingsForm = (
 		return isDomainMetadataLocked;
 	}, [domainId, provider]);
 
-	const onGetDomainMetadata = useCallback(async () => {
-		const domainMetadata = await sdk.getDomainMetadata(
-			domainId,
-			provider.getSigner(),
-		);
-
-		console.log('here');
-
-		console.log('DOMINA', domainMetadata);
-
-		return domainMetadata;
-	}, [domainId, provider]);
-
 	// Transaction handlers
 	const handleTransactionStart = (onLoadingHeader?: string) => {
 		setIsTransactionLoading(true);
@@ -108,7 +95,6 @@ export const useDomainSettingsForm = (
 		setIsTransactionLoading(false);
 		setStepId(steps[2].id);
 		onCheckMetadataLockStatus();
-		onGetDomainMetadata();
 	};
 
 	const handleTransactionError = (errorMessage: string) => {
