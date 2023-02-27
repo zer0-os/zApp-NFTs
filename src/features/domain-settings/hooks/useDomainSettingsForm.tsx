@@ -38,13 +38,20 @@ export const useDomainSettingsForm = (
 
 	const [stepId, setStepId] = useState(steps[0].id);
 	const [errorText, setErrorText] = useState<string>();
+	const [details, setDetails] = useState<DetailsFormSubmit>();
 	const [loadingStatusText, setLoadingStatusText] = useState<string>();
 	const [formHeader, setFormHeader] = useState<string>('My Domain Settings');
 	const [isTransactionLoading, setIsTransactionLoading] = useState<boolean>();
 	const [confirmActionType, setConfirmActionType] =
 		useState<ConfirmActionType>();
 
-	const [details, setDetails] = useState<DetailsFormSubmit>();
+	const onStepBarUpdate = (step: Step) => {
+		setStepId(step.id);
+	};
+
+	const onRestart = () => {
+		setStepId(steps[0].id);
+	};
 
 	// Set metadata form details
 	const onSubmitMetadata = ({
@@ -116,14 +123,6 @@ export const useDomainSettingsForm = (
 		} else {
 			return sdk.setDomainMetadata;
 		}
-	};
-
-	const onStepBarUpdate = (step: Step) => {
-		setStepId(step.id);
-	};
-
-	const onRestart = () => {
-		setStepId(steps[0].id);
 	};
 
 	// Executes the confirm form transaction.
