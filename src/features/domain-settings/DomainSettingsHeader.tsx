@@ -16,7 +16,7 @@ interface DomainSettingsHeaderProps {
 	headerText: string;
 	isTransactionLoading: boolean;
 	onClose: () => void;
-	onStepUpdate: (step: Step) => void;
+	onStepBarUpdate: (step: Step) => void;
 }
 
 export const DomainSettingsHeader: FC<DomainSettingsHeaderProps> = ({
@@ -25,7 +25,7 @@ export const DomainSettingsHeader: FC<DomainSettingsHeaderProps> = ({
 	headerText,
 	isTransactionLoading,
 	onClose,
-	onStepUpdate,
+	onStepBarUpdate,
 }) => {
 	return (
 		<div className={styles.Container}>
@@ -50,7 +50,7 @@ export const DomainSettingsHeader: FC<DomainSettingsHeaderProps> = ({
 						})}
 						currentStepId={stepId}
 						steps={steps}
-						onChangeStep={onStepUpdate}
+						onChangeStep={onStepBarUpdate}
 					/>
 				)}
 			</Wizard.Header>

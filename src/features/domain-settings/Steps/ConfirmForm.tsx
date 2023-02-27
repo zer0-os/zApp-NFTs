@@ -6,18 +6,18 @@ import { CONFIRM_STEP_TEXT_CONTENT } from '../DomainSettings.constants';
 import { FormTextContent } from '../../ui';
 import { Wizard } from '@zero-tech/zui/components';
 
-import styles from './ConfirmStep.module.scss';
+import styles from './ConfirmForm.module.scss';
 
-interface ConfirmStepProps {
+interface ConfirmFormProps {
 	confirmActionType: ConfirmActionType;
 	onRestart: () => void;
-	onSubmit: () => void;
+	onSubmitFormStep: () => void;
 }
 
-export const ConfirmStep: FC<ConfirmStepProps> = ({
+export const ConfirmForm: FC<ConfirmFormProps> = ({
 	confirmActionType,
 	onRestart,
-	onSubmit,
+	onSubmitFormStep,
 }) => {
 	const { primaryButtonText, message } =
 		CONFIRM_STEP_TEXT_CONTENT[confirmActionType];
@@ -30,7 +30,7 @@ export const ConfirmStep: FC<ConfirmStepProps> = ({
 			message={confirmationMessage}
 			isPrimaryButtonActive
 			isSecondaryButtonActive
-			onClickPrimaryButton={onSubmit}
+			onClickPrimaryButton={onSubmitFormStep}
 			onClickSecondaryButton={onRestart}
 			primaryButtonText={primaryButtonText}
 			secondaryButtonText={'Return'}

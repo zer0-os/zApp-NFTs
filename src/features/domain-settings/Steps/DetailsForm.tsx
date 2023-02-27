@@ -9,26 +9,26 @@ import { DetailsStepFooter, CompleteStepFooter } from './Footers';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 import { Input, LoadingIndicator } from '@zero-tech/zui/components';
 
-import styles from './DetailsStep.module.scss';
+import styles from './DetailsForm.module.scss';
 
-interface DetailsStepProps {
+interface DetailsFormProps {
 	zna: string;
 	stepId: string;
 	errorText: string;
 	confirmActionType?: ConfirmActionType;
 	onSubmitMetadata?: (values: FieldValues) => void;
-	onSubmitDetailsForm: (action: ConfirmActionType) => void;
+	onSubmitFormStep: (action: ConfirmActionType) => void;
 	onRestart?: () => void;
 	onClose?: () => void;
 }
 
-export const DetailsStep: FC<DetailsStepProps> = ({
+export const DetailsForm: FC<DetailsFormProps> = ({
 	zna,
 	stepId,
 	errorText,
 	confirmActionType,
 	onSubmitMetadata,
-	onSubmitDetailsForm,
+	onSubmitFormStep,
 	onRestart,
 	onClose,
 }) => {
@@ -58,7 +58,7 @@ export const DetailsStep: FC<DetailsStepProps> = ({
 		);
 
 	const onSubmit = (action: ConfirmActionType) => {
-		onSubmitDetailsForm(action);
+		onSubmitFormStep(action);
 
 		if (stepId === FormStep.DETAILS) {
 			onSubmitMetadata({
@@ -158,7 +158,7 @@ export const DetailsStep: FC<DetailsStepProps> = ({
  *******************/
 
 interface InputWrapperProps {
-	zna: DetailsStepProps['zna'];
+	zna: DetailsFormProps['zna'];
 	title: string;
 	setTitle: (value: string) => void;
 	isDisabled: boolean;

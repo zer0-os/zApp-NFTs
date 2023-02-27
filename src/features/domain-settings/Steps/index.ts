@@ -1,2 +1,2 @@
-export * from './ConfirmStep';
-export * from './DetailsStep';
+export * from './ConfirmForm';
+export * from './DetailsForm';

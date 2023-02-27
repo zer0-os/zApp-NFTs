@@ -15,7 +15,7 @@ import {
 } from '../DomainSettings.constants';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
-import { ConfirmStep, DetailsStep } from '../Steps';
+import { ConfirmForm, DetailsForm } from '../Steps';
 import { Step, Wizard } from '@zero-tech/zui/components';
 
 export type UseDomainSettingsFormFormReturn = {
@@ -23,7 +23,7 @@ export type UseDomainSettingsFormFormReturn = {
 	formHeader: string;
 	formContent: ReactNode;
 	isTransactionLoading: boolean;
-	onStepUpdate: (step: Step) => void;
+	onStepBarUpdate: (step: Step) => void;
 };
 
 export const useDomainSettingsForm = (
@@ -105,22 +105,58 @@ export const useDomainSettingsForm = (
 		setStepId(stepId === FormStep.COMPLETE ? steps[2].id : steps[0].id);
 	};
 
-	const getAction = (confirmActionType: ConfirmActionType) => {
+	const getSdkAction = (action: ConfirmActionType) => {
 		if (
-			confirmActionType === ConfirmActionType.UNLOCK ||
-			confirmActionType === ConfirmActionType.LOCK
+			action === ConfirmActionType.UNLOCK ||
+			action === ConfirmActionType.LOCK
 		) {
 			return sdk.lockDomainMetadata;
-		} else if (confirmActionType === ConfirmActionType.SAVE_AND_LOCK) {
+		} else if (action === ConfirmActionType.SAVE_AND_LOCK) {
 			return sdk.setAndLockDomainMetadata;
 		} else {
 			return sdk.setDomainMetadata;
 		}
 	};
-	// rename details step
-	// disable buttons if no edit
 
-	const onSubmitDetailsForm = (action: ConfirmActionType) => {
+	const onStepBarUpdate = (step: Step) => {
+		setStepId(step.id);
+	};
+
+	const onRestart = () => {
+		setStepId(steps[0].id);
+	};
+
+	// Executes the confirm form transaction.
+	const onSubmitTransaction = (action: ConfirmActionType) => {
+		setErrorText(undefined);
+
+		const { loadingHeader, loadingBody } = LOADING_TEXT_CONTENT[action];
+
+		const sdkAction = getSdkAction(action);
+
+		return executeTransaction(
+			sdkAction,
+			[
+				domainId,
+				action === ConfirmActionType.UNLOCK || action === ConfirmActionType.LOCK
+					? !isMetadataLocked
+					: details,
+				provider.getSigner(),
+			],
+			{
+				onStart: () => handleTransactionStart(loadingHeader),
+				onProcessing: () => handleTransactionProcessing(loadingBody),
+				onSuccess: () => handleTransactionSuccess(),
+				onError: (error: any) => handleTransactionError(error.message),
+
+				invalidationKeys: [
+					['user', { account, domainId, details, isMetadataLocked }],
+				],
+			},
+		);
+	};
+
+	const onSubmitFormStep = (action: ConfirmActionType) => {
 		const { confirmStepHeader } = CONFIRM_STEP_HEADER_TEXT[action];
 
 		setConfirmActionType(action);
@@ -133,56 +169,19 @@ export const useDomainSettingsForm = (
 		}
 	};
 
-	const onRestart = () => {
-		setStepId(steps[0].id);
-	};
-
-	// Executes the transaction.
-	const onSubmitTransaction = (confirmActionType: ConfirmActionType) => {
-		setErrorText(undefined);
-
-		const { loadingHeader, loadingBody } =
-			LOADING_TEXT_CONTENT[confirmActionType];
-
-		const sdkAction = getAction(confirmActionType);
-
-		return executeTransaction(
-			sdkAction,
-			[
-				domainId,
-				// improve these - add shorthand types
-				confirmActionType === ConfirmActionType.UNLOCK ||
-				confirmActionType === ConfirmActionType.LOCK
-					? !isMetadataLocked
-					: details,
-				provider.getSigner(),
-			],
-			{
-				onStart: () => handleTransactionStart(loadingHeader),
-				onProcessing: () => handleTransactionProcessing(loadingBody),
-				onSuccess: () => handleTransactionSuccess(),
-
-				onError: (error: any) => handleTransactionError(error.message),
-				invalidationKeys: [
-					['user', { account, domainId, details, isMetadataLocked }],
-				],
-			},
-		);
-	};
-
 	// Form content structure
 	let formContent: ReactNode;
 
 	switch (stepId) {
 		case FormStep.DETAILS:
 			formContent = (
-				<DetailsStep
+				<DetailsForm
 					zna={zna}
 					stepId={stepId}
 					errorText={errorText}
 					onSubmitMetadata={onSubmitMetadata}
-					onSubmitDetailsForm={(action: ConfirmActionType) =>
-						onSubmitDetailsForm(action)
+					onSubmitFormStep={(action: ConfirmActionType) =>
+						onSubmitFormStep(action)
 					}
 				/>
 			);
@@ -190,10 +189,10 @@ export const useDomainSettingsForm = (
 
 		case FormStep.CONFIRM:
 			formContent = !isTransactionLoading ? (
-				<ConfirmStep
-					confirmActionType={confirmActionType}
+				<ConfirmForm
 					onRestart={onRestart}
-					onSubmit={() => onSubmitTransaction(confirmActionType)}
+					confirmActionType={confirmActionType}
+					onSubmitFormStep={() => onSubmitFormStep(confirmActionType)}
 				/>
 			) : (
 				<Wizard.Loading message={loadingStatusText} />
@@ -202,16 +201,16 @@ export const useDomainSettingsForm = (
 
 		case FormStep.COMPLETE:
 			formContent = !isTransactionLoading ? (
-				<DetailsStep
+				<DetailsForm
 					zna={zna}
 					stepId={stepId}
+					onClose={onClose}
+					onRestart={onRestart}
 					errorText={errorText}
 					confirmActionType={confirmActionType}
-					onSubmitDetailsForm={(action: ConfirmActionType) =>
-						onSubmitDetailsForm(action)
+					onSubmitFormStep={(action: ConfirmActionType) =>
+						onSubmitFormStep(action)
 					}
-					onRestart={onRestart}
-					onClose={onClose}
 				/>
 			) : (
 				<Wizard.Loading message={loadingStatusText} />
@@ -224,6 +223,6 @@ export const useDomainSettingsForm = (
 		formHeader,
 		formContent,
 		isTransactionLoading,
-		onStepUpdate: (step: Step) => setStepId(step.id),
+		onStepBarUpdate,
 	};
 };

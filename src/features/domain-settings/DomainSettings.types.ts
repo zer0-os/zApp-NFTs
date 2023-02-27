@@ -40,6 +40,12 @@ export type FieldValues = {
 	customDomainHeaderValue: string;
 };
 
+export type Action =
+	| 'lock'
+	| 'unlock'
+	| 'save-and-lock'
+	| 'save-without-locking';
+
 export interface DetailsFormSubmit {
 	title: string;
 	description: string;
