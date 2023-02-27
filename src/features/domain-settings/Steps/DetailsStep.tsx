@@ -17,7 +17,7 @@ interface DetailsStepProps {
 	errorText: string;
 	confirmActionType?: ConfirmActionType;
 	onSubmitMetadata?: (values: FieldValues) => void;
-	onConfirm?: (action: ConfirmActionType) => void;
+	onSubmitDetailsForm: (action: ConfirmActionType) => void;
 	onRestart?: () => void;
 	onClose?: () => void;
 }
@@ -28,7 +28,7 @@ export const DetailsStep: FC<DetailsStepProps> = ({
 	errorText,
 	confirmActionType,
 	onSubmitMetadata,
-	onConfirm,
+	onSubmitDetailsForm,
 	onRestart,
 	onClose,
 }) => {
@@ -58,7 +58,7 @@ export const DetailsStep: FC<DetailsStepProps> = ({
 		);
 
 	const onSubmit = (action: ConfirmActionType) => {
-		onConfirm(action);
+		onSubmitDetailsForm(action);
 
 		if (stepId === FormStep.DETAILS) {
 			onSubmitMetadata({

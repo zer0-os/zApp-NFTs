@@ -10,7 +10,7 @@ import {
 import { useDomainSettingsData } from '.';
 import { useWeb3, useZnsSdk } from '../../../lib/hooks';
 import {
-	// CONFIRM_STEP_HEADER_TEXT,
+	CONFIRM_STEP_HEADER_TEXT,
 	LOADING_TEXT_CONTENT,
 } from '../DomainSettings.constants';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
@@ -117,25 +117,16 @@ export const useDomainSettingsForm = (
 			return sdk.setDomainMetadata;
 		}
 	};
-
 	// rename details step
-	const getConfirmStepHeader = (confirmActionType: ConfirmActionType) => {
-		if (confirmActionType === ConfirmActionType.UNLOCK) {
-			return 'Unlock Metadata?';
-		} else if (confirmActionType === ConfirmActionType.SAVE_AND_LOCK) {
-			return 'Save & Lock?';
-		} else {
-			return 'Save Without Locking';
-		}
-	};
+	// disable buttons if no edit
 
 	const onSubmitDetailsForm = (action: ConfirmActionType) => {
+		const { confirmStepHeader } = CONFIRM_STEP_HEADER_TEXT[action];
+
 		setConfirmActionType(action);
 
-		const formHeader = getConfirmStepHeader(action);
-
 		if (stepId === FormStep.DETAILS) {
-			setFormHeader(formHeader);
+			setFormHeader(confirmStepHeader);
 			setStepId(steps[1].id);
 		} else {
 			onSubmitTransaction(action);
@@ -145,8 +136,6 @@ export const useDomainSettingsForm = (
 	const onRestart = () => {
 		setStepId(steps[0].id);
 	};
-
-	// disable buttons if no edit
 
 	// Executes the transaction.
 	const onSubmitTransaction = (confirmActionType: ConfirmActionType) => {
@@ -192,9 +181,9 @@ export const useDomainSettingsForm = (
 					stepId={stepId}
 					errorText={errorText}
 					onSubmitMetadata={onSubmitMetadata}
-					onConfirm={(action: ConfirmActionType) => {
-						onSubmitDetailsForm(action);
-					}}
+					onSubmitDetailsForm={(action: ConfirmActionType) =>
+						onSubmitDetailsForm(action)
+					}
 				/>
 			);
 			break;
@@ -218,9 +207,9 @@ export const useDomainSettingsForm = (
 					stepId={stepId}
 					errorText={errorText}
 					confirmActionType={confirmActionType}
-					onConfirm={(action: ConfirmActionType) => {
-						onSubmitDetailsForm(action);
-					}}
+					onSubmitDetailsForm={(action: ConfirmActionType) =>
+						onSubmitDetailsForm(action)
+					}
 					onRestart={onRestart}
 					onClose={onClose}
 				/>

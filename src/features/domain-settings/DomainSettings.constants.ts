@@ -27,24 +27,24 @@ export const COMPLETE_STEP_LABEL_TEXT: {
 //  * CONFIRM_STEP_HEADER_TEXT
 //  **************************/
 
-// interface HeaderType {
-// 	header: string;
-// }
+interface HeaderType {
+	confirmStepHeader?: string;
+}
 
-// export const CONFIRM_STEP_HEADER_TEXT: {
-// 	[action in ConfirmActionType]: HeaderType;
-// } = {
-// 	[ConfirmActionType.LOCK]: { header: '' },
-// 	[ConfirmActionType.UNLOCK]: {
-// 		header: 'Unlock Metadata?',
-// 	},
-// 	[ConfirmActionType.SAVE_AND_LOCK]: {
-// 		header: 'Save & Lock?',
-// 	},
-// 	[ConfirmActionType.SAVE_WITHOUT_LOCKING]: {
-// 		header: 'Save Without Locking',
-// 	},
-// };
+export const CONFIRM_STEP_HEADER_TEXT: {
+	[action in ConfirmActionType]: HeaderType;
+} = {
+	[ConfirmActionType.LOCK]: {},
+	[ConfirmActionType.UNLOCK]: {
+		confirmStepHeader: 'Unlock Metadata?',
+	},
+	[ConfirmActionType.SAVE_AND_LOCK]: {
+		confirmStepHeader: 'Save & Lock?',
+	},
+	[ConfirmActionType.SAVE_WITHOUT_LOCKING]: {
+		confirmStepHeader: 'Save Without Locking',
+	},
+};
 
 /****************************
  * CONFIRM_STEP_TEXT_CONTENT
