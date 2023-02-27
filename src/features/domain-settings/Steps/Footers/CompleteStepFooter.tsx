@@ -1,9 +1,10 @@
 import { FC } from 'react';
 
-import { steps, ConfirmActionType } from '../../DomainSettings.types';
+import { ConfirmActionType } from '../../DomainSettings.types';
+import { COMPLETE_STEP_LABEL_TEXT } from '../../DomainSettings.constants';
 
 import { FormErrorText } from '../../../ui';
-import { Button, Step } from '@zero-tech/zui/components';
+import { Button } from '@zero-tech/zui/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui/components/Icons';
 
@@ -11,27 +12,24 @@ import styles from './Footer.module.scss';
 
 interface CompleteStepFooterProps {
 	errorText: string;
+	isMetadataLocked: boolean;
 	confirmActionType: ConfirmActionType;
-	onConfirmActionUpdate: (action: ConfirmActionType) => void;
-	onStepUpdate: (step: Step) => void;
-	onLockMetadataStatus: () => void;
+	onRestart: () => void;
+	onSubmit: (action: ConfirmActionType) => void;
 	onClose: () => void;
 }
 
 export const CompleteStepFooter: FC<CompleteStepFooterProps> = ({
 	errorText,
+	isMetadataLocked,
 	confirmActionType,
-	onConfirmActionUpdate,
-	onStepUpdate,
-	onLockMetadataStatus,
+	onSubmit,
+	onRestart,
 	onClose,
 }) => {
-	const tooltipConetnt =
-		confirmActionType === ConfirmActionType.SAVE_AND_LOCK && !Boolean(errorText)
-			? 'Metadata is locked. Only the person who locked it may unlock and make changes.'
-			: 'Metadata is unlocked, if you transfer ownership of this domain, the new owner can edit metadata and lock it. You may lose access forever. You can lock the metadata preventing future edits by anyone other than you.';
-
-	const onEdit = () => onStepUpdate(steps[0]);
+	const tooltipConetnt = isMetadataLocked
+		? 'Metadata is locked. Only the person who locked it may unlock and make changes.'
+		: 'Metadata is unlocked, if you transfer ownership of this domain, the new owner can edit metadata and lock it. You may lose access forever. You can lock the metadata preventing future edits by anyone other than you.';
 
 	return (
 		<>
@@ -43,15 +41,14 @@ export const CompleteStepFooter: FC<CompleteStepFooterProps> = ({
 
 			<div className={styles.Buttons}>
 				<>
-					<Icons confirmActionType={confirmActionType} />
+					<Icons isMetadataLocked={isMetadataLocked} />
 
 					<ButtonGroup
 						errorText={errorText}
 						confirmActionType={confirmActionType}
-						onEdit={onEdit}
+						onRestart={onRestart}
+						onSubmit={(action: ConfirmActionType) => onSubmit(action)}
 						onClose={onClose}
-						onLockMetadataStatus={onLockMetadataStatus}
-						onConfirmActionUpdate={onConfirmActionUpdate}
 					/>
 
 					<InfoTooltip content={tooltipConetnt} />
@@ -70,12 +67,7 @@ interface SuccessLabelProps {
 }
 
 const SuccessLabel = ({ confirmActionType }: SuccessLabelProps) => {
-	const label =
-		confirmActionType === ConfirmActionType.SAVE_AND_LOCK
-			? 'Your changes have been saved and the metadata is locked'
-			: confirmActionType === ConfirmActionType.UNLOCK
-			? 'Success. Metadata is unlocked'
-			: 'Your changes have been saved';
+	const { label } = COMPLETE_STEP_LABEL_TEXT[confirmActionType];
 
 	return (
 		<label className={styles.Label} data-variant={'success'}>
@@ -89,13 +81,13 @@ const SuccessLabel = ({ confirmActionType }: SuccessLabelProps) => {
  ****************/
 
 interface IconsProps {
-	confirmActionType: string;
+	isMetadataLocked: boolean;
 }
 
-const Icons = ({ confirmActionType }: IconsProps) => {
+const Icons = ({ isMetadataLocked }: IconsProps) => {
 	return (
 		<>
-			{confirmActionType === ConfirmActionType.SAVE_AND_LOCK ? (
+			{isMetadataLocked ? (
 				<IconLock1 className={styles.LockedIcon} />
 			) : (
 				<IconLockUnlocked1 className={styles.UnlockedIcon} />
@@ -111,37 +103,31 @@ const Icons = ({ confirmActionType }: IconsProps) => {
 interface ButtonGroupProps {
 	errorText: string;
 	confirmActionType: string;
-	onEdit: () => void;
+	onRestart: () => void;
 	onClose: () => void;
-	onLockMetadataStatus: () => void;
-	onConfirmActionUpdate: (action: ConfirmActionType) => void;
+	onSubmit: (action: ConfirmActionType) => void;
 }
 
 const ButtonGroup = ({
 	errorText,
 	confirmActionType,
-	onEdit,
+	onRestart,
 	onClose,
-	onLockMetadataStatus,
-	onConfirmActionUpdate,
+	onSubmit,
 }: ButtonGroupProps) => {
 	return (
 		<>
 			{(confirmActionType === ConfirmActionType.SAVE_WITHOUT_LOCKING ||
 				Boolean(errorText)) && (
-				<Button
-					onPress={() => {
-						onLockMetadataStatus();
-						onConfirmActionUpdate(ConfirmActionType.SAVE_AND_LOCK);
-					}}
-				>
+				<Button onPress={() => onSubmit(ConfirmActionType.LOCK)}>
 					{'Lock Metadata'}
 				</Button>
 			)}
 
-			{confirmActionType === ConfirmActionType.UNLOCK && (
-				<Button onPress={onEdit}>{'Edit Metadata'}</Button>
-			)}
+			{confirmActionType === ConfirmActionType.UNLOCK &&
+				!Boolean(errorText) && (
+					<Button onPress={onRestart}>{'Edit Metadata'}</Button>
+				)}
 
 			<Button onPress={onClose}>{'Finish'}</Button>
 		</>

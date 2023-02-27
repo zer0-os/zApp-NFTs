@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { ConfirmActionType, steps } from '../..';
+import { ConfirmActionType } from '../..';
 import { useDomainSettingsData } from '../../hooks';
 
 import { FormErrorText } from '../../../ui';
-import { Button, Step } from '@zero-tech/zui/components';
+import { Button } from '@zero-tech/zui/components';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
 import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui/components/Icons';
 
@@ -13,7 +13,7 @@ import styles from './Footer.module.scss';
 interface DetailsStepFooterProps {
 	zna: string;
 	errorText: string;
-	onSubmit: (action: ConfirmActionType, step: Step, formHeader: string) => void;
+	onSubmit: (action: ConfirmActionType) => void;
 }
 
 export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
@@ -23,6 +23,10 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 }) => {
 	const { truncatedLockedByAddress, isLockedByOwner, isMetadataLocked } =
 		useDomainSettingsData(zna);
+
+	const onSubmitDetails = (action: ConfirmActionType) => {
+		return onSubmit(action);
+	};
 
 	const tooltipContent = isMetadataLocked
 		? 'Metadata is locked. Only the person who locked it may unlock and make changes.'
@@ -45,11 +49,7 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 				{isMetadataLocked && isLockedByOwner && (
 					<>
 						<IconLock1 className={styles.LockedIcon} />
-						<Button
-							onPress={() =>
-								onSubmit(ConfirmActionType.UNLOCK, steps[1], 'Unlock Metadata?')
-							}
-						>
+						<Button onPress={() => onSubmitDetails(ConfirmActionType.UNLOCK)}>
 							Unlock Metadata
 						</Button>
 					</>
@@ -65,23 +65,13 @@ export const DetailsStepFooter: FC<DetailsStepFooterProps> = ({
 						<IconLockUnlocked1 className={styles.UnlockedIcon} />
 						<Button
 							onPress={() =>
-								onSubmit(
-									ConfirmActionType.SAVE_WITHOUT_LOCKING,
-									steps[1],
-									'Save Without Locking',
-								)
+								onSubmitDetails(ConfirmActionType.SAVE_WITHOUT_LOCKING)
 							}
 						>
 							Save Changes
 						</Button>
 						<Button
-							onPress={() =>
-								onSubmit(
-									ConfirmActionType.SAVE_AND_LOCK,
-									steps[1],
-									'Save & Lock?',
-								)
-							}
+							onPress={() => onSubmitDetails(ConfirmActionType.SAVE_AND_LOCK)}
 						>
 							Save and Lock
 						</Button>

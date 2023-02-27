@@ -9,6 +9,10 @@ import {
 } from '../DomainSettings.types';
 import { useDomainSettingsData } from '.';
 import { useWeb3, useZnsSdk } from '../../../lib/hooks';
+import {
+	// CONFIRM_STEP_HEADER_TEXT,
+	LOADING_TEXT_CONTENT,
+} from '../DomainSettings.constants';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { ConfirmStep, DetailsStep } from '../Steps';
@@ -30,8 +34,6 @@ export const useDomainSettingsForm = (
 
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-
-	// add isLoading to form
 	const { domainId, metadata, isMetadataLocked } = useDomainSettingsData(zna);
 
 	const [stepId, setStepId] = useState(steps[0].id);
@@ -45,7 +47,7 @@ export const useDomainSettingsForm = (
 	const [details, setDetails] = useState<DetailsFormSubmit>();
 
 	// Set metadata form details
-	const onFormDetailsSubmit = ({
+	const onSubmitMetadata = ({
 		title,
 		description,
 		isMintable,
@@ -81,10 +83,10 @@ export const useDomainSettingsForm = (
 	}, [domainId, provider]);
 
 	// Transaction handlers
-	const handleTransactionStart = (onLoadingHeader?: string) => {
+	const handleTransactionStart = (onLoadingHeader: string) => {
 		setIsTransactionLoading(true);
 		setLoadingStatusText('Waiting approval from your wallet...');
-		onLoadingHeader && setFormHeader(onLoadingHeader);
+		setFormHeader(onLoadingHeader);
 	};
 
 	const handleTransactionProcessing = (onLoadingText: string) => {
@@ -104,7 +106,10 @@ export const useDomainSettingsForm = (
 	};
 
 	const getAction = (confirmActionType: ConfirmActionType) => {
-		if (confirmActionType === ConfirmActionType.UNLOCK) {
+		if (
+			confirmActionType === ConfirmActionType.UNLOCK ||
+			confirmActionType === ConfirmActionType.LOCK
+		) {
 			return sdk.lockDomainMetadata;
 		} else if (confirmActionType === ConfirmActionType.SAVE_AND_LOCK) {
 			return sdk.setAndLockDomainMetadata;
@@ -113,14 +118,42 @@ export const useDomainSettingsForm = (
 		}
 	};
 
+	// rename details step
+	const getConfirmStepHeader = (confirmActionType: ConfirmActionType) => {
+		if (confirmActionType === ConfirmActionType.UNLOCK) {
+			return 'Unlock Metadata?';
+		} else if (confirmActionType === ConfirmActionType.SAVE_AND_LOCK) {
+			return 'Save & Lock?';
+		} else {
+			return 'Save Without Locking';
+		}
+	};
+
+	const onSubmitDetailsForm = (action: ConfirmActionType) => {
+		setConfirmActionType(action);
+
+		const formHeader = getConfirmStepHeader(action);
+
+		if (stepId === FormStep.DETAILS) {
+			setFormHeader(formHeader);
+			setStepId(steps[1].id);
+		} else {
+			onSubmitTransaction(action);
+		}
+	};
+
+	const onRestart = () => {
+		setStepId(steps[0].id);
+	};
+
+	// disable buttons if no edit
+
 	// Executes the transaction.
-	const onSubmitTransaction = () => {
+	const onSubmitTransaction = (confirmActionType: ConfirmActionType) => {
 		setErrorText(undefined);
 
-		const loadingTextContent = getLoadingText(
-			isMetadataLocked,
-			confirmActionType,
-		);
+		const { loadingHeader, loadingBody } =
+			LOADING_TEXT_CONTENT[confirmActionType];
 
 		const sdkAction = getAction(confirmActionType);
 
@@ -128,16 +161,16 @@ export const useDomainSettingsForm = (
 			sdkAction,
 			[
 				domainId,
-				confirmActionType === ConfirmActionType.UNLOCK
+				// improve these - add shorthand types
+				confirmActionType === ConfirmActionType.UNLOCK ||
+				confirmActionType === ConfirmActionType.LOCK
 					? !isMetadataLocked
 					: details,
 				provider.getSigner(),
 			],
 			{
-				onStart: () =>
-					handleTransactionStart(loadingTextContent?.onLoadingHeader),
-				onProcessing: () =>
-					handleTransactionProcessing(loadingTextContent.onLoadingText),
+				onStart: () => handleTransactionStart(loadingHeader),
+				onProcessing: () => handleTransactionProcessing(loadingBody),
 				onSuccess: () => handleTransactionSuccess(),
 
 				onError: (error: any) => handleTransactionError(error.message),
@@ -158,12 +191,10 @@ export const useDomainSettingsForm = (
 					zna={zna}
 					stepId={stepId}
 					errorText={errorText}
-					onStepUpdate={(step: Step) => setStepId(step.id)}
-					onTitleUpdate={(title: string) => setFormHeader(title)}
-					onFormDetailsSubmit={onFormDetailsSubmit}
-					onConfirmActionUpdate={(action: ConfirmActionType) =>
-						setConfirmActionType(action)
-					}
+					onSubmitMetadata={onSubmitMetadata}
+					onConfirm={(action: ConfirmActionType) => {
+						onSubmitDetailsForm(action);
+					}}
 				/>
 			);
 			break;
@@ -172,8 +203,8 @@ export const useDomainSettingsForm = (
 			formContent = !isTransactionLoading ? (
 				<ConfirmStep
 					confirmActionType={confirmActionType}
-					onStepUpdate={(step: Step) => setStepId(step.id)}
-					onSubmit={onSubmitTransaction}
+					onRestart={onRestart}
+					onSubmit={() => onSubmitTransaction(confirmActionType)}
 				/>
 			) : (
 				<Wizard.Loading message={loadingStatusText} />
@@ -187,11 +218,10 @@ export const useDomainSettingsForm = (
 					stepId={stepId}
 					errorText={errorText}
 					confirmActionType={confirmActionType}
-					onLockMetadataStatus={onSubmitTransaction}
-					onStepUpdate={(step: Step) => setStepId(step.id)}
-					onConfirmActionUpdate={(action: ConfirmActionType) =>
-						setConfirmActionType(action)
-					}
+					onConfirm={(action: ConfirmActionType) => {
+						onSubmitDetailsForm(action);
+					}}
+					onRestart={onRestart}
 					onClose={onClose}
 				/>
 			) : (
@@ -207,49 +237,4 @@ export const useDomainSettingsForm = (
 		isTransactionLoading,
 		onStepUpdate: (step: Step) => setStepId(step.id),
 	};
-};
-
-/************************
- * getTransactionType
- ************************/
-
-const getLoadingText = (
-	isMetadataLocked: boolean,
-	confirmActionType: ConfirmActionType,
-) => {
-	let loadingTextContent: { onLoadingHeader?: string; onLoadingText: string };
-
-	const transactionTimingPrompt =
-		'\nThis may take up to 20 mins. Do not close this window or refresh your browser...';
-
-	const savingLoadingTextVariant =
-		confirmActionType === ConfirmActionType.SAVE_AND_LOCK
-			? 'Saving & locking metadata...'
-			: 'Saving metadata changes...';
-
-	switch (confirmActionType) {
-		case ConfirmActionType.UNLOCK:
-			loadingTextContent = {
-				onLoadingText: `${
-					isMetadataLocked ? 'Unlocking' : 'Locking'
-				} metadata. ${transactionTimingPrompt}`,
-			};
-			break;
-
-		case ConfirmActionType.SAVE_AND_LOCK:
-			loadingTextContent = {
-				onLoadingHeader: 'Save & Lock Metadata',
-				onLoadingText: `${savingLoadingTextVariant} ${transactionTimingPrompt}`,
-			};
-			break;
-
-		case ConfirmActionType.SAVE_WITHOUT_LOCKING:
-			loadingTextContent = {
-				onLoadingHeader: 'Save Metadata Changes',
-				onLoadingText: `${savingLoadingTextVariant} ${transactionTimingPrompt}`,
-			};
-			break;
-	}
-
-	return loadingTextContent;
 };

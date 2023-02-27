@@ -1,30 +1,28 @@
 import { FC } from 'react';
 
-import { steps, ConfirmActionType } from '../DomainSettings.types';
+import { ConfirmActionType } from '../DomainSettings.types';
+import { CONFIRM_STEP_TEXT_CONTENT } from '../DomainSettings.constants';
 
 import { FormTextContent } from '../../ui';
-import { Step, Wizard } from '@zero-tech/zui/components';
+import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './ConfirmStep.module.scss';
 
 interface ConfirmStepProps {
 	confirmActionType: ConfirmActionType;
-	onStepUpdate: (step: Step) => void;
+	onRestart: () => void;
 	onSubmit: () => void;
 }
 
 export const ConfirmStep: FC<ConfirmStepProps> = ({
 	confirmActionType,
-	onStepUpdate,
+	onRestart,
 	onSubmit,
 }) => {
-	const { primaryButtonText, message } = STEP_TEXT[confirmActionType];
+	const { primaryButtonText, message } =
+		CONFIRM_STEP_TEXT_CONTENT[confirmActionType];
 
 	const confirmationMessage = <FormTextContent textContent={message} />;
-
-	const onBack = () => {
-		onStepUpdate(steps[0]);
-	};
 
 	return (
 		<Wizard.Confirmation
@@ -33,36 +31,9 @@ export const ConfirmStep: FC<ConfirmStepProps> = ({
 			isPrimaryButtonActive
 			isSecondaryButtonActive
 			onClickPrimaryButton={onSubmit}
-			onClickSecondaryButton={onBack}
+			onClickSecondaryButton={onRestart}
 			primaryButtonText={primaryButtonText}
 			secondaryButtonText={'Return'}
 		/>
 	);
-};
-
-/*************
- * STEP_TEXT
- *************/
-
-interface StepTextType {
-	primaryButtonText: string;
-	message: string;
-}
-
-const STEP_TEXT: { [action in ConfirmActionType]: StepTextType } = {
-	[ConfirmActionType.UNLOCK]: {
-		primaryButtonText: 'Unlock Metadata',
-		message:
-			'Unlocking metadata is a blockchain transaction that will cost gas. \nAdditional, optional, transactions are required to save changes and lock the metadata again.',
-	},
-	[ConfirmActionType.SAVE_AND_LOCK]: {
-		primaryButtonText: 'Save & Lock',
-		message:
-			'Your changes will be saved and the metadata will be locked. \nYou will be the only one who can unlock it in the future.',
-	},
-	[ConfirmActionType.SAVE_WITHOUT_LOCKING]: {
-		primaryButtonText: 'Save Without Locking',
-		message:
-			'If you transfer ownership of the domain while metadata is unlocked, the new owner can edit the metadata and lock it. You may lose access forever.',
-	},
 };

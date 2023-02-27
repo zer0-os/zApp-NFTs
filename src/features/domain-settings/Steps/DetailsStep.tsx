@@ -7,7 +7,7 @@ import { ConfirmActionType, FieldValues, FormStep } from '..';
 import { Media, Switch, TextArea } from '../../ui';
 import { DetailsStepFooter, CompleteStepFooter } from './Footers';
 import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
-import { Input, LoadingIndicator, Step } from '@zero-tech/zui/components';
+import { Input, LoadingIndicator } from '@zero-tech/zui/components';
 
 import styles from './DetailsStep.module.scss';
 
@@ -16,11 +16,9 @@ interface DetailsStepProps {
 	stepId: string;
 	errorText: string;
 	confirmActionType?: ConfirmActionType;
-	onLockMetadataStatus?: () => void;
-	onStepUpdate: (step: Step) => void;
-	onTitleUpdate?: (title: string) => void;
-	onFormDetailsSubmit?: (values: FieldValues) => void;
-	onConfirmActionUpdate: (action: ConfirmActionType) => void;
+	onSubmitMetadata?: (values: FieldValues) => void;
+	onConfirm?: (action: ConfirmActionType) => void;
+	onRestart?: () => void;
 	onClose?: () => void;
 }
 
@@ -29,11 +27,9 @@ export const DetailsStep: FC<DetailsStepProps> = ({
 	stepId,
 	errorText,
 	confirmActionType,
-	onLockMetadataStatus,
-	onStepUpdate,
-	onTitleUpdate,
-	onFormDetailsSubmit,
-	onConfirmActionUpdate,
+	onSubmitMetadata,
+	onConfirm,
+	onRestart,
 	onClose,
 }) => {
 	const {
@@ -61,23 +57,20 @@ export const DetailsStep: FC<DetailsStepProps> = ({
 			(metadata?.customDomainHeaderValue as string) || undefined,
 		);
 
-	const onSubmit = (
-		action: ConfirmActionType,
-		step: Step,
-		formHeader: string,
-	) => {
-		onConfirmActionUpdate(action);
-		onStepUpdate(step);
-		onTitleUpdate(formHeader);
-		onFormDetailsSubmit({
-			title,
-			description,
-			isMintable,
-			isBiddable,
-			gridViewByDefault,
-			customDomainHeader,
-			customDomainHeaderValue,
-		});
+	const onSubmit = (action: ConfirmActionType) => {
+		onConfirm(action);
+
+		if (stepId === FormStep.DETAILS) {
+			onSubmitMetadata({
+				title,
+				description,
+				isMintable,
+				isBiddable,
+				gridViewByDefault,
+				customDomainHeader,
+				customDomainHeaderValue,
+			});
+		}
 	};
 
 	const isDisabled = isMetadataLocked || stepId === FormStep.COMPLETE;
@@ -148,11 +141,10 @@ export const DetailsStep: FC<DetailsStepProps> = ({
 				zna={zna}
 				stepId={stepId}
 				errorText={errorText}
+				isMetadataLocked={isMetadataLocked}
 				confirmActionType={confirmActionType}
-				onStepUpdate={onStepUpdate}
-				onConfirmActionUpdate={onConfirmActionUpdate}
-				onLockMetadataStatus={onLockMetadataStatus}
-				onSubmit={onSubmit}
+				onSubmit={(action: ConfirmActionType) => onSubmit(action)}
+				onRestart={onRestart}
 				onClose={onClose}
 			/>
 		</div>
@@ -363,11 +355,10 @@ interface FooterProps {
 	zna: string;
 	stepId: string;
 	errorText: string;
+	isMetadataLocked: boolean;
 	confirmActionType: ConfirmActionType;
-	onLockMetadataStatus?: () => void;
-	onStepUpdate: (step: Step) => void;
-	onConfirmActionUpdate: (action: ConfirmActionType) => void;
-	onSubmit: (action: ConfirmActionType, step: Step, formHeader: string) => void;
+	onSubmit: (action: ConfirmActionType) => void;
+	onRestart: () => void;
 	onClose: () => void;
 }
 
@@ -375,11 +366,10 @@ const Footer = ({
 	zna,
 	stepId,
 	errorText,
+	isMetadataLocked,
 	confirmActionType,
-	onLockMetadataStatus,
-	onStepUpdate,
-	onConfirmActionUpdate,
 	onSubmit,
+	onRestart,
 	onClose,
 }: FooterProps) => {
 	return (
@@ -388,17 +378,17 @@ const Footer = ({
 				<DetailsStepFooter
 					zna={zna}
 					errorText={errorText}
-					onSubmit={onSubmit}
+					onSubmit={(action: ConfirmActionType) => onSubmit(action)}
 				/>
 			)}
 
 			{stepId === FormStep.COMPLETE && (
 				<CompleteStepFooter
 					errorText={errorText}
+					isMetadataLocked={isMetadataLocked}
 					confirmActionType={confirmActionType}
-					onConfirmActionUpdate={onConfirmActionUpdate}
-					onStepUpdate={onStepUpdate}
-					onLockMetadataStatus={onLockMetadataStatus}
+					onSubmit={(action: ConfirmActionType) => onSubmit(action)}
+					onRestart={onRestart}
 					onClose={onClose}
 				/>
 			)}

@@ -30,7 +30,12 @@ export const DomainSettingsHeader: FC<DomainSettingsHeaderProps> = ({
 	return (
 		<div className={styles.Container}>
 			<Wizard.Header
-				header={stepId !== FormStep.CONFIRM ? 'My Domain Settings' : headerText}
+				header={
+					(stepId === FormStep.DETAILS || stepId === FormStep.COMPLETE) &&
+					!isTransactionLoading
+						? 'My Domain Settings'
+						: headerText
+				}
 				subHeader={zna}
 				sectionDivider={Boolean(isTransactionLoading)}
 			>

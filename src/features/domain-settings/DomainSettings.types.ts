@@ -9,8 +9,9 @@ export enum FormStep {
 }
 
 export enum ConfirmActionType {
-	SAVE_AND_LOCK = 'save-and-lock',
+	LOCK = 'lock',
 	UNLOCK = 'unlock',
+	SAVE_AND_LOCK = 'save-and-lock',
 	SAVE_WITHOUT_LOCKING = 'save-without-locking',
 }
 
