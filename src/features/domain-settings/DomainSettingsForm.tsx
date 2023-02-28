@@ -19,7 +19,7 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 		formHeader,
 		formContent,
 		isTransactionLoading,
-		onStepBarUpdate,
+		onStepBarNavigation,
 	} = useDomainSettingsForm(zna, onClose);
 
 	return (
@@ -29,7 +29,7 @@ export const DomainSettingsForm: FC<DomainSettingsFormProps> = ({
 				stepId={stepId}
 				headerText={formHeader}
 				isTransactionLoading={isTransactionLoading}
-				onStepBarUpdate={onStepBarUpdate}
+				onStepBarNavigation={onStepBarNavigation}
 				onClose={onClose}
 			/>
 			<form>{formContent}</form>

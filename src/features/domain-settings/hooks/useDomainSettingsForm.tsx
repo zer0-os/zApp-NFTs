@@ -13,6 +13,7 @@ import {
 	CONFIRM_STEP_HEADER_TEXT,
 	LOADING_TEXT_CONTENT,
 } from '../DomainSettings.constants';
+import { Instance } from '@zero-tech/zns-sdk';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { ConfirmForm, DetailsForm } from '../Steps';
@@ -23,7 +24,7 @@ export type UseDomainSettingsFormFormReturn = {
 	formHeader: string;
 	formContent: ReactNode;
 	isTransactionLoading: boolean;
-	onStepBarUpdate: (step: Step) => void;
+	onStepBarNavigation: (step: Step) => void;
 };
 
 export const useDomainSettingsForm = (
@@ -45,7 +46,7 @@ export const useDomainSettingsForm = (
 	const [confirmActionType, setConfirmActionType] =
 		useState<ConfirmActionType>();
 
-	const onStepBarUpdate = (step: Step) => {
+	const onStepBarNavigation = (step: Step) => {
 		setStepId(step.id);
 	};
 
@@ -112,26 +113,13 @@ export const useDomainSettingsForm = (
 		setStepId(stepId === FormStep.COMPLETE ? steps[2].id : steps[0].id);
 	};
 
-	const getSdkAction = (action: ConfirmActionType) => {
-		if (
-			action === ConfirmActionType.UNLOCK ||
-			action === ConfirmActionType.LOCK
-		) {
-			return sdk.lockDomainMetadata;
-		} else if (action === ConfirmActionType.SAVE_AND_LOCK) {
-			return sdk.setAndLockDomainMetadata;
-		} else {
-			return sdk.setDomainMetadata;
-		}
-	};
-
 	// Executes the confirm form transaction.
 	const onSubmitTransaction = (action: ConfirmActionType) => {
 		setErrorText(undefined);
 
 		const { loadingHeader, loadingBody } = LOADING_TEXT_CONTENT[action];
 
-		const sdkAction = getSdkAction(action);
+		const sdkAction = getSdkAction(action, sdk);
 
 		return executeTransaction(
 			sdkAction,
@@ -222,6 +210,27 @@ export const useDomainSettingsForm = (
 		formHeader,
 		formContent,
 		isTransactionLoading,
-		onStepBarUpdate,
+		onStepBarNavigation,
 	};
+};
+
+/****************
+ * getSdkAction
+ ****************/
+
+/**
+ * Determines the sdk action to exectue based on action type e.g. Unlock, Lock, Save & Lock or Save Without Locking
+ */
+
+const getSdkAction = (action: ConfirmActionType, sdk: Instance) => {
+	if (
+		action === ConfirmActionType.UNLOCK ||
+		action === ConfirmActionType.LOCK
+	) {
+		return sdk.lockDomainMetadata;
+	} else if (action === ConfirmActionType.SAVE_AND_LOCK) {
+		return sdk.setAndLockDomainMetadata;
+	} else {
+		return sdk.setDomainMetadata;
+	}
 };

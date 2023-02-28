@@ -1,8 +1,8 @@
 import { ConfirmActionType } from './DomainSettings.types';
 
-/**************************
- * COMPLETE_STEP_LABEL_TEXT
- **************************/
+/**
+ * Data structure to highlight successful transaction on the complete step
+ */
 
 interface LabelType {
 	label: string;
@@ -23,9 +23,9 @@ export const COMPLETE_STEP_LABEL_TEXT: {
 	},
 };
 
-// /**************************
-//  * CONFIRM_STEP_HEADER_TEXT
-//  **************************/
+/**
+ * Data structure for header text on the confirm transaction step
+ */
 
 interface HeaderType {
 	confirmStepHeader?: string;
@@ -46,9 +46,9 @@ export const CONFIRM_STEP_HEADER_TEXT: {
 	},
 };
 
-/****************************
- * CONFIRM_STEP_TEXT_CONTENT
- ***************************/
+/**
+ * Data structure for the body text of the confirm transaction step
+ */
 
 interface StepTextType {
 	primaryButtonText?: string;
@@ -76,9 +76,9 @@ export const CONFIRM_STEP_TEXT_CONTENT: {
 	},
 };
 
-/************************
- * LOADING_TEXT_CONTENT
- ************************/
+/**
+ * Data structure for the header and body text of the loading wizard
+ */
 
 interface LoadingStepTextType {
 	loadingHeader: string;
