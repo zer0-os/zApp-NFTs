@@ -1,39 +1,68 @@
-import { useBuyNowListing, useDomainData, useWeb3 } from '../../lib/hooks';
+import { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+import { InfiniteData, useQueryClient } from 'react-query';
+
+import { Domain } from '@zero-tech/zns-sdk';
+
 import {
-	usePaymentToken,
-	useDomainMetrics,
 	useDomainMetadata,
+	useDomainMetrics,
+	usePaymentToken,
+	useWeb3,
 } from '../../lib/hooks';
-import { getDomainId, getParentZna, formatEthers } from '../../lib/util';
+import { formatEthers } from '../../lib/util';
+import { useZna } from '../../lib/hooks/useZna';
+import { getInfiniteSubdomainQueryKey } from './SubdomainTable/useInfiniteSubdomains';
 
 interface UseSubdomainTableItem {
 	zna: string;
 }
 
+/**
+ * This logic was extracted to a hook as it is shared between the Row and the
+ * Card components.
+ * @param zna The subdomain name
+ */
 export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 	const { account } = useWeb3();
-	const parentZna = getParentZna(zna);
-	const domainId = getDomainId(zna);
+	const { domainId, parentZna, parentDomainId } = useZna(zna);
+	const queryClient = useQueryClient();
+	const history = useHistory();
 
-	const { data: domain } = useDomainData(domainId);
+	/*
+	 * Specifically not using useInfiniteQuery here
+	 * as it was killing the query data reset logic
+	 */
+	const queryKey = getInfiniteSubdomainQueryKey(parentDomainId);
+	const data = queryClient.getQueryData(queryKey) as InfiniteData<Domain[]>;
+	const subdomain = data?.pages
+		?.flat()
+		.find((subdomain) => subdomain.id === domainId);
+
 	const { data: metrics, isLoading: isLoadingMetrics } =
 		useDomainMetrics(domainId);
-	const { data: buyNowPrice, isLoading: isLoadingBuyNowPrice } =
-		useBuyNowListing(domainId);
 	const { data: metadata, isLoading: isLoadingMetadata } =
 		useDomainMetadata(domainId);
 	const { data: paymentToken } = usePaymentToken(parentZna);
 
+	const isOwnedByUser = account && subdomain?.owner === account;
 	const image = metadata?.previewImage ?? metadata?.image;
 	const alt = (metadata?.name ?? zna) + ' preview image';
-	const isLoading = isLoadingMetrics || isLoadingBuyNowPrice;
-	const isOwnedByUser = domain?.owner?.toLowerCase() === account?.toLowerCase();
+	const isLoading = isLoadingMetrics;
 
-	const volume = metrics?.volume?.all ? formatEthers(metrics.volume.all) : '-';
-
+	const volume = metrics?.volume?.all
+		? formatEthers(metrics.volume.all)
+		: undefined;
 	const highestBid = metrics?.highestBid
 		? formatEthers(metrics.highestBid)
-		: '-';
+		: undefined;
+
+	const handleItemClick = useCallback((event: any, domainName?: string) => {
+		const clickedButton = event?.target?.className?.indexOf('button') >= 0;
+		if (!clickedButton) {
+			history.push(`/${domainName}/nfts`);
+		}
+	}, []);
 
 	return {
 		volume,
@@ -43,10 +72,10 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 		isLoadingMetrics,
 		isLoadingMetadata,
 		isLoading,
-		buyNowPrice,
+		isOwnedByUser,
+		buyNowPrice: subdomain.buyNow,
 		metadata,
 		paymentTokenLabel: paymentToken?.label ?? '',
-		paymentTokenSymbol: paymentToken?.symbol ?? '',
-		isOwnedByUser,
+		handleItemClick,
 	};
 };

@@ -9,9 +9,9 @@ interface ViewSubdomainsProps {
 
 export const ViewSubdomains = ({ zna }: ViewSubdomainsProps) => {
 	return (
-		<>
+		<section>
 			<SubdomainMetrics zna={zna} />
 			<SubdomainTable zna={zna} />
-		</>
+		</section>
 	);
 };
