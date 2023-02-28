@@ -18,6 +18,7 @@ import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { ConfirmForm, DetailsForm } from '../Steps';
 import { Step, Wizard } from '@zero-tech/zui/components';
+import { useQueryClient } from 'react-query';
 
 export type UseDomainSettingsFormFormReturn = {
 	stepId: string;
@@ -35,7 +36,10 @@ export const useDomainSettingsForm = (
 
 	const { account, provider } = useWeb3();
 	const { executeTransaction } = useTransaction();
-	const { domainId, metadata, isMetadataLocked } = useDomainSettingsData(zna);
+	const { domainId, metadata, isMetadataLocked, queryKey } =
+		useDomainSettingsData(zna);
+
+	const queryClient = useQueryClient();
 
 	const [stepId, setStepId] = useState(steps[0].id);
 	const [errorText, setErrorText] = useState<string>();
@@ -105,6 +109,11 @@ export const useDomainSettingsForm = (
 		setIsTransactionLoading(false);
 		setStepId(steps[2].id);
 		onCheckMetadataLockStatus();
+
+		// Opportunistic update of local data
+		queryClient.setQueryData(queryKey, (_) => {
+			return details;
+		});
 	};
 
 	const handleTransactionError = (errorMessage: string) => {
