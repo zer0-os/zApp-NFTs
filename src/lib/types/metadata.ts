@@ -19,4 +19,5 @@ interface Meta {
 
 export interface Metadata extends Meta {
 	title: string;
+	description: string;
 }

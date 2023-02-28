@@ -12,8 +12,10 @@ export const useDomainMetadata = (domainId: string) => {
 
 	const metadataUri = domainData?.metadataUri;
 
+	const queryKey = ['domain', 'metadata', { metadataUri }];
+
 	const query = useQuery(
-		['domain', 'metadata', { metadataUri }],
+		queryKey,
 		async () => {
 			const raw = await sdk.utility.getMetadataFromUri(metadataUri);
 
@@ -31,6 +33,7 @@ export const useDomainMetadata = (domainId: string) => {
 
 	return {
 		...query,
+		queryKey,
 		isLoading: query.isLoading || query.isIdle,
 	};
 };

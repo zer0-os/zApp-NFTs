@@ -1,0 +1,49 @@
+@import '../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+.ErrorText {
+	display: flex;
+	justify-content: center;
+	margin-top: 1.5rem;
+}
+
+.Label {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	line-height: 1.5rem;
+	margin-top: 1.5rem;
+	font-weight: $font-weight-bold;
+	white-space: pre-line;
+	text-align: center;
+	color: $red-100;
+
+	&[data-variant='success'] {
+		color: $success-green;
+	}
+}
+
+.Buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	margin-top: 1.5rem;
+
+	> *:first-child {
+		margin-left: 0;
+	}
+
+	> *:last-child {
+		margin-left: 0;
+	}
+
+	.LockedIcon {
+		color: $blue;
+	}
+
+	.UnlockedIcon {
+		color: $success-green;
+	}
+}

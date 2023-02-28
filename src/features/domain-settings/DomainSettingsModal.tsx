@@ -1,20 +1,20 @@
 import { FC, useState } from 'react';
 
-import { useWeb3 } from '../../../lib/hooks/useWeb3';
-import { BasicModalProps } from '../../../lib/types/ui';
+import { useWeb3 } from '../../lib/hooks/useWeb3';
+import { BasicModalProps } from '../../lib/types/ui';
 
-import { SetBuyNowForm } from '..';
-import { ConnectWallet } from '../../ui/ConnectWallet';
+import { DomainSettingsForm } from '.';
+import { ConnectWallet } from '../ui/ConnectWallet';
 import { Modal } from '@zero-tech/zui/components';
 
-import styles from './SetBuyNowModal.module.scss';
+import styles from './DomainSettingsModal.module.scss';
 
-export interface SetBuyNowModalProps extends BasicModalProps {
+export interface DomainSettingsModalProps extends BasicModalProps {
 	zna: string;
 	onClose?: () => void;
 }
 
-export const SetBuyNowModal: FC<SetBuyNowModalProps> = ({
+export const DomainSettingsModal: FC<DomainSettingsModalProps> = ({
 	zna,
 	onClose,
 	...modalProps
@@ -46,14 +46,14 @@ export const SetBuyNowModal: FC<SetBuyNowModalProps> = ({
 
 interface ModalContentProps {
 	account: string;
-	zna: SetBuyNowModalProps['zna'];
-	onClose: () => void;
+	zna: DomainSettingsModalProps['zna'];
+	onClose: DomainSettingsModalProps['onClose'];
 }
 
 const ModalContent = ({ account, zna, onClose }: ModalContentProps) => {
 	return account ? (
-		<SetBuyNowForm zna={zna} onClose={onClose} />
+		<DomainSettingsForm zna={zna} onClose={onClose} />
 	) : (
-		<ConnectWallet message={'Connect your wallet to set buy now.'} />
+		<ConnectWallet message={'Connect your wallet to view domain settings.'} />
 	);
 };

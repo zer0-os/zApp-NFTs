@@ -109,7 +109,6 @@ export const useSetBuyNowForm = (zna: string): UseSetBuyNowFormReturn => {
 					setStep(Step.LOADING);
 					setStatusText(StatusText.WAITING_FOR_SIGNATURE);
 				},
-				// buyNowAmountAsNumber
 				onProcessing: () => setStatusText(StatusText.PROCESSING_SET_BUY_NOW),
 				onSuccess: () => setStep(Step.COMPLETE),
 				onError: (error: any) => {

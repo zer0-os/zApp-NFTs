@@ -6,7 +6,6 @@
 	display: flex;
 	align-items: center;
 	border-radius: 0.75rem;
-	width: 100%;
 
 	.Label {
 		font-size: $size-small;
@@ -16,7 +15,7 @@
 		margin-left: 0.5rem;
 	}
 
-	.Toggle {
+	.Switch {
 		position: relative;
 		width: 3rem;
 		height: calc(3rem / 2);
@@ -28,6 +27,12 @@
 
 		overflow: hidden;
 		cursor: pointer;
+
+		&[data-variant='locked'] {
+			&:hover {
+				cursor: not-allowed;
+			}
+		}
 
 		> div {
 			position: absolute;
@@ -66,20 +71,33 @@
 
 		&.On {
 			background: $ocean-10;
+
 			> div {
 				left: calc(100% - (3rem / 2) + 3px);
 			}
 		}
 	}
 
-	.Toggle.On {
+	.Switch.On {
 		border: 1px solid $blue;
+
+		&[data-variant='locked'] {
+			border: 1px solid $grey-lighter-2;
+		}
 
 		> div {
 			background-color: $blue !important;
 
+			&[data-variant='locked'] {
+				background-color: $grey-lighter-2 !important;
+			}
+
 			> span {
 				color: $blue;
+
+				&[data-variant='locked'] {
+					color: $grey-lighter-2;
+				}
 			}
 		}
 	}
