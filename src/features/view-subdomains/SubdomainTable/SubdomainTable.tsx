@@ -70,7 +70,7 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({ zna }) => {
 		subdomains.length === 0;
 
 	return (
-		<div style={{ position: 'relative' }}>
+		<div className={styles.Container}>
 			<SubdomainTableControls
 				view={view}
 				onChangeView={setView}
