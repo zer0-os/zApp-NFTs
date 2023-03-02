@@ -13,6 +13,11 @@ import { DomainSortOptions } from '@zero-tech/zns-sdk/lib/api/dataStoreApi/types
  */
 const DEFAULT_RESULTS_PER_PAGE = 24;
 
+/**
+ * Storing this as a constant for now - this should be controlled through .env
+ */
+const SHOULD_USE_DATA_STORE = true;
+
 const DEFAULT_SORT_OPTIONS: DomainSortOptions = {
 	name: 'asc',
 };
@@ -45,7 +50,7 @@ export const useInfiniteSubdomains = (zna: string) => {
 
 			return await sdk.getSubdomainsById(
 				parentDomainId,
-				true,
+				SHOULD_USE_DATA_STORE,
 				DEFAULT_RESULTS_PER_PAGE,
 				currentIndex,
 				DEFAULT_SORT_OPTIONS,
