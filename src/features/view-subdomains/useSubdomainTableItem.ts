@@ -13,6 +13,7 @@ import {
 import { formatEthers } from '../../lib/util';
 import { useZna } from '../../lib/hooks/useZna';
 import { getInfiniteSubdomainQueryKey } from './SubdomainTable/useInfiniteSubdomains';
+import { isAddressEqual } from '../../lib/util/addresses';
 
 interface UseSubdomainTableItem {
 	zna: string;
@@ -45,7 +46,10 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 		useDomainMetadata(domainId);
 	const { data: paymentToken } = usePaymentToken(parentZna);
 
-	const isOwnedByUser = account && subdomain?.owner === account;
+	const isOwnedByUser =
+		account &&
+		subdomain?.owner &&
+		account.toLowerCase() === subdomain.owner.toLowerCase();
 	const image = metadata?.previewImage ?? metadata?.image;
 	const alt = (metadata?.name ?? zna) + ' preview image';
 	const isLoading = isLoadingMetrics;
