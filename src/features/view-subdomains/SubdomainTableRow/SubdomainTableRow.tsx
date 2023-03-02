@@ -66,6 +66,7 @@ const Row: FC<SubdomainTableRowProps> = ({ zna }) => {
 					asyncText={{
 						text: volume,
 						isLoading: isLoadingMetrics,
+						errorText: '-',
 					}}
 				/>
 			</Cell>

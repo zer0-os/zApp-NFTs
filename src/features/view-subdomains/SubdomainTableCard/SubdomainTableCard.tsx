@@ -57,7 +57,7 @@ const Card: FC<SubdomainTableCardProps> = ({ zna }) => {
 
 	const metric = buyNowPrice?.price
 		? formatEthers(buyNowPrice.price.toString())
-		: highestBid ?? '-';
+		: highestBid;
 	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
 
 	const button = buyNowPrice ? (
@@ -94,6 +94,7 @@ const Card: FC<SubdomainTableCardProps> = ({ zna }) => {
 				primaryText={{
 					text: metric,
 					isLoading: isLoadingMetrics,
+					errorText: '-',
 				}}
 				secondaryText={''}
 				button={!isOwnedByUser && button}
