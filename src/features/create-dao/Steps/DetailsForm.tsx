@@ -9,7 +9,7 @@ import { WrappedInput } from '../../ui/WrappedInput/WrappedInput';
 import { CreateDAOFormContext } from '../';
 
 import styles from './DetailsForm.module.scss';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
 
 const validationSchema = Yup.object().shape({
 	name: Yup.string().required('The name field is required.'),

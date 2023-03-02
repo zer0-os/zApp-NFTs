@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, memo, useCallback } from 'react';
 import { useQuery } from 'react-query';
 
 import { useSubdomainTableItem } from '../useSubdomainTableItem';
@@ -9,7 +9,6 @@ import {
 	getCloudinaryVideoPoster,
 } from '@zero-tech/zapp-utils/utils/cloudinary';
 import { getHashFromIpfsUrl } from '@zero-tech/zapp-utils/utils/ipfs';
-import { bigNumberToLocaleString } from '@zero-tech/zapp-utils/formatting/big-number';
 
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
@@ -20,13 +19,9 @@ import styles from './SubdomainTableCard.module.scss';
 
 type SubdomainTableCardProps = {
 	zna: string;
-	onClick: (e?: any, domainName?: string) => void;
 };
 
-export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
-	zna,
-	onClick,
-}) => {
+const Card: FC<SubdomainTableCardProps> = ({ zna }) => {
 	const {
 		highestBid,
 		buyNowPrice,
@@ -36,8 +31,8 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		isLoadingMetrics,
 		isLoadingMetadata,
 		paymentTokenLabel,
-		paymentTokenSymbol,
 		isOwnedByUser,
+		handleItemClick,
 	} = useSubdomainTableItem({
 		zna,
 	});
@@ -61,12 +56,9 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	});
 
 	const metric = buyNowPrice?.price
-		? `${formatEthers(buyNowPrice?.price.toString())} ${paymentTokenSymbol}`
+		? formatEthers(buyNowPrice.price.toString())
 		: highestBid;
-
-	const label = buyNowPrice?.price
-		? 'Buy Now'
-		: 'Top Bid' + ' ' + paymentTokenLabel;
+	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
 
 	const button = buyNowPrice ? (
 		<BuyNowButton zna={zna} trigger={'Buy'} />
@@ -77,10 +69,10 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 	const handleOnClick = useCallback(
 		(event: any) => {
 			if (event.currentTarget.contains(event.target)) {
-				onClick(undefined, zna);
+				handleItemClick(undefined, zna);
 			}
 		},
-		[zna, onClick],
+		[zna, handleItemClick],
 	);
 
 	return (
@@ -102,6 +94,7 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 				primaryText={{
 					text: metric,
 					isLoading: isLoadingMetrics,
+					errorText: '-',
 				}}
 				secondaryText={''}
 				button={!isOwnedByUser && button}
@@ -109,3 +102,5 @@ export const SubdomainTableCard: FC<SubdomainTableCardProps> = ({
 		</GridCard>
 	);
 };
+
+export const SubdomainTableCard = memo(Card);

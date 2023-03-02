@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { getDomainId } from '../util/domains/domains';
+import { getDomainId } from '../util';
 
 export const useCurrentRoute = () => {
 	const { pathname, search } = useLocation();
@@ -11,6 +11,6 @@ export const useCurrentRoute = () => {
 		currentZna: zna,
 		currentDomainId: Boolean(zna) ? getDomainId(zna) : undefined,
 		isRootDomain: Boolean(zna) && zna.split('.').length === 1,
-		isNftView: Boolean(params.get('view')),
+		isNftViewParams: Boolean(params.get('view')),
 	};
 };

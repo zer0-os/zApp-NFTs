@@ -6,7 +6,7 @@ import { CreateDAOFormContext } from '../';
 import { DAOSummaryField } from './DAOSummaryField';
 
 import styles from './DAOSummary.module.scss';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
 
 export interface DAOSummaryProps {
 	onClose: () => void;

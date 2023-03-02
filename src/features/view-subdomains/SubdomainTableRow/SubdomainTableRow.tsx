@@ -1,26 +1,20 @@
-import { FC, useCallback } from 'react';
+import { FC, memo, useCallback } from 'react';
 
-import { getDomainId } from '../../../lib/util';
 import { useSubdomainTableItem } from '../useSubdomainTableItem';
-
-import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
 import { SkeletonText } from '@zero-tech/zui/components/SkeletonText';
-import { TableData } from '@zero-tech/zui/components/AsyncTable/Column';
+import { Cell } from '@zero-tech/zui/components/Table';
+import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './SubdomainTableRow.module.scss';
 
 type SubdomainTableRowProps = {
 	zna: string;
-	onClick: (e?: any, domainName?: string) => void;
 };
 
-export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
-	zna,
-	onClick,
-}) => {
+const Row: FC<SubdomainTableRowProps> = ({ zna }) => {
 	const {
 		volume,
 		buyNowPrice,
@@ -30,6 +24,7 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 		isLoadingMetrics,
 		isLoadingMetadata,
 		isOwnedByUser,
+		handleItemClick,
 	} = useSubdomainTableItem({
 		zna,
 	});
@@ -37,15 +32,15 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 	const handleOnClick = useCallback(
 		(event: any) => {
 			if (event.currentTarget.contains(event.target)) {
-				onClick(event, zna);
+				handleItemClick(event, zna);
 			}
 		},
-		[zna, onClick],
+		[zna, handleItemClick],
 	);
 
 	return (
 		<tr onClick={handleOnClick} className={styles.Container}>
-			<TableData alignment={'left'} className={styles.NFT}>
+			<Cell alignment={'left'} className={styles.NFT}>
 				<div>
 					<IpfsMedia
 						className={styles.Thumbnail}
@@ -65,25 +60,27 @@ export const SubdomainTableRow: FC<SubdomainTableRowProps> = ({
 						<span>0://{zna}</span>
 					</div>
 				</div>
-			</TableData>
-			<TableData alignment={'right'} className={styles.Metrics}>
+			</Cell>
+			<Cell alignment={'right'} className={styles.Metrics}>
 				<SkeletonText
 					asyncText={{
 						text: volume,
 						isLoading: isLoadingMetrics,
+						errorText: '-',
 					}}
 				/>
-			</TableData>
+			</Cell>
 
-			{!isOwnedByUser && (
-				<TableData alignment={'right'} className={styles.Button}>
-					{buyNowPrice ? (
+			<Cell alignment={'right'} className={styles.Button}>
+				{!isOwnedByUser &&
+					(buyNowPrice ? (
 						<BuyNowButton zna={zna} trigger={'Buy'} />
 					) : (
 						<PlaceBidButton zna={zna} trigger={'Bid'} />
-					)}
-				</TableData>
-			)}
+					))}
+			</Cell>
 		</tr>
 	);
 };
+
+export const SubdomainTableRow = memo(Row);
