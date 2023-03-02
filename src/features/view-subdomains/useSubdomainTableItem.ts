@@ -13,7 +13,6 @@ import {
 import { formatEthers } from '../../lib/util';
 import { useZna } from '../../lib/hooks/useZna';
 import { getInfiniteSubdomainQueryKey } from './SubdomainTable/useInfiniteSubdomains';
-import { isAddressEqual } from '../../lib/util/addresses';
 
 interface UseSubdomainTableItem {
 	zna: string;
