@@ -2,8 +2,8 @@ import { useCallback, useEffect } from 'react';
 import { InfiniteData, useInfiniteQuery, useQueryClient } from 'react-query';
 
 import { useZnsSdk } from '../../../lib/hooks';
-import { getDomainId } from '../../../lib/util';
 import { DomainSortOptions } from '@zero-tech/zns-sdk/lib/api/dataStoreApi/types';
+import { useZna } from '../../../lib/hooks/useZna';
 
 /**
  * Number of results to show per page.
@@ -34,11 +34,11 @@ export const getInfiniteSubdomainQueryKey = (parentDomainId: string) => {
 export const useInfiniteSubdomains = (zna: string) => {
 	const sdk = useZnsSdk();
 
-	const parentDomainId = getDomainId(zna);
+	const { domainId } = useZna(zna);
 	const queryClient = useQueryClient();
 
 	// Assigning queryKey here as it's used in multiple places
-	const queryKey = getInfiniteSubdomainQueryKey(parentDomainId);
+	const queryKey = getInfiniteSubdomainQueryKey(domainId);
 
 	/**
 	 * Fetches the next page of subdomains from the data store
@@ -49,14 +49,14 @@ export const useInfiniteSubdomains = (zna: string) => {
 			const currentIndex = pageParam * DEFAULT_RESULTS_PER_PAGE;
 
 			return await sdk.getSubdomainsById(
-				parentDomainId,
+				domainId,
 				SHOULD_USE_DATA_STORE,
 				DEFAULT_RESULTS_PER_PAGE,
 				currentIndex,
 				DEFAULT_SORT_OPTIONS,
 			);
 		},
-		[parentDomainId, sdk],
+		[domainId, sdk],
 	);
 
 	// Note: assigning query to variable so we can destructure it in hook return
@@ -90,7 +90,7 @@ export const useInfiniteSubdomains = (zna: string) => {
 				}
 			});
 		};
-	}, [parentDomainId]);
+	}, [domainId]);
 
 	return {
 		...query,
