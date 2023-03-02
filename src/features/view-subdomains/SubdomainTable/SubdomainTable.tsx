@@ -1,9 +1,8 @@
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 
-import { SubdomainTableCard } from '../SubdomainTableCard';
-import { SubdomainTableRow } from '../SubdomainTableRow';
-
 import { COLUMNS } from '../SubdomainTable.constants';
+import { useInfiniteSubdomains } from './useInfiniteSubdomains';
+import { useSubdomainSearch } from './useSubdomainSearch';
 
 import {
 	Body,
@@ -18,8 +17,10 @@ import {
 	View,
 	ViewToggle,
 } from '@zero-tech/zui/components/Table';
-import { useInfiniteSubdomains } from './useInfiniteSubdomains';
-import { useSubdomainSearch } from './useSubdomainSearch';
+import { SubdomainTableCard } from '../SubdomainTableCard';
+import { SubdomainTableRow } from '../SubdomainTableRow';
+
+import styles from './SubdomainTable.module.scss';
 
 type SubdomainTableProps = {
 	zna: string;
@@ -211,13 +212,5 @@ const Trigger = ({ onTrigger }: TriggerProps) => {
 		}
 	}, [onTrigger, triggerRef.current]);
 
-	return (
-		<div
-			style={{
-				position: 'absolute',
-				bottom: '75vh',
-			}}
-			ref={triggerRef}
-		></div>
-	);
+	return <div className={styles.Trigger} ref={triggerRef}></div>;
 };
