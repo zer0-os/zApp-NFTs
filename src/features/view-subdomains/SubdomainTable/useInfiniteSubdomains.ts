@@ -43,28 +43,13 @@ export const useInfiniteSubdomains = (zna: string) => {
 			// Number of results already loaded, used to determine where to start the next query
 			const currentIndex = pageParam * DEFAULT_RESULTS_PER_PAGE;
 
-			console.log(parentDomainId);
-			console.log('currin', currentIndex, 'pageparam', pageParam);
-			sdk
-				.getSubdomainsById(parentDomainId, true, 24, 0, DEFAULT_SORT_OPTIONS)
-				.then((d) => console.log('24', d.map((d) => d.name).sort()));
-			sdk
-				.getSubdomainsById(parentDomainId, true, 24, 24, DEFAULT_SORT_OPTIONS)
-				.then((d) => console.log('48', d.map((d) => d.name).sort()));
-
-			const data = await sdk.getSubdomainsById(
+			return await sdk.getSubdomainsById(
 				parentDomainId,
 				true,
 				DEFAULT_RESULTS_PER_PAGE,
 				currentIndex,
 				DEFAULT_SORT_OPTIONS,
 			);
-
-			const ids = data.map((d) => d.name).sort();
-			console.log('got', ids);
-			console.log('');
-
-			return data;
 		},
 		[parentDomainId, sdk],
 	);
