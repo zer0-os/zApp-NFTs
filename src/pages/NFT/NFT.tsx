@@ -4,6 +4,7 @@ import { ZAppContent } from '@zero-tech/zapp-utils/components/ZAppContent';
 
 import {
 	Actions,
+	Attributes,
 	HistoryList,
 	NFTBannerContainer,
 	NFTDetailsCard,
@@ -23,9 +24,9 @@ export const NFT = () => {
 			<main className={styles.Main}>
 				<ZAppContent className={styles.Content}>
 					<NFTDetailsCard zna={currentZna} />
-					{/* TODO: remove Actions in follow up task */}
 					<Actions zna={currentZna} />
 					<NFTMetrics zna={currentZna} />
+					<Attributes zna={currentZna} />
 					<TokenHashInfo zna={currentZna} />
 					<HistoryList zna={currentZna} />
 				</ZAppContent>
