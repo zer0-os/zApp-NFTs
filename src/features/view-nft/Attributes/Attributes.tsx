@@ -96,16 +96,24 @@ const AttributesGrid = ({
 	setIsToggled,
 	initialHiddenAttributesCount,
 }: AttributesGridProps) => {
-	return (
-		<ul className={styles.Grid}>
-			{attributes.map((attributeItem: Attribute, index: number) => (
+	const gridItems = attributes.map(
+		(attributeItem: Attribute, index: number) => {
+			const setItemOpacityAnimation = index > 10;
+
+			return (
 				<AttributeItem
 					key={index}
 					attributeType={attributeItem.trait_type}
 					attributeValue={attributeItem.value}
-					attributeIndex={index}
+					setOpacityAnimation={setItemOpacityAnimation}
 				/>
-			))}
+			);
+		},
+	);
+
+	return (
+		<ul className={styles.Grid}>
+			{gridItems}
 
 			{initialHiddenAttributesCount > 0 && (
 				<ToggleButton
@@ -125,18 +133,18 @@ const AttributesGrid = ({
 interface AttributeItemProps {
 	attributeType: string;
 	attributeValue: string | number;
-	attributeIndex: number;
+	setOpacityAnimation: boolean;
 }
 
 const AttributeItem = ({
 	attributeType,
 	attributeValue,
-	attributeIndex,
+	setOpacityAnimation,
 }: AttributeItemProps) => {
 	return (
 		<li
 			className={cx(styles.AttributeItem, {
-				setOpacityAnimation: attributeIndex > 10,
+				setOpacityAnimation: setOpacityAnimation,
 			})}
 			key={`attribute-type-${attributeType}`}
 		>
