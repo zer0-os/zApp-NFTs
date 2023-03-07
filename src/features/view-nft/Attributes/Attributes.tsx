@@ -101,7 +101,8 @@ const AttributesGrid = ({
 			{attributes.map((attributeItem: Attribute, index: number) => (
 				<AttributeItem
 					key={index}
-					attributeItem={attributeItem}
+					attributeType={attributeItem.trait_type}
+					attributeValue={attributeItem.value}
 					attributeIndex={index}
 				/>
 			))}
@@ -122,12 +123,14 @@ const AttributesGrid = ({
  *******************/
 
 interface AttributeItemProps {
-	attributeItem: Attribute;
+	attributeType: string;
+	attributeValue: string | number;
 	attributeIndex: number;
 }
 
 const AttributeItem = ({
-	attributeItem,
+	attributeType,
+	attributeValue,
 	attributeIndex,
 }: AttributeItemProps) => {
 	return (
@@ -135,10 +138,10 @@ const AttributeItem = ({
 			className={cx(styles.AttributeItem, {
 				setOpacityAnimation: attributeIndex > 10,
 			})}
-			key={`attribute-type-${attributeItem.trait_type}`}
+			key={`attribute-type-${attributeType}`}
 		>
-			<span className={styles.Traits}>{attributeItem.trait_type}</span>
-			<span className={styles.Properties}>{attributeItem.value} </span>
+			<span className={styles.Traits}>{attributeType}</span>
+			<span className={styles.Properties}>{attributeValue} </span>
 		</li>
 	);
 };
