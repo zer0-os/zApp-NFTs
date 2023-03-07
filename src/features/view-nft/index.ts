@@ -1,4 +1,5 @@
 export * from './Actions';
+export * from './Attributes';
 export * from './HistoryItem';
 export * from './HistoryList';
 export * from './NFTBannerContainer';

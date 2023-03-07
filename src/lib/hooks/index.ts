@@ -9,6 +9,7 @@ export * from './useIsDomainMetadataLocked';
 export * from './usePaymentToken';
 export * from './usePaymentTokenForDomain';
 export * from './usePaymentTokenInfo';
+export * from './useResize';
 export * from './useSubdomainData';
 export * from './useUserTokenBalance';
 export * from './useViewNavigation';

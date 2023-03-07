@@ -84,6 +84,7 @@
 		"formik": "^2.2.9",
 		"moment": "^2.29.4",
 		"react-query": "^3.39.1",
+		"react-resize-detector": "7.0.0",
 		"yup": "^0.32.11"
 	}
 }
