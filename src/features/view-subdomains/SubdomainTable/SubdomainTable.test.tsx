@@ -1,5 +1,7 @@
-import { SubdomainTable } from './SubdomainTable';
+import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
+
+import { SubdomainTable } from './SubdomainTable';
 
 ///////////////////////
 // Mock Custom Hooks //
