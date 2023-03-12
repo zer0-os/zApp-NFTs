@@ -85,7 +85,7 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({ zna }) => {
 			{activeQuery && isSearching && (
 				<TableStatusMessage
 					status={TableStatus.SEARCHING}
-					message={'Searching for subdomain ' + searchQuery}
+					message={'Searching for subdomain ' + activeQuery}
 				/>
 			)}
 			{isLoadingInitialSubdomains && (
@@ -155,7 +155,7 @@ const SubdomainsView = ({
 	if (isGridView) {
 		return (
 			<>
-				<Grid>
+				<Grid data-testid={'grid'}>
 					{znas?.map((zna) => (
 						<SubdomainTableCard key={zna} zna={zna} />
 					))}
@@ -166,7 +166,7 @@ const SubdomainsView = ({
 	} else {
 		return (
 			<>
-				<Table>
+				<Table data-testid={'table'}>
 					<HeaderGroup>
 						{COLUMNS.map((column) => (
 							<Header key={column.id} alignment={column.alignment}>

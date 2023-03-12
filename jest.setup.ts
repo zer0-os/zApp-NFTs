@@ -4,6 +4,24 @@ jest.mock('remark-emoji', () => jest.fn());
 jest.mock('remark-gemoji', () => jest.fn());
 jest.mock('@uiw/react-md-editor', () => jest.fn());
 
+class IntersectionObserver {
+	observe = jest.fn();
+	disconnect = jest.fn();
+	unobserve = jest.fn();
+}
+
+Object.defineProperty(window, 'IntersectionObserver', {
+	writable: true,
+	configurable: true,
+	value: IntersectionObserver,
+});
+
+Object.defineProperty(global, 'IntersectionObserver', {
+	writable: true,
+	configurable: true,
+	value: IntersectionObserver,
+});
+
 // We need to mock ResizeObserver to test the dropdown menu's.
 // See https://github.com/radix-ui/primitives/issues/420#issuecomment-1125837782.
 (global as any).ResizeObserver = class ResizeObserver {
