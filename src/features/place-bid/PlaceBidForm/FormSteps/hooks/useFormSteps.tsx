@@ -1,7 +1,6 @@
 import { ReactNode, useState } from 'react';
 
 import { usePlaceBidData } from '../../../usePlaceBidData';
-import { Bid } from '@zero-tech/zauction-sdk';
 
 import { ApproveZAuction, Complete, Confirm, Details } from '..';
 import { Wizard } from '@zero-tech/zui/components';
@@ -24,8 +23,7 @@ export interface useFormStepsProps {
 	error: string;
 	statusText: string;
 	bidAmount: string;
-	setBidAmount: (bid: string) => void;
-	onCheckZAuction: () => void;
+	onSubmitBidAmount: (bid: string) => void;
 	onApproveZAuction: () => void;
 	onConfirmPlaceBid: () => void;
 	onClose: () => void;
@@ -37,8 +35,7 @@ export const useFormSteps = ({
 	error,
 	statusText,
 	bidAmount,
-	setBidAmount,
-	onCheckZAuction,
+	onSubmitBidAmount,
 	onApproveZAuction,
 	onConfirmPlaceBid,
 	onClose,
@@ -57,9 +54,7 @@ export const useFormSteps = ({
 				<Details
 					zna={zna}
 					errorText={error}
-					bidAmount={bidAmount}
-					setBidAmount={setBidAmount}
-					onCheckZAuction={onCheckZAuction}
+					onSubmit={onSubmitBidAmount}
 					onClose={onClose}
 				/>
 			) : (

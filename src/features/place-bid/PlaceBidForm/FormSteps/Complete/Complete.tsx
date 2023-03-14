@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
-import { NFTDetails, TextContent } from '../ui';
+import { NFTDetails } from '../ui';
+import { FormTextContent } from '../../../../ui';
 import { Wizard } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
@@ -16,7 +17,7 @@ export const Complete: FC<CompleteProps> = ({ zna, onClose }) => {
 			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
-				<TextContent
+				<FormTextContent
 					variant={'success'}
 					textContent={'Your bid was successfully placed.'}
 				/>
