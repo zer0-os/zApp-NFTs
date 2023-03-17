@@ -3,7 +3,7 @@ import { FormErrorText } from '../FormErrorText';
 import styles from './FormTextContent.module.scss';
 
 export interface FormTextContentProps {
-	variant?: 'success';
+	variant?: 'success' | 'warning';
 	errorText?: string;
 	textContent: string;
 }

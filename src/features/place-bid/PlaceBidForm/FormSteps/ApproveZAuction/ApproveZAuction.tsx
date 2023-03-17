@@ -1,4 +1,4 @@
-import { TextContent } from '../ui';
+import { FormTextContent } from '../../../../ui';
 import { Wizard } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
@@ -17,7 +17,7 @@ export const ApproveZAuction = ({
 	const primaryButtonText = errorText ? 'Retry' : 'Continue';
 
 	const confirmationMessage = (
-		<TextContent
+		<FormTextContent
 			textContent={
 				'Before you can accept a bid, your wallet needs to approve zAuction. \nYou will only need to do this once. This will cost gas.'
 			}

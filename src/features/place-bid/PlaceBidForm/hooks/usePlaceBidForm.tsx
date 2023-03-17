@@ -28,8 +28,7 @@ export type UsePlaceBidFormReturn = {
 	error: string;
 	statusText: string;
 	bidAmount: string;
-	setBidAmount: (bidAmount: string) => void;
-	onCheckZAuction: () => void;
+	onSubmitBidAmount: (bid: string) => void;
 	onApproveZAuction: () => void;
 	onConfirmPlaceBid: () => void;
 };
@@ -51,8 +50,9 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 	const [bidAmount, setBidAmount] = useState<string>('');
 	const [statusText, setStatusText] = useState<string>();
 
-	const onCheckZAuction = async () => {
+	const onSubmitBidAmount = async (bid: string) => {
 		setError(undefined);
+		setBidAmount(bid);
 		setStep(Step.LOADING);
 		setStatusText(StatusText.CHECK_ZAUCTION);
 
@@ -128,8 +128,7 @@ export const usePlaceBidForm = (zna: string): UsePlaceBidFormReturn => {
 		error,
 		statusText,
 		bidAmount,
-		setBidAmount,
-		onCheckZAuction,
+		onSubmitBidAmount,
 		onApproveZAuction,
 		onConfirmPlaceBid,
 	};

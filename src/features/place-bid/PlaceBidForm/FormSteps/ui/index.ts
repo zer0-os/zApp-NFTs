@@ -1,4 +1,3 @@
-export * from './ErrorText';
 export * from './ExternalLinks';
+export * from './FormInput';
 export * from './NFTDetails';
-export * from './TextContent';
