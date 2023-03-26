@@ -12,46 +12,7 @@ describe('connect wallet spec', () => {
 
 		cy.intercept('GET', '/api/users/current', {
 			statusCode: 200,
-			body: {
-				createdAt: '2022-11-23T13:59:38.256Z',
-				handle: '0x0777...7334',
-				id: '17ce33c3-e270-446d-9ec3-a841b410e07e',
-				isANetworkAdmin: false,
-				isOnline: true,
-				lastActiveAt: '2023-03-21T12:04:57.834Z',
-				profileId: '90cbb4a1-128b-4f61-b625-6522a5519210',
-				profileSummary: {
-					firstName: '0xf39F...2266',
-					guildId: null,
-					id: '90cbb4a1-128b-4f61-b625-6522a5519210',
-					lastName: '',
-					profileImage:
-						'https://res.cloudinary.com/fact0ry-dev/image/upload/v1623021590/zero-assets/avatars/pfp-15.jpg',
-					ssbPublicKey: null,
-				},
-				role: '',
-				updatedAt: '2023-03-21T12:04:57.834Z',
-				wallets: [
-					{
-						0: {
-							balance: null,
-							balanceCheckedAt: null,
-							createdAt: '2022-11-23T13:59:38.820Z',
-							dailyLimit: null,
-							data: null,
-							id: '200a1446-578b-4e15-adc3-29b72cb992ae',
-							isDefault: true,
-							isMultiSig: false,
-							name: null,
-							networkId: null,
-							publicAddress: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-							requiredConfirmations: null,
-							updatedAt: '2022-11-23T13:59:38.820Z',
-							userId: '17ce33c3-e270-446d-9ec3-a841b410e07e',
-						},
-					},
-				],
-			},
+			body: {},
 		}).as('getCurrentUser');
 
 		// if we want to isolate each test, (testIsolation: false) needs to be updated to true
