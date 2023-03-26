@@ -10,6 +10,8 @@ module.exports = defineConfig({
 	defaultCommandTimeout: 100000,
 	pageLoadTimeout: 100000,
 	requestTimeout: 100000,
+	video: false,
+	screenshotOnRunFailure: false,
 	env: {
 		REACT_APP_DEFAULT_NETWORK: 'GOERLI',
 	},
