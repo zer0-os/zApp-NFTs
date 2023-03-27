@@ -9,7 +9,7 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"clean": "rimraf dist && npx mkdirp dist",
-		"cypress:run": "env-cmd cypress run --browser chrome --headed --no-exit",
+		"cypress:run": "env-cmd cypress run --browser chrome --headed",
 		"build": "npm-run-all clean build:*",
 		"build:scripts": "NODE_ENV=production babel --extensions \".ts,.tsx,.js,.jsx\" ./src --out-dir ./dist",
 		"build:styles": "sass src:dist",
