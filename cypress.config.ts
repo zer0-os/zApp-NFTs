@@ -12,11 +12,8 @@ module.exports = defineConfig({
 	requestTimeout: 100000,
 	video: false,
 	screenshotOnRunFailure: false,
-	env: {
-		REACT_APP_DEFAULT_NETWORK: 'GOERLI',
-	},
 	e2e: {
-		testIsolation: false,
+		testIsolation: true,
 		setupNodeEvents(on, config) {
 			synpressPlugins(on, config);
 		},

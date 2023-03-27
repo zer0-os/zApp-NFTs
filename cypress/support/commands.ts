@@ -1,37 +1,44 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+/// <reference types="@testing-library/cypress" />
+
+/**
+ * Configuration for use of data-test-id attribute
+ */
+import '@testing-library/cypress/add-commands';
+import { configure } from '@testing-library/cypress';
+configure({ testIdAttribute: 'data-test-id' });
+
+/**
+ * Intercept current user request on page load to skip signature request
+ * @example
+ * cy.interceptCurrentUserRequest();
+ */
+Cypress.Commands.add('interceptCurrentUserRequest', () => {
+	cy.intercept('GET', '/api/users/current', {
+		statusCode: 200,
+		body: {},
+	}).as('getCurrentUser');
+});
+
+/**
+ * Visit root domain and intercept current user request
+ * @example
+ * cy.visitRootDomain();
+ */
+Cypress.Commands.add('visitRootDomain', () => {
+	cy.interceptCurrentUserRequest();
+	cy.visit('/');
+});
+
+/**
+ * Connect user wallet with metamask
+ * @example
+ * cy.connectWithMetamask();
+ */
+Cypress.Commands.add('connectWithMetamask', () => {
+	cy.get('.authentication__connect-wrapper').click();
+	cy.findByText('Metamask').trigger('mouseover').click();
+	cy.acceptMetamaskAccess().then((connected) => {
+		expect(connected).to.be.true;
+	});
+});
