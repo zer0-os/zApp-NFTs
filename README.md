@@ -29,7 +29,14 @@ Check `node_modules` in [zOS](https://github.com/zer0-os/zOS) - your package fol
 
 Create a `.env` file at the root of the project directory. Copy the environment variables from the `.env.example` file and paste into `.env`. The test setup will fail if these variables are not set in a `.env` file.
 
-You will need to follow the `Running Locally` instructions above in order to successfully run Cypress end to end specs. Once the zApp is running locally open another terminal window and enter the following command.
+**Important** - The `goerli` network is set in the environment variables. To run the tests successfully, `DEFAULT_NETWORK` in the application code must be set to `goerli`. To do this, follow these steps:
+
+1. Navigate to: `src/lib/constants/networks.ts`.
+2. Update line `export const DEFAULT_NETWORK = Network.MAINNET;` to `export const DEFAULT_NETWORK = Network.GOERLI;`.
+
+Next, you will need to follow the `Running Locally` instructions above in order to successfully run Cypress end to end specs.
+
+Once the zApp is running locally open another terminal window and enter the following command.
 
 - `npm run cypress:run`
 
