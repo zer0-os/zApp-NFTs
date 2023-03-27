@@ -52,3 +52,7 @@ To assist with debugging and find where find where a test is failing using the C
 `npx env-cmd cypress run --browser chrome --headed "[spec file path]" --no-exit`
 
 Example: `npx env-cmd cypress run --browser chrome --headed "cypress/e2e/connect_wallet.cy.ts" --no-exit`.
+
+Resource references:
+[Synpress](https://github.com/Synthetixio/synpress)
+[Cypress](https://docs.cypress.io/guides/overview/why-cypress/)
