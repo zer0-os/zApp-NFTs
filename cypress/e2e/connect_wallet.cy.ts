@@ -1,5 +1,6 @@
 describe('Connect Wallet', () => {
 	beforeEach(() => {
+		cy.interceptCurrentUserRequest();
 		cy.visitRootDomain();
 	});
 

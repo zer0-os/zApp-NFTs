@@ -5,9 +5,14 @@ export {};
 declare global {
 	namespace Cypress {
 		interface Chainable {
+			assertElementIsVisible(selector: string): Chainable<void>;
+			assertUrl(
+				assertionType: 'contain' | 'not.contain',
+				url: string,
+			): Chainable<void>;
+			connectWithMetamask(): Chainable<void>;
 			interceptCurrentUserRequest(): Chainable<void>;
 			visitRootDomain(): Chainable<void>;
-			connectWithMetamask(): Chainable<void>;
 		}
 	}
 }
