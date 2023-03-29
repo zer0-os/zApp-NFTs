@@ -54,11 +54,11 @@ Please note, a metamask extension for your chosen browser will be required to ru
 
 Once the specs have finished running, Cypress will exit and the Cypress window will close.
 
-To assist with debugging and find where find where a test is failing using the Cypress window, you can run a script with the `--no-exit` flag. First, identify which spec file is failing and include the file in the below command, replacing `[spec file path]`:
+To assist with debugging and find where a test is failing using the Cypress window, you can run a script with the `--no-exit` flag. First, identify which spec file is failing and include the file in the below command, replacing `[spec file path]`:
 
-`npx env-cmd cypress run --browser chrome --headed "[spec file path]" --no-exit`
+`npx env-cmd cypress run --browser chrome --headed --spec "[spec file path]" --no-exit`
 
-Example: `npx env-cmd cypress run --browser chrome --headed "cypress/e2e/connect_wallet.cy.ts" --no-exit`.
+Example: `npx env-cmd cypress run --browser chrome --headed --spec "cypress/e2e/connect_wallet.cy.ts" --no-exit`.
 
 Resource references:
 [Synpress](https://github.com/Synthetixio/synpress)
