@@ -11,6 +11,10 @@ describe('Connect Wallet', () => {
 		});
 	});
 
+	after(() => {
+		cy.resetMetamaskAccount();
+	});
+
 	it('successfully opens the connect wallet modal', () => {
 		cy.get('.authentication__connect-wrapper').click();
 		cy.get('div').should('have.class', 'wallet-select__header');
