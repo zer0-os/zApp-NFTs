@@ -90,6 +90,12 @@ cy.get(getByDataTestId(domainsPageSelectors.domainsContainer)).should(
 		);
 ```
 
+#### Custom Commands
+
+Custom commands can be found in `cypress/support/commands.ts`.
+
+The commands are configured and exported from `cypress/support/e2e.ts` which acts as an `index.ts` file. If new custom commands are added to the `commands.ts` file, you will need to update `e2e.ts` with the new command.
+
 Resource references:
 [Synpress](https://github.com/Synthetixio/synpress)
 [Cypress](https://docs.cypress.io/guides/overview/why-cypress/)
