@@ -18,47 +18,70 @@ describe('Connect Wallet', () => {
 		});
 	});
 
-	it('successfully opens the connect wallet modal', () => {
+	// fire click event on connect button
+	const clickConnectBtn = () =>
 		cy.get('.authentication__connect-wrapper').click();
-		cy.get('div').should('have.class', 'wallet-select__header');
-		cy.contains('connect to a wallet', { matchCase: false }).should(
-			'be.visible',
-		);
-		cy.get('.dialog__content')
-			.should('contain', 'Metamask')
-			.and('contain', 'Wallet Connect')
-			.and('contain', 'Coinbase Wallet')
-			.and('contain', 'Fortmatic')
-			.and('contain', 'Portis');
+
+	it('successfully opens the connect wallet modal', () => {
+		clickConnectBtn();
+
+		// assert find connect wallet modal
+		cy.findByText('Connect To A Wallet').should('be.visible');
+
+		// assert connect wallet provider options
+		cy.findByText('Metamask').should('be.visible');
+		cy.findByText('Wallet Connect').should('be.visible');
+		cy.findByText('Coinbase Wallet').should('be.visible');
+		cy.findByText('Fortmatic').should('be.visible');
+		cy.findByText('Portis').should('be.visible');
 	});
 
 	it('displays connecting indicator when list item is clicked', () => {
-		cy.get('.authentication__connect-wrapper').click();
+		clickConnectBtn();
+
+		// assert and click metamask wallet provider option
 		cy.findByText('Metamask').trigger('mouseover').click();
+
 		cy.wait(2000);
+
 		cy.get('.dialog__content').contains('connecting...', {
 			matchCase: false,
 		});
+
 		// accept access required to close extension window
 		cy.acceptMetamaskAccess();
 	});
 
 	it('closes the connect wallet modal when clicking outside of it', () => {
-		cy.get('.authentication__connect-wrapper').click();
+		clickConnectBtn();
+
+		// click outside of modal
 		cy.get('body').click(10, 10);
+
+		// assert modal does not exist
 		cy.get('.wallet-select__header').should('not.exist');
 	});
 
 	it('should open connect wallet modal and successfully connect to Metamask', () => {
 		cy.connectWithMetamask();
+
+		// assert ui change when wallet is connected
 		cy.get('.eth-address').should('exist');
 	});
 
 	it('should successfully disconnect wallet via site ui', () => {
 		cy.connectWithMetamask();
+
+		// assert modal does not exist
 		cy.get('.authentication__connect-wrapper').should('not.exist');
+
+		// assert ui change when wallet is connected
 		cy.get('.eth-address').should('exist');
+
+		// force click hidden disconnect button
 		cy.get('.button__connect-button').click({ force: true });
+
+		// assert ui change when wallet is disconnected
 		cy.get('.authentication__connect-wrapper').should('exist');
 	});
 });
