@@ -10,6 +10,8 @@ describe('Subdomain Navigation', () => {
 	const subdomainZns = `${rootDomainZns}.snowflake`;
 
 	it('successfully loads correct page for the root domain', () => {
+		cy.visitRootDomain();
+
 		// assert url
 		cy.assertUrl('contain', rootDomainZns);
 		cy.assertUrl('not.contain', `${rootDomainZns}.`);
@@ -31,6 +33,26 @@ describe('Subdomain Navigation', () => {
 	});
 
 	it('successfully loads directly to a given domain', () => {
+		cy.visit(`/0.${subdomainZns}/nfts`);
+
+		// assert url
+		cy.assertUrl('contain', subdomainZns);
+
+		// assert address bar anchor segment
+		cy.get('.main__header')
+			.find('a')
+			.should('have.length', 2)
+			.each((a, index) => {
+				// assert anchor text for each anchor
+				const expectedText = index === 0 ? 'wilder' : 'snowflake';
+
+				cy.wrap(a).should('have.text', expectedText);
+			});
+	});
+
+	it('successfully loads to a given domain from root domain', () => {
+		cy.visitRootDomain();
+
 		// assert subdomain exists
 		cy.findByText(`0://${subdomainZns}`).should('exist');
 
@@ -62,7 +84,9 @@ describe('Subdomain Navigation', () => {
 		).and('contain', 'Winter Time');
 	});
 
-	it.only('can view grid view and go to corret domain', () => {
+	it('can view grid view and go to corret domain', () => {
+		cy.visitRootDomain();
+
 		// assert expected section element
 		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
 
@@ -96,6 +120,8 @@ describe('Subdomain Navigation', () => {
 	});
 
 	it('can view list view and go to corret domain', () => {
+		cy.visitRootDomain();
+
 		// assert expected section element
 		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
 
@@ -131,6 +157,8 @@ describe('Subdomain Navigation', () => {
 	});
 
 	it('can type in search bar to search by exact zNA (Grid)', () => {
+		cy.visitRootDomain();
+
 		// assert expected section element
 		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
 
@@ -147,6 +175,8 @@ describe('Subdomain Navigation', () => {
 	});
 
 	it('can type in search bar to search by exact zNA (List)', () => {
+		cy.visitRootDomain();
+
 		// assert expected section element
 		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
 
