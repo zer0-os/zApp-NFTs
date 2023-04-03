@@ -3,23 +3,23 @@ import { DomainsPageSelector } from '../../src/pages/Domains/selectors';
 import { SubdomainViewSelector } from '../../src/features/view-subdomains/selectors';
 
 describe('Subdomain Navigation', () => {
-	const rootDomainZns = 'wilder';
-	const subdomainZns = `${rootDomainZns}.snowflake`;
+	const rootDomainZna = 'wilder';
+	const subdomainZna = `${rootDomainZna}.snowflake`;
 
 	it('successfully loads correct page for the root domain', () => {
 		cy.visitRootDomain();
 
 		// assert url
-		cy.assertUrl('contain', rootDomainZns);
-		cy.assertUrl('not.contain', `${rootDomainZns}.`);
+		cy.assertUrl('contain', rootDomainZna);
+		cy.assertUrl('not.contain', `${rootDomainZna}.`);
 
-		const expectedHref = `/0.${rootDomainZns}/nfts`;
+		const expectedHref = `/0.${rootDomainZna}/nfts`;
 		const expectedText = 'wilder';
 
 		// assert address bar anchor segment
 		cy.get('.main__header')
 			.find('a')
-			.should('contain', `${rootDomainZns}`)
+			.should('contain', `${rootDomainZna}`)
 			.should('have.length', 1)
 			.and('have.attr', 'href', expectedHref)
 			.and('have.text', expectedText);
@@ -30,10 +30,10 @@ describe('Subdomain Navigation', () => {
 	});
 
 	it('successfully loads directly to a given domain', () => {
-		cy.visit(`/0.${subdomainZns}/nfts`);
+		cy.visit(`/0.${subdomainZna}/nfts`);
 
 		// assert url
-		cy.assertUrl('contain', subdomainZns);
+		cy.assertUrl('contain', subdomainZna);
 
 		// assert address bar anchor segment
 		cy.get('.main__header')
@@ -51,13 +51,13 @@ describe('Subdomain Navigation', () => {
 		cy.visitRootDomain();
 
 		// assert subdomain exists
-		cy.findByText(`0://${subdomainZns}`).should('exist');
+		cy.findByText(`0://${subdomainZna}`).should('exist');
 
-		cy.visit(`//0.${subdomainZns}/nfts`);
+		cy.visit(`//0.${subdomainZna}/nfts`);
 
 		// assert url
-		cy.assertUrl('contain', subdomainZns);
-		cy.assertUrl('not.contain', rootDomainZns);
+		cy.assertUrl('contain', subdomainZna);
+		cy.assertUrl('not.contain', rootDomainZna);
 
 		// assert address bar anchor segments
 		cy.get('.main__header')
@@ -66,7 +66,7 @@ describe('Subdomain Navigation', () => {
 			.each((a, index) => {
 				// assert href attribute and anchor text for each anchor
 				const expectedHref =
-					index === 0 ? `/0.${rootDomainZns}/nfts` : `/0.${subdomainZns}/nfts`;
+					index === 0 ? `/0.${rootDomainZna}/nfts` : `/0.${subdomainZna}/nfts`;
 				const expectedText = index === 0 ? 'wilder' : 'snowflake';
 
 				cy.wrap(a)
@@ -112,10 +112,10 @@ describe('Subdomain Navigation', () => {
 		cy.get('[class*="Grid"]').should('be.visible');
 
 		// find and click sudomain grid card
-		cy.findByText(`0://${subdomainZns}`).should('exist').click();
+		cy.findByText(`0://${subdomainZna}`).should('exist').click();
 
 		// assert url
-		cy.assertUrl('contain', subdomainZns);
+		cy.assertUrl('contain', subdomainZna);
 	});
 
 	it('can view list view and go to corret domain', () => {
@@ -149,10 +149,10 @@ describe('Subdomain Navigation', () => {
 		cy.assertElementIsVisible('table');
 
 		// find and click sudomain grid card
-		cy.findByText(`0://${subdomainZns}`).should('exist').click();
+		cy.findByText(`0://${subdomainZna}`).should('exist').click();
 
 		// assert url
-		cy.assertUrl('contain', subdomainZns);
+		cy.assertUrl('contain', subdomainZna);
 	});
 
 	it('can type in search bar to search by exact zNA (Grid)', () => {
@@ -167,10 +167,10 @@ describe('Subdomain Navigation', () => {
 			.type('snowflake');
 
 		// assert subdomain is visible and click
-		cy.findByText(`0://${subdomainZns}`).should('be.visible').click();
+		cy.findByText(`0://${subdomainZna}`).should('be.visible').click();
 
 		// assert url
-		cy.assertUrl('contain', subdomainZns);
+		cy.assertUrl('contain', subdomainZna);
 	});
 
 	it('can type in search bar to search by exact zNA (List)', () => {
@@ -188,14 +188,14 @@ describe('Subdomain Navigation', () => {
 			.type('snowflake');
 
 		// assert subdomain is visible and click
-		cy.findByText(`0://${subdomainZns}`).should('be.visible').click();
+		cy.findByText(`0://${subdomainZna}`).should('be.visible').click();
 
 		// assert url
-		cy.assertUrl('contain', subdomainZns);
+		cy.assertUrl('contain', subdomainZna);
 	});
 
 	it('successfully navigates to view nft page when clicking link "View Domain NFT"', () => {
-		cy.visit(`/0.${subdomainZns}/nfts`);
+		cy.visit(`/0.${subdomainZna}/nfts`);
 
 		cy.findByText('View Domain NFT').should('be.visible').click();
 
@@ -203,11 +203,11 @@ describe('Subdomain Navigation', () => {
 		cy.assertElementIsVisible(NFTPageSelector.NFT_MAIN_CONTAINER);
 
 		// assert url
-		cy.assertUrl('contain', subdomainZns, 'view=true');
+		cy.assertUrl('contain', subdomainZna, 'view=true');
 	});
 
 	it('successfully navigates back to domains page when clicking zNA address bar segment', () => {
-		cy.visit(`/0.${subdomainZns}/nfts?view=true`);
+		cy.visit(`/0.${subdomainZna}/nfts?view=true`);
 
 		// zNA address bar click second segment
 		cy.get('.main__header').find('a').eq(1).click();
@@ -216,6 +216,6 @@ describe('Subdomain Navigation', () => {
 		cy.assertElementIsVisible(SubdomainViewSelector.VIEW_SUBDOMAINS_SECTION);
 
 		// assert url
-		cy.assertUrl('contain', subdomainZns);
+		cy.assertUrl('contain', subdomainZna);
 	});
 });
