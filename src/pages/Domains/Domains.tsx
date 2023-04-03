@@ -15,7 +15,7 @@ export const Domains: FC = () => {
 	const { currentZna, isRootDomain } = useCurrentRoute();
 
 	return (
-		<main className={styles.Main} data-test-id={selectors.domainsContainer}>
+		<main className={styles.Main} data-testid={selectors.domainsContainer}>
 			{!isRootDomain && (
 				<>
 					<DomainBannerContainer zna={currentZna} />

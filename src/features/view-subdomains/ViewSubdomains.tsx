@@ -11,7 +11,7 @@ interface ViewSubdomainsProps {
 
 export const ViewSubdomains = ({ zna }: ViewSubdomainsProps) => {
 	return (
-		<section data-test-id={selectors.viewSubdomainsSection}>
+		<section data-testid={selectors.viewSubdomainsSection}>
 			<SubdomainMetrics zna={zna} />
 			<SubdomainTable zna={zna} />
 		</section>

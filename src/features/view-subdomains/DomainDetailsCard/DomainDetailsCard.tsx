@@ -32,7 +32,7 @@ export const DomainDetailsCard: FC<DetailsCardProps> = ({ zna }) => {
 	return (
 		<div
 			className={styles.Container}
-			data-test-id={selectors.domainDetailsCardContainer}
+			data-testid={selectors.domainDetailsCardContainer}
 		>
 			<div className={styles.Content}>
 				<Title title={title} />

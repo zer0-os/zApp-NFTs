@@ -8,9 +8,9 @@ import '@testing-library/cypress/add-commands';
 import { configure } from '@testing-library/cypress';
 
 /**
- * Configuration for use of data-test-id attribute
+ * Configuration for use of data-testid attribute
  */
-configure({ testIdAttribute: 'data-test-id' });
+configure({ testIdAttribute: 'data-testid' });
 
 /**
  * Intercept current user request on page load to skip signature request

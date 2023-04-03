@@ -28,7 +28,7 @@ export const DomainBannerContainer: FC<BannerProps> = ({ zna }) => {
 	return (
 		<div
 			className={styles.Container}
-			data-test-id={selectors.domainBannerContainer}
+			data-testid={selectors.domainBannerContainer}
 		>
 			<div className={styles.Banner}>
 				<IpfsMedia

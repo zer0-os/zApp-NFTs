@@ -12,7 +12,9 @@ describe('Connect Wallet', () => {
 	});
 
 	after(() => {
-		cy.resetMetamaskAccount();
+		cy.resetMetamaskAccount().then((reset) => {
+			expect(reset).to.be.true;
+		});
 	});
 
 	it('successfully opens the connect wallet modal', () => {

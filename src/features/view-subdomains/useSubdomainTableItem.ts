@@ -76,7 +76,7 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 		isLoadingMetadata,
 		isLoading,
 		isOwnedByUser,
-		buyNowPrice: subdomain.buyNow,
+		buyNowPrice: subdomain?.buyNow,
 		metadata,
 		paymentTokenLabel: paymentToken?.label ?? '',
 		handleItemClick,
