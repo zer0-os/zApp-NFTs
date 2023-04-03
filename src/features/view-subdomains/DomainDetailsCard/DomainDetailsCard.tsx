@@ -6,7 +6,8 @@ import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
 import { ArrowLink } from '@zero-tech/zui/components/Link';
 
-import * as selectors from '../selectors';
+import { SubdomainViewSelector } from '../selectors';
+
 import styles from './DomainDetailsCard.module.scss';
 
 export interface DetailsCardProps {
@@ -32,7 +33,7 @@ export const DomainDetailsCard: FC<DetailsCardProps> = ({ zna }) => {
 	return (
 		<div
 			className={styles.Container}
-			data-testid={selectors.domainDetailsCardContainer}
+			data-testid={SubdomainViewSelector.VIEW_SUBDOMAINS_DETAILS_CARD_CONTAINER}
 		>
 			<div className={styles.Content}>
 				<Title title={title} />

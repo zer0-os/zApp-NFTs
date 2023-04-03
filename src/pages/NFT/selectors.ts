@@ -1,1 +1,3 @@
-export const nftMain = 'nft-main';
+export enum NFTPageSelector {
+	NFT_MAIN_CONTAINER = 'nft-main-container',
+}

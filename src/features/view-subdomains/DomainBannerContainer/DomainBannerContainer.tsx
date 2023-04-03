@@ -5,7 +5,8 @@ import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
-import * as selectors from '../selectors';
+import { SubdomainViewSelector } from '../selectors';
+
 import styles from './DomainBannerContainer.module.scss';
 
 export interface BannerProps {
@@ -28,7 +29,7 @@ export const DomainBannerContainer: FC<BannerProps> = ({ zna }) => {
 	return (
 		<div
 			className={styles.Container}
-			data-testid={selectors.domainBannerContainer}
+			data-testid={SubdomainViewSelector.VIEW_SUBDOMAINS_BANNER_CONTAINER}
 		>
 			<div className={styles.Banner}>
 				<IpfsMedia

@@ -5,13 +5,14 @@ describe('Connect Wallet', () => {
 	});
 
 	afterEach(() => {
-		// reset connection for following test
+		// disconnect wallet for following test
 		cy.disconnectMetamaskWalletFromDapp().then((disconnected) => {
 			expect(disconnected).to.be.true;
 		});
 	});
 
 	after(() => {
+		// reset account after test suite
 		cy.resetMetamaskAccount().then((reset) => {
 			expect(reset).to.be.true;
 		});

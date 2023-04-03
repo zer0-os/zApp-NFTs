@@ -1,6 +1,6 @@
-import * as viewNFTSelectors from '../../src/pages/NFT/selectors';
-import * as domainsPageSelectors from '../../src/pages/Domains/selectors';
-import * as viewSubdomainsSelectors from '../../src/features/view-subdomains/selectors';
+import { NFTPageSelector } from '../../src/pages/NFT/selectors';
+import { DomainsPageSelector } from '../../src/pages/Domains/selectors';
+import { SubdomainViewSelector } from '../../src/features/view-subdomains/selectors';
 
 describe('Subdomain Navigation', () => {
 	const rootDomainZns = 'wilder';
@@ -25,8 +25,8 @@ describe('Subdomain Navigation', () => {
 			.and('have.text', expectedText);
 
 		// assert expected elements
-		cy.assertElementIsVisible(domainsPageSelectors.domainsContainer);
-		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
+		cy.assertElementIsVisible(DomainsPageSelector.DOMAINS_PAGE_CONTAINER);
+		cy.assertElementIsVisible(SubdomainViewSelector.VIEW_SUBDOMAINS_SECTION);
 	});
 
 	it('successfully loads directly to a given domain', () => {
@@ -75,9 +75,11 @@ describe('Subdomain Navigation', () => {
 			});
 
 		// assert expected elements
-		cy.assertElementIsVisible(viewSubdomainsSelectors.domainBannerContainer);
 		cy.assertElementIsVisible(
-			viewSubdomainsSelectors.domainDetailsCardContainer,
+			SubdomainViewSelector.VIEW_SUBDOMAINS_BANNER_CONTAINER,
+		);
+		cy.assertElementIsVisible(
+			SubdomainViewSelector.VIEW_SUBDOMAINS_DETAILS_CARD_CONTAINER,
 		).and('contain', 'Winter Time');
 	});
 
@@ -85,7 +87,7 @@ describe('Subdomain Navigation', () => {
 		cy.visitRootDomain();
 
 		// assert expected section element
-		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
+		cy.assertElementIsVisible(SubdomainViewSelector.VIEW_SUBDOMAINS_SECTION);
 
 		// find toggle view radio group
 		cy.findByRole('group').should('be.visible');
@@ -120,7 +122,7 @@ describe('Subdomain Navigation', () => {
 		cy.visitRootDomain();
 
 		// assert expected section element
-		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
+		cy.assertElementIsVisible(SubdomainViewSelector.VIEW_SUBDOMAINS_SECTION);
 
 		// find toggle view radio group
 		cy.findByRole('group').should('be.visible');
@@ -157,7 +159,7 @@ describe('Subdomain Navigation', () => {
 		cy.visitRootDomain();
 
 		// assert expected section element
-		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
+		cy.assertElementIsVisible(SubdomainViewSelector.VIEW_SUBDOMAINS_SECTION);
 
 		// find search bar input and enter zna
 		cy.findByPlaceholderText('Search by exact zNA')
@@ -175,7 +177,7 @@ describe('Subdomain Navigation', () => {
 		cy.visitRootDomain();
 
 		// assert expected section element
-		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
+		cy.assertElementIsVisible(SubdomainViewSelector.VIEW_SUBDOMAINS_SECTION);
 
 		// find list view radio button and click
 		cy.findAllByRole('radio').first().click();
@@ -198,7 +200,7 @@ describe('Subdomain Navigation', () => {
 		cy.findByText('View Domain NFT').should('be.visible').click();
 
 		// assert expected element
-		cy.assertElementIsVisible(viewNFTSelectors.nftMain);
+		cy.assertElementIsVisible(NFTPageSelector.NFT_MAIN_CONTAINER);
 
 		// assert url
 		cy.assertUrl('contain', subdomainZns, 'view=true');
@@ -211,7 +213,7 @@ describe('Subdomain Navigation', () => {
 		cy.get('.main__header').find('a').eq(1).click();
 
 		// assert expected section element
-		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
+		cy.assertElementIsVisible(SubdomainViewSelector.VIEW_SUBDOMAINS_SECTION);
 
 		// assert url
 		cy.assertUrl('contain', subdomainZns);
