@@ -54,8 +54,8 @@ Cypress.Commands.add('connectWithMetamask', () => {
  */
 Cypress.Commands.add(
 	'assertUrl',
-	(assertionType: ContainAssertionChainType, url: string) => {
-		cy.url().should(assertionType, `/0.${url}/nfts`);
+	(assertionType: ContainAssertionChainType, zna: string, query?: string) => {
+		cy.url().should(assertionType, `/0.${zna}/nfts${query ? `?${query}` : ''}`);
 	},
 );
 

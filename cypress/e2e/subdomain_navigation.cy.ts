@@ -1,11 +1,8 @@
+import * as viewNFTSelectors from '../../src/pages/NFT/selectors';
 import * as domainsPageSelectors from '../../src/pages/Domains/selectors';
 import * as viewSubdomainsSelectors from '../../src/features/view-subdomains/selectors';
 
 describe('Subdomain Navigation', () => {
-	beforeEach(() => {
-		cy.visitRootDomain();
-	});
-
 	const rootDomainZns = 'wilder';
 	const subdomainZns = `${rootDomainZns}.snowflake`;
 
@@ -190,6 +187,31 @@ describe('Subdomain Navigation', () => {
 
 		// assert subdomain is visible and click
 		cy.findByText(`0://${subdomainZns}`).should('be.visible').click();
+
+		// assert url
+		cy.assertUrl('contain', subdomainZns);
+	});
+
+	it('successfully navigates to view nft page when clicking link "View Domain NFT"', () => {
+		cy.visit(`/0.${subdomainZns}/nfts`);
+
+		cy.findByText('View Domain NFT').should('be.visible').click();
+
+		// assert expected element
+		cy.assertElementIsVisible(viewNFTSelectors.nftMain);
+
+		// assert url
+		cy.assertUrl('contain', subdomainZns, 'view=true');
+	});
+
+	it('successfully navigates back to domains page when clicking zNA address bar segment', () => {
+		cy.visit(`/0.${subdomainZns}/nfts?view=true`);
+
+		// zNA address bar click second segment
+		cy.get('.main__header').find('a').eq(1).click();
+
+		// assert expected section element
+		cy.assertElementIsVisible(viewSubdomainsSelectors.viewSubdomainsSection);
 
 		// assert url
 		cy.assertUrl('contain', subdomainZns);
