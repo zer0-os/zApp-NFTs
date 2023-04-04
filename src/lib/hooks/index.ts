@@ -18,3 +18,4 @@ export * from './useZAuctionCheckByBid';
 export * from './useZAuctionCheckByPaymentToken';
 export * from './useZAuctionCheckTransferNftsByDomain';
 export * from './useZnsSdk';
+export * from './useZsaleSdk';
