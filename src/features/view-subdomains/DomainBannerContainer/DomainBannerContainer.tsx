@@ -5,6 +5,7 @@ import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
+import * as selectors from '../selectors';
 import styles from './DomainBannerContainer.module.scss';
 
 export interface BannerProps {
@@ -25,7 +26,10 @@ export const DomainBannerContainer: FC<BannerProps> = ({ zna }) => {
 	const bannerSrc = metadata?.image_full ?? metadata?.image;
 
 	return (
-		<div className={styles.Container}>
+		<div
+			className={styles.Container}
+			data-test-id={selectors.domainBannerContainer}
+		>
 			<div className={styles.Banner}>
 				<IpfsMedia
 					alt={bannerAlt}
