@@ -78,6 +78,7 @@
 		"@zero-tech/zapp-utils": "0.5.6",
 		"@zero-tech/zero-contracts": "^0.0.7",
 		"@zero-tech/zns-sdk": "0.10.1",
+		"@zero-tech/zsale-sdk": "0.1.6",
 		"@zero-tech/ztoken-sdk": "^0.0.3",
 		"@zero-tech/zui": "0.16.1",
 		"classnames": "^2.3.1",
@@ -85,6 +86,7 @@
 		"moment": "^2.29.4",
 		"react-query": "^3.39.1",
 		"react-resize-detector": "7.0.0",
+		"use-async-effect": "^2.2.7",
 		"yup": "^0.32.11"
 	}
 }
