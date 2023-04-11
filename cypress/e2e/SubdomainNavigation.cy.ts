@@ -4,7 +4,8 @@ import { SubdomainViewSelector } from '../../src/features/view-subdomains/select
 
 describe('Subdomain Navigation', () => {
 	const rootDomainZna = 'wilder';
-	const subdomainZna = `${rootDomainZna}.snowflake`;
+	const childZna = 'snowflake';
+	const subdomainZna = `${rootDomainZna}.${childZna}`;
 
 	it('successfully loads correct page for the root domain', () => {
 		cy.visitRootDomain();
@@ -41,7 +42,7 @@ describe('Subdomain Navigation', () => {
 			.should('have.length', 2)
 			.each((a, index) => {
 				// assert anchor text for each anchor
-				const expectedText = index === 0 ? 'wilder' : 'snowflake';
+				const expectedText = index === 0 ? `${rootDomainZna}` : `${childZna}`;
 
 				cy.wrap(a).should('have.text', expectedText);
 			});
@@ -67,7 +68,7 @@ describe('Subdomain Navigation', () => {
 				// assert href attribute and anchor text for each anchor
 				const expectedHref =
 					index === 0 ? `/0.${rootDomainZna}/nfts` : `/0.${subdomainZna}/nfts`;
-				const expectedText = index === 0 ? 'wilder' : 'snowflake';
+				const expectedText = index === 0 ? `${rootDomainZna}` : `${childZna}`;
 
 				cy.wrap(a)
 					.should('have.attr', 'href', expectedHref)
@@ -83,7 +84,7 @@ describe('Subdomain Navigation', () => {
 		).and('contain', 'Winter Time');
 	});
 
-	it('can view grid view and go to corret domain', () => {
+	it('can view grid view and go to correct domain', () => {
 		cy.visitRootDomain();
 
 		// assert expected section element
@@ -118,7 +119,7 @@ describe('Subdomain Navigation', () => {
 		cy.assertUrl('contain', subdomainZna);
 	});
 
-	it('can view list view and go to corret domain', () => {
+	it('can view list view and go to correct domain', () => {
 		cy.visitRootDomain();
 
 		// assert expected section element
@@ -146,10 +147,10 @@ describe('Subdomain Navigation', () => {
 			});
 
 		// assert list view
-		cy.assertElementIsVisible('table');
+		cy.assertElementIsVisible('table').and('contain', `0://${subdomainZna}`);
 
 		// find and click sudomain grid card
-		cy.findByText(`0://${subdomainZna}`).should('exist').click();
+		cy.findByText(`0://${subdomainZna}`).click();
 
 		// assert url
 		cy.assertUrl('contain', subdomainZna);
@@ -164,7 +165,7 @@ describe('Subdomain Navigation', () => {
 		// find search bar input and enter zna
 		cy.findByPlaceholderText('Search by exact zNA')
 			.should('be.visible')
-			.type('snowflake');
+			.type(`${childZna}`);
 
 		// assert subdomain is visible and click
 		cy.findByText(`0://${subdomainZna}`).should('be.visible').click();
@@ -185,7 +186,7 @@ describe('Subdomain Navigation', () => {
 		// find search bar input and enter zna
 		cy.findByPlaceholderText('Search by exact zNA')
 			.should('be.visible')
-			.type('snowflake');
+			.type(`${childZna}`);
 
 		// assert subdomain is visible and click
 		cy.findByText(`0://${subdomainZna}`).should('be.visible').click();
