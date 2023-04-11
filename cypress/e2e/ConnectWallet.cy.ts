@@ -36,17 +36,13 @@ describe('Connect Wallet', () => {
 		cy.findByText('Portis').should('be.visible');
 	});
 
-	it('displays connecting indicator when list item is clicked', () => {
+	it.only('displays connecting indicator when list item is clicked', () => {
 		clickConnectBtn();
 
 		// assert and click metamask wallet provider option
 		cy.findByText('Metamask').trigger('mouseover').click();
 
-		cy.wait(2000);
-
-		cy.get('.dialog__content').contains('connecting...', {
-			matchCase: false,
-		});
+		cy.get('.dialog__content').should('contain', 'Connecting...');
 
 		// accept access required to close extension window
 		cy.acceptMetamaskAccess();
