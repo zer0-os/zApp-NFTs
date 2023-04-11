@@ -15,6 +15,7 @@ import { BuyNowButton } from '../../buy-now';
 import { GridCard } from '@zero-tech/zui/components/GridCard';
 import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
 
+import * as selectors from '../selectors';
 import styles from './SubdomainTableCard.module.scss';
 
 type SubdomainTableCardProps = {

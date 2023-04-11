@@ -8,7 +8,8 @@ declare global {
 			assertElementIsVisible(selector: string): Chainable<void>;
 			assertUrl(
 				assertionType: 'contain' | 'not.contain',
-				url: string,
+				zna: string,
+				query?: string,
 			): Chainable<void>;
 			connectWithMetamask(): Chainable<void>;
 			interceptCurrentUserRequest(): Chainable<void>;

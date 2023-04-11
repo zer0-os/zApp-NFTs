@@ -8,14 +8,18 @@ import {
 	DomainDetailsCard,
 } from '../../features/view-subdomains';
 
-import * as selectors from './selectors';
+import { DomainsPageSelector } from './selectors';
+
 import styles from './Domains.module.scss';
 
 export const Domains: FC = () => {
 	const { currentZna, isRootDomain } = useCurrentRoute();
 
 	return (
-		<main className={styles.Main} data-test-id={selectors.domainsContainer}>
+		<main
+			className={styles.Main}
+			data-testid={DomainsPageSelector.DOMAINS_PAGE_CONTAINER}
+		>
 			{!isRootDomain && (
 				<>
 					<DomainBannerContainer zna={currentZna} />
