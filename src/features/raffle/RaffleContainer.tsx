@@ -19,15 +19,14 @@ import {
 
 // Style Imports
 import styles from './Raffle.module.scss';
-import { DropBanner, Countdown } from '../../features/ui';
+import { Banner, Countdown } from '../../features/ui';
 import { EXTERNAL_URL } from '../../lib/constants/uris';
 import { Modal } from '@zero-tech/zui/components';
 import { MintDropNFT } from '../../features/mintdrop';
 import RegistrationContainer from './RaffleRegistration/RegistrationContainer';
 import WaitlistContainer from './WaitlistRegistration/WaitlistContainer';
 
-export const RaffleContainer = () => {	
-
+export const RaffleContainer = () => {
 	const currentTime = new Date().getTime();
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -48,8 +47,6 @@ export const RaffleContainer = () => {
 			navigator.userAgent,
 		);
 	const [windowWidth, setWindowWidth] = useState<number | undefined>();
-
-
 
 	const closeModal = () => {
 		setIsModalOpen(false);
@@ -97,8 +94,6 @@ export const RaffleContainer = () => {
 		}, 13000);
 		return () => clearInterval(interval);
 	}, []);
-
-
 
 	const bannerLabel = (): React.ReactNode => {
 		if (hasRaffleEnded) {
@@ -193,9 +188,9 @@ export const RaffleContainer = () => {
 			<>
 				{isModalOpen && overlay()}
 				<div className={styles.BannerContainer}>
-					<DropBanner
-						title={'GENs are Materializing…'}
-						label={bannerLabel()}
+					<Banner
+						text={'GENs are Materializing…'}
+						subtext={bannerLabel()}
 						buttonText={bannerButtonLabel()}
 						onClick={onBannerClick}
 					/>

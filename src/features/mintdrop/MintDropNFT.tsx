@@ -21,7 +21,7 @@ import { useZsaleSdk, useWeb3 } from '../../lib/hooks';
 
 //- Style Imports
 import styles from './MintDropNFT.module.scss';
-import { DropBanner } from '../../features/ui';
+import { Banner } from '../../features/ui';
 import { ROUTES, ROUTE_NAMES } from '../../lib/constants/routes';
 import { Modal } from '@zero-tech/zui/components';
 import { ethers } from 'ethers';
@@ -504,9 +504,9 @@ export const MintDropNFT = ({
 				</Modal>
 			)}
 			<div className={styles.BannerContainer}>
-				<DropBanner
-					title={bannerTitle()}
-					label={bannerLabel()}
+				<Banner
+					text={bannerTitle()}
+					subtext={bannerLabel()}
 					buttonText={buttonText()}
 					onClick={openWizard}
 				/>

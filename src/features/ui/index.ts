@@ -1,5 +1,7 @@
 export * from './ApproveZAuction';
+export * from './Banner';
 export * from './ConnectWallet';
+export * from './Countdown';
 export * from './FormDetails';
 export * from './FormErrorText';
 export * from './FormInputs';
@@ -12,5 +14,3 @@ export * from './StatsList';
 export * from './Switch';
 export * from './TableCard';
 export * from './TextArea';
-export * from './DropBanner';
-export * from './Countdown';
