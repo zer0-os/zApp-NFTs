@@ -36,7 +36,7 @@ describe('Connect Wallet', () => {
 		cy.findByText('Portis').should('be.visible');
 	});
 
-	it.only('displays connecting indicator when list item is clicked', () => {
+	it('displays connecting indicator when list item is clicked', () => {
 		clickConnectBtn();
 
 		// assert and click metamask wallet provider option
