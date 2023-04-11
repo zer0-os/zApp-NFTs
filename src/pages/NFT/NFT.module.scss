@@ -1,7 +1,9 @@
+@use '../../styles/dimensions';
+
 .Main {
 	margin: 0 auto;
 	padding-bottom: 50px;
-	max-width: 736px;
+	max-width: dimensions.$content-max-width;
 
 	.Content {
 		margin-top: 1rem;
