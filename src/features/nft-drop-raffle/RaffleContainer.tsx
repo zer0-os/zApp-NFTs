@@ -7,7 +7,7 @@ import useAsyncEffect from 'use-async-effect';
 //- Containers Imports
 
 //- Types Imports
-import { Stage } from '../mintdrop/types';
+import { Stage } from '../mint-nft-drop/types';
 
 //- Constants Imports
 import {
@@ -22,7 +22,7 @@ import styles from './Raffle.module.scss';
 import { Banner, Countdown } from '../../features/ui';
 import { EXTERNAL_URL } from '../../lib/constants/uris';
 import { Modal } from '@zero-tech/zui/components';
-import { MintDropNFT } from '../../features/mintdrop';
+import { MintDropNFT } from '../mint-nft-drop';
 import RegistrationContainer from './RaffleRegistration/RegistrationContainer';
 import WaitlistContainer from './WaitlistRegistration/WaitlistContainer';
 

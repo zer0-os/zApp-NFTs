@@ -6,7 +6,7 @@ import { Domains } from './pages/Domains';
 import { NFT } from './pages/NFT';
 
 import styles from './App.module.scss';
-import { RaffleContainer } from './features/raffle';
+import { RaffleContainer } from './features/nft-drop-raffle';
 
 export const App = () => {
 	const { isNftViewParams, currentDomainId } = useCurrentRoute();

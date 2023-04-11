@@ -8,7 +8,11 @@ import iconDiscord from '../../../assets/discord.png';
 import iconTwitter from '../../../assets/twitter.png';
 import { ethers } from 'ethers';
 import { ConnectWallet } from '../../../features/ui';
-import { formatNumber, formatByDecimalPlace, ethTokenPrice } from '../../../lib/util';
+import {
+	formatNumber,
+	formatByDecimalPlace,
+	ethTokenPrice,
+} from '../../../lib/util';
 import { useCurrency } from '../../../lib/hooks/useCurrency';
 
 type RaffleRegistrationProps = {
@@ -30,7 +34,6 @@ enum Steps {
 
 export const RaffleRegistration = (props: RaffleRegistrationProps) => {
 	const { data: wildPriceUsd } = useCurrency('wilder-world');
-
 
 	// Raffle entry
 	const [status, setStatus] = useState<string | undefined>();
@@ -78,7 +81,7 @@ export const RaffleRegistration = (props: RaffleRegistrationProps) => {
 		} else {
 			setIsLoadingRegistration(true);
 			updateStatus(
-				'Please sign transaction in your wallet to be entered in the raffle...',
+				'Please sign transaction in your wallet to be entered in the nft-drop-raffle...',
 			);
 			setEmailError(undefined);
 			// setIsLoadingEmail(true);
