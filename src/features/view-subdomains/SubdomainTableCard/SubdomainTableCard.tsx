@@ -96,7 +96,7 @@ const Card: FC<SubdomainTableCardProps> = ({ zna }) => {
 					errorText: '-',
 				}}
 				secondaryText={''}
-				button={!isOwnedByUser && button}
+				button={button}
 			/>
 		</GridCard>
 	);
