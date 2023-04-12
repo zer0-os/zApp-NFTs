@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useQueryClient } from 'react-query';
 
 import { usePaymentToken, useSubdomainDataByIdDeep } from '../../../lib/hooks';
 import { formatEthers, formatNumber, getDomainId } from '../../../lib/util';
@@ -9,20 +10,34 @@ interface SubdomainMetricsProps {
 	zna: string;
 }
 
+type SubdomainMap = Record<string, string>;
+
 export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ zna }) => {
 	const domainId = getDomainId(zna);
-
-	const { data: subdomains, isLoading: isLoadingSubdomains } =
-		useSubdomainDataByIdDeep(domainId, 99999, { 'buyNow.price': 'asc' });
-
+	const queryClient = useQueryClient();
 	const { data: paymentToken } = usePaymentToken(zna);
+	const { data: subdomains, isLoading: isLoadingSubdomains } =
+		useSubdomainDataByIdDeep(domainId, { 'buyNow.price': 'asc' });
+
+	// creates map of all subdomain names
+	const subdomainMap: SubdomainMap =
+		subdomains?.reduce((map, subdomain) => {
+			map[subdomain.id] = subdomain.name;
+			return map;
+		}, {}) || {};
+
+	// caches the map of all subdomain names
+	queryClient.setQueryData(['subdomainMap', domainId], subdomainMap);
+
+	// calculates the subdomain count
+	const subdomainCount =
+		Object.values(subdomainMap).filter((subdomain) =>
+			subdomain.startsWith(zna.split('.')[0]),
+		).length || 0;
 
 	const paymentTokenLabel = paymentToken?.symbol
 		? ` (${paymentToken?.symbol})`
 		: '';
-
-	const itemsInDomain =
-		subdomains?.length !== undefined ? formatNumber(subdomains?.length) : '-';
 
 	const floorPriceString = subdomains?.find((subdomain) => subdomain.buyNow)
 		?.buyNow?.price
@@ -35,7 +50,7 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ zna }) => {
 		{
 			title: 'Items In Domain',
 			value: {
-				text: itemsInDomain,
+				text: formatNumber(subdomainCount),
 				isLoading: isLoadingSubdomains,
 			},
 		},

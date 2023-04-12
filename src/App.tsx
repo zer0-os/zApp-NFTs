@@ -9,10 +9,7 @@ import styles from './App.module.scss';
 
 export const App = () => {
 	const { isNftViewParams, currentDomainId } = useCurrentRoute();
-	const { isLoading, data: subdomains } = useSubdomainDataById(
-		currentDomainId,
-		1,
-	);
+	const { isLoading, data: subdomains } = useSubdomainDataById(currentDomainId);
 
 	return (
 		<div className={styles.Container}>
