@@ -5,12 +5,12 @@ import { InfiniteData, useQueryClient } from 'react-query';
 import { Domain } from '@zero-tech/zns-sdk';
 
 import {
+	useBidData,
 	useDomainMetadata,
-	useDomainMetrics,
 	usePaymentToken,
 	useWeb3,
 } from '../../lib/hooks';
-import { formatEthers } from '../../lib/util';
+import { formatEthers, sortBidsByAmount } from '../../lib/util';
 import { useZna } from '../../lib/hooks/useZna';
 import { getInfiniteSubdomainQueryKey } from './SubdomainTable/useInfiniteSubdomains';
 
@@ -39,8 +39,9 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 		?.flat()
 		.find((subdomain) => subdomain.id === domainId);
 
-	const { data: metrics, isLoading: isLoadingMetrics } =
-		useDomainMetrics(domainId);
+	const { data: bids, isLoading: isLoadingBidData } = useBidData(domainId);
+	const { highestBid } = sortBidsByAmount(bids);
+
 	const { data: metadata, isLoading: isLoadingMetadata } =
 		useDomainMetadata(domainId);
 	const { data: paymentToken } = usePaymentToken(parentZna);
@@ -49,15 +50,12 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 		account &&
 		subdomain?.owner &&
 		account.toLowerCase() === subdomain.owner.toLowerCase();
+	const isLoading = isLoadingBidData || isLoadingMetadata;
 	const image = metadata?.previewImage ?? metadata?.image;
 	const alt = (metadata?.name ?? zna) + ' preview image';
-	const isLoading = isLoadingMetrics;
 
-	const volume = metrics?.volume?.all
-		? formatEthers(metrics.volume.all)
-		: undefined;
-	const highestBid = metrics?.highestBid
-		? formatEthers(metrics.highestBid)
+	const highestBidAmount = highestBid?.amount
+		? formatEthers(highestBid.amount)
 		: undefined;
 
 	const handleItemClick = useCallback((event: any, domainName?: string) => {
@@ -68,15 +66,12 @@ export const useSubdomainTableItem = ({ zna }: UseSubdomainTableItem) => {
 	}, []);
 
 	return {
-		volume,
-		highestBid,
+		highestBidAmount,
 		image,
 		alt,
-		isLoadingMetrics,
-		isLoadingMetadata,
 		isLoading,
 		isOwnedByUser,
-		buyNowPrice: subdomain.buyNow,
+		buyNowPrice: subdomain?.buyNow,
 		metadata,
 		paymentTokenLabel: paymentToken?.label ?? '',
 		handleItemClick,
