@@ -7,13 +7,20 @@ import styles from './Banner.module.scss';
 // Drop Banner //
 /////////////////
 
-export interface BannerProps {
-	backgroundImageSrc?: string;
-	buttonText: string;
+export interface BannerInfo {
+	buttonText?: string;
 	onClick?: (event: any) => void;
-	style?: React.CSSProperties;
 	subtext: string | ReactNode;
 	text: string | ReactNode;
+}
+
+export interface BannerProps {
+	backgroundImageSrc?: string;
+	buttonText: BannerInfo['buttonText'];
+	onClick?: BannerInfo['onClick'];
+	style?: React.CSSProperties;
+	subtext: BannerInfo['subtext'];
+	text: BannerInfo['text'];
 }
 
 export const Banner: React.FC<BannerProps> = ({
@@ -39,7 +46,7 @@ export const Banner: React.FC<BannerProps> = ({
 				<span>{subtext}</span>
 			</div>
 
-			{onClick && (
+			{onClick && buttonText && (
 				<p className={styles.Button}>
 					{buttonText}
 					<IconArrowNarrowUpRight size={16} isFilled={true} />

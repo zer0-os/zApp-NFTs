@@ -3,9 +3,9 @@
 
 .BannerContainer {
 	position: relative;
-	margin: 0 auto;
+	margin: 5rem auto 0 auto;
 	text-align: center;
+	max-width: 50rem;
 
-	padding: 5.375rem 2rem 1rem 2rem;
-
+	box-sizing: border-box;
 }
