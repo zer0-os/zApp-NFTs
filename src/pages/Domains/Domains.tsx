@@ -20,6 +20,7 @@ export const Domains: FC = () => {
 			className={styles.Main}
 			data-testid={DomainsPageSelector.DOMAINS_PAGE_CONTAINER}
 		>
+			<>THIS IS A TEST PREVIEW DEPLOYMENT</>
 			{!isRootDomain && (
 				<>
 					<DomainBannerContainer zna={currentZna} />
