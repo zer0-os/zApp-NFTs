@@ -1,3 +1,5 @@
+@import '../../../styles/breakpoints';
+
 .Container {
 
 	position: relative;
@@ -16,4 +18,30 @@
 		position: absolute;
 		bottom: 75vh;
 	}
+
+	.ControlWrapper {
+		> * > * {
+			&:first-child {
+				flex-shrink: 1;
+			}
+
+			&:last-child {
+				display: none;
+
+				@include container-breakpoint($breakpoint-mobile) {
+					display: flex;
+				}
+			}
+		}
+
+	}
+
+	.Grid {
+		grid-template-columns: 1fr;
+
+		@include container-breakpoint($breakpoint-mobile) {
+			grid-template-columns: repeat(auto-fit, minmax(32%, 0.5fr));
+		}
+	}
+
 }

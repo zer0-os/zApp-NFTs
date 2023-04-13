@@ -1,13 +1,20 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_dimensions.scss';
+@import '../../../styles/breakpoints';
 
 .Banner {
 	position: relative;
 	display: flex;
 
 	width: 100%;
-	height: 70vh;
-	padding: 5.375rem 2rem 1rem 2rem;
+
+	padding: 5.375rem 1.5rem 1rem 1.5rem;
+	height: 27.938rem;
+
+	@include container-breakpoint($breakpoint-mobile) {
+		height: 30.688rem;
+		padding: 5.375rem 2rem 1rem 2rem;
+	}
 
 	background: #0D0911;
 

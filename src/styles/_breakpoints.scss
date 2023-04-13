@@ -1,0 +1,7 @@
+@mixin container-breakpoint($value) {
+    [data-container-breakpoints*="-#{$value}"] & {
+        @content;
+    }
+}
+
+$breakpoint-mobile: 400;
