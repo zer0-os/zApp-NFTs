@@ -1,6 +1,5 @@
 @mixin container-breakpoint($value) {
-    [data-container-breakpoints*="-#{$value}"] & {
-        @content;
-    }
+	[data-container-breakpoints*='-#{$value}'] & {
+		@content;
+	}
 }
-

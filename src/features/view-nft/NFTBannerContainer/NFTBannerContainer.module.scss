@@ -16,7 +16,7 @@
 		padding: 5.375rem 2rem 1rem 2rem;
 	}
 
-	background: #0D0911;
+	background: #0d0911;
 
 	box-sizing: border-box;
 
@@ -25,7 +25,11 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		background: radial-gradient(50% 100% at 50% 100%, #F10B09 0%, rgba(243, 16, 15, 0) 100%);
+		background: radial-gradient(
+			50% 100% at 50% 100%,
+			#f10b09 0%,
+			rgba(243, 16, 15, 0) 100%
+		);
 		opacity: 0.2;
 		height: 100%;
 		width: 100%;
@@ -40,7 +44,7 @@
 		/*
 		 * Hide loading skeleton while we work on a better solution
 		 */
-		span[aria-busy="true"] {
+		span[aria-busy='true'] {
 			display: none;
 		}
 

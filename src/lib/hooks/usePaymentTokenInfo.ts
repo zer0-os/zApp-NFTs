@@ -10,9 +10,7 @@ export const usePaymentTokenInfo = (token: string) => {
 	const query = useQuery(
 		['token', 'info', { token }],
 		() => {
-			if (
-				token.toLowerCase() === goerli?.tokens?.wildToken?.toLowerCase()
-			) {
+			if (token.toLowerCase() === goerli?.tokens?.wildToken?.toLowerCase()) {
 				return Promise.resolve({
 					id: token,
 					name: 'Wilder',

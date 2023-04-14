@@ -26,7 +26,7 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ~/.npmrc
-      - run: 
+      - run:
           name: NPM Publish
           command: npm publish
 workflows:
@@ -42,7 +42,8 @@ workflows:
     jobs:
       - build:
           context: zApp
-          filters: &filters-production # this yaml anchor is setting these values to "filters-production"
+          filters:
+            &filters-production # this yaml anchor is setting these values to "filters-production"
             branches:
               ignore: /.*/
             tags:

@@ -1,7 +1,6 @@
 @import '../../../styles/breakpoints';
 
 .Container {
-
 	position: relative;
 
 	/**
@@ -23,7 +22,7 @@
 		> * > * {
 			&:first-child {
 				flex-shrink: 1;
-            }
+			}
 
 			&:last-child {
 				display: none;
@@ -33,7 +32,6 @@
 				}
 			}
 		}
-
 	}
 
 	.Grid {
@@ -43,5 +41,4 @@
 			grid-template-columns: repeat(auto-fit, minmax(32%, 0.5fr));
 		}
 	}
-
 }
