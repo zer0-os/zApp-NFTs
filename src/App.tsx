@@ -1,7 +1,9 @@
+import React from 'react';
 import { Switch } from 'react-router-dom';
 
 import { useCurrentRoute, useSubdomainData } from './lib/hooks';
 
+import { DynamicSizeWrapper } from './lib/util/DynamicSizeWrapper';
 import { Domains } from './pages/Domains';
 import { NFT } from './pages/NFT';
 
@@ -12,7 +14,7 @@ export const App = () => {
 	const { isLoading, data: subdomains } = useSubdomainData(currentDomainId);
 
 	return (
-		<div className={styles.Container}>
+		<DynamicSizeWrapper className={styles.Container}>
 			<Switch>
 				{isNftViewParams || (!isLoading && subdomains?.length === 0) ? (
 					<NFT />
@@ -20,6 +22,6 @@ export const App = () => {
 					<Domains />
 				)}
 			</Switch>
-		</div>
+		</DynamicSizeWrapper>
 	);
 };

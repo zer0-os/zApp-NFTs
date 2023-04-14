@@ -42,8 +42,6 @@ const DEFAULT_PROVIDER_VALUES = {
 	onLaunchSubmit: onSubmit,
 };
 
-
-
 describe('<DAOSummary />', () => {
 	beforeEach(() => jest.resetAllMocks());
 

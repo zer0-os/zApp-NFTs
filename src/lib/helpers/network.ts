@@ -12,7 +12,7 @@ export const chainIdToNetworkType = (chainId?: Network): NETWORK_TYPES => {
 		default:
 			return NETWORK_TYPES.LOCAL;
 	}
-}
+};
 
 export const getEtherscanUri = (networkType: NETWORK_TYPES): string => {
 	let prefix = '';

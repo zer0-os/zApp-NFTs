@@ -14,7 +14,9 @@ const validationSchema = Yup.object().shape({
 	initialTokenSupplyWalletAddress: Yup.string().required(
 		'The initial wallet address field is required.',
 	),
-	adminWalletAddress: Yup.string().required('The admin wallet address field is required.'),
+	adminWalletAddress: Yup.string().required(
+		'The admin wallet address field is required.',
+	),
 });
 
 export interface TokenomicsFormProps {

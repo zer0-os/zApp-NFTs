@@ -123,14 +123,16 @@ const SubdomainTableControls = ({
 	onChangeSearchQuery,
 }: SubdomainTableControlsProps): JSX.Element => {
 	return (
-		<Controls>
-			<TableSearch
-				queryString={searchQuery}
-				onQueryStringChange={onChangeSearchQuery}
-				placeholder={'Search by exact zNA'}
-			/>
-			<ViewToggle view={view} onChange={onChangeView} />
-		</Controls>
+		<div className={styles.ControlWrapper}>
+			<Controls>
+				<TableSearch
+					queryString={searchQuery}
+					onQueryStringChange={onChangeSearchQuery}
+					placeholder={'Search by exact zNA'}
+				/>
+				<ViewToggle view={view} onChange={onChangeView} />
+			</Controls>
+		</div>
 	);
 };
 
@@ -155,7 +157,7 @@ const SubdomainsView = ({
 	if (isGridView) {
 		return (
 			<>
-				<Grid data-testid={'grid'}>
+				<Grid className={styles.Grid} data-testid={'grid'}>
 					{znas?.map((zna) => (
 						<SubdomainTableCard key={zna} zna={zna} />
 					))}

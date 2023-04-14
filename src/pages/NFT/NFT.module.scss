@@ -3,9 +3,13 @@
 	padding-bottom: 50px;
 	max-width: 736px;
 
+	box-sizing: border-box;
+
 	.Content {
-		margin-top: 1rem;
 		height: unset;
+		margin: 1rem auto 0 auto;
+		max-width: calc(736px + 2rem);
+		padding: 0 1rem 3rem 1rem;
 
 		> * {
 			&:first-child {

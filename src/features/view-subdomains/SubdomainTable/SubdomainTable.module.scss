@@ -1,5 +1,6 @@
-.Container {
+@import '../../../styles/breakpoints';
 
+.Container {
 	position: relative;
 
 	/**
@@ -15,5 +16,29 @@
 	.Trigger {
 		position: absolute;
 		bottom: 75vh;
+	}
+
+	.ControlWrapper {
+		> * > * {
+			&:first-child {
+				flex-shrink: 1;
+			}
+
+			&:last-child {
+				display: none;
+
+				@include container-breakpoint(300) {
+					display: flex;
+				}
+			}
+		}
+	}
+
+	.Grid {
+		grid-template-columns: 1fr;
+
+		@include container-breakpoint(300) {
+			grid-template-columns: repeat(auto-fit, minmax(32%, 0.5fr));
+		}
 	}
 }
