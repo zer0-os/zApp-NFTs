@@ -11,7 +11,7 @@
 			font-size: 1.5rem;
 			margin: 0;
 
-			@include container-breakpoint($breakpoint-mobile) {
+			@include container-breakpoint(300) {
 				font-size: 2.25rem;
 				line-height: 2.75rem;
 			}

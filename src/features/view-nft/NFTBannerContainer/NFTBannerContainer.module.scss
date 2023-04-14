@@ -11,7 +11,7 @@
 	padding: 5.375rem 1.5rem 1rem 1.5rem;
 	height: 27.938rem;
 
-	@include container-breakpoint($breakpoint-mobile) {
+	@include container-breakpoint(300) {
 		height: 30.688rem;
 		padding: 5.375rem 2rem 1rem 2rem;
 	}
