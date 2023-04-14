@@ -13,11 +13,12 @@
 		color: $blue;
 	}
 
-	button {
+	.Button {
 		display: flex;
 		justify-content: center;
 		width: 3.5rem;
 		border: none;
 		background: none;
+		cursor: pointer;
 	}
 }
