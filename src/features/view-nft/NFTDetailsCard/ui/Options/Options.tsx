@@ -27,7 +27,7 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 	const { data: domain } = useDomainData(domainId);
 
 	return (
-		<div className={styles.Container}>
+		<div className={styles.Options}>
 			{/* TODO: wire up share to twitter */}
 			<Tooltip content="Share to Twitter">
 				<button onClick={() => console.log('Share')}>
