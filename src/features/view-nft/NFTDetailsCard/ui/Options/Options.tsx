@@ -1,12 +1,14 @@
 import { FC } from 'react';
 
-import { getDomainId } from '../../../../../lib/util';
-import { NFT_ASSET_SHARE_KEYS } from '../../../../../lib/helpers';
 import {
 	useWeb3,
 	useDomainData,
+	useDownloadAsset,
 	useShareAsset,
+	useDomainMetadata,
 } from '../../../../../lib/hooks';
+import { getDomainId } from '../../../../../lib/util';
+import { NFT_ASSET_SHARE_KEYS } from '../../../../../lib/helpers';
 
 import { MoreNFTOptions } from '../../../../ui/MoreNFTOptions';
 import { Tooltip } from '@zero-tech/zui/components';
@@ -30,10 +32,18 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 
 	const { account } = useWeb3();
 	const { shareAsset } = useShareAsset(zna);
+	const { downloadAsset } = useDownloadAsset();
 	const { data: domain } = useDomainData(domainId);
+	const { data: metadata } = useDomainMetadata(domainId);
 
 	const onShareAsset = () => {
 		shareAsset(NFT_ASSET_SHARE_KEYS.TWITTER);
+	};
+
+	console.log(metadata?.animation_url);
+
+	const onDownloadAsset = () => {
+		downloadAsset(metadata?.animation_url);
 	};
 
 	return (
@@ -45,10 +55,7 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 			</Tooltip>
 
 			<Tooltip content="Download for Twitter">
-				<button
-					className={styles.Button}
-					onClick={() => console.log('Download')}
-				>
+				<button className={styles.Button} onClick={onDownloadAsset}>
 					<IconDownload2 color={'#52CBFF'} isFilled />
 				</button>
 			</Tooltip>
