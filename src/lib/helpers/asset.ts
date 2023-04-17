@@ -1,5 +1,3 @@
-import { getHashFromIPFSUrl } from '../../lib/util';
-
 export enum NFT_ASSET_SHARE_KEYS {
 	TWITTER = 'TWITTER',
 }
@@ -39,74 +37,4 @@ export const shareDomainAsset = (
 		'',
 		NFT_ASSET_SHARE_OPTIONS[key].OPTIONS,
 	);
-};
-
-/**
- * Gets domain asset URL for downloading
- * @param url input - this will be an IPFS link
- * @returns
- */
-export const getDomainAsset = async (
-	url: string,
-): Promise<string | undefined> => {
-	const hash = getHashFromIPFSUrl(url);
-
-	const checkUrl = (url: string) => {
-		return new Promise((resolve, reject) => {
-			fetch(url, { method: 'HEAD' }).then((r) => {
-				if (r.ok) {
-					resolve(url);
-				} else {
-					reject();
-				}
-			});
-		});
-	};
-
-	try {
-		const asset = await Promise.any([
-			checkUrl(NFT_ASSET_URLS.VIDEO.replace(/NFT_ASSET_HASH/g, hash)),
-			checkUrl(NFT_ASSET_URLS.IMAGE.replace(/NFT_ASSET_HASH/g, hash)),
-		]);
-
-		if (typeof asset !== 'string') {
-			return;
-		}
-
-		return asset;
-	} catch (e) {
-		console.error(e);
-	}
-};
-
-/**
- * Downloads the given asset
- * @param asset this will be the asset returned from getDomainAsset
- * @returns
- */
-export const downloadDomainAsset = async (asset: string): Promise<void> => {
-	try {
-		fetch(asset, {
-			method: 'GET',
-		})
-			.then((response) => {
-				response.arrayBuffer().then(function (buffer) {
-					const url = window.URL.createObjectURL(new Blob([buffer]));
-					const link = document.createElement('a');
-					link.href = url;
-					link.setAttribute(
-						'download',
-						asset.split('/')[asset.split('/').length - 1],
-					);
-					document.body.appendChild(link);
-					link.click();
-					link.remove();
-				});
-			})
-			.catch((err) => {
-				console.error(err);
-			});
-	} catch (e) {
-		console.error(e);
-	}
 };

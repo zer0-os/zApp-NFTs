@@ -5,7 +5,6 @@ export * from './useDomainData';
 export * from './useDomainEvents';
 export * from './useDomainMetadata';
 export * from './useDomainMetrics';
-export * from './useDownloadAsset';
 export * from './useIsDomainMetadataLocked';
 export * from './usePaymentToken';
 export * from './usePaymentTokenForDomain';
