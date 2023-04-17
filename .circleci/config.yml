@@ -13,6 +13,9 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - run:
+          name: Set Environment Variables
+          command: echo 'export REACT_APP_ZNS_SHARE_BASE_URL=https://zns-share.herokuapp.com' >> $BASH_ENV
       - run: echo "//npm.pkg.github.com/:_authToken=${GIT_PACKAGE_READ}" > ~/.npmrc
       - node/install-packages:
           pkg-manager: npm
@@ -26,9 +29,36 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ~/.npmrc
-      - run: 
+      - run:
           name: NPM Publish
           command: npm publish
+# workflows:
+#   version: 2
+#   build:
+#     jobs:
+#       - build:
+#           context: zApp
+#           filters:
+#             branches:
+#               only: feature/circleci-env-vars
+#             tags:
+#               ignore: /.*/
+#   production:
+#     jobs:
+#       - build:
+#           context: zApp
+#           filters:
+#             &filters-production # this yaml anchor is setting these values to "filters-production"
+#             branches:
+#               ignore: /.*/
+#             tags:
+#               only: /^v.*/
+#       - publish:
+#           context: NPM_Publish
+#           requires:
+#             - build
+#           filters:
+#             <<: *filters-production # this is calling the previously set yaml anchor
 workflows:
   version: 2
   build:
@@ -37,19 +67,21 @@ workflows:
           context: zApp
           filters:
             branches:
-              ignore: master
+              only: feat/download-pfp
+            tags:
+              ignore: /.*/
   production:
     jobs:
       - build:
           context: zApp
-          filters: &filters-production # this yaml anchor is setting these values to "filters-production"
+          filters: &filters-production
             branches:
-              ignore: /.*/
+              only: feat/download-pfp
             tags:
-              only: /^v.*/
+              ignore: /.*/
       - publish:
           context: NPM_Publish
           requires:
             - build
           filters:
-            <<: *filters-production # this is calling the previously set yaml anchor
+            <<: *filters-production
