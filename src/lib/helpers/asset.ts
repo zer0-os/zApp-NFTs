@@ -28,8 +28,7 @@ export const shareDomainAsset = (
 	key: NFT_ASSET_SHARE_KEYS = NFT_ASSET_SHARE_KEYS.TWITTER,
 ): void => {
 	const domainUrl = encodeURIComponent(
-		// TODO: update with env var
-		`https://zns-share.herokuapp.com/${zna}`,
+		`${process.env.REACT_APP_ZNS_SHARE_BASE_URL}/${zna}/nfts`,
 	);
 
 	window.open(

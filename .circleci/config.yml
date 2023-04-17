@@ -15,7 +15,7 @@ jobs:
       - checkout
       - run:
           name: Set Environment Variables
-          command: echo 'export REACT_APP_ZNS_SHARE_BASE_URL=https://zns-share.herokuapp.com' >> $BASH_ENV
+          command: echo 'export REACT_APP_ZNS_SHARE_BASE_URL=https://zos.zer0.io' >> $BASH_ENV
       - run: echo "//npm.pkg.github.com/:_authToken=${GIT_PACKAGE_READ}" > ~/.npmrc
       - node/install-packages:
           pkg-manager: npm
