@@ -1,7 +1,7 @@
 import { createContext, FC, ReactNode, useMemo } from 'react';
 
 import { providers } from 'ethers';
-import { chainIdToNetworkType } from '../helpers/network';
+import { chainIdToNetworkType } from '../helpers';
 import * as zns from '@zero-tech/zns-sdk';
 
 import {

@@ -1,7 +1,4 @@
-import {
-	chainIdToNetworkType,
-	getEtherscanUri,
-} from '../../../lib/helpers/network';
+import { chainIdToNetworkType, getEtherscanUri } from '../../../lib/helpers';
 import { Network } from '../../../lib/constants/networks';
 
 import { BigNumber, ethers } from 'ethers';
