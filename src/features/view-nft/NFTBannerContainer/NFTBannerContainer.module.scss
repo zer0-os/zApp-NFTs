@@ -16,6 +16,11 @@
 		padding: 5.375rem 2rem 1rem 2rem;
 	}
 
+	img, video {
+		max-height: 100%;
+		max-width: 100%;
+	}
+
 	background: #0d0911;
 
 	box-sizing: border-box;

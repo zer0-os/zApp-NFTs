@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { useActionsData } from './useActionsData';
-import { formatEthers } from '../../../lib/util/number';
+import { formatEthers } from '../../../lib/util';
 
 import { BuyNowButton } from '../../buy-now';
 import { SetBuyNowButton } from '../../set-buy-now';
@@ -48,7 +48,7 @@ export const Actions = ({ zna }: ActionsProps) => {
 			label: `Buy Now ${paymentTokenLabel}`,
 			value: buyNowPriceString,
 			button: <BuyNowButton zna={zna} trigger={'Buy Now'} />,
-			isVisible: isBuyNow,
+			isVisible: true,
 		},
 		{
 			label: `Buy Now ${paymentTokenLabel}`,

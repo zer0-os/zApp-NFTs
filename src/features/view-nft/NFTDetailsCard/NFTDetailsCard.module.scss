@@ -52,7 +52,6 @@ $gap: 1.5rem;
 			.Description {
 				padding: 0;
 				margin: 0;
-				line-height: 1.5rem;
 				overflow: hidden;
 				display: -webkit-box;
 				-webkit-line-clamp: 3;
@@ -61,10 +60,12 @@ $gap: 1.5rem;
 
 			.MemberContainer {
 				display: flex;
-				list-style: none;
-				gap: 2rem;
-				padding: 0;
-				margin: 0;
+				flex-direction: column;
+				gap: $gap;
+
+				@include container-breakpoint(500) {
+					flex-direction: row;
+				}
 			}
 		}
 	}
