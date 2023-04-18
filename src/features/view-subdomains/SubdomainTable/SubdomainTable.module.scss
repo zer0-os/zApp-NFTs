@@ -18,26 +18,37 @@
 		bottom: 75vh;
 	}
 
-	.ControlWrapper {
-		> * > * {
-			&:first-child {
-				flex-shrink: 1;
-			}
+	.Search {
+		flex-shrink: 1;
+		min-width: 0;
+	}
 
-			&:last-child {
-				display: none;
+	.Toggle {
+		display: none;
 
-				@include container-breakpoint(300) {
-					display: flex;
-				}
-			}
+		// @note: this has to match GRID_WIDTH_TOGGLE in SubdomainTable.tsx
+		@include container-breakpoint(600) {
+			display: flex;
+		}
+	}
+
+	.Message {
+		padding: 0;
+		margin-top: 2rem;
+		text-align: center;
+		justify-content: center;
+		flex-direction: column;
+
+		@include container-breakpoint(400) {
+			padding: 1rem;
+			flex-direction: row;
 		}
 	}
 
 	.Grid {
 		grid-template-columns: 1fr;
 
-		@include container-breakpoint(300) {
+		@include container-breakpoint(400) {
 			grid-template-columns: repeat(auto-fit, minmax(32%, 0.5fr));
 		}
 	}

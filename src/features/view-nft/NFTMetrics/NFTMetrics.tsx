@@ -13,6 +13,7 @@ import {
 } from '../../../lib/util';
 
 import { StatsList } from '../../ui';
+import styles from './NFTMetrics.module.scss';
 
 type NFTMetricsProps = {
 	zna: string;
@@ -62,5 +63,5 @@ export const NFTMetrics: FC<NFTMetricsProps> = ({ zna }) => {
 		},
 	];
 
-	return <StatsList stats={stats} />;
+	return <StatsList className={styles.Metrics} stats={stats} />;
 };

@@ -12,22 +12,24 @@ import {
 } from '@zero-tech/zui/components/Icons';
 
 import styles from './Options.module.scss';
+import classNames from 'classnames';
 
 export type OptionsProps = {
+	className?: string;
 	zna: string;
 };
 
 /**
  * Wraps NFT action options in tray container within domain preview i.e share, download, more options.
  */
-export const Options: FC<OptionsProps> = ({ zna }) => {
+export const Options: FC<OptionsProps> = ({ className, zna }) => {
 	const domainId = getDomainId(zna);
 
 	const { account } = useWeb3();
 	const { data: domain } = useDomainData(domainId);
 
 	return (
-		<div className={styles.Container}>
+		<div className={classNames(styles.Container, className)}>
 			{/* TODO: wire up share to twitter */}
 			<Tooltip content="Share to Twitter">
 				<button onClick={() => console.log('Share')}>

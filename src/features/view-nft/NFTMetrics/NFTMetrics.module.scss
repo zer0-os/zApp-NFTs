@@ -1,0 +1,12 @@
+@import '../../../styles/breakpoints';
+
+.Metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    @include container-breakpoint(500) {
+        flex-direction: row;
+        gap: 1rem;
+    }
+}

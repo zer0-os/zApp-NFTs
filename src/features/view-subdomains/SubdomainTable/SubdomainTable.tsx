@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { CSSProperties, FC, useEffect, useMemo, useRef, useState } from 'react';
 
 import { COLUMNS } from '../SubdomainTable.constants';
 import { useInfiniteSubdomains } from './useInfiniteSubdomains';
@@ -22,11 +22,15 @@ import { SubdomainTableRow } from '../SubdomainTableRow';
 
 import styles from './SubdomainTable.module.scss';
 
+// @note: this value is being used in SubdomainTable.module.scss - change in both places
+const GRID_WIDTH_TOGGLE = 600;
+
 type SubdomainTableProps = {
 	zna: string;
 };
 
 export const SubdomainTable: FC<SubdomainTableProps> = ({ zna }) => {
+	const containerRef = useRef<HTMLDivElement>(null);
 	const [view, setView] = useState<View>(View.GRID);
 
 	const [searchQuery, setSearchQuery] = useState<string | undefined>();
@@ -42,6 +46,18 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({ zna }) => {
 	useEffect(() => {
 		setSearchQuery(undefined);
 	}, [zna]);
+
+	useEffect(() => {
+		const resizeObserver = new ResizeObserver(() => {
+			if (containerRef.current) {
+				if (containerRef.current.offsetWidth <= GRID_WIDTH_TOGGLE) {
+					setView(View.GRID);
+				}
+			}
+		});
+		resizeObserver.observe(containerRef.current);
+		return () => resizeObserver.disconnect();
+	}, [containerRef]);
 
 	const {
 		loadedSubdomains,
@@ -70,7 +86,7 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({ zna }) => {
 		subdomains.length === 0;
 
 	return (
-		<div className={styles.Container}>
+		<div className={styles.Container} ref={containerRef}>
 			<SubdomainTableControls
 				view={view}
 				onChangeView={setView}
@@ -84,19 +100,27 @@ export const SubdomainTable: FC<SubdomainTableProps> = ({ zna }) => {
 			/>
 			{activeQuery && isSearching && (
 				<TableStatusMessage
+					className={styles.Message}
 					status={TableStatus.SEARCHING}
 					message={'Searching for subdomain ' + activeQuery}
 				/>
 			)}
 			{isLoadingInitialSubdomains && (
 				<TableStatusMessage
+					className={styles.Message}
 					status={TableStatus.LOADING}
 					message={'Loading subdomains'}
 				/>
 			)}
-			{isEmpty && <TableStatusMessage status={TableStatus.EMPTY} />}
+			{isEmpty && (
+				<TableStatusMessage
+					className={styles.Message}
+					status={TableStatus.EMPTY}
+				/>
+			)}
 			{isLoadingNextSubdomains && (
 				<TableStatusMessage
+					className={styles.Message}
 					status={TableStatus.LOADING}
 					message={'Loading more subdomains'}
 				/>
@@ -123,16 +147,19 @@ const SubdomainTableControls = ({
 	onChangeSearchQuery,
 }: SubdomainTableControlsProps): JSX.Element => {
 	return (
-		<div className={styles.ControlWrapper}>
-			<Controls>
-				<TableSearch
-					queryString={searchQuery}
-					onQueryStringChange={onChangeSearchQuery}
-					placeholder={'Search by exact zNA'}
-				/>
-				<ViewToggle view={view} onChange={onChangeView} />
-			</Controls>
-		</div>
+		<Controls>
+			<TableSearch
+				className={styles.Search}
+				queryString={searchQuery}
+				onQueryStringChange={onChangeSearchQuery}
+				placeholder={'Search by exact zNA'}
+			/>
+			<ViewToggle
+				className={styles.Toggle}
+				view={view}
+				onChange={onChangeView}
+			/>
+		</Controls>
 	);
 };
 

@@ -1,11 +1,15 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
-.Container {
-	margin-top: 1rem;
+@import '../../../styles/breakpoints';
 
-	.Link {
-		color: $blue;
-		font-size: $size-tiny;
+.Info {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+
+	@include container-breakpoint(500) {
+		flex-direction: row;
+		gap: 1rem;
 	}
 }

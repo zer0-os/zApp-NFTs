@@ -40,14 +40,16 @@ export const NFTDetailsCard: FC<DetailsCardProps> = ({ zna }) => {
 		<div className={styles.Content}>
 			<div className={styles.TextContainer}>
 				<Title title={title} />
-				<Options zna={zna} />
 			</div>
 
 			<div className={styles.FlexRowWrapper}>
 				<div className={styles.FlexColumnWrapper}>
-					{/* TODO: swap members and description in follow up task */}
-					<Members members={members} />
 					<Description description={description} />
+
+					<Members members={members} />
+					<div className={styles.Options}>
+						<Options zna={zna} />
+					</div>
 				</div>
 
 				{/* TODO: to be added in follow up task */}

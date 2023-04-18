@@ -5,6 +5,8 @@ import { formatEthers, formatNumber, getDomainId } from '../../../lib/util';
 
 import { StatsList } from '../../ui';
 
+import styles from './SubdomainMetrics.module.scss';
+
 interface SubdomainMetricsProps {
 	zna: string;
 }
@@ -55,5 +57,5 @@ export const SubdomainMetrics: FC<SubdomainMetricsProps> = ({ zna }) => {
 		},
 	];
 
-	return <StatsList stats={stats} />;
+	return <StatsList className={styles.Stats} stats={stats} />;
 };

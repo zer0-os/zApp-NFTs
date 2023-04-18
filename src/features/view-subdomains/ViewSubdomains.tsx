@@ -5,13 +5,18 @@ import { SubdomainTable } from './SubdomainTable';
 
 import { SubdomainViewSelector } from './selectors';
 
+import styles from './ViewSubdomains.module.scss';
+
 interface ViewSubdomainsProps {
 	zna: string;
 }
 
 export const ViewSubdomains = ({ zna }: ViewSubdomainsProps) => {
 	return (
-		<section data-testid={SubdomainViewSelector.VIEW_SUBDOMAINS_SECTION}>
+		<section
+			className={styles.Container}
+			data-testid={SubdomainViewSelector.VIEW_SUBDOMAINS_SECTION}
+		>
 			<SubdomainMetrics zna={zna} />
 			<SubdomainTable zna={zna} />
 		</section>
