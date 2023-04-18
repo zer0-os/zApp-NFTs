@@ -16,9 +16,10 @@
 	.Button {
 		display: flex;
 		justify-content: center;
-		width: 3.5rem;
+		width: 3rem;
 		border: none;
 		background: none;
 		cursor: pointer;
+		outline: none;
 	}
 }
