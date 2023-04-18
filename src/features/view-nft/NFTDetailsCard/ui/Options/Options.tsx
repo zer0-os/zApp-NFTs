@@ -39,10 +39,11 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 	const { data: metadata } = useDomainMetadata(domainId);
 
 	const downloadOptions = getDownloadOptions(
-		metadata?.image,
-		metadata?.image_full,
-		metadata?.animation_url,
 		downloadAsset,
+		metadata?.image,
+		metadata?.image_2,
+		metadata?.image_3,
+		metadata?.animation_url,
 	);
 
 	const onShareAsset = () => {
