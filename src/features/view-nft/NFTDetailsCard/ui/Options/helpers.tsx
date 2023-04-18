@@ -33,11 +33,11 @@ export type DropdownOption =
 
 /**
  * Gets the download options and filters by condition
+ * @param downloadAsset input - uses useDownloadAsset hook return
  * @param imageUrl input - metadata image url
  * @param imageUrl2 input - metadata image_2 url
  * @param imageUrl3 input - metadata image_3 url
  * @param animationUrl input - metadata animation_url
- * @param downloadAsset input - uses useDownloadAsset hook return
  * @returns
  */
 export const getDownloadOptions = (
