@@ -1,14 +1,15 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import { Step } from '../../hooks';
 import { useBuyNowData } from '../../../../useBuyNowData';
 import { HTMLTextElement } from '@zero-tech/zui/lib/types';
 import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
-import { SkeletonText } from '@zero-tech/zui/components';
+import { SkeletonText, TextStack } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './NFTDetails.module.scss';
+import { ViewBidsButton } from '../../../../../view-bids';
 
 export interface NFTDetailsProps {
 	zna: string;
@@ -30,20 +31,6 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 	const truncatedCreatorAddress = truncateAddress(creator);
 
 	const detailContent: DetailsContentType[] = [
-		{
-			id: 'title',
-			className: styles.Title,
-			text: title,
-			isLoading: isLoading,
-			as: 'h1' as const,
-		},
-		{
-			id: 'zna',
-			className: styles.ZNA,
-			text: `0://${truncatedZna}`,
-			isLoading: isLoading,
-			as: 'span' as const,
-		},
 		{
 			id: 'creator',
 			title: 'Creator',
@@ -76,7 +63,12 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 	return (
 		<div className={styles.Container}>
 			<Media alt={imageAlt} src={imageSrc} />
-			<Details content={content} />
+			<Details
+				content={content}
+				isLoadingTitle={isLoading}
+				truncatedZna={truncatedZna}
+				title={title}
+			/>
 		</div>
 	);
 };
@@ -113,21 +105,33 @@ type DetailsContentType = {
 
 interface DetailsProps {
 	content: DetailsContentType[];
+	truncatedZna: string;
+	isLoadingTitle: boolean;
+	title?: string;
 }
 
-const Details = ({ content }: DetailsProps) => {
+const Details = ({
+	content,
+	truncatedZna,
+	isLoadingTitle,
+	title,
+}: DetailsProps) => {
 	return (
 		<div className={styles.Details}>
+			<div className={styles.Domain}>
+				<h2 className={styles.Title}>
+					<SkeletonText asyncText={{ isLoading: isLoadingTitle, title }} />
+				</h2>
+				<span className={styles.ZNA}>0://{truncatedZna}</span>
+			</div>
 			<ul className={styles.TextContent}>
 				{content.map((e) => (
 					<li key={e.id}>
-						{e?.title && <span className={styles.InfoTitle}>{e?.title}</span>}
-						<SkeletonText
-							className={e?.className}
-							as={e?.as}
-							asyncText={{
-								text: e?.text,
-								isLoading: e?.isLoading,
+						<TextStack
+							label={e.title}
+							primaryText={{
+								text: e.text,
+								isLoading: e.isLoading,
 							}}
 						/>
 					</li>

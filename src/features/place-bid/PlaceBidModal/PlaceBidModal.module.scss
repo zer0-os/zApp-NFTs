@@ -1,6 +1,18 @@
-.Container {
-	width: 100vw;
-	padding: 3rem;
+@import '../../../styles/breakpoints';
+@import '../variables';
 
+.Container {
+	padding: 3rem;
 	box-sizing: border-box;
+
+	@media (max-width: $modal-width) {
+		width: 100vw;
+		min-height: 100vh;
+		border-radius: 0;
+	}
+
+	@media (min-width: $modal-width) {
+		width: $modal-width;
+		min-height: unset;
+	}
 }
