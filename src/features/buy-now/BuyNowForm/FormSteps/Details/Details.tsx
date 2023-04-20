@@ -1,7 +1,10 @@
 import { FC } from 'react';
 
-import { useBuyNowData } from '../../../useBuyNowData';
 import { Step } from '../../FormSteps/hooks';
+import { getDomainId } from '../../../../../lib/util';
+import { useDomainData, useWeb3 } from '../../../../../lib/hooks';
+import { useBuyNowData } from '../../../useBuyNowData';
+
 import { NFTDetails } from '../ui';
 import { FormErrorText, FormUserBalance } from '../../../../ui';
 import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
@@ -25,7 +28,16 @@ export const Details: FC<DetailsProps> = ({
 	onConfirmBuyNow,
 	onClose,
 }) => {
+	const domainId = getDomainId(zna);
+
+	const { account } = useWeb3();
+	const { data: domain } = useDomainData(domainId);
 	const { balanceAsString: tokenBalance, isLoading } = useBuyNowData(zna);
+
+	const isOwnedByUser =
+		account &&
+		domain?.owner &&
+		account.toLowerCase() === domain.owner.toLowerCase();
 
 	const primaryButtonText: ButtonsProps['primaryButtonText'] =
 		step === Step.DETAILS ? (errorText ? 'Retry' : 'Continue') : 'Confirm';
@@ -38,13 +50,17 @@ export const Details: FC<DetailsProps> = ({
 			<NFTDetails zna={zna} />
 
 			<div className={styles.Container}>
-				<FormUserBalance tokenBalance={tokenBalance} isLoading={isLoading} />
+				<TextContent
+					tokenBalance={tokenBalance}
+					isLoading={isLoading}
+					isOwnedByUser={isOwnedByUser}
+				/>
 
 				{errorText !== undefined && <FormErrorText text={errorText} />}
 
 				<Wizard.Buttons
 					className={styles.Button}
-					isPrimaryButtonActive
+					isPrimaryButtonActive={!isOwnedByUser}
 					isSecondaryButtonActive
 					secondaryButtonText="Cancel"
 					primaryButtonText={primaryButtonText}
@@ -55,3 +71,24 @@ export const Details: FC<DetailsProps> = ({
 		</>
 	);
 };
+
+/*******************
+ * TextContent
+ *******************/
+
+interface TextContentProps {
+	tokenBalance: string;
+	isLoading: boolean;
+	isOwnedByUser: boolean;
+}
+
+const TextContent = ({
+	tokenBalance,
+	isLoading,
+	isOwnedByUser,
+}: TextContentProps) =>
+	!isOwnedByUser ? (
+		<FormUserBalance tokenBalance={tokenBalance} isLoading={isLoading} />
+	) : (
+		<>You already own this NFT</>
+	);

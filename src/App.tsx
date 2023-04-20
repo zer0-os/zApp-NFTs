@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 
-import { useCurrentRoute, useSubdomainData } from './lib/hooks';
+import { useCurrentRoute, useSubdomainDataById } from './lib/hooks';
 
 import { DynamicSizeWrapper } from './lib/util/DynamicSizeWrapper';
 import { Domains } from './pages/Domains';
@@ -11,7 +11,7 @@ import styles from './App.module.scss';
 
 export const App = () => {
 	const { isNftViewParams, currentDomainId } = useCurrentRoute();
-	const { isLoading, data: subdomains } = useSubdomainData(currentDomainId);
+	const { isLoading, data: subdomains } = useSubdomainDataById(currentDomainId);
 
 	return (
 		<DynamicSizeWrapper className={styles.Container}>
