@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
 
-import { useWeb3 } from '../../../lib/hooks/useWeb3';
+import { useWeb3 } from '../../../lib/hooks';
 import { BasicModalProps } from '../../../lib/types/ui';
 
 import { ViewBids } from '../ViewBids';
-import { ConnectWallet } from '../../ui/ConnectWallet';
+import { ConnectWallet } from '../../ui';
 import { Modal } from '@zero-tech/zui/components';
 
 import styles from './ViewBidsModal.module.scss';

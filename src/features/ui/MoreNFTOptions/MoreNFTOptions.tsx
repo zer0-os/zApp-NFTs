@@ -12,9 +12,10 @@ import {
 	IconTag1,
 	IconSend3,
 	IconCube1,
-	IconDatabase2,
 	IconCurrencyDollar,
 } from '@zero-tech/zui/components/Icons';
+
+import styles from './MoreNFTOptions.module.scss';
 
 export const enum OptionType {
 	CREATE_TOKEN = 'create-token',
@@ -54,16 +55,16 @@ export const MoreNFTOptions: FC<MoreNFTOptionsProps> = ({ zna, trigger }) => {
 			),
 			onSelect: (e: any) => onSelectOption(e),
 		},
+		// {
+		// 	className: 'create-token',
+		// 	id: OptionType.CREATE_TOKEN,
+		// 	label: (
+		// 		<OptionLabel label={'Create Token'} icon={<IconDatabase2 isFilled />} />
+		// 	),
+		// 	onSelect: (e: any) => onSelectOption(e),
+		// },
 		{
-			className: 'create-token',
-			id: OptionType.CREATE_TOKEN,
-			label: (
-				<OptionLabel label={'Create Token'} icon={<IconDatabase2 isFilled />} />
-			),
-			onSelect: (e: any) => onSelectOption(e),
-		},
-		{
-			className: 'domain-settings',
+			className: styles.Settings,
 			id: OptionType.DOMAIN_SETTINGS,
 			label: (
 				<OptionLabel

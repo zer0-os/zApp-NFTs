@@ -38,7 +38,8 @@ export const useActionsData = (zna: string) => {
 	const paymentTokenLabel = paymentToken?.label ?? '';
 	const paymentTokenSymbol = paymentToken?.symbol ?? '';
 
-	const isOwnedByUser = domain?.owner?.toLowerCase() === account?.toLowerCase();
+	const isOwnedByUser =
+		Boolean(account) && domain?.owner?.toLowerCase() === account?.toLowerCase();
 	const isDomainBiddable = !isOwnedByUser || Boolean(metadata?.isBiddable);
 	const isBuyNow = buyNowPrice && !isOwnedByUser && Boolean(domain?.name);
 	const isSetBuyNow = isOwnedByUser && Boolean(domain?.name);

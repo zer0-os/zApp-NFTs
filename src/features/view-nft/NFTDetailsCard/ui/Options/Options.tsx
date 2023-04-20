@@ -1,8 +1,5 @@
 import { FC } from 'react';
 
-import { getDomainId } from '../../../../../lib/util';
-import { useWeb3, useDomainData } from '../../../../../lib/hooks';
-
 import { MoreNFTOptions } from '../../../../ui/MoreNFTOptions';
 import { Tooltip } from '@zero-tech/zui/components';
 import {
@@ -23,11 +20,6 @@ export type OptionsProps = {
  * Wraps NFT action options in tray container within domain preview i.e share, download, more options.
  */
 export const Options: FC<OptionsProps> = ({ className, zna }) => {
-	const domainId = getDomainId(zna);
-
-	const { account } = useWeb3();
-	const { data: domain } = useDomainData(domainId);
-
 	return (
 		<div className={classNames(styles.Container, className)}>
 			{/* TODO: wire up share to twitter */}
@@ -44,12 +36,10 @@ export const Options: FC<OptionsProps> = ({ className, zna }) => {
 				</button>
 			</Tooltip>
 
-			{domain?.owner?.toLowerCase() === account?.toLowerCase() && (
-				<MoreNFTOptions
-					zna={zna}
-					trigger={<IconDotsVertical className={styles.Icon} isFilled />}
-				/>
-			)}
+			<MoreNFTOptions
+				zna={zna}
+				trigger={<IconDotsVertical className={styles.Icon} isFilled />}
+			/>
 		</div>
 	);
 };
