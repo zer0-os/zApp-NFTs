@@ -11,6 +11,8 @@ export const parseDomainMetadata = (
 		description: domainMetadata.description,
 		image: domainMetadata.image,
 		image_full: domainMetadata.image_full,
+		image_2: domainMetadata.image_2,
+		image_3: domainMetadata.image_3,
 		previewImage: domainMetadata.previewImage,
 		animation_url: domainMetadata.animation_url,
 		stakingRequests:
