@@ -3,8 +3,6 @@ import { FC, useCallback, useState } from 'react';
 import {
 	useWeb3,
 	useDomainData,
-	useDownloadAsset,
-	useShareAsset,
 	useDomainMetadata,
 } from '../../../../../lib/hooks';
 import {
@@ -13,7 +11,11 @@ import {
 	DropdownOption,
 	dropdownOptionConfig,
 } from './helpers';
-import { getDomainId } from '../../../../../lib/util';
+import {
+	getDomainId,
+	useDownloadAsset,
+	useShareAsset,
+} from '../../../../../lib/util';
 import { NFT_ASSET_SHARE_KEYS } from '../../../../../lib/helpers';
 
 import {

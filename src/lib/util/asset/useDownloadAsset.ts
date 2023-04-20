@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { downloadDomainAsset, getDomainAsset } from '../../lib/helpers';
+import { downloadDomainAsset, getDomainAsset } from '../../helpers';
 
 interface UseDownloadAssetReturn {
 	downloadAsset: (assetUrl: string) => Promise<void>;

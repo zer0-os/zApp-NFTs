@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { NFT_ASSET_SHARE_KEYS, shareDomainAsset } from '../helpers';
+import { NFT_ASSET_SHARE_KEYS, shareDomainAsset } from '../../helpers';
 
 interface useShareAssetReturn {
 	shareAsset: (key: NFT_ASSET_SHARE_KEYS) => Promise<void>;
