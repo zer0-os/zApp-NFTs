@@ -60,7 +60,9 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 			<div className={styles.Details}>
 				<div className={styles.Domain}>
 					<h2 className={styles.Title}>
-						<SkeletonText asyncText={{ isLoading: isLoadingMetadata, title }} />
+						<SkeletonText
+							asyncText={{ isLoading: isLoadingMetadata, text: title }}
+						/>
 					</h2>
 					<span className={styles.ZNA}>0://{truncatedZna}</span>
 				</div>
@@ -73,6 +75,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 									text: e.text,
 									isLoading: e.isLoading,
 								}}
+								secondaryText={''}
 							/>
 						</li>
 					))}

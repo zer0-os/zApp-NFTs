@@ -19,5 +19,9 @@
 		@include container-breakpoint(400) {
 			width: auto;
 		}
+
+		> *:last-child {
+			margin-top: 0.5rem;
+		}
 	}
 }

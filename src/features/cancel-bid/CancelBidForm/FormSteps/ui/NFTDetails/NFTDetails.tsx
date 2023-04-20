@@ -1,12 +1,11 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import { Step } from '../../hooks';
 import { useCancelBidData } from '../../../../useCancelBidData';
-import { formatEthers } from '../../../../../../lib/util/number';
-import { HTMLTextElement } from '@zero-tech/zui/lib/types';
+import { formatEthers } from '../../../../../../lib/util';
 import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
-import { SkeletonText } from '@zero-tech/zui/components';
+import { SkeletonText, TextStack } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './NFTDetails.module.scss';
@@ -39,44 +38,24 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 		? `${formatEthers(highestUserBid?.amount)} ${paymentTokenSymbol}`
 		: '-';
 
-	const detailContent: DetailsContentType[] = [
-		{
-			id: 'title',
-			className: styles.Title,
-			text: title,
-			isLoading: isLoading,
-			as: 'h1' as const,
-		},
-		{
-			id: 'zna',
-			className: styles.ZNA,
-			text: `0://${truncatedZna}`,
-			isLoading: isLoading,
-			as: 'span' as const,
-		},
+	const detailContent = [
 		{
 			id: 'creator',
 			title: 'Creator',
-			className: styles.InfoValue,
 			text: truncatedCreatorAddress,
 			isLoading: isLoading,
-			as: 'span' as const,
 		},
 		{
 			id: 'highest-bid',
 			title: 'Highest Bid',
-			className: styles.InfoValue,
 			text: formattedHighestBid,
 			isLoading: isLoading,
-			as: 'span' as const,
 		},
 		{
 			id: 'your-bid',
 			title: 'Your Bid',
-			className: styles.InfoValue,
 			text: formattedUserBid,
 			isLoading: isLoading,
-			as: 'span' as const,
 		},
 	];
 
@@ -85,64 +64,31 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 
 	return (
 		<div className={styles.Container}>
-			<Media alt={imageAlt} src={imageSrc} />
-			<Details content={content} />
-		</div>
-	);
-};
-
-/*******************
- * Media
- *******************/
-
-interface MediaProps {
-	alt: string;
-	src: string;
-}
-
-const Media = ({ alt, src }: MediaProps) => {
-	return (
-		<div className={styles.Media}>
-			<IpfsMedia className={styles.Image} alt={alt} src={src} />
-		</div>
-	);
-};
-
-/*******************
- * Details
- *******************/
-
-type DetailsContentType = {
-	id: string;
-	title?: string;
-	className: string;
-	text: string;
-	isLoading: boolean;
-	as: HTMLTextElement;
-};
-
-interface DetailsProps {
-	content: DetailsContentType[];
-}
-
-const Details = ({ content }: DetailsProps) => {
-	return (
-		<div className={styles.Details}>
-			<ul className={styles.TextContent}>
-				{content.map((e) => (
-					<li key={e.id}>
-						{e?.title && <span className={styles.InfoTitle}>{e?.title}</span>}
-						<SkeletonText
-							className={e?.className}
-							as={e?.as}
-							asyncText={{
-								text: e?.text,
-								isLoading: e?.isLoading,
-							}}
-						/>
-					</li>
-				))}
-			</ul>
+			<div className={styles.Media}>
+				<IpfsMedia className={styles.Image} alt={imageAlt} src={imageSrc} />
+			</div>
+			<div className={styles.Details}>
+				<div className={styles.Domain}>
+					<h2 className={styles.Title}>
+						<SkeletonText asyncText={{ isLoading: isLoading, text: title }} />
+					</h2>
+					<span className={styles.ZNA}>0://{truncatedZna}</span>
+				</div>
+				<ul className={styles.TextContent}>
+					{content.map((e) => (
+						<li key={e.id}>
+							<TextStack
+								label={e.title}
+								primaryText={{
+									text: e.text,
+									isLoading: e.isLoading,
+								}}
+								secondaryText={''}
+							/>
+						</li>
+					))}
+				</ul>
+			</div>
 		</div>
 	);
 };

@@ -9,7 +9,6 @@ import { SkeletonText, TextStack } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './NFTDetails.module.scss';
-import { ViewBidsButton } from '../../../../../view-bids';
 
 export interface NFTDetailsProps {
 	zna: string;
@@ -120,7 +119,9 @@ const Details = ({
 		<div className={styles.Details}>
 			<div className={styles.Domain}>
 				<h2 className={styles.Title}>
-					<SkeletonText asyncText={{ isLoading: isLoadingTitle, title }} />
+					<SkeletonText
+						asyncText={{ isLoading: isLoadingTitle, text: title }}
+					/>
 				</h2>
 				<span className={styles.ZNA}>0://{truncatedZna}</span>
 			</div>
@@ -133,6 +134,7 @@ const Details = ({
 								text: e.text,
 								isLoading: e.isLoading,
 							}}
+							secondaryText={''}
 						/>
 					</li>
 				))}
