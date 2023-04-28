@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import { formatEthers } from '../../../../../../lib/util';
 import { usePlaceBidData } from '../../../../usePlaceBidData';
 import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
 import { ViewBidsButton } from '../../../../../view-bids';
-import { SkeletonText } from '@zero-tech/zui/components';
+import { SkeletonText, TextStack } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './NFTDetails.module.scss';
@@ -35,16 +35,10 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 
 	const textContent = [
 		{
-			id: 'title',
-			className: styles.Title,
-			text: title,
-			isLoading: isLoadingMetadata,
-			as: 'h1' as const,
-		},
-		{
-			id: 'zna',
-			className: styles.ZNA,
-			text: `0://${truncatedZna}`,
+			id: 'creator',
+			title: 'Creator',
+			className: styles.InfoValue,
+			text: truncatedCreatorAddress,
 			isLoading: isLoadingDomain,
 			as: 'span' as const,
 		},
@@ -56,14 +50,6 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 			isLoading: isLoadingBidData,
 			as: 'span' as const,
 		},
-		{
-			id: 'creator',
-			title: 'Creator',
-			className: styles.InfoValue,
-			text: truncatedCreatorAddress,
-			isLoading: isLoadingDomain,
-			as: 'span' as const,
-		},
 	];
 
 	return (
@@ -72,18 +58,24 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 				<IpfsMedia className={styles.Image} alt={imageAlt} src={imageSrc} />
 			</div>
 			<div className={styles.Details}>
+				<div className={styles.Domain}>
+					<h2 className={styles.Title}>
+						<SkeletonText
+							asyncText={{ isLoading: isLoadingMetadata, text: title }}
+						/>
+					</h2>
+					<span className={styles.ZNA}>0://{truncatedZna}</span>
+				</div>
 				<ul className={styles.TextContent}>
 					{textContent.map((e) => (
 						<li key={e.id}>
-							{e?.title && <span className={styles.InfoTitle}>{e.title}</span>}
-
-							<SkeletonText
-								className={e.className}
-								as={e.as}
-								asyncText={{
+							<TextStack
+								label={e.title}
+								primaryText={{
 									text: e.text,
 									isLoading: e.isLoading,
 								}}
+								secondaryText={''}
 							/>
 						</li>
 					))}

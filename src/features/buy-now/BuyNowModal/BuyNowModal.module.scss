@@ -1,4 +1,6 @@
+@import '../../../styles/breakpoints';
+@import '../variables';
+
 .Container {
-	width: 35.625rem;
-	padding: 3rem;
+	@include modal-breakpoint($modal-width);
 }

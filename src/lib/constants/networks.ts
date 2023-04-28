@@ -9,7 +9,7 @@ export enum NETWORK_TYPES {
 	LOCAL = 'LOCAL',
 }
 
-const ENV_NETWORK = process.env.REACT_APP_DEFAULT_NETWORK;
+// const ENV_NETWORK = process.env.REACT_APP_DEFAULT_NETWORK;
 export const DEFAULT_NETWORK = Network.MAINNET;
 
 interface NetworkConfig {

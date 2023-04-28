@@ -1,6 +1,6 @@
-.Container {
-	width: 100vw;
-	padding: 3rem;
+@import '../../../styles/breakpoints';
+@import '../variables';
 
-	box-sizing: border-box;
+.Container {
+	@include modal-breakpoint($modal-width);
 }

@@ -1,5 +1,32 @@
+$breakpoint-increment: 50;
+$breakpoint-modal-padding: 1rem;
+
 @mixin container-breakpoint($value) {
 	[data-container-breakpoints*='-#{$value}'] & {
 		@content;
+	}
+}
+
+@mixin modal-breakpoint($modal-width) {
+	box-sizing: border-box;
+	margin: auto;
+
+	@media (max-width: $modal-width) {
+		padding: $breakpoint-modal-padding;
+		min-height: 100vh;
+		border-radius: 0;
+		width: 100vw;
+
+		*[class="zui-wizard-header"] {
+			h2 {
+				margin: 0;
+			}
+		}
+	}
+
+	@media (min-width: $modal-width) {
+		padding: $modal-padding;
+		width: $modal-width;
+		min-height: unset;
 	}
 }

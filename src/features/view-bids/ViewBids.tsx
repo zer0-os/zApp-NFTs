@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
 
-import { useWeb3 } from '../../lib/hooks/useWeb3';
+import { useWeb3 } from '../../lib/hooks';
 import { useViewBidsData } from './useViewBidsData';
-import { sortBidsByTime, formatEthers } from '../../lib/util';
+import { formatEthers, sortBidsByTime } from '../../lib/util';
 import { truncateAddress } from '@zero-tech/zui/utils';
 import { Bid } from '@zero-tech/zauction-sdk';
 import moment from 'moment';
 
-import { AcceptBidButton } from '../../features/accept-bid';
+import { AcceptBidButton } from '../accept-bid';
 import { TextStack, Wizard } from '@zero-tech/zui/components';
 
 import styles from './ViewBids.module.scss';
@@ -55,7 +55,7 @@ export const ViewBids: FC<ViewBidsProps> = ({ zna }) => {
 					)}
 					<BidList
 						zna={zna}
-						bids={bidsToShow}
+						bids={bidsToShow.concat(bidsToShow).concat(bidsToShow)}
 						paymentTokenSymbol={paymentTokenSymbol}
 						isAcceptBidEnabled={isOwnedByUser}
 					/>

@@ -5,9 +5,7 @@
 .Container {
 	display: flex;
 	flex-wrap: wrap;
-	padding: 0;
 	gap: 1.5rem;
-	list-style: none;
 	flex-direction: column;
 
 	@include container-breakpoint(400) {
@@ -22,18 +20,8 @@
 			width: auto;
 		}
 
-		label {
-			color: $purple-lightest;
-			font-size: $size-tiny;
-		}
-
-		span:last-child {
-			overflow: unset;
-			margin-top: 0.75rem;
-		}
-
-		.Value {
-			font-size: $size-large;
+		> *:last-child {
+			margin-top: 0.5rem;
 		}
 	}
 }

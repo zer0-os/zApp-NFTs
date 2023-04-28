@@ -3,13 +3,11 @@ import { ReactNode } from 'react';
 import { OptionLabel } from '../../../../ui';
 import { ViewBidsModal } from '../../../../view-bids';
 import { SetBuyNowModal } from '../../../../set-buy-now';
-import { CreateTokenModal } from '../../../../create-token';
 import { DomainSettingsModal } from '../../../../domain-settings';
 import { TransferOwnershipModal } from '../../../../transfer-ownership';
 import {
 	IconCube1,
 	IconCurrencyDollar,
-	IconDatabase2,
 	IconImage1,
 	IconSend3,
 	IconTag1,
@@ -124,12 +122,12 @@ export const dropdownOptionConfig = [
 		icon: <IconCurrencyDollar isFilled />,
 		modalComponent: ViewBidsModal,
 	},
-	{
-		id: DropdownOptionType.CREATE_TOKEN,
-		label: 'Create Token',
-		icon: <IconDatabase2 isFilled />,
-		modalComponent: CreateTokenModal,
-	},
+	// {
+	// 	id: DropdownOptionType.CREATE_TOKEN,
+	// 	label: 'Create Token',
+	// 	icon: <IconDatabase2 isFilled />,
+	// 	modalComponent: CreateTokenModal,
+	// },
 	{
 		id: DropdownOptionType.DOMAIN_SETTINGS,
 		label: 'My Domain Settings',

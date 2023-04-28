@@ -1,14 +1,16 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import { Step } from '../../hooks';
-import { useSetBuyNowData } from '../../../../useSetBuyNowData';
 import { HTMLTextElement } from '@zero-tech/zui/lib/types';
 import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
-import { SkeletonText } from '@zero-tech/zui/components';
+import { SkeletonText, TextStack } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './NFTDetails.module.scss';
+
+// note: getting from useBuyNowData as a quick hack - should rewrite for this component
+import { useBuyNowData } from '../../../../../buy-now/useBuyNowData';
 
 export interface NFTDetailsProps {
 	zna: string;
@@ -16,35 +18,13 @@ export interface NFTDetailsProps {
 }
 
 export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
-	const {
-		title,
-		creator,
-		imageAlt,
-		imageSrc,
-		highestBidAsString,
-		buyNowPriceAsString,
-		hasExistingBuyNow,
-		isLoading,
-	} = useSetBuyNowData(zna);
+	const { title, creator, imageAlt, imageSrc, highestBidAsString, isLoading } =
+		useBuyNowData(zna);
 
 	const truncatedZna = truncateDomain(zna, 20);
 	const truncatedCreatorAddress = truncateAddress(creator);
 
 	const detailContent: DetailsContentType[] = [
-		{
-			id: 'title',
-			className: styles.Title,
-			text: title,
-			isLoading: isLoading,
-			as: 'h1' as const,
-		},
-		{
-			id: 'zna',
-			className: styles.ZNA,
-			text: `0://${truncatedZna}`,
-			isLoading: isLoading,
-			as: 'span' as const,
-		},
 		{
 			id: 'creator',
 			title: 'Creator',
@@ -61,25 +41,20 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 			isLoading: isLoading,
 			as: 'span' as const,
 		},
-		{
-			id: 'buy-now-price',
-			title: 'Buy Now Price',
-			className: styles.InfoValue,
-			text: buyNowPriceAsString,
-			isLoading: isLoading,
-			as: 'span' as const,
-		},
 	];
 
 	const content =
-		!hasExistingBuyNow && (step === Step.DETAILS || step === Step.CONFIRM)
-			? detailContent.slice(0, -1)
-			: detailContent;
+		step === Step.COMPLETE ? detailContent.slice(0, -1) : detailContent;
 
 	return (
 		<div className={styles.Container}>
 			<Media alt={imageAlt} src={imageSrc} />
-			<Details content={content} />
+			<Details
+				content={content}
+				isLoadingTitle={isLoading}
+				truncatedZna={truncatedZna}
+				title={title}
+			/>
 		</div>
 	);
 };
@@ -116,22 +91,37 @@ type DetailsContentType = {
 
 interface DetailsProps {
 	content: DetailsContentType[];
+	truncatedZna: string;
+	isLoadingTitle: boolean;
+	title?: string;
 }
 
-const Details = ({ content }: DetailsProps) => {
+const Details = ({
+	content,
+	truncatedZna,
+	isLoadingTitle,
+	title,
+}: DetailsProps) => {
 	return (
 		<div className={styles.Details}>
+			<div className={styles.Domain}>
+				<h2 className={styles.Title}>
+					<SkeletonText
+						asyncText={{ isLoading: isLoadingTitle, text: title }}
+					/>
+				</h2>
+				<span className={styles.ZNA}>0://{truncatedZna}</span>
+			</div>
 			<ul className={styles.TextContent}>
 				{content.map((e) => (
 					<li key={e.id}>
-						{e?.title && <span className={styles.InfoTitle}>{e?.title}</span>}
-						<SkeletonText
-							className={e?.className}
-							as={e?.as}
-							asyncText={{
-								text: e?.text,
-								isLoading: e?.isLoading,
+						<TextStack
+							label={e.title}
+							primaryText={{
+								text: e.text,
+								isLoading: e.isLoading,
 							}}
+							secondaryText={''}
 						/>
 					</li>
 				))}
