@@ -15,7 +15,6 @@ import { BuyNowButton } from '../../buy-now';
 import { GridCard } from '@zero-tech/zui/components/GridCard';
 import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
 
-import * as selectors from '../selectors';
 import styles from './SubdomainTableCard.module.scss';
 
 type SubdomainTableCardProps = {
@@ -24,15 +23,13 @@ type SubdomainTableCardProps = {
 
 const Card: FC<SubdomainTableCardProps> = ({ zna }) => {
 	const {
-		highestBid,
+		highestBidAmount,
 		buyNowPrice,
 		metadata,
 		image,
 		alt,
-		isLoadingMetrics,
-		isLoadingMetadata,
+		isLoading,
 		paymentTokenLabel,
-		isOwnedByUser,
 		handleItemClick,
 	} = useSubdomainTableItem({
 		zna,
@@ -58,7 +55,7 @@ const Card: FC<SubdomainTableCardProps> = ({ zna }) => {
 
 	const metric = buyNowPrice?.price
 		? formatEthers(buyNowPrice.price.toString())
-		: highestBid;
+		: highestBidAmount;
 	const label = (buyNowPrice ? 'Buy Now' : 'Top Bid') + ' ' + paymentTokenLabel;
 
 	const button = buyNowPrice ? (
@@ -87,18 +84,18 @@ const Card: FC<SubdomainTableCardProps> = ({ zna }) => {
 			<NFT
 				title={{
 					text: metadata?.title,
-					isLoading: isLoadingMetadata,
+					isLoading: isLoading,
 					errorText: '-',
 				}}
 				zna={zna}
 				label={label}
 				primaryText={{
 					text: metric,
-					isLoading: isLoadingMetrics,
+					isLoading: isLoading,
 					errorText: '-',
 				}}
 				secondaryText={''}
-				button={!isOwnedByUser && button}
+				button={button}
 			/>
 		</GridCard>
 	);
