@@ -13,7 +13,7 @@
 		border-radius: calc($radius-primary / 2);
 
 		// so height includes thumbnail
-		margin-bottom: $thumbnail-height / 2;
+		margin-bottom: calc($thumbnail-height / 2);
 
 		.Media {
 			height: 100%;
@@ -22,7 +22,7 @@
 		}
 
 		.Thumbnail {
-			margin-top: $thumbnail-height / -2;
+			margin-top: calc($thumbnail-height / -2);
 			padding-bottom: 2.5rem;
 
 			.Icon {
