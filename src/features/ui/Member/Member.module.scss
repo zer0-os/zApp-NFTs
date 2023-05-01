@@ -1,4 +1,5 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Member {
@@ -10,7 +11,7 @@
 		margin-bottom: 0.125rem;
 
 		&[data-variant='primary'] {
-			color: $purple-lightest;
+			color: $color-greyscale-11;
 		}
 
 		&[data-variant='secondary'] {
