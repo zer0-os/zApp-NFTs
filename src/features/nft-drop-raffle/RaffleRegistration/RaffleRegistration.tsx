@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Button, Input } from '@zero-tech/zui/components';
+import React, { useState } from 'react';
+import { Button, Input, Wizard } from '@zero-tech/zui/components';
 
 import styles from './RaffleRegistration.module.scss';
 import { Spinner } from '@zero-tech/zui/components/LoadingIndicator';
@@ -7,7 +7,7 @@ import { Spinner } from '@zero-tech/zui/components/LoadingIndicator';
 import iconDiscord from '../../../assets/discord.png';
 import iconTwitter from '../../../assets/twitter.png';
 import { ethers } from 'ethers';
-import { ConnectWallet } from '../../../features/ui';
+import { ConnectWallet } from '../../ui';
 import {
 	formatNumber,
 	formatByDecimalPlace,
@@ -15,16 +15,16 @@ import {
 } from '../../../lib/util';
 import { useCurrency } from '../../../lib/hooks/useCurrency';
 
-type RaffleRegistrationProps = {
+export interface RaffleRegistrationProps {
 	isWalletConnected: boolean;
 	account: string | undefined;
 	drop: string | undefined;
 	onSubmit: (statusCallback: (status: string) => void) => Promise<void>;
 	onSubmitEmail: (email: string) => Promise<boolean>;
 	closeOverlay: () => void;
-};
+}
 
-enum Steps {
+export enum Steps {
 	AboutRaffle,
 	WalletAddress,
 	CurrentBalances,
@@ -480,11 +480,10 @@ export const RaffleRegistration = (props: RaffleRegistrationProps) => {
 	};
 
 	return (
-		<div className={`${styles.Container} border-primary border-rounded`}>
-			<section className={styles.Header}>
-				<h1 className="glow-text-white">Join The Mintlist Raffle</h1>
-				<hr />
-			</section>
+		<Wizard.Container
+			header={'Join The Mintlist Raffle'}
+			className={styles.Container}
+		>
 			<section>
 				{!isLoadingRegistration && <>{stepNode()}</>}
 				{isLoadingRegistration && (
@@ -494,8 +493,6 @@ export const RaffleRegistration = (props: RaffleRegistrationProps) => {
 					</div>
 				)}
 			</section>
-		</div>
+		</Wizard.Container>
 	);
 };
-
-export default RaffleRegistration;

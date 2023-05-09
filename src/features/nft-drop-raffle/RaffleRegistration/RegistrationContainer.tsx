@@ -1,11 +1,13 @@
 import RaffleRegistration from './RaffleRegistration';
 import { Maybe } from '@zero-tech/zsale-sdk';
 import { useWeb3 } from '../../../lib/hooks';
+import { Modal } from '@zero-tech/zui/components';
 
-type RegistrationContainerProps = {
+export interface RegistrationContainerProps {
 	closeOverlay: () => void;
-};
-const RegistrationContainer = (props: RegistrationContainerProps) => {
+}
+
+export const RegistrationContainer = (props: RegistrationContainerProps) => {
 	const { account, provider, chainId } = useWeb3();
 	const drop = 'Kicks-S2';
 
@@ -130,19 +132,15 @@ const RegistrationContainer = (props: RegistrationContainerProps) => {
 	};
 
 	return (
-		<RaffleRegistration
-			isWalletConnected={!!account}
-			account={account || ''}
-			drop={drop}
-			onSubmit={submit}
-			onSubmitEmail={submitEmail}
-			closeOverlay={props.closeOverlay}
-		/>
+		<Modal open={true} onOpenChange={props.closeOverlay}>
+			<RaffleRegistration
+				isWalletConnected={!!account}
+				account={account || ''}
+				drop={drop}
+				onSubmit={submit}
+				onSubmitEmail={submitEmail}
+				closeOverlay={props.closeOverlay}
+			/>
+		</Modal>
 	);
 };
-
-export default RegistrationContainer;
-function statusCallback(arg0: string) {
-	throw new Error('Function not implemented.');
-}
-

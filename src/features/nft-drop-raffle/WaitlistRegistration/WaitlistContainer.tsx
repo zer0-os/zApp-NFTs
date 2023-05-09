@@ -1,8 +1,13 @@
 import { useState } from 'react';
 
-import WaitlistRegistration from './WaitlistRegistration';
+import { Modal } from '@zero-tech/zui/components';
+import { WaitlistRegistration } from './WaitlistRegistration';
 
-const WaitlistContainer = () => {
+export interface WaitlistContainerProps {
+	onClose: () => void;
+}
+
+export const WaitlistContainer = ({ onClose }: WaitlistContainerProps) => {
 	const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
 
 	const submitEmail = (email: string): Promise<boolean> => {
@@ -27,8 +32,11 @@ const WaitlistContainer = () => {
 	};
 
 	return (
-		<WaitlistRegistration hasSubmitted={hasSubmitted} onSubmit={submitEmail} />
+		<Modal open={true} onOpenChange={onClose}>
+			<WaitlistRegistration
+				hasSubmitted={hasSubmitted}
+				onSubmit={submitEmail}
+			/>
+		</Modal>
 	);
 };
-
-export default WaitlistContainer;

@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import styles from './WaitlistRegistration.module.scss';
-import { isValidEmail } from './validation';
+
+import { Input, Wizard } from '@zero-tech/zui/components';
 import { Spinner } from '@zero-tech/zui/components/LoadingIndicator';
+import { isValidEmail } from './validation';
 
 import iconDiscord from '../../../assets/discord.png';
 import iconTwitter from '../../../assets/twitter.png';
-import { Button, Input } from '@zero-tech/zui/components';
+
+import styles from './WaitlistRegistration.module.scss';
 
 type WaitlistRegistrationProps = {
 	hasSubmitted: boolean;
@@ -43,11 +45,8 @@ export const WaitlistRegistration = (props: WaitlistRegistrationProps) => {
 	};
 
 	return (
-		<div className={`${styles.Container} border-primary border-rounded`}>
-			<section className={styles.Header}>
-				<h1 className="glow-text-white">Guarantee Your GENs</h1>
-				<hr />
-			</section>
+		<Wizard.Container className={styles.Container}>
+			<Wizard.Header header={'Guarantee Your GENs'} />
 			{!props.hasSubmitted && (
 				<section>
 					<label className={styles.Label}>
@@ -62,9 +61,11 @@ export const WaitlistRegistration = (props: WaitlistRegistrationProps) => {
 								value={userEmail}
 							/>
 							{error && <span className={styles.Error}>{error}</span>}
-							<Button className={styles.Button} onPress={onSubmit}>
-								Continue
-							</Button>
+							<Wizard.Buttons
+								onClickPrimaryButton={onSubmit}
+								primaryButtonText={'Continue'}
+								isPrimaryButtonActive={isValidEmail(userEmail || '')}
+							/>
 						</>
 					)}
 					{isLoading && (
@@ -103,8 +104,6 @@ export const WaitlistRegistration = (props: WaitlistRegistrationProps) => {
 					</div>
 				</>
 			)}
-		</div>
+		</Wizard.Container>
 	);
 };
-
-export default WaitlistRegistration;
