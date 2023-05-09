@@ -1,7 +1,15 @@
-@use '../../styles/dimensions';
+@import '../../styles/breakpoints';
 
 .Main {
-	margin: 0 auto;
-	padding-bottom: 50px;
-	max-width: dimensions.$content-max-width;
+	$bottom-padding: 5rem;
+
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	margin: 5.5rem auto 0 auto;
+	max-width: calc(736px + 2rem);
+	padding: 0 1rem $bottom-padding 1rem;
+
+	box-sizing: border-box;
 }

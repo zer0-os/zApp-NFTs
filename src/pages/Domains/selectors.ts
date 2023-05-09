@@ -1,1 +1,3 @@
-export const domainsContainer = 'domains-container';
+export enum DomainsPageSelector {
+	DOMAINS_PAGE_CONTAINER = 'domains-page-container',
+}

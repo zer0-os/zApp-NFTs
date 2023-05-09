@@ -1,3 +1,4 @@
+export * from './asset';
 export * from './bids';
 export * from './domains';
 export * from './ipfs';

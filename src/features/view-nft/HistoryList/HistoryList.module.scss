@@ -1,8 +1,40 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/theme';
+@import '../../../styles/breakpoints';
+
 .Container {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
 
-	list-style: none;
-	padding: 0;
+	li {
+		display: flex;
+		flex-direction: column-reverse;
+		gap: 0.125rem;
+
+		> *:last-child {
+			font-size: 0.75rem;
+		}
+
+		@include container-breakpoint(600) {
+			flex-direction: row;
+			gap: 0.5rem;
+
+			> *:last-child {
+				font-size: unset;
+			}
+		}
+	}
+}
+
+.History {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+
+	h4 {
+		margin: 0;
+		font-size: 0.75rem;
+		font-weight: normal;
+		color: $color-greyscale-10;
+	}
 }

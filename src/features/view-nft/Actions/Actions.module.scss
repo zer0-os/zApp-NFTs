@@ -1,27 +1,27 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+@import '../../../styles/_breakpoints.scss';
 
 .Container {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 2.5rem;
-	padding: 0;
-	margin: 0 0 3rem 0;
-	list-style: none;
+	gap: 1.5rem;
+	flex-direction: column;
+
+	@include container-breakpoint(400) {
+		flex-direction: row;
+		gap: 2.5rem;
+	}
 
 	.Action {
-		label {
-			color: $purple-lightest;
-			font-size: $size-tiny;
+		width: 100%;
+
+		@include container-breakpoint(400) {
+			width: auto;
 		}
 
-		span:last-child {
-			overflow: unset;
-			margin-top: 0.75rem;
-		}
-
-		.Value {
-			font-size: $size-large;
+		> *:last-child {
+			margin-top: 0.5rem;
 		}
 	}
 }

@@ -12,6 +12,8 @@ import {
 	TokenHashInfo,
 } from '../../features/view-nft';
 
+import { NFTPageSelector } from './selectors';
+
 import styles from './NFT.module.scss';
 
 export const NFT = () => {
@@ -21,7 +23,10 @@ export const NFT = () => {
 		<>
 			<NFTBannerContainer zna={currentZna} />
 
-			<main className={styles.Main}>
+			<main
+				className={styles.Main}
+				data-testid={NFTPageSelector.NFT_MAIN_CONTAINER}
+			>
 				<ZAppContent className={styles.Content}>
 					<NFTDetailsCard zna={currentZna} />
 					<Actions zna={currentZna} />

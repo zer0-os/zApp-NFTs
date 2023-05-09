@@ -1,22 +1,25 @@
 @import '../../../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
 @import '../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
 
-.Container {
+.Options {
 	display: flex;
 	align-items: center;
 	background: $purple-10;
 	border-radius: calc($radius-primary / 2);
 	height: 2.313rem;
+	z-index: 2;
 
 	.Icon {
 		color: $blue;
 	}
 
-	button {
+	.Button {
 		display: flex;
 		justify-content: center;
-		width: 3.5rem;
+		width: 3rem;
 		border: none;
 		background: none;
+		cursor: pointer;
+		outline: none;
 	}
 }

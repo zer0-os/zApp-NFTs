@@ -26,7 +26,7 @@ export const HistoryList: FC<HistoryListProps> = ({ zna }) => {
 	const sortedDomainEvents = sortEventsByTimestamp(domainEvents);
 
 	return (
-		<section>
+		<section className={styles.History}>
 			<h4>History</h4>
 
 			<ul className={styles.Container}>

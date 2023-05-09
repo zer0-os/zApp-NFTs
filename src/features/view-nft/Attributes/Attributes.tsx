@@ -54,14 +54,14 @@ export const Attributes: FC<AttributesProps> = ({ zna }) => {
 		return metadata.attributes.slice(0, visibleAttributesCount);
 	}, [metadata, isToggled, initialVisibleAttributesCount]);
 
-	if (visibleAttributes.length === 0) {
-		return null;
-	}
-
 	useResize({
 		onResize: setContainerWidth,
 		targetRef: containerRef,
 	});
+
+	if (visibleAttributes.length === 0) {
+		return null;
+	}
 
 	return (
 		<section className={styles.AttributesSection}>

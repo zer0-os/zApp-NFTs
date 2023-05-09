@@ -16,13 +16,13 @@ type SubdomainTableRowProps = {
 
 const Row: FC<SubdomainTableRowProps> = ({ zna }) => {
 	const {
-		volume,
+		highestBidAmount,
+		paymentTokenLabel,
 		buyNowPrice,
 		metadata,
 		image,
 		alt,
-		isLoadingMetrics,
-		isLoadingMetadata,
+		isLoading,
 		isOwnedByUser,
 		handleItemClick,
 	} = useSubdomainTableItem({
@@ -54,7 +54,7 @@ const Row: FC<SubdomainTableRowProps> = ({ zna }) => {
 						<SkeletonText
 							asyncText={{
 								text: metadata?.title,
-								isLoading: isLoadingMetadata,
+								isLoading: isLoading,
 							}}
 						/>
 						<span>0://{zna}</span>
@@ -64,8 +64,9 @@ const Row: FC<SubdomainTableRowProps> = ({ zna }) => {
 			<Cell alignment={'right'} className={styles.Metrics}>
 				<SkeletonText
 					asyncText={{
-						text: volume,
-						isLoading: isLoadingMetrics,
+						text:
+							highestBidAmount && `${highestBidAmount} ${paymentTokenLabel}`,
+						isLoading: isLoading,
 						errorText: '-',
 					}}
 				/>

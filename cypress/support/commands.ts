@@ -8,9 +8,9 @@ import '@testing-library/cypress/add-commands';
 import { configure } from '@testing-library/cypress';
 
 /**
- * Configuration for use of data-test-id attribute
+ * Configuration for use of data-testid attribute
  */
-configure({ testIdAttribute: 'data-test-id' });
+configure({ testIdAttribute: 'data-testid' });
 
 /**
  * Intercept current user request on page load to skip signature request
@@ -54,8 +54,8 @@ Cypress.Commands.add('connectWithMetamask', () => {
  */
 Cypress.Commands.add(
 	'assertUrl',
-	(assertionType: ContainAssertionChainType, url: string) => {
-		cy.url().should(assertionType, `/0.${url}/nfts`);
+	(assertionType: ContainAssertionChainType, zna: string, query?: string) => {
+		cy.url().should(assertionType, `/0.${zna}/nfts${query ? `?${query}` : ''}`);
 	},
 );
 

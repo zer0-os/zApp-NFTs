@@ -1,15 +1,27 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_dimensions.scss';
+@import '../../../styles/breakpoints';
 
 .Banner {
 	position: relative;
 	display: flex;
 
 	width: 100%;
-	height: 70vh;
-	padding: 5.375rem 2rem 1rem 2rem;
 
-	background: #0D0911;
+	padding: 5.375rem 1.5rem 1rem 1.5rem;
+	height: 27.938rem;
+
+	@include container-breakpoint(300) {
+		height: 30.688rem;
+		padding: 5.375rem 2rem 1rem 2rem;
+	}
+
+	img, video {
+		max-height: 100%;
+		max-width: 100%;
+	}
+
+	background: #0d0911;
 
 	box-sizing: border-box;
 
@@ -18,7 +30,11 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		background: radial-gradient(50% 100% at 50% 100%, #F10B09 0%, rgba(243, 16, 15, 0) 100%);
+		background: radial-gradient(
+			50% 100% at 50% 100%,
+			#f10b09 0%,
+			rgba(243, 16, 15, 0) 100%
+		);
 		opacity: 0.2;
 		height: 100%;
 		width: 100%;
@@ -33,7 +49,7 @@
 		/*
 		 * Hide loading skeleton while we work on a better solution
 		 */
-		span[aria-busy="true"] {
+		span[aria-busy='true'] {
 			display: none;
 		}
 

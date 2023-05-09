@@ -1,0 +1,7 @@
+@import '../../../styles/breakpoints';
+
+.Settings {
+    @media (max-width: 600px) {
+        display: none;
+    }
+}

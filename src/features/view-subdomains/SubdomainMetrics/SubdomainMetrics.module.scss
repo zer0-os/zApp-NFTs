@@ -1,0 +1,9 @@
+@import '../../../styles/breakpoints';
+
+.Stats {
+    display: none;
+
+    @include container-breakpoint(500) {
+        display: flex;
+    }
+}

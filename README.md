@@ -62,7 +62,7 @@ Example: `npx env-cmd cypress run --browser chrome --headed --spec "cypress/e2e/
 
 #### Data Test ID Selectors
 
-The `data-test-id={}` attribute has been added so we can create a more robust and predictable way to select elements for testing purposes, without relying on specific class names or other properties that may be subject to change. Additionally, defining constants for `data-test-id` values makes the test code more readable and maintainable.
+The `data-testid={}` attribute has been added so we can create a more robust and predictable way to select elements for testing purposes, without relying on specific class names or other properties that may be subject to change. Additionally, defining constants for `data-testid` values makes the test code more readable and maintainable.
 
 Example file tree with `selectors.ts`:
 
@@ -74,10 +74,10 @@ Example file tree with `selectors.ts`:
     └── index.ts
 ```
 
-Example usage of `data-test-id` attribute:
+Example usage of `data-testid` attribute:
 
 ```
-<main className={styles.Main} data-test-id={selectors.domainsContainer}>
+<main className={styles.Main} data-testid={selectors.domainsContainer}>
 ```
 
 Example usage of selectors in our test files:

@@ -5,13 +5,23 @@
 	padding-bottom: 50px;
 	max-width: dimensions.$content-max-width;
 
+	box-sizing: border-box;
+
+
 	.Content {
-		margin-top: 1rem;
 		height: unset;
+		margin: 1rem auto 0 auto;
+		max-width: calc(736px + 2rem);
+		padding: 0 1rem 3rem 1rem;
+
+		box-sizing: border-box;
 
 		> * {
 			&:first-child {
 				overflow-y: unset;
+				display: flex;
+				flex-direction: column;
+				gap: 1.5rem;
 			}
 		}
 	}

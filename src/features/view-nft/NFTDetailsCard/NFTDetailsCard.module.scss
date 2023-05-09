@@ -1,4 +1,13 @@
+@import '../../../styles/breakpoints';
+
+$gap: 1.5rem;
+
 .Content {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: $gap;
+
 	.TextContainer {
 		display: flex;
 		flex-direction: row;
@@ -6,28 +15,43 @@
 		align-items: center;
 
 		.Title {
-			font-size: 2.25rem;
-			line-height: 2.75rem;
+			font-size: 1.5rem;
 			margin: 0;
+
+			@include container-breakpoint(500) {
+				font-size: 2.25rem;
+				line-height: 2.75rem;
+			}
+		}
+	}
+
+	.Options {
+		display: flex;
+
+		@include container-breakpoint(500) {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: auto;
 		}
 	}
 
 	.FlexRowWrapper {
 		display: flex;
 		flex-direction: row;
-		margin-top: 1.5rem;
-		// TODO: remove margin bottom in follow up task
-		margin-bottom: 1.5rem;
 		width: 100%;
 		justify-content: space-between;
 
-		gap: 2.5rem;
+		gap: $gap;
 
 		.FlexColumnWrapper {
+			display: flex;
+			flex-direction: column;
+			gap: $gap;
+
 			.Description {
 				padding: 0;
 				margin: 0;
-				line-height: 1.5rem;
 				overflow: hidden;
 				display: -webkit-box;
 				-webkit-line-clamp: 3;
@@ -36,15 +60,11 @@
 
 			.MemberContainer {
 				display: flex;
-				padding: 0;
-				// TODO: change 0rem to 2rem in follow up task
-				margin: 0rem 0 0 0;
-				list-style: none;
+				flex-direction: column;
+				gap: $gap;
 
-				gap: 2rem;
-
-				a {
-					line-height: 1.5rem;
+				@include container-breakpoint(500) {
+					flex-direction: row;
 				}
 			}
 		}

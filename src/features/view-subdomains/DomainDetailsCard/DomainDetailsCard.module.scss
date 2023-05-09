@@ -2,8 +2,6 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
-	padding: 1.5rem 0;
-
 	.Content {
 		.Title {
 			font-size: $size-large;
@@ -18,7 +16,6 @@
 			margin-top: 1rem;
 
 			.Link {
-				color: $blue;
 				font-size: $size-tiny;
 			}
 		}

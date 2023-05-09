@@ -55,7 +55,7 @@ export const TokenHashInfo: FC<TokenHashInfoProps> = ({ zna }) => {
 
 	return (
 		<div className={styles.Container}>
-			<StatsList stats={stats} />
+			<StatsList className={styles.Info} stats={stats} />
 		</div>
 	);
 };

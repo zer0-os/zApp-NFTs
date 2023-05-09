@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { SubdomainMetrics } from './SubdomainMetrics';
 import { SubdomainTable } from './SubdomainTable';
 
-import * as selectors from './selectors';
+import { SubdomainViewSelector } from './selectors';
+
+import styles from './ViewSubdomains.module.scss';
 
 interface ViewSubdomainsProps {
 	zna: string;
@@ -11,8 +12,10 @@ interface ViewSubdomainsProps {
 
 export const ViewSubdomains = ({ zna }: ViewSubdomainsProps) => {
 	return (
-		<section data-test-id={selectors.viewSubdomainsSection}>
-			<SubdomainMetrics zna={zna} />
+		<section
+			className={styles.Container}
+			data-testid={SubdomainViewSelector.VIEW_SUBDOMAINS_SECTION}
+		>
 			<SubdomainTable zna={zna} />
 		</section>
 	);

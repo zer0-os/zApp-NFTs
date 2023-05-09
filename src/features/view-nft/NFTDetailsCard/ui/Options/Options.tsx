@@ -1,19 +1,34 @@
-import { FC } from 'react';
+import { FC, useCallback, useState } from 'react';
 
-import { getDomainId } from '../../../../../lib/util';
-import { useWeb3, useDomainData } from '../../../../../lib/hooks';
+import {
+	useWeb3,
+	useDomainData,
+	useDomainMetadata,
+} from '../../../../../lib/hooks';
+import {
+	generateDropdownOption,
+	getDownloadOptions,
+	DropdownOption,
+	dropdownOptionConfig,
+} from './helpers';
+import {
+	getDomainId,
+	useDownloadAsset,
+	useShareAsset,
+} from '../../../../../lib/util';
+import { NFT_ASSET_SHARE_KEYS } from '../../../../../lib/helpers';
 
-import { MoreNFTOptions } from '../../../../ui/MoreNFTOptions';
-import { Tooltip } from '@zero-tech/zui/components';
 import {
 	IconDotsVertical,
 	IconDownload2,
 	IconShare7,
 } from '@zero-tech/zui/components/Icons';
+import { DropdownMenu, Tooltip } from '@zero-tech/zui/components';
 
 import styles from './Options.module.scss';
 
 export type OptionsProps = {
+	className?: string;
 	zna: string;
 };
 
@@ -24,30 +39,97 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 	const domainId = getDomainId(zna);
 
 	const { account } = useWeb3();
+	const { shareAsset } = useShareAsset(zna);
+	const { downloadAsset } = useDownloadAsset();
 	const { data: domain } = useDomainData(domainId);
+	const { data: metadata } = useDomainMetadata(domainId);
+
+	const downloadOptions = getDownloadOptions(
+		downloadAsset,
+		metadata?.image,
+		metadata?.image_2,
+		metadata?.image_3,
+		metadata?.animation_url,
+	);
+
+	const onShareAsset = () => {
+		shareAsset(NFT_ASSET_SHARE_KEYS.TWITTER);
+	};
 
 	return (
-		<div className={styles.Container}>
-			{/* TODO: wire up share to twitter */}
-			<Tooltip content="Share to Twitter">
-				<button onClick={() => console.log('Share')}>
-					<IconShare7 color={'#52CBFF'} isFilled />
-				</button>
-			</Tooltip>
-
-			{/* TODO: wire up download for twitter */}
-			<Tooltip content="Download for Twitter">
-				<button onClick={() => console.log('Download')}>
-					<IconDownload2 color={'#52CBFF'} isFilled />
-				</button>
-			</Tooltip>
-
+		<div className={styles.Options}>
+			<ShareButton onClick={onShareAsset} />
+			<DownloadButton downloadOptions={downloadOptions} />
 			{domain?.owner?.toLowerCase() === account?.toLowerCase() && (
-				<MoreNFTOptions
+				<MoreOptionsButton
+					className={styles.Button}
 					zna={zna}
 					trigger={<IconDotsVertical className={styles.Icon} isFilled />}
 				/>
 			)}
 		</div>
+	);
+};
+
+/********************
+ * Share Asset Button
+ ********************/
+const ShareButton = ({ onClick }) => (
+	<Tooltip content="Share to Twitter">
+		<button className={styles.Button} onClick={onClick}>
+			<IconShare7 color={'#52CBFF'} isFilled />
+		</button>
+	</Tooltip>
+);
+
+/***********************
+ * Download Asset Button
+ ***********************/
+const DownloadButton = ({ downloadOptions }) => (
+	<DropdownMenu
+		className={styles.Button}
+		items={downloadOptions}
+		side="bottom"
+		alignMenu="end"
+		trigger={
+			<Tooltip content="Download for Twitter">
+				<IconDownload2 color={'#52CBFF'} isFilled />
+			</Tooltip>
+		}
+	/>
+);
+
+/*******************************
+ * More Options Dropdown Button
+ ******************************/
+export const MoreOptionsButton = ({ zna, trigger, className }) => {
+	const [option, setOption] = useState<DropdownOption | undefined>();
+
+	const onSelectOption = useCallback((e) => {
+		setOption(e.id);
+	}, []);
+
+	return (
+		<>
+			{dropdownOptionConfig.map(({ id, modalComponent: Modal }) => (
+				<Modal
+					key={id}
+					zna={zna}
+					open={option === id}
+					onOpenChange={(open) => !open && setOption(undefined)}
+					onClose={() => setOption(undefined)}
+				/>
+			))}
+
+			<DropdownMenu
+				className={className}
+				items={dropdownOptionConfig.map(({ id, label, icon }) =>
+					generateDropdownOption(id, label, icon, onSelectOption),
+				)}
+				side="bottom"
+				alignMenu="end"
+				trigger={trigger}
+			/>
+		</>
 	);
 };

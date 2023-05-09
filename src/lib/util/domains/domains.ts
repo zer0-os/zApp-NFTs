@@ -1,8 +1,5 @@
-import {
-	chainIdToNetworkType,
-	getEtherscanUri,
-} from '../../../lib/helpers/network';
-import { Network } from '../../../lib/constants/networks';
+import { chainIdToNetworkType, getEtherscanUri } from '../../helpers';
+import { Network } from '../../constants/networks';
 
 import { BigNumber, ethers } from 'ethers';
 import { Domain } from '@zero-tech/zns-sdk';

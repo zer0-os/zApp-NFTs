@@ -2,14 +2,18 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
 
 .Container {
+	$thumbnail-height: 7.5rem;
+
 	display: flex;
 	flex-direction: column;
-	margin: 6rem 0 4rem;
 
 	.Banner {
 		width: 100%;
 		height: 15rem;
 		border-radius: calc($radius-primary / 2);
+
+		// so height includes thumbnail
+		margin-bottom: calc($thumbnail-height / 2);
 
 		.Media {
 			height: 100%;
@@ -18,12 +22,12 @@
 		}
 
 		.Thumbnail {
-			margin-top: -3.75rem;
+			margin-top: calc($thumbnail-height / -2);
 			padding-bottom: 2.5rem;
 
 			.Icon {
-				height: 7.5rem;
-				width: 7.5rem;
+				height: $thumbnail-height;
+				width: $thumbnail-height;
 				margin-left: 0.5rem;
 				border-radius: 50%;
 				box-shadow: 0 0 1rem rgba($black, 0.5);
