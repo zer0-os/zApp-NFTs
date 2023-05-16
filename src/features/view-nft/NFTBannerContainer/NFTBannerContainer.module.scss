@@ -7,9 +7,11 @@
 	display: flex;
 
 	width: 100%;
-	padding: 5.375rem 1.5rem 1rem 1.5rem;
 
-	@include container-breakpoint(750) {
+	padding: 5.375rem 1.5rem 1rem 1.5rem;
+	height: 27.938rem;
+
+	@include container-breakpoint(300) {
 		height: 30.688rem;
 		padding: 5.375rem 2rem 1rem 2rem;
 	}
