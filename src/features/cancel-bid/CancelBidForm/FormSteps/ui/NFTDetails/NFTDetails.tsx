@@ -21,6 +21,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 		creator,
 		imageAlt,
 		imageSrc,
+		isMediaAnimated,
 		highestBid,
 		highestUserBid,
 		paymentTokenSymbol,
@@ -29,6 +30,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 
 	const truncatedZna = truncateDomain(zna, 20);
 	const truncatedCreatorAddress = truncateAddress(creator);
+	const mediaVariant = isMediaAnimated ? 'video' : 'image';
 
 	const formattedHighestBid = highestBid
 		? `${formatEthers(highestBid.amount)} ${paymentTokenSymbol}`
@@ -63,8 +65,8 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna, step }) => {
 		step === Step.COMPLETE ? detailContent.slice(0, -1) : detailContent;
 
 	return (
-		<div className={styles.Container}>
-			<div className={styles.Media}>
+		<div className={styles.Container} data-variant={mediaVariant}>
+			<div className={styles.Media} data-variant={mediaVariant}>
 				<IpfsMedia className={styles.Image} alt={imageAlt} src={imageSrc} />
 			</div>
 			<div className={styles.Details}>

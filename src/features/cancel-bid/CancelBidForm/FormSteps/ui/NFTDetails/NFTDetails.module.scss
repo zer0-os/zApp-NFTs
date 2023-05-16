@@ -16,13 +16,20 @@
 
 	@media (min-width: $modal-width) {
 		flex-direction: row;
+
+		&[data-variant='video'] {
+			align-items: center;
+		}
 	}
 
 	.Media {
-		height: 16.25rem;
 		width: 100%;
 		flex-shrink: 0;
 		box-sizing: border-box;
+
+		&[data-variant='image'] {
+			height: 16.25rem;
+		}
 
 		@media (max-width: $modal-width) {
 			margin: 0 auto;
@@ -64,9 +71,7 @@
 				font-size: $size-tiny;
 				color: $grey-lighter-2;
 			}
-
 		}
-
 
 		.TextContent {
 			display: flex;
