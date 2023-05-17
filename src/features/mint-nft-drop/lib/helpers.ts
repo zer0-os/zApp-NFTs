@@ -123,16 +123,14 @@ export const getNumberPurchasedByUser = async (
 	zSaleInstance: GenSaleInstance,
 	account: string,
 ) => {
-	const number = await zSaleInstance.getDomainsPurchasedByAccount(account);
-	return number;
+	return await zSaleInstance.getDomainsPurchasedByAccount(account);
 };
 
 export const getMaxPurchasesPerUser = async (
 	zSaleInstance: GenSaleInstance,
 	account: string,
 ) => {
-	const quantity = await zSaleInstance.numberPurchasableByAccount(account);
-	return quantity;
+	return await zSaleInstance.numberPurchasableByAccount(account);
 };
 
 export const getUserEligibility = async (
@@ -142,8 +140,7 @@ export const getUserEligibility = async (
 	if (TEST_MODE) {
 		return IS_ON_WHITELIST;
 	} else {
-		const isWhitelisted = await zSaleInstance.isUserOnMintlist(account);
-		return isWhitelisted;
+		return await zSaleInstance.isUserOnMintlist(account);
 	}
 };
 
@@ -154,8 +151,7 @@ const getWheelQuantities = async (
 		await new Promise((r) => setTimeout(r, 2000));
 		return TEST[TEST_STATE];
 	} else {
-		const data = await zSaleInstance.getSaleData();
-		return data;
+		return await zSaleInstance.getSaleData();
 	}
 };
 
