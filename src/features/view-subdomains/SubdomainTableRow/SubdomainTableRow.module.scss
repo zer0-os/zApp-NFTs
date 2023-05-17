@@ -1,10 +1,10 @@
-@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 
 .Container {
 	cursor: pointer;
 
 	&:hover {
-		background: $purple-10;
+		background: $color-primary-2;
 	}
 
 	.NFT {
@@ -28,7 +28,7 @@
 
 			> *:last-child {
 				font-size: 0.875rem;
-				color: $grey-lighter-3;
+				color: $color-greyscale-11;
 			}
 		}
 	}

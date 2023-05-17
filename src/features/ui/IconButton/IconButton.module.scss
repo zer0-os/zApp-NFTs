@@ -1,13 +1,13 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
-@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_animations.scss';
 
 .IconButton {
 	display: flex;
 	position: relative;
 	padding: 0;
-	color: $blue;
-	background-color: $black;
+	color: $color-secondary-11;
+	background-color: $color-black;
 	border: none;
 	cursor: pointer;
 	border-radius: calc($radius-primary/ 2);
@@ -27,20 +27,19 @@
 	}
 
 	&:hover {
-		text-shadow: $text-glow-primary;
-		background: $purple-15;
+		background: $color-primary-2;
 
 		&::after {
-			background: $purple-15;
+			background: $color-primary-2;
 		}
 	}
 
 	&.selectedIcon {
-		color: $text-primary;
-		background: $purple-15;
+		color: $color-primary-11;
+		background: $color-primary-2;
 
 		&::after {
-			box-shadow: 0 0 20px 13px rgba($white, 0.5);
+			box-shadow: 0 0 20px 13px rgba($color-white, 0.5);
 		}
 	}
 }
