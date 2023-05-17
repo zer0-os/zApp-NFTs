@@ -79,21 +79,21 @@
 	}
 
 	.Switch.On {
-		border: 1px solid $blue;
+		border: 1px solid var(--color-secondary-11);
 
 		&[data-variant='locked'] {
 			border: 1px solid $grey-lighter-2;
 		}
 
 		> div {
-			background-color: $blue !important;
+			background-color: var(--color-secondary-11) !important;
 
 			&[data-variant='locked'] {
 				background-color: $grey-lighter-2 !important;
 			}
 
 			> span {
-				color: $blue;
+				color: var(--color-secondary-11);
 
 				&[data-variant='locked'] {
 					color: $grey-lighter-2;

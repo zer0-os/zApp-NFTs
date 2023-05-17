@@ -33,7 +33,8 @@ export const useSetBuyNowData = (zna: string) => {
 	const paymentTokenSymbol = paymentToken?.symbol ?? '';
 	const paymentTokenPriceInUsd = paymentToken?.priceInUsd ?? '';
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
-	const imageSrc = metadata?.previewImage ?? metadata?.image;
+	const imageSrc =
+		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
 	const hasExistingBuyNow = Boolean(buyNowListingData?.price);
 
 	const buyNowPriceAsString = buyNowListingData?.price

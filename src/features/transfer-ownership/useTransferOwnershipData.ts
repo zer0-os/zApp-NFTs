@@ -23,6 +23,7 @@ export const useTransferOwnershipData = (zna: string) => {
 	const imageSrc =
 		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
+	const isMediaAnimated = Boolean(metadata?.animation_url);
 	const paymentTokenSymbol = paymentToken?.symbol ?? '';
 
 	const isLoading = isLoadingDomain || isLoadingBids || isLoadingMetadata;
@@ -33,6 +34,7 @@ export const useTransferOwnershipData = (zna: string) => {
 		creator,
 		imageSrc,
 		imageAlt,
+		isMediaAnimated,
 		highestBid,
 		allBids,
 		paymentTokenSymbol,

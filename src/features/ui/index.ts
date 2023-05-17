@@ -7,6 +7,8 @@ export * from './FormTextContent';
 export * from './FormUserBalance';
 export * from './IconButton';
 export * from './Media';
+export * from './ModalDetails';
+export * from './ModalDetailsContainer';
 export * from './OptionLabel';
 export * from './StatsList';
 export * from './Switch';
