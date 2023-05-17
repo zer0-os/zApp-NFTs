@@ -1,3 +1,4 @@
+export * from './useBalanceEth';
 export * from './useBidData';
 export * from './useBuyNowListing';
 export * from './useCurrentRoute';

@@ -21,7 +21,9 @@ export const BannerSeries = ({
 	backgroundImageSrc,
 	style,
 }: BannerSeriesProps) => {
-	const bannerToRender = banners?.find((banner) => banner.shouldRender);
+	const bannerToRender = banners?.find((banner) =>
+		Boolean(banner.shouldRender),
+	);
 
 	if (!bannerToRender) {
 		return null;

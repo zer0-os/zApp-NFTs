@@ -10,7 +10,7 @@ import styles from './Banner.module.scss';
 export interface BannerInfo {
 	buttonText?: string;
 	onClick?: (event: any) => void;
-	subtext: string | ReactNode;
+	subtext?: string | ReactNode;
 	text: string | ReactNode;
 }
 

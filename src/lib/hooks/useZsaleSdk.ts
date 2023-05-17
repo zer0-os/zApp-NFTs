@@ -1,7 +1,13 @@
 import { useContext } from 'react';
 
-import { ZsaleSdkContext } from '../providers/ZsaleSdkProvider';
+import { DropInstance, ZsaleSdkContext } from '../providers/ZsaleSdkProvider';
 
-export function useZsaleSdk() {
-	return useContext(ZsaleSdkContext);
+interface UseZsaleSdkParams {
+	dropInstance: DropInstance;
+}
+
+export function useZsaleSdk({ dropInstance }: UseZsaleSdkParams) {
+	const { getSdk } = useContext(ZsaleSdkContext);
+
+	return getSdk(dropInstance);
 }

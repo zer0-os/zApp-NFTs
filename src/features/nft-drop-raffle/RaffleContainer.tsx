@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 
+import { RaffleStage } from './lib/raffle';
+
 import { Banners, BannerSeries } from '../ui/BannerSeries/BannerSeries';
-import { RegistrationContainer } from './RaffleRegistration';
-import { WaitlistContainer } from './WaitlistRegistration';
-import { RaffleStage } from './raffle';
+import { WaitlistContainer, RegistrationContainer } from './components';
 
 import styles from './Raffle.module.scss';
 
