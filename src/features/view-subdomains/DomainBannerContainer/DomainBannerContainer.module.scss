@@ -1,5 +1,5 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
-@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 
 .Container {
 	$thumbnail-height: 7.5rem;
@@ -30,7 +30,7 @@
 				width: $thumbnail-height;
 				margin-left: 0.5rem;
 				border-radius: 50%;
-				box-shadow: 0 0 1rem rgba($black, 0.5);
+				box-shadow: 0 0 1rem rgba($color-black, 0.5);
 				z-index: 2;
 			}
 		}
