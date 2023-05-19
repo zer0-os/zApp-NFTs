@@ -91,8 +91,8 @@ export const DropForm = (props: MintDropNFTWizardProps) => {
 		if (step === Step.Info) {
 			return (
 				<Info
-					onContinue={() => console.log('yo')}
-					onDismiss={() => console.log('hey')}
+					onContinue={() => console.warn('unsupported')}
+					onDismiss={() => console.warn('unsupported')}
 				/>
 			);
 		}

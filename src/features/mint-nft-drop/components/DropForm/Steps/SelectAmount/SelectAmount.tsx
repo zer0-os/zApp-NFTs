@@ -66,7 +66,7 @@ export const SelectAmount = (props: SelectAmountProps) => {
 			/>
 
 			<Wizard.Buttons
-				onClickPrimaryButton={() => console.log('click')}
+				onClickPrimaryButton={() => console.warn('unsupported')}
 				isPrimaryButtonActive={isAmountValidNumber && hasUserAcceptedTerms}
 			/>
 		</form>
