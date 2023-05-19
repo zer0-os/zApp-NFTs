@@ -1,8 +1,8 @@
-@import '../../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 @import '../../../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Error {
-	color: $red-300;
+	color: $color-failure-11;
 	font-size: $size-default;
 	font-weight: $font-weight-bold;
 	line-height: 1.5rem;

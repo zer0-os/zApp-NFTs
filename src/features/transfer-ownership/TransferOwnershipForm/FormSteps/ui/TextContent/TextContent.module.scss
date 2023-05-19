@@ -1,10 +1,10 @@
-@import '../../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 
 .TextContent {
 	line-height: 1.5rem;
 
 	&[data-variant='success'] {
-		color: $success-green;
+		color: $color-success-11;
 		margin-bottom: 0;
 	}
 }

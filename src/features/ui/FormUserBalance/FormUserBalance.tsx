@@ -1,6 +1,4 @@
-import { SkeletonText } from '@zero-tech/zui/components';
-
-import styles from './FormUserBalance.module.scss';
+import { TextStack } from '@zero-tech/zui/components';
 
 export interface FormUserBalanceProps {
 	tokenBalance: string;
@@ -12,16 +10,10 @@ export const FormUserBalance = ({
 	isLoading,
 }: FormUserBalanceProps) => {
 	return (
-		<div className={styles.UserBalanceContainer}>
-			<label className={styles.Label}>{'Your Balance'}</label>
-			<SkeletonText
-				className={styles.Balance}
-				as={'span'}
-				asyncText={{
-					text: tokenBalance,
-					isLoading: isLoading,
-				}}
-			/>
-		</div>
+		<TextStack
+			label={'Your Balance'}
+			primaryText={{ text: tokenBalance, isLoading: isLoading }}
+			secondaryText={''}
+		/>
 	);
 };

@@ -1,4 +1,4 @@
-@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .FormContainer {
@@ -40,7 +40,7 @@
 		}
 
 		.SwitchSettingsContainer {
-			border-top: 2px solid $grey-lighter-2;
+			border-top: 2px solid $color-greyscale-11;
 
 			h5 {
 				margin: 0.5rem 0;
@@ -56,7 +56,7 @@
 					display: flex;
 					flex-direction: row;
 					padding: 1rem 0;
-					border-bottom: 1px solid $mine-shaft;
+					border-bottom: 1px solid $color-greyscale-11;
 				}
 
 				.SwitchInput {
@@ -71,18 +71,18 @@
 
 		// Scrollbar
 		&::-webkit-scrollbar-corner {
-			background: $black;
+			background: $color-black;
 			height: 0;
 			width: 0;
 		}
 
 		&::-webkit-scrollbar-track {
-			background-color: none;
+			background: none;
 		}
 
 		&::-webkit-scrollbar {
 			width: 0.25rem;
-			background-color: none;
+			background: none;
 		}
 
 		&::-webkit-scrollbar-thumb {

@@ -1,16 +1,16 @@
 @import '../../../../../../node_modules/@zero-tech/zui/styles/_borders.scss';
-@import '../../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 
 .Options {
 	display: flex;
 	align-items: center;
-	background: $purple-10;
+	background: $color-primary-2;
 	border-radius: calc($radius-primary / 2);
 	height: 2.313rem;
 	z-index: 2;
 
 	.Icon {
-		color: $blue;
+		color: $color-secondary-11;
 	}
 
 	.Button {
