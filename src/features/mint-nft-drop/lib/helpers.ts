@@ -5,7 +5,7 @@ import {
 	GenSaleInstance,
 	GenSaleStatus,
 	SaleStatus,
-} from '@zero-tech/zsale-sdk/';
+} from '@zero-tech/zsale-sdk';
 
 import { Stage, DropData } from './types';
 
@@ -63,7 +63,7 @@ export const getDropData = (
 		try {
 			const [dropStage, saleData] = await Promise.all([
 				getDropStage(zSaleInstance),
-				getWheelQuantities(zSaleInstance),
+				getSaleQuantites(zSaleInstance),
 			]);
 
 			// Check if we somehow got an undefined variable
@@ -144,7 +144,7 @@ export const getUserEligibility = async (
 	}
 };
 
-const getWheelQuantities = async (
+const getSaleQuantites = async (
 	zSaleInstance: GenSaleInstance,
 ): Promise<GenSaleData | undefined> => {
 	if (TEST_MODE) {
