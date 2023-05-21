@@ -77,7 +77,7 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 const ShareButton = ({ onClick }) => (
 	<Tooltip content="Share to Twitter">
 		<button className={styles.Button} onClick={onClick}>
-			<IconShare7 color={'#52CBFF'} isFilled />
+			<IconShare7 color={'#01F4CB'} isFilled />
 		</button>
 	</Tooltip>
 );
@@ -93,7 +93,7 @@ const DownloadButton = ({ downloadOptions }) => (
 		alignMenu="end"
 		trigger={
 			<Tooltip content="Download for Twitter">
-				<IconDownload2 color={'#52CBFF'} isFilled />
+				<IconDownload2 color={'#01F4CB'} isFilled />
 			</Tooltip>
 		}
 	/>

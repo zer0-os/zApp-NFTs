@@ -41,7 +41,9 @@ export const useBuyNowData = (zna: string) => {
 	const buyNowPrice = buyNowListingData?.price;
 
 	const imageAlt = `${metadata?.title ?? 'loading'} nft image`;
-	const imageSrc = metadata?.previewImage ?? metadata?.image;
+	const imageSrc =
+		metadata?.animation_url || metadata?.image_full || metadata?.image || '';
+	const isMediaAnimated = Boolean(metadata?.animation_url);
 
 	const isLoading =
 		isLoadingDomain ||
@@ -68,6 +70,7 @@ export const useBuyNowData = (zna: string) => {
 		domainId,
 		imageSrc,
 		imageAlt,
+		isMediaAnimated,
 		isLoading,
 		buyNowPrice,
 		paymentTokenId,

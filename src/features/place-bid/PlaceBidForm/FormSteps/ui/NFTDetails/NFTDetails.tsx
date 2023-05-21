@@ -5,10 +5,7 @@ import { usePlaceBidData } from '../../../../usePlaceBidData';
 import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
 import { ViewBidsButton } from '../../../../../view-bids';
-import { SkeletonText, TextStack } from '@zero-tech/zui/components';
-import { IpfsMedia } from '@zero-tech/zapp-utils/components';
-
-import styles from './NFTDetails.module.scss';
+import { Media, ModalDetails, ModalDetailsContainer } from '../../../../../ui';
 
 export interface NFTDetailsProps {
 	zna: string;
@@ -21,6 +18,7 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		creator,
 		imageAlt,
 		imageSrc,
+		isMediaAnimated,
 		highestBid,
 		paymentTokenSymbol,
 		isLoadingDomain,
@@ -32,12 +30,12 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 	const truncatedZna = truncateDomain(zna, 20);
 	const truncatedCreatorAddress = truncateAddress(creator);
 	const highestBidString = highestBid ? formatEthers(highestBid?.amount) : '-';
+	const mediaVariant = isMediaAnimated ? 'video' : 'image';
 
 	const textContent = [
 		{
 			id: 'creator',
 			title: 'Creator',
-			className: styles.InfoValue,
 			text: truncatedCreatorAddress,
 			isLoading: isLoadingDomain,
 			as: 'span' as const,
@@ -45,7 +43,6 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 		{
 			id: 'highest-bid',
 			title: 'Highest Bid',
-			className: styles.InfoValue,
 			text: `${highestBidString} ${isExistingBids ? paymentTokenSymbol : ''}`,
 			isLoading: isLoadingBidData,
 			as: 'span' as const,
@@ -53,40 +50,16 @@ export const NFTDetails: FC<NFTDetailsProps> = ({ zna }) => {
 	];
 
 	return (
-		<div className={styles.Container}>
-			<div className={styles.Media}>
-				<IpfsMedia className={styles.Image} alt={imageAlt} src={imageSrc} />
-			</div>
-			<div className={styles.Details}>
-				<div className={styles.Domain}>
-					<h2 className={styles.Title}>
-						<SkeletonText
-							asyncText={{ isLoading: isLoadingMetadata, text: title }}
-						/>
-					</h2>
-					<span className={styles.ZNA}>0://{truncatedZna}</span>
-				</div>
-				<ul className={styles.TextContent}>
-					{textContent.map((e) => (
-						<li key={e.id}>
-							<TextStack
-								label={e.title}
-								primaryText={{
-									text: e.text,
-									isLoading: e.isLoading,
-								}}
-								secondaryText={''}
-							/>
-						</li>
-					))}
-				</ul>
-
-				{isExistingBids && (
-					<div className={styles.ActionContainer}>
-						<ViewBidsButton zna={zna} variant="text" />
-					</div>
-				)}
-			</div>
-		</div>
+		<ModalDetailsContainer variant={mediaVariant}>
+			<Media alt={imageAlt} src={imageSrc} variant={mediaVariant} />
+			<ModalDetails
+				content={textContent}
+				truncatedZna={truncatedZna}
+				isLoadingTitle={isLoadingMetadata}
+				title={title}
+			>
+				{isExistingBids && <ViewBidsButton zna={zna} variant="text" />}
+			</ModalDetails>
+		</ModalDetailsContainer>
 	);
 };

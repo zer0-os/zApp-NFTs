@@ -70,8 +70,6 @@
 		}
 
 		&.On {
-			background: $color-secondary-9;
-
 			> div {
 				left: calc(100% - (3rem / 2) + 3px);
 			}
@@ -79,21 +77,21 @@
 	}
 
 	.Switch.On {
-		border: 1px solid $color-secondary-12;
+		border: 1px solid $color-secondary-11;
 
 		&[data-variant='locked'] {
 			border: 1px solid $color-greyscale-12;
 		}
 
 		> div {
-			background-color: $color-greyscale-12 !important;
+			background: $color-secondary-11 !important;
 
 			&[data-variant='locked'] {
-				background-color: $color-greyscale-12 !important;
+				background: $color-greyscale-12 !important;
 			}
 
 			> span {
-				color: $color-greyscale-12;
+				color: $color-secondary-11;
 
 				&[data-variant='locked'] {
 					color: $color-greyscale-12;

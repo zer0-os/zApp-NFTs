@@ -1,0 +1,46 @@
+@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+@import './variables';
+
+.Details {
+	display: flex;
+	flex-direction: column;
+	gap: $modal-gap;
+
+	@media (min-width: $modal-width) {
+		margin-top: 1rem;
+	}
+
+	.Domain {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		.Title {
+			font-size: $size-large;
+			font-weight: $font-weight-bold;
+			margin: 0;
+		}
+
+		.ZNA {
+			font-size: $size-tiny;
+			color: var(--color-secondary-11);
+		}
+	}
+
+	.TextContent {
+		display: flex;
+
+		@media (max-width: $modal-width) {
+			gap: 2rem;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+
+		@media (min-width: $modal-width) {
+			gap: $modal-gap;
+			flex-direction: column;
+		}
+	}
+}
