@@ -1,4 +1,4 @@
-@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .DetailsContainer {
@@ -11,7 +11,7 @@
 		height: 16.25rem;
 		width: 16.25rem;
 		flex-shrink: 0;
-		border: 1px solid $grey;
+		border: 1px solid $color-secondary-11;
 		border-radius: 0.5rem;
 	}
 
@@ -28,7 +28,7 @@
 		}
 
 		.Domain {
-			color: $blue;
+			color: $color-secondary-11;
 			margin-top: 0.25rem;
 		}
 

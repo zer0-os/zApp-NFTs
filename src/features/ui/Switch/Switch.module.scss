@@ -1,5 +1,5 @@
 @import '../../../../node_modules/@zero-tech/zui/styles/_animations.scss';
-@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 @import '../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
@@ -21,7 +21,7 @@
 		height: calc(3rem / 2);
 
 		border-radius: 0.75rem;
-		border: 1px solid $grey-lighter-2;
+		border: 1px solid $color-greyscale-11;
 
 		transition: border $time-medium ease;
 
@@ -43,7 +43,7 @@
 			width: calc(3rem / 2 - 0.25rem);
 			border-radius: 50%;
 
-			background-color: $grey-lighter-2;
+			background-color: $color-greyscale-11;
 
 			transition: left $time-medium ease-in-out,
 				background-color $time-medium ease;
@@ -54,7 +54,7 @@
 				top: 50%;
 				font-weight: $font-weight-bold;
 				text-transform: uppercase;
-				color: $grey-lighter-2;
+				color: $color-greyscale-11;
 				transition: color $time-medium ease;
 
 				&:first-of-type {
@@ -70,7 +70,7 @@
 		}
 
 		&.On {
-			background: $ocean-10;
+			background: $color-secondary-9;
 
 			> div {
 				left: calc(100% - (3rem / 2) + 3px);
@@ -79,24 +79,24 @@
 	}
 
 	.Switch.On {
-		border: 1px solid var(--color-secondary-11);
+		border: 1px solid $color-secondary-11;
 
 		&[data-variant='locked'] {
-			border: 1px solid $grey-lighter-2;
+			border: 1px solid $color-greyscale-12;
 		}
 
 		> div {
-			background-color: var(--color-secondary-11) !important;
+			background-color: $color-greyscale-11 !important;
 
 			&[data-variant='locked'] {
-				background-color: $grey-lighter-2 !important;
+				background-color: $color-greyscale-12 !important;
 			}
 
 			> span {
-				color: var(--color-secondary-11);
+				color: $color-greyscale-11;
 
 				&[data-variant='locked'] {
-					color: $grey-lighter-2;
+					color: $color-greyscale-12;
 				}
 			}
 		}

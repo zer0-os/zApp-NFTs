@@ -1,4 +1,4 @@
-@import '../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 
 .Container {
 	display: flex;
@@ -7,13 +7,13 @@
 	cursor: pointer;
 
 	.TextButton {
-		color: $blue;
+		color: $color-secondary-11;
 		line-height: 1.5rem;
 		padding: 0;
 		margin: 0;
 	}
 
 	.Icon {
-		color: $blue;
+		color: $color-secondary-11;
 	}
 }

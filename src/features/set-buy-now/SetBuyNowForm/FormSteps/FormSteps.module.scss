@@ -1,4 +1,4 @@
-@import '../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_theme.scss';
 @import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
 
 .Container {
@@ -20,6 +20,6 @@
 
 	.Subtext {
 		font-size: $size-tiny;
-		color: $grey-lighter-2;
+		color: $color-greyscale-11;
 	}
 }

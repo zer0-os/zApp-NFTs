@@ -12,5 +12,4 @@ export * from './ModalDetailsContainer';
 export * from './OptionLabel';
 export * from './StatsList';
 export * from './Switch';
-export * from './TableCard';
 export * from './TextArea';
