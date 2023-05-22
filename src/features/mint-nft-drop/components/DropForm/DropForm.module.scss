@@ -1,0 +1,36 @@
+@import '../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+
+$width: 640px;
+$gutter: 16px;
+
+.Container {
+	min-width: $width;
+	max-width: $width;
+	padding: 48px;
+	// text-align: center;
+	@media only screen and (max-width: ($width + $gutter + $gutter)) {
+		min-width: calc(100vw - $gutter - $gutter);
+		max-width: calc(100vw - $gutter - $gutter);
+	}
+}
+
+.Header {
+	text-align: center;
+}
+
+.Header h1 {
+	font-weight: $font-weight-bold;
+}
+
+.Header span {
+	display: inline-block;
+	margin-top: 8px;
+}
+
+.Header hr {
+	margin-top: 16px;
+	border: 0;
+	border-bottom: 1px solid $purple-15;
+}

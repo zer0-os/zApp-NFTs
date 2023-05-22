@@ -8,3 +8,8 @@ export enum MemberTitle {
 	CREATOR = 'Creator',
 	OWNER = 'Owner',
 }
+
+export enum DropLabels {
+	MINT_NFT_DROP_DEFAULT_TITLE = 'Your GENs',
+	CLAIM_NFT_DROP_DEFAULT_TITLE = 'Your Motos',
+}

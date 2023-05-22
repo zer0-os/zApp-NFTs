@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 
 import { useCurrentRoute, useSubdomainDataById } from './lib/hooks';
-
 import { DynamicSizeWrapper } from './lib/util/DynamicSizeWrapper';
+
 import { Domains } from './pages/Domains';
 import { NFT } from './pages/NFT';
 

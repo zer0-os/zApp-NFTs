@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
-import { useCurrentRoute } from '../../lib/hooks/useCurrentRoute';
+import { useCurrentRoute } from '../../lib/hooks';
 
 import { ViewSubdomains } from '../../features/view-subdomains/ViewSubdomains';
 import {

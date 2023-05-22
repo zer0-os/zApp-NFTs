@@ -1,0 +1,77 @@
+/*
+	@note 11/04/2023 intentionally using hex values instead of theme values
+	as not currently sure how theme switching should apply to the banner
+*/
+
+.Banner {
+	all: unset; // reset all existing styles, as we're using button or div
+
+	position: relative;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	padding: 2.406rem 1rem; // 38.5px 16px
+	box-sizing: border-box;
+
+	background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 51.04%), #23142F;
+
+	border: none;
+	border-radius: 1rem;
+
+	justify-content: space-between;
+
+	z-index: 0;
+
+	/* @note: probably better to handle this as "is button" and "is div" */
+	&[data-is-clickable] {
+		cursor: pointer;
+	}
+
+	.Text {
+		display: flex;
+		gap: 0.25rem;
+		flex-direction: column;
+
+		text-align: left;
+
+		h2 {
+			font-size: 1.125rem !important; // 18px
+			font-weight: bold;
+			color: #934BCE;
+		}
+
+		span {
+			color: white;
+			font-size: 0.875rem !important;
+		}
+
+		> * {
+			all: unset;
+		}
+	}
+
+	.Button {
+		display: flex;
+		gap: 0.25rem;
+
+		color: #01F4CB;
+		font-weight: bold;
+
+		flex-shrink: 0;
+	}
+
+	.Background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+
+		border-radius: inherit;
+
+		object-fit: cover;
+		z-index: -1;
+	}
+}
+

@@ -1,0 +1,160 @@
+@import '../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+
+.Container {
+	width: 588px;
+
+	p {
+		text-align: center;
+		line-height: 24px;
+		padding: 0;
+	}
+
+	.Header {
+		text-align: center;
+
+		margin-bottom: 40px;
+
+		h1 {
+			font-weight: $font-weight-bold;
+		}
+
+		span {
+			display: inline-block;
+			margin-top: 8px;
+		}
+		hr {
+			margin-top: 25.5px;
+			border: 0;
+		}
+	}
+
+	.Button {
+		margin: 40px auto 0 auto;
+	}
+
+	.Error {
+		display: block;
+		margin-top: 16px;
+		width: 100%;
+
+		color: $red-300;
+		text-align: center;
+
+		.balanceCriteria {
+			padding-right: 5px;
+			font-weight: bold;
+		}
+	}
+
+	.Loading {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 40px;
+
+		span {
+			font-weight: $font-weight-regular;
+			margin-bottom: 24px;
+			text-align: center;
+		}
+	}
+
+	.Success {
+		padding-top: 30px;
+		text-align: center;
+		color: $success-green;
+	}
+
+	.Email {
+		margin-top: 40px;
+
+		p {
+			padding-bottom: 0;
+		}
+
+		.Input {
+			margin-top: 16px;
+		}
+	}
+
+	.Socials {
+		margin-top: 40px;
+
+		span {
+			display: block;
+			font-weight: $font-weight-bold;
+			text-align: center;
+		}
+		a {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			&:not(:first-of-type) {
+				margin-left: 16px;
+			}
+		}
+
+		div {
+			display: flex;
+			justify-content: center;
+			margin-top: 16px;
+		}
+
+		img {
+			height: 64px;
+			width: 64px;
+		}
+	}
+
+	.Balances {
+		display: flex;
+		margin-top: 40px;
+		text-align: center;
+		justify-content: space-around;
+		font-weight: $font-weight-regular;
+		font-size: $size-tiny;
+
+		.eachBalances {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.amount {
+			font-weight: $font-weight-bold;
+			padding: 10px 0;
+			font-size: $size-medium;
+		}
+
+		.ErrorColor {
+			color: $red-300;
+		}
+	}
+
+	.marginTop40 {
+		margin-top: 40px;
+	}
+
+	.CombinedFirstAndLastFields {
+		display: flex;
+
+		.firstName {
+			padding-right: 20px;
+		}
+	}
+
+	.emailError {
+		display: block;
+		color: $red-300;
+		padding-left: 25px;
+		font-size: $size-tiny;
+	}
+
+	.PersonalInfo {
+		.Email {
+			margin-top: 25px;
+		}
+	}
+}

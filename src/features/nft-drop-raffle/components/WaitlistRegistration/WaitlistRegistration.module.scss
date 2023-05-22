@@ -1,0 +1,108 @@
+@import '../../../../../node_modules/@zero-tech/zui/styles/_colors.scss';
+@import '../../../../../node_modules/@zero-tech/zui/styles/_typography.scss';
+
+
+.Container {
+	width: 588px;
+}
+
+.Header {
+	text-align: center;
+
+	margin-bottom: 40px;
+}
+
+.Header h1 {
+	font-weight: $font-weight-bold;
+}
+
+.Header span {
+	display: inline-block;
+	margin-top: 8px;
+}
+
+.Header hr {
+	margin-top: 25.5px;
+	border: 0;
+	border-bottom: 1px solid $purple-lighter;
+}
+
+.Input {
+	margin-top: 16px;
+}
+
+.Button {
+	margin: 40px auto 0 auto;
+}
+
+.Error {
+	display: block;
+	margin-top: 16px;
+	width: 100%;
+
+	color: $red-300;
+	text-align: center;
+}
+
+.Loading {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 40px;
+}
+
+.Loading span {
+	font-weight: $font-weight-bold;
+	margin-bottom: 24px;
+}
+
+.Success {
+	text-align: center;
+	color: $success-green;
+}
+
+.Socials {
+	margin-top: 40px;
+}
+
+.Socials span {
+	display: block;
+	font-weight: $font-weight-bold;
+	text-align: center;
+}
+
+.Socials a {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.Socials a:not(:first-of-type) {
+	margin-left: 16px;
+}
+
+.Socials div {
+	display: flex;
+	justify-content: center;
+	margin-top: 16px;
+}
+
+.Socials img {
+	height: 64px;
+	width: 64px;
+}
+
+@media only screen and (max-width: 768px) {
+	.Container {
+		width: 90%;
+		margin: 0 auto;
+	}
+
+	.Header h1 {
+		font-size: $size-medium;
+	}
+
+	.Input {
+		margin-top: 40px;
+	}
+}
