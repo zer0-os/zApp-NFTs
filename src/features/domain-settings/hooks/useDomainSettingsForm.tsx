@@ -17,7 +17,7 @@ import { Instance } from '@zero-tech/zns-sdk';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { ConfirmForm, DetailsForm } from '../Steps';
-import { Step, Wizard } from '@zero-tech/zui';
+import { Step, Wizard } from '@zero-tech/zui/components';
 import { useQueryClient } from 'react-query';
 
 export type UseDomainSettingsFormFormReturn = {
@@ -92,6 +92,7 @@ export const useDomainSettingsForm = (
 		);
 
 		return isDomainMetadataLocked;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [domainId, provider]);
 
 	// Transaction handlers
@@ -111,7 +112,7 @@ export const useDomainSettingsForm = (
 		onCheckMetadataLockStatus();
 
 		// Opportunistic update of local data
-		queryClient.setQueryData(queryKey, (_) => {
+		queryClient.setQueryData(queryKey, () => {
 			return details;
 		});
 	};
@@ -143,6 +144,7 @@ export const useDomainSettingsForm = (
 				onStart: () => handleTransactionStart(loadingHeader),
 				onProcessing: () => handleTransactionProcessing(loadingBody),
 				onSuccess: () => handleTransactionSuccess(),
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				onError: (error: any) => handleTransactionError(error.message),
 
 				invalidationKeys: [

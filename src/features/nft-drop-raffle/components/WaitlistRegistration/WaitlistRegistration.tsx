@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Input, Wizard } from '@zero-tech/zui';
-import { Spinner } from '@zero-tech/zui';
+import { Input, Wizard } from '@zero-tech/zui/components';
+import { Spinner } from '@zero-tech/zui/components/LoadingIndicator';
 import { isValidEmail } from './lib/validation';
 
 import iconDiscord from '../../../assets/discord.png';

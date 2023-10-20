@@ -20,6 +20,6 @@
 		"strictNullChecks": false,
 		"target": "es5"
 	},
-	"include": ["src"],
+	"include": ["src", "dev-environment"],
 	"exclude": ["src/**/*.test.*", "src/**/*.test.d.*", "src/setupTests.ts"]
 }

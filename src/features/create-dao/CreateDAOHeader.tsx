@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react';
 
-import { IconXClose } from '@zero-tech/zui';
-import { StepBar, Wizard } from '@zero-tech/zui';
+import { IconXClose } from '@zero-tech/zui/components/icons';
+import { StepBar, Wizard } from '@zero-tech/zui/components';
 import { steps, CreateDAOFormContext } from './';
 
 import styles from './CreateDAOHeader.module.scss';

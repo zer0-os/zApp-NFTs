@@ -12,7 +12,7 @@ import {
 	IconSend3,
 	IconTag1,
 	IconVideoRecorder,
-} from '@zero-tech/zui';
+} from '@zero-tech/zui/components/icons';
 
 export const enum DropdownOptionType {
 	CREATE_TOKEN = 'create-token',
@@ -107,11 +107,13 @@ export const generateDropdownOption = (
 	id: DropdownOptionType,
 	label: string,
 	icon: ReactNode,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onSelect: (e: any) => void,
 ) => ({
 	className: id,
 	id,
 	label: <OptionLabel label={label} icon={icon} />,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onSelect: (e: any) => onSelect({ ...e, id }),
 });
 

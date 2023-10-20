@@ -1,4 +1,4 @@
-import { Button } from '@zero-tech/zui';
+import { Button } from '@zero-tech/zui/components';
 
 import styles from './Finished.module.scss';
 

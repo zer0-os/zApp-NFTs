@@ -4,8 +4,8 @@ import { useSubdomainTableItem } from '../useSubdomainTableItem';
 
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
-import { SkeletonText } from '@zero-tech/zui';
-import { Cell } from '@zero-tech/zui';
+import { SkeletonText } from '@zero-tech/zui/components';
+import { Cell } from '@zero-tech/zui/components';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './SubdomainTableRow.module.scss';
@@ -30,6 +30,7 @@ const Row: FC<SubdomainTableRowProps> = ({ zna }) => {
 	});
 
 	const handleOnClick = useCallback(
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(event: any) => {
 			if (event.currentTarget.contains(event.target)) {
 				handleItemClick(event, zna);

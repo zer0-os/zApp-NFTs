@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { TextContent } from '../ui/TextContent';
-import { Wizard } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
 
 export interface CompleteProps {
 	onClose: () => void;

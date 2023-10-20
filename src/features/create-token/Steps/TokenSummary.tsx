@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from 'react';
 
-import { Wizard, MediaInput, MediaType } from '@zero-tech/zui';
+import { Wizard, MediaInput, MediaType } from '@zero-tech/zui/components';
 import { truncateAddress } from '@zero-tech/zapp-utils/formatting/addresses';
 import { TokenSummaryField } from '.';
 import { CreateTokenFormContext } from '..';

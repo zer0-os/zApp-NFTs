@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { Step } from '../../hooks';
-import { truncateAddress, truncateDomain } from '@zero-tech/zui';
+import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
 import {
 	DetailsContentType,

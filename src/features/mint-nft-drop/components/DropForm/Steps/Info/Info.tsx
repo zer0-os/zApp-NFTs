@@ -10,7 +10,7 @@ import { useDropUserPurchases } from '../../../../lib/useDropUserPurchases';
 import { useWeb3 } from '../../../../../../lib/hooks';
 
 import { Loading } from '../Loading';
-import { ArrowLink } from '@zero-tech/zui';
+import { ArrowLink } from '@zero-tech/zui/components/Link/ArrowLink';
 
 import styles from './Info.module.scss';
 
@@ -23,7 +23,7 @@ export interface InfoProps {
 	onDismiss: () => void;
 }
 
-export const Info = (props: InfoProps) => {
+export const Info = () => {
 	return (
 		<section className={styles.Container}>
 			<FormMedia />

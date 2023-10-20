@@ -7,7 +7,7 @@ import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
 import { DetailsForm, DetailsFormProps } from './';
 import { CreateTokenFormContext } from '../';
 
-let onSubmit = jest.fn();
+const onSubmit = jest.fn();
 
 const DEFAULT_PROPS: DetailsFormProps = {
 	onClose: jest.fn(),

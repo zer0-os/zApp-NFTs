@@ -5,7 +5,7 @@ import { BasicModalProps } from '../../lib/types/ui';
 
 import { CreateTokenForm, CreateTokenFormProps } from './';
 import { ConnectWallet } from '../ui/ConnectWallet';
-import { Modal } from '@zero-tech/zui';
+import { Modal } from '@zero-tech/zui/components';
 
 export interface CreateTokenModalProps extends BasicModalProps {
 	zna: string;

@@ -5,7 +5,7 @@ import { BasicModalProps } from '../../../lib/types/ui';
 
 import { ViewBids } from '../ViewBids';
 import { ConnectWallet } from '../../ui';
-import { Modal } from '@zero-tech/zui';
+import { Modal } from '@zero-tech/zui/components';
 
 import styles from './ViewBidsModal.module.scss';
 

@@ -14,8 +14,8 @@ export const chainIdToNetworkType = (chainId?: Network): NETWORK_TYPES => {
 	}
 };
 
-export const getEtherscanUri = (networkType: NETWORK_TYPES): string => {
-	let prefix = '';
+export const getEtherscanUri = (): string => {
+	const prefix = '';
 	// TODO: add goerli network when available
 	// switch (networkType) {
 	// 	case NETWORK_TYPES.GOERLI:

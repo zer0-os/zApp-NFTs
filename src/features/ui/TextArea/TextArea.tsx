@@ -1,6 +1,6 @@
 import { FC, ReactNode, useCallback, useRef } from 'react';
 
-import { Alert, AlertProps } from '@zero-tech/zui';
+import { Alert, AlertProps } from '@zero-tech/zui/components';
 
 import styles from './TextArea.module.scss';
 
@@ -12,6 +12,7 @@ interface TextAreaProps {
 	placeholder?: string;
 	isDisabled?: boolean;
 	alert?: { variant: AlertProps['variant']; text: ReactNode };
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onChange: (value: any) => void;
 }
 
@@ -28,8 +29,7 @@ export const TextArea: FC<TextAreaProps> = ({
 	const textAreaRef = useRef<HTMLTextAreaElement>();
 
 	const isError =
-		!Boolean(value) &&
-		(value?.length >= maxLength || value?.length <= minLength);
+		!value && (value?.length >= maxLength || value?.length <= minLength);
 
 	const handleOnChange = useCallback(() => {
 		if (!isDisabled) {

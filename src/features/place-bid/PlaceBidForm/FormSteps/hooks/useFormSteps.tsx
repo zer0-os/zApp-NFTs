@@ -3,7 +3,7 @@ import { ReactNode, useState } from 'react';
 import { usePlaceBidData } from '../../../usePlaceBidData';
 
 import { ApproveZAuction, Complete, Confirm, Details } from '..';
-import { Wizard } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
 
 export enum Step {
 	DETAILS,

@@ -3,8 +3,8 @@ import { FC, useContext, useState } from 'react';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 
-import { Wizard } from '@zero-tech/zui';
-import { MediaInput, MediaType } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
+import { MediaInput, MediaType } from '@zero-tech/zui/components';
 import { WrappedInput } from '../../ui/WrappedInput/WrappedInput';
 
 import { CreateTokenFormContext } from '..';
@@ -32,6 +32,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 		image: Buffer,
 		setFieldValue: (
 			field: string,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			value: any,
 			shouldValidate?: boolean,
 		) => void,

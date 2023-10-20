@@ -4,7 +4,7 @@ import { useFormSteps } from './FormSteps/hooks/useFormSteps';
 import { useAcceptBidForm } from './hooks/useAcceptBidForm';
 import { Bid } from '@zero-tech/zauction-sdk';
 
-import { Wizard } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './AcceptBidForm.module.scss';
 

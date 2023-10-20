@@ -9,7 +9,7 @@ import {
 	waitFor,
 } from '@testing-library/react';
 
-import { truncateAddress } from '@zero-tech/zui';
+import { truncateAddress } from '@zero-tech/zui/utils';
 
 import { TransferOwnershipForm } from './TransferOwnershipForm';
 
@@ -18,9 +18,9 @@ import * as mock from './TransferOwnershipForm.mocks';
 ///////////
 // Mocks //
 ///////////
-var mockTranferDomainOwnership = jest.fn();
-var mockTx = jest.fn();
-var mockOnClose = jest.fn();
+const mockTranferDomainOwnership = jest.fn();
+const mockTx = jest.fn();
+const mockOnClose = jest.fn();
 
 // web3 - provider & account
 jest.mock('../../../lib/hooks/useWeb3', () => ({

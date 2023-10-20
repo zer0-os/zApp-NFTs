@@ -1,5 +1,5 @@
 import { Maybe } from '@zero-tech/zsale-sdk';
-import { Modal } from '@zero-tech/zui';
+import { Modal } from '@zero-tech/zui/components';
 import { useWeb3 } from '../../../../lib/hooks';
 
 import { RaffleRegistration } from './RaffleRegistration';
@@ -14,8 +14,10 @@ export const RegistrationContainer = (props: RegistrationContainerProps) => {
 
 	const submit = async (
 		// statusCallback: (status: string) => void,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		accountInfo: any,
 	): Promise<void> => {
+		// eslint-disable-next-line no-async-promise-executor
 		return new Promise(async (resolve, reject) => {
 			const {
 				ethBalance,
@@ -114,7 +116,7 @@ export const RegistrationContainer = (props: RegistrationContainerProps) => {
 
 	const submitEmail = (email: string): Promise<boolean> => {
 		return new Promise((resolve) => {
-			fetch(`https://zns-mail-microservice.herokuapp.com/drop`, {
+			fetch('https://zns-mail-microservice.herokuapp.com/drop', {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',

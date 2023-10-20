@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Input, Wizard } from '@zero-tech/zui';
+import { Button, Input, Wizard } from '@zero-tech/zui/components';
 
 import styles from './RaffleRegistration.module.scss';
-import { Spinner } from '@zero-tech/zui';
+import { Spinner } from '@zero-tech/zui/components/LoadingIndicator/Spinner';
 
 import iconDiscord from '../../../assets/discord.png';
 import iconTwitter from '../../../assets/twitter.png';
@@ -55,8 +55,10 @@ export const RaffleRegistration = (props: RaffleRegistrationProps) => {
 	const [twitter, setTwitter] = useState<string | undefined>();
 	const [discord, setDiscord] = useState<string | undefined>();
 	const [telegram, setTelegram] = useState<string | undefined>();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [balances, setBalances] = useState<any | undefined>();
 	const [ethPriceUsd, SetEthPriceUsd] = useState<number>();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const validationCriteria: any = {
 		eth: '0',
 		wild: '0',
@@ -64,6 +66,7 @@ export const RaffleRegistration = (props: RaffleRegistrationProps) => {
 		genesisNft: 1,
 	};
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [hasSufficientBalance, setHasSufficientBalance] = useState<any>({
 		eth: true,
 		wild: true,
@@ -108,6 +111,7 @@ export const RaffleRegistration = (props: RaffleRegistrationProps) => {
 				// setIsLoadingEmail(false);
 				setStep(Steps.FollowSocial);
 				setIsLoadingRegistration(false);
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			} catch (e: any) {
 				// @todo handle API errors here
 				setEmailError(e?.message || 'Failed to register to mailing list');
@@ -153,8 +157,9 @@ export const RaffleRegistration = (props: RaffleRegistrationProps) => {
 			setStep(Steps.CurrentBalances);
 
 			// setStep(Steps.PersonalInfo);
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
-			setRegistrationError(err?.message || `Failed to fetch wallet details`);
+			setRegistrationError(err?.message || 'Failed to fetch wallet details');
 			console.error(err);
 		} finally {
 			setIsLoadingRegistration(false);
@@ -221,7 +226,7 @@ export const RaffleRegistration = (props: RaffleRegistrationProps) => {
 	};
 
 	const getValidationError = () => {
-		let messages = [];
+		const messages = [];
 		for (const key in validationCriteria) {
 			if (!hasSufficientBalance[key]) {
 				messages.push(

@@ -1,6 +1,6 @@
 import React, { createContext, useState, FC } from 'react';
 
-import { Step } from '@zero-tech/zui';
+import { Step } from '@zero-tech/zui/components';
 import {
 	DetailsFormSubmit,
 	GovernanceFormSubmit,
@@ -28,11 +28,17 @@ export const CreateDAOFormContext = createContext({
 	treasury: {
 		gnosisSafe: '',
 	},
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	onStepUpdate: (step: Step) => {},
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	onTitleUpdate: (title: string) => {},
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	onDetailsChange: (values: DetailsFormSubmit) => {},
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	onDetailsSubmit: (values: DetailsFormSubmit) => {},
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	onGovernanceSubmit: (values: GovernanceFormSubmit) => {},
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	onTreasurySubmit: (values: TreasuryFormSubmit) => {},
 	onLaunchSubmit: () => {},
 });

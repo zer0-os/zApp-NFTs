@@ -1,5 +1,5 @@
 import { FormTextContent } from '../../../../ui';
-import { Wizard } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
 
 import styles from '../FormSteps.module.scss';
 

@@ -32,7 +32,7 @@ describe('getHashFromIPFSUrl', () => {
 	});
 
 	it('should handle nested IPFS content', () => {
-		const WEB_URL = `https://test.com/`;
+		const WEB_URL = 'https://test.com/';
 		expect(getHashFromIPFSUrl(`${WEB_URL}/${HASH}/${nesting}`)).toBe(
 			`${HASH}/${nesting}`,
 		);

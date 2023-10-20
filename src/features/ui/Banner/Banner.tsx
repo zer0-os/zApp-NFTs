@@ -1,6 +1,6 @@
 import React, { createElement, ReactNode, useEffect, useState } from 'react';
 
-import { IconArrowNarrowUpRight } from '@zero-tech/zui';
+import { IconArrowNarrowUpRight } from '@zero-tech/zui/components/icons';
 import styles from './Banner.module.scss';
 
 /////////////////
@@ -9,6 +9,7 @@ import styles from './Banner.module.scss';
 
 export interface BannerInfo {
 	buttonText?: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onClick?: (event: any) => void;
 	subtext?: string | ReactNode;
 	text: string | ReactNode;
@@ -32,12 +33,12 @@ export const Banner: React.FC<BannerProps> = ({
 	text,
 }) => {
 	return createElement(
-		Boolean(onClick) ? 'button' : 'div',
+		onClick ? 'button' : 'div',
 		{
 			className: styles.Banner,
 			style,
 			onClick,
-			'data-is-clickable': Boolean(onClick) ? '' : null,
+			'data-is-clickable': onClick ? '' : null,
 		},
 		<>
 			{backgroundImageSrc && <LazyBackground src={backgroundImageSrc} />}

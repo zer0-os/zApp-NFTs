@@ -6,8 +6,8 @@ import { useSetBuyNowData } from '../../../useSetBuyNowData';
 
 import { NFTDetails } from '../ui';
 import { Switch } from '../../../../ui';
-import { Input } from '@zero-tech/zui';
-import { Wizard, ButtonsProps } from '@zero-tech/zui';
+import { Input } from '@zero-tech/zui/components';
+import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
 
 import styles from '../FormSteps.module.scss';
 

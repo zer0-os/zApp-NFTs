@@ -6,8 +6,8 @@ import { ConfirmActionType, FieldValues, FormStep } from '..';
 
 import { Media, Switch, TextArea } from '../../ui';
 import { DetailsStepFooter, CompleteStepFooter } from './Footers';
-import { InfoTooltip } from '@zero-tech/zui';
-import { Input, LoadingIndicator } from '@zero-tech/zui';
+import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
+import { Input, LoadingIndicator } from '@zero-tech/zui/components';
 
 import styles from './DetailsForm.module.scss';
 

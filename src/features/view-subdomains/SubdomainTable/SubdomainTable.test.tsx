@@ -7,7 +7,7 @@ import { SubdomainTable } from './SubdomainTable';
 // Mock Custom Hooks //
 ///////////////////////
 
-var mockSubdomainSearch;
+let mockSubdomainSearch;
 jest.mock('./useSubdomainSearch', () => ({
 	useSubdomainSearch: () => mockSubdomainSearch,
 }));
@@ -20,7 +20,7 @@ const mockSearchResult = {
 	searchResult: undefined,
 };
 
-var mockInfiniteSubdomains;
+let mockInfiniteSubdomains;
 jest.mock('./useInfiniteSubdomains', () => ({
 	useInfiniteSubdomains: () => mockInfiniteSubdomains,
 }));
@@ -54,13 +54,15 @@ const mockSubdomains = {
 ////////////////////////
 
 jest.mock('../SubdomainTableCard', () => ({
-	SubdomainTableCard: (props) => <div data-testid="card">{props.zna}</div>,
+	SubdomainTableCard: ({ zna }: { zna: string }) => (
+		<div data-testid="card">{zna}</div>
+	),
 }));
 
 jest.mock('../SubdomainTableRow', () => ({
-	SubdomainTableRow: (props) => (
+	SubdomainTableRow: ({ zna }: { zna: string }) => (
 		<tr data-testid="row">
-			<td>{props.zna}</td>
+			<td>{zna}</td>
 		</tr>
 	),
 }));

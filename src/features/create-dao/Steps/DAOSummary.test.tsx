@@ -7,7 +7,7 @@ import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
 import { DAOSummary, DAOSummaryProps } from './';
 import { CreateDAOFormContext } from '../CreateDAOFormContext';
 
-let onSubmit = jest.fn();
+const onSubmit = jest.fn();
 
 const DEFAULT_PROPS: DAOSummaryProps = {
 	onClose: jest.fn(),

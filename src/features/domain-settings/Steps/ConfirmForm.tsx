@@ -4,7 +4,7 @@ import { ConfirmActionType } from '../DomainSettings.types';
 import { CONFIRM_STEP_TEXT_CONTENT } from '../DomainSettings.constants';
 
 import { FormTextContent } from '../../ui';
-import { Wizard } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './ConfirmForm.module.scss';
 

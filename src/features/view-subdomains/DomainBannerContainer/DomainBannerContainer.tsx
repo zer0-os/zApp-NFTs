@@ -20,10 +20,10 @@ export const DomainBannerContainer: FC<BannerProps> = ({ zna }) => {
 
 	const altTemplate = `${metadata?.title ?? zna} nft `;
 
-	const thumbnailAlt = altTemplate + ` thumbnail`;
+	const thumbnailAlt = altTemplate + ' thumbnail';
 	const thumbnailSrc = metadata?.previewImage ?? metadata?.image;
 
-	const bannerAlt = altTemplate + ` banner`;
+	const bannerAlt = altTemplate + ' banner';
 	const bannerSrc = metadata?.image_full ?? metadata?.image;
 
 	return (

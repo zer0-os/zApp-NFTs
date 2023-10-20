@@ -4,9 +4,9 @@ import { ConfirmActionType } from '../../DomainSettings.types';
 import { COMPLETE_STEP_LABEL_TEXT } from '../../DomainSettings.constants';
 
 import { FormErrorText } from '../../../ui';
-import { Button } from '@zero-tech/zui';
-import { InfoTooltip } from '@zero-tech/zui';
-import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui';
+import { Button } from '@zero-tech/zui/components';
+import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
+import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui/components/icons';
 
 import styles from './Footer.module.scss';
 
@@ -124,10 +124,9 @@ const ButtonGroup = ({
 				</Button>
 			)}
 
-			{confirmActionType === ConfirmActionType.UNLOCK &&
-				!Boolean(errorText) && (
-					<Button onPress={onRestart}>{'Edit Metadata'}</Button>
-				)}
+			{confirmActionType === ConfirmActionType.UNLOCK && !errorText && (
+				<Button onPress={onRestart}>{'Edit Metadata'}</Button>
+			)}
 
 			<Button onPress={onClose}>{'Finish'}</Button>
 		</>

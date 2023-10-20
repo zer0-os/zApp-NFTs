@@ -1,4 +1,4 @@
-import { CSSProperties, FC, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 
 import { COLUMNS } from '../SubdomainTable.constants';
 import { useInfiniteSubdomains } from './useInfiniteSubdomains';
@@ -16,7 +16,7 @@ import {
 	TableStatusMessage,
 	View,
 	ViewToggle,
-} from '@zero-tech/zui';
+} from '@zero-tech/zui/components';
 import { SubdomainTableCard } from '../SubdomainTableCard';
 import { SubdomainTableRow } from '../SubdomainTableRow';
 
@@ -185,9 +185,7 @@ const SubdomainsView = ({
 		return (
 			<>
 				<Grid className={styles.Grid} data-testid={'grid'}>
-					{znas?.map((zna) => (
-						<SubdomainTableCard key={zna} zna={zna} />
-					))}
+					{znas?.map((zna) => <SubdomainTableCard key={zna} zna={zna} />)}
 				</Grid>
 				<Trigger onTrigger={onFetchNextPage} />
 			</>
@@ -204,9 +202,7 @@ const SubdomainsView = ({
 						))}
 					</HeaderGroup>
 					<Body>
-						{znas?.map((zna) => (
-							<SubdomainTableRow key={zna} zna={zna} />
-						))}
+						{znas?.map((zna) => <SubdomainTableRow key={zna} zna={zna} />)}
 					</Body>
 				</Table>
 				<Trigger onTrigger={onFetchNextPage} />
@@ -239,6 +235,7 @@ const Trigger = ({ onTrigger }: TriggerProps) => {
 			});
 			observer.observe(triggerRef.current);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [onTrigger, triggerRef.current]);
 
 	return <div className={styles.Trigger} ref={triggerRef}></div>;

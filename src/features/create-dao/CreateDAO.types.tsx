@@ -1,6 +1,11 @@
-import { IconLightning2 } from '@zero-tech/zui';
+import { IconLightning2 } from '@zero-tech/zui/components/icons';
 import { DropdownIconLabel } from '../ui/DropdownIconLabel/DropdownIconLabel';
-import { Step, ToggleOptions, MediaType, DropdownItem } from '@zero-tech/zui';
+import {
+	Step,
+	ToggleOptions,
+	MediaType,
+	DropdownItem,
+} from '@zero-tech/zui/components';
 
 export const steps: Step[] = [
 	{
@@ -32,6 +37,7 @@ export const VOTING_PROCESS_OPTIONS: ToggleOptions = [
 	},
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getVotingPeriodItems = (setFieldValue: any): DropdownItem[] => {
 	return [...Array(7)].map((_, i) => {
 		const day = i + 1;

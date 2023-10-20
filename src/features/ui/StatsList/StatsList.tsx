@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { AsyncText } from '@zero-tech/zui/lib/types';
 
-import { Card } from '@zero-tech/zui';
+import { Card } from '@zero-tech/zui/components';
 
 import styles from './StatsList.module.scss';
 import classNames from 'classnames';

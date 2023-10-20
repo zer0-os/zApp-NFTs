@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, ReactNode, useCallback, useState } from 'react';
 
 import {
 	useWeb3,
@@ -18,8 +18,12 @@ import {
 } from '../../../../../lib/util';
 import { NFT_ASSET_SHARE_KEYS } from '../../../../../lib/helpers';
 
-import { IconDotsVertical, IconDownload2, IconShare7 } from '@zero-tech/zui';
-import { DropdownMenu, Tooltip } from '@zero-tech/zui';
+import {
+	IconDotsVertical,
+	IconDownload2,
+	IconShare7,
+} from '@zero-tech/zui/components/icons';
+import { DropdownItem, DropdownMenu, Tooltip } from '@zero-tech/zui/components';
 
 import styles from './Options.module.scss';
 
@@ -70,7 +74,7 @@ export const Options: FC<OptionsProps> = ({ zna }) => {
 /********************
  * Share Asset Button
  ********************/
-const ShareButton = ({ onClick }) => (
+const ShareButton = ({ onClick }: { onClick: () => void }) => (
 	<Tooltip content="Share to Twitter">
 		<button className={styles.Button} onClick={onClick}>
 			<IconShare7 color={'#01F4CB'} isFilled />
@@ -81,7 +85,11 @@ const ShareButton = ({ onClick }) => (
 /***********************
  * Download Asset Button
  ***********************/
-const DownloadButton = ({ downloadOptions }) => (
+const DownloadButton = ({
+	downloadOptions,
+}: {
+	downloadOptions: DropdownItem[];
+}) => (
 	<DropdownMenu
 		className={styles.Button}
 		items={downloadOptions}
@@ -98,7 +106,15 @@ const DownloadButton = ({ downloadOptions }) => (
 /*******************************
  * More Options Dropdown Button
  ******************************/
-export const MoreOptionsButton = ({ zna, trigger, className }) => {
+export const MoreOptionsButton = ({
+	zna,
+	trigger,
+	className,
+}: {
+	zna: string;
+	trigger: ReactNode;
+	className?: string;
+}) => {
 	const [option, setOption] = useState<DropdownOption | undefined>();
 
 	const onSelectOption = useCallback((e) => {

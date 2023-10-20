@@ -9,7 +9,7 @@ export const useCurrentRoute = () => {
 
 	return {
 		currentZna: zna,
-		currentDomainId: Boolean(zna) ? getDomainId(zna) : undefined,
+		currentDomainId: zna ? getDomainId(zna) : undefined,
 		isRootDomain: Boolean(zna) && zna.split('.').length === 1,
 		isNftViewParams: Boolean(params.get('view')),
 	};

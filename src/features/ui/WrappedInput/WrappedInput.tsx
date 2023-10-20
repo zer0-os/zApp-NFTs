@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Input } from '@zero-tech/zui';
+import { Input } from '@zero-tech/zui/components';
 import { InputWrapper } from '../InputWrapper/InputWrapper';
 
 export type WrappedInputProps = {
@@ -12,6 +12,7 @@ export type WrappedInputProps = {
 	info: string;
 	hasError: boolean;
 	helperText: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onChange: (event: any) => void;
 };
 

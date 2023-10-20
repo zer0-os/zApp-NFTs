@@ -2,10 +2,10 @@ import React from 'react';
 
 import { useWeb3 } from '../../../lib/hooks/useWeb3';
 import { AsyncText } from '@zero-tech/zui/lib/types';
-import { truncateAddress } from '@zero-tech/zui';
+import { truncateAddress } from '@zero-tech/zui/utils';
 import { getEtherscanWalletUrl } from '@zero-tech/zapp-utils/web3/etherscan';
 
-import { SkeletonText, TextStack } from '@zero-tech/zui';
+import { SkeletonText } from '@zero-tech/zui/components';
 
 import styles from './Member.module.scss';
 

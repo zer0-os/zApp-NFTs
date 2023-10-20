@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { ToggleGroup, ToggleOptions } from '@zero-tech/zui';
+import { ToggleGroup, ToggleOptions } from '@zero-tech/zui/components';
 import { InputWrapper } from '../InputWrapper/InputWrapper';
 
 import styles from './WrappedToggleInput.module.scss';

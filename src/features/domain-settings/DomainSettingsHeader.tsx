@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { FormStep, steps } from '.';
 import classNames from 'classnames/bind';
 
-import { IconXClose } from '@zero-tech/zui';
-import { Wizard, StepBar, Step } from '@zero-tech/zui';
+import { IconXClose } from '@zero-tech/zui/components/icons';
+import { Wizard, StepBar, Step } from '@zero-tech/zui/components';
 
 import styles from './DomainSettingsHeader.module.scss';
 

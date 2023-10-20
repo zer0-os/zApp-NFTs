@@ -5,8 +5,8 @@ import { useDrop } from '../../../../lib/useDrop';
 import { CURRENT_SALE } from '../../../../lib/drop-data';
 import { useDropUserPurchases } from '../../../../lib/useDropUserPurchases';
 
-import { Wizard } from '@zero-tech/zui';
-import { Input } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
+import { Input } from '@zero-tech/zui/components';
 
 import styles from './SelectAmount.module.scss';
 
@@ -79,6 +79,7 @@ export const SelectAmount = (props: SelectAmountProps) => {
 
 interface TermsProps {
 	hasUserAcceptedTerms: boolean;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	toggleAcceptTerms: (event: any) => void;
 }
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Modal } from '@zero-tech/zui';
+import { Modal } from '@zero-tech/zui/components';
 import { WaitlistRegistration } from './WaitlistRegistration';
 
 export interface WaitlistContainerProps {

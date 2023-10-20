@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { Step } from '../../hooks';
 import { useBuyNowData } from '../../../../useBuyNowData';
-import { truncateAddress, truncateDomain } from '@zero-tech/zui';
+import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
 
 import {
 	DetailsContentType,

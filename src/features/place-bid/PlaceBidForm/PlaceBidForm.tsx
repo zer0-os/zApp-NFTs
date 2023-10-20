@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { usePlaceBidForm } from './hooks';
 import { useFormSteps } from './FormSteps/hooks';
 
-import { Wizard } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './PlaceBidForm.module.scss';
 

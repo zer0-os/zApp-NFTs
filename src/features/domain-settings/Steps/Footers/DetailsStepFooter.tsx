@@ -4,9 +4,9 @@ import { ConfirmActionType } from '../..';
 import { useDomainSettingsData } from '../../hooks';
 
 import { FormErrorText } from '../../../ui';
-import { Button } from '@zero-tech/zui';
-import { InfoTooltip } from '@zero-tech/zui';
-import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui';
+import { Button } from '@zero-tech/zui/components';
+import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
+import { IconLock1, IconLockUnlocked1 } from '@zero-tech/zui/components/icons';
 
 import styles from './Footer.module.scss';
 

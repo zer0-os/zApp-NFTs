@@ -7,7 +7,7 @@ import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
 import { TreasuryForm, TreasuryFormProps } from './';
 import { CreateDAOFormContext } from '../';
 
-let onSubmit = jest.fn();
+const onSubmit = jest.fn();
 
 const DEFAULT_PROPS: TreasuryFormProps = {
 	onClose: jest.fn(),

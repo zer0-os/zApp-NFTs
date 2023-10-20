@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { TextStack } from '@zero-tech/zui';
+import { TextStack } from '@zero-tech/zui/components';
 
 import styles from './DAOSummaryField.module.scss';
 import classNames from 'classnames';

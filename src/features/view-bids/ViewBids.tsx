@@ -3,12 +3,12 @@ import { FC, useState } from 'react';
 import { useWeb3 } from '../../lib/hooks';
 import { useViewBidsData } from './useViewBidsData';
 import { formatEthers, sortBidsByTime } from '../../lib/util';
-import { truncateAddress } from '@zero-tech/zui';
+import { truncateAddress } from '@zero-tech/zui/utils';
 import { Bid } from '@zero-tech/zauction-sdk';
 import moment from 'moment';
 
 import { AcceptBidButton } from '../accept-bid';
-import { TextStack, Wizard } from '@zero-tech/zui';
+import { TextStack, Wizard } from '@zero-tech/zui/components';
 
 import styles from './ViewBids.module.scss';
 

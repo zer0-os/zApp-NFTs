@@ -5,7 +5,7 @@ import { BasicModalProps } from '../../../lib/types/ui';
 
 import { TransferOwnershipForm } from '../TransferOwnershipForm';
 import { ConnectWallet } from '../../ui/ConnectWallet';
-import { Modal } from '@zero-tech/zui';
+import { Modal } from '@zero-tech/zui/components';
 
 import styles from './TransferOwnershipModal.module.scss';
 
@@ -17,7 +17,6 @@ export interface TransferOwnershipModalProps extends BasicModalProps {
 export const TransferOwnershipModal: FC<TransferOwnershipModalProps> = ({
 	zna,
 	open,
-	trigger,
 	onClose,
 	onOpenChange,
 	...modalProps

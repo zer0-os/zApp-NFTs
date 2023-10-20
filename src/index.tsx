@@ -5,9 +5,8 @@ import { ChainGate } from './lib/util/ChainGate';
 import { Web3Provider } from './lib/providers/Web3Provider';
 import { ZnsSdkProvider } from './lib/providers/ZnsSdkProvider';
 import { ZsaleSdkProvider } from './lib/providers/ZsaleSdkProvider';
-import { Provider as ReduxProvider } from 'react-redux';
 
-import { ZUIProvider } from '@zero-tech/zui';
+import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
 
 import { App } from './App';
 

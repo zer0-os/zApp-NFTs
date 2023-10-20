@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useFormSteps } from './FormSteps/hooks';
 import { useTransferOwnershipForm } from './hooks/useTransferOwnershipForm';
 
-import { Wizard } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './TransferOwnershipForm.module.scss';
 

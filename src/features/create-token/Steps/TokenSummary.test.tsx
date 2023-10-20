@@ -7,7 +7,7 @@ import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
 import { TokenSummary, TokenSummaryProps } from './';
 import { CreateTokenFormContext } from '../CreateTokenFormContext';
 
-let onSubmit = jest.fn();
+const onSubmit = jest.fn();
 
 const DEFAULT_PROPS: TokenSummaryProps = {
 	onClose: jest.fn(),

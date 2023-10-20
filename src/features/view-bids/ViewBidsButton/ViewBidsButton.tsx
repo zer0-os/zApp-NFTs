@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { ViewBidsModal } from '../ViewBidsModal';
-import { IconLinkExternal1 } from '@zero-tech/zui';
+import { IconLinkExternal1 } from '@zero-tech/zui/components/icons';
 
 import styles from './ViewBidsButton.module.scss';
 

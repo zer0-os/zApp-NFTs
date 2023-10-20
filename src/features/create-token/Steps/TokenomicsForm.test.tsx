@@ -7,7 +7,7 @@ import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
 import { TokenomicsForm, TokenomicsFormProps } from './';
 import { CreateTokenFormContext } from '../';
 
-let onSubmit = jest.fn();
+const onSubmit = jest.fn();
 
 const DEFAULT_PROPS: TokenomicsFormProps = {
 	onClose: jest.fn(),

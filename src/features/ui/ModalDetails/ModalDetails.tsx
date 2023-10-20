@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { HTMLTextElement } from '@zero-tech/zui/lib/types';
 
-import { SkeletonText, TextStack } from '@zero-tech/zui';
+import { SkeletonText, TextStack } from '@zero-tech/zui/components';
 
 import styles from './ModalDetails.module.scss';
 

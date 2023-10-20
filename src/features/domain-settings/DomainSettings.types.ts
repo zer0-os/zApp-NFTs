@@ -1,6 +1,6 @@
 import { StakingRequests } from '@zero-tech/zns-sdk';
 
-import { Step } from '@zero-tech/zui';
+import { Step } from '@zero-tech/zui/components';
 
 export enum FormStep {
 	DETAILS = 'details',
@@ -43,6 +43,7 @@ export type FieldValues = {
 export interface DetailsFormSubmit {
 	title: string;
 	description: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attributes: any;
 	image: string;
 	image_full: string;

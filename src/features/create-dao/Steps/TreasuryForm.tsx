@@ -3,7 +3,7 @@ import { FC, useContext } from 'react';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 
-import { Wizard } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
 import { WrappedInput } from '../../ui/WrappedInput/WrappedInput';
 import { CreateDAOFormContext } from '../';
 
@@ -47,6 +47,7 @@ export const TreasuryForm: FC<TreasuryFormProps> = ({ onClose }) => {
 							})}
 							href="https://www.daomasters.xyz/tools/gnosis-safe#:~:text=Gnosis%20Safe%20is%20a%20smart,off%20on%20any%20fund%20transfers"
 							target="_blank"
+							rel="noreferrer"
 						>
 							Learn More
 						</a>

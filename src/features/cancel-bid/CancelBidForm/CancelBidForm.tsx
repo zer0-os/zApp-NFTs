@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useCancelBidForm } from './hooks';
 
 import { Step, useFormSteps } from './FormSteps/hooks';
-import { Wizard } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
 
 import styles from './CancelBidForm.module.scss';
 

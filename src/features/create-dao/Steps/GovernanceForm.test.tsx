@@ -7,7 +7,7 @@ import { ZUIProvider } from '@zero-tech/zui/ZUIProvider';
 import { GovernanceForm, GovernanceFormProps } from './';
 import { CreateDAOFormContext } from '../';
 
-let onSubmit = jest.fn();
+const onSubmit = jest.fn();
 
 const DEFAULT_PROPS: GovernanceFormProps = {
 	onClose: jest.fn(),

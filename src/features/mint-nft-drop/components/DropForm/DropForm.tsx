@@ -7,7 +7,7 @@ import { useMint } from '../../lib/useMint';
 import { useBalanceEth } from '../../../../lib/hooks';
 
 import { Info, SelectAmount, Finished, Loading } from './Steps';
-import { Wizard } from '@zero-tech/zui';
+import { Wizard } from '@zero-tech/zui/components';
 
 import { Stage, Step } from '../../lib/types';
 
@@ -37,13 +37,17 @@ export const DropForm = (props: MintDropNFTWizardProps) => {
 	const { mint } = useMint();
 	const { data: balanceEth } = useBalanceEth();
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [transactionStatus, setTransactionStatus] = useState<string>(
 		'Confirm wallet transaction to begin minting your Wheels',
 	);
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [transactionError, setTransactionError] = useState<
 		string | undefined
 	>();
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const onContinueFromInfo = () => {
 		if (balanceEth !== undefined) {
 			if (balanceEth.lt(props.pricePerNFT)) {

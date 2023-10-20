@@ -1,10 +1,10 @@
-import { FC, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 
-import { MediaInput, MediaType } from '@zero-tech/zui';
-import { Wizard } from '@zero-tech/zui';
+import { MediaInput, MediaType } from '@zero-tech/zui/components';
+import { Wizard } from '@zero-tech/zui/components';
 import { WrappedInput } from '../../ui/WrappedInput/WrappedInput';
 import { CreateDAOFormContext } from '../';
 
@@ -21,7 +21,7 @@ export interface DetailsFormProps {
 	onClose: () => void;
 }
 
-export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
+export const DetailsForm = ({ onClose }: DetailsFormProps) => {
 	const { details, onDetailsSubmit } = useContext(CreateDAOFormContext);
 
 	const [avatarHasError, setAvatarHasError] = useState(false);
@@ -32,6 +32,7 @@ export const DetailsForm: FC<DetailsFormProps> = ({ onClose }) => {
 		image: Buffer,
 		setFieldValue: (
 			field: string,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			value: any,
 			shouldValidate?: boolean,
 		) => void,
