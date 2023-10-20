@@ -14,7 +14,12 @@
 	padding: 2.406rem 1rem; // 38.5px 16px
 	box-sizing: border-box;
 
-	background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 51.04%), #23142F;
+	background: linear-gradient(
+			90deg,
+			rgba(0, 0, 0, 0.5) 0%,
+			rgba(0, 0, 0, 0) 51.04%
+		),
+		#23142f;
 
 	border: none;
 	border-radius: 1rem;
@@ -38,7 +43,7 @@
 		h2 {
 			font-size: 1.125rem !important; // 18px
 			font-weight: bold;
-			color: #934BCE;
+			color: #934bce;
 		}
 
 		span {
@@ -55,7 +60,7 @@
 		display: flex;
 		gap: 0.25rem;
 
-		color: #01F4CB;
+		color: #01f4cb;
 		font-weight: bold;
 
 		flex-shrink: 0;
@@ -74,4 +79,3 @@
 		z-index: -1;
 	}
 }
-

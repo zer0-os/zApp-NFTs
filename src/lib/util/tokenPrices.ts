@@ -9,19 +9,17 @@ export const tokenToUsd = async (token: string): Promise<number> => {
 
 	let priceInUsd: Maybe<number>;
 
-	
-		const res = await fetch(
-			`https://api.coingecko.com/api/v3/simple/price?ids=${token}&vs_currencies=usd`,
-		);
+	const res = await fetch(
+		`https://api.coingecko.com/api/v3/simple/price?ids=${token}&vs_currencies=usd`,
+	);
 
-		const data = await res.json();
+	const data = await res.json();
 
-		if (!data[token]) {
-			throw Error(`Unable to fetch price for ${token}`);
-		}
+	if (!data[token]) {
+		throw Error(`Unable to fetch price for ${token}`);
+	}
 
-		priceInUsd = data[token].usd as number;
-	
+	priceInUsd = data[token].usd as number;
 
 	tokenToUsdCache[token] = priceInUsd;
 

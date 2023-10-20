@@ -56,4 +56,3 @@ export const Countdown = (props: CountdownProps) => {
 
 	return <>{label}</>;
 };
-

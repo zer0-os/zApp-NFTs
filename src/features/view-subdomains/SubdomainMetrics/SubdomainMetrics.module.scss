@@ -1,9 +1,9 @@
 @import '../../../styles/breakpoints';
 
 .Stats {
-    display: none;
+	display: none;
 
-    @include container-breakpoint(500) {
-        display: flex;
-    }
+	@include container-breakpoint(500) {
+		display: flex;
+	}
 }
