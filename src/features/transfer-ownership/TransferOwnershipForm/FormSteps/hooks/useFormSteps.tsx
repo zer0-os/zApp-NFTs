@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { Complete, Confirm, Details } from '..';
-import { Wizard } from '@zero-tech/zui/components';
+import { Wizard } from '@zero-tech/zui';
 
 export enum Step {
 	DETAILS,

@@ -2,11 +2,11 @@ import { FC } from 'react';
 
 import { formatEthers } from '../../../../../lib/util';
 import { useAcceptBidData } from '../../../useAcceptBidData';
-import { truncateAddress } from '@zero-tech/zui/utils';
+import { truncateAddress } from '@zero-tech/zui';
 import { Bid } from '@zero-tech/zauction-sdk';
 
 import { NFTDetails, TextContent } from '../ui';
-import { Wizard } from '@zero-tech/zui/components/Wizard';
+import { Wizard } from '@zero-tech/zui';
 
 import styles from '../FormSteps.module.scss';
 

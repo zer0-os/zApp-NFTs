@@ -1,4 +1,4 @@
-import { Spinner } from '@zero-tech/zui/components/LoadingIndicator';
+import { Spinner } from '@zero-tech/zui';
 
 import styles from './Loading.module.scss';
 

@@ -9,7 +9,7 @@ import {
 	waitFor,
 } from '@testing-library/react';
 
-import { truncateAddress } from '@zero-tech/zui/utils';
+import { truncateAddress } from '@zero-tech/zui';
 
 import { TransferOwnershipForm } from './TransferOwnershipForm';
 

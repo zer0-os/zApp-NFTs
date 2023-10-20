@@ -1,4 +1,4 @@
-import { TextStack } from '@zero-tech/zui/components';
+import { TextStack } from '@zero-tech/zui';
 
 export interface FormUserBalanceProps {
 	tokenBalance: string;

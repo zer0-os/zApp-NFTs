@@ -1,6 +1,6 @@
 import React, { createContext, useState, FC } from 'react';
 
-import { Step } from '@zero-tech/zui/components';
+import { Step } from '@zero-tech/zui';
 import {
 	DetailsFormSubmit,
 	GovernanceFormSubmit,

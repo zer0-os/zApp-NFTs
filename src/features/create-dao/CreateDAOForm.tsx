@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Wizard } from '@zero-tech/zui/components/Wizard/Wizard';
+import { Wizard } from '@zero-tech/zui';
 import {
 	CreateDAOBody,
 	CreateDAOHeader,

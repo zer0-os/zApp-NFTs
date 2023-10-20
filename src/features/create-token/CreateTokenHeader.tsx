@@ -2,8 +2,8 @@ import { FC, useContext } from 'react';
 
 import { CreateTokenFormContext, steps } from './';
 
-import { Wizard, StepBar } from '@zero-tech/zui/components';
-import { IconXClose } from '@zero-tech/zui/components/Icons';
+import { Wizard, StepBar } from '@zero-tech/zui';
+import { IconXClose } from '@zero-tech/zui';
 
 import styles from './CreateTokenHeader.module.scss';
 

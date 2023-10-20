@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { useCancelBidData } from '../../../useCancelBidData';
 
 import { NFTDetails } from '../ui';
-import { SkeletonText } from '@zero-tech/zui/components';
-import { Wizard, ButtonsProps } from '@zero-tech/zui/components/Wizard';
+import { SkeletonText } from '@zero-tech/zui';
+import { Wizard, ButtonsProps } from '@zero-tech/zui';
 
 import styles from '../FormSteps.module.scss';
 

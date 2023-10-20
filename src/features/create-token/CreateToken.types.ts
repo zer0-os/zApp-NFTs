@@ -1,4 +1,4 @@
-import { Step, MediaType } from '@zero-tech/zui/components';
+import { Step, MediaType } from '@zero-tech/zui';
 
 export const steps: Step[] = [
 	{

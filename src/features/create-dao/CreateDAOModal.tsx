@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 
 import { BasicModalProps } from '../../lib/types/ui';
 
-import { Modal } from '@zero-tech/zui/components';
+import { Modal } from '@zero-tech/zui';
 import { CreateDAOForm } from './';
 
 export interface CreateDAOModalProps extends BasicModalProps {

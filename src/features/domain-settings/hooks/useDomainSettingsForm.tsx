@@ -17,7 +17,7 @@ import { Instance } from '@zero-tech/zns-sdk';
 import { useTransaction } from '@zero-tech/zapp-utils/hooks/useTransaction';
 
 import { ConfirmForm, DetailsForm } from '../Steps';
-import { Step, Wizard } from '@zero-tech/zui/components';
+import { Step, Wizard } from '@zero-tech/zui';
 import { useQueryClient } from 'react-query';
 
 export type UseDomainSettingsFormFormReturn = {

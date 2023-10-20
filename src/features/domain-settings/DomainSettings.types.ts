@@ -1,6 +1,6 @@
 import { StakingRequests } from '@zero-tech/zns-sdk';
 
-import { Step } from '@zero-tech/zui/components';
+import { Step } from '@zero-tech/zui';
 
 export enum FormStep {
 	DETAILS = 'details',

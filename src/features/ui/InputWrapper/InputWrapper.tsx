@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { InfoTooltip } from '@zero-tech/zui/components/InfoTooltip';
+import { InfoTooltip } from '@zero-tech/zui';
 
 import styles from './InputWrapper.module.scss';
 import classNames from 'classnames';

@@ -1,6 +1,6 @@
 import React, { createElement, ReactNode, useEffect, useState } from 'react';
 
-import { IconArrowNarrowUpRight } from '@zero-tech/zui/icons';
+import { IconArrowNarrowUpRight } from '@zero-tech/zui';
 import styles from './Banner.module.scss';
 
 /////////////////

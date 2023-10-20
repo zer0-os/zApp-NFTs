@@ -1,11 +1,6 @@
-import { IconLightning2 } from '@zero-tech/zui/components/Icons';
+import { IconLightning2 } from '@zero-tech/zui';
 import { DropdownIconLabel } from '../ui/DropdownIconLabel/DropdownIconLabel';
-import {
-	Step,
-	ToggleOptions,
-	MediaType,
-	DropdownItem,
-} from '@zero-tech/zui/components';
+import { Step, ToggleOptions, MediaType, DropdownItem } from '@zero-tech/zui';
 
 export const steps: Step[] = [
 	{

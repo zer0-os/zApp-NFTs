@@ -18,12 +18,8 @@ import {
 } from '../../../../../lib/util';
 import { NFT_ASSET_SHARE_KEYS } from '../../../../../lib/helpers';
 
-import {
-	IconDotsVertical,
-	IconDownload2,
-	IconShare7,
-} from '@zero-tech/zui/components/Icons';
-import { DropdownMenu, Tooltip } from '@zero-tech/zui/components';
+import { IconDotsVertical, IconDownload2, IconShare7 } from '@zero-tech/zui';
+import { DropdownMenu, Tooltip } from '@zero-tech/zui';
 
 import styles from './Options.module.scss';
 

@@ -4,7 +4,7 @@ import { useCancelBidData } from '../../../useCancelBidData';
 import { Bid } from '@zero-tech/zauction-sdk';
 
 import { TextContent } from '../ui';
-import { Wizard, ConfirmationProps } from '@zero-tech/zui/components/Wizard';
+import { Wizard, ConfirmationProps } from '@zero-tech/zui';
 
 import styles from '../FormSteps.module.scss';
 

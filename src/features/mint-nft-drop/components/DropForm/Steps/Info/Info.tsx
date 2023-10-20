@@ -10,7 +10,7 @@ import { useDropUserPurchases } from '../../../../lib/useDropUserPurchases';
 import { useWeb3 } from '../../../../../../lib/hooks';
 
 import { Loading } from '../Loading';
-import { ArrowLink } from '@zero-tech/zui/components/Link/ArrowLink';
+import { ArrowLink } from '@zero-tech/zui';
 
 import styles from './Info.module.scss';
 

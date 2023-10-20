@@ -8,10 +8,10 @@ import {
 	getHashFromIPFSUrl,
 	getWebIPFSUrlFromHash,
 } from '../../../lib/util';
-import { truncateAddress } from '@zero-tech/zui/utils';
+import { truncateAddress } from '@zero-tech/zui';
 
 import { StatsList } from '../../ui';
-import { ArrowLink } from '@zero-tech/zui/components/Link/ArrowLink';
+import { ArrowLink } from '@zero-tech/zui';
 
 import styles from './TokenHashInfo.module.scss';
 

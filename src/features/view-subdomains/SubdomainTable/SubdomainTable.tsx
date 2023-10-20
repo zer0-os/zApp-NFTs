@@ -16,7 +16,7 @@ import {
 	TableStatusMessage,
 	View,
 	ViewToggle,
-} from '@zero-tech/zui/components/Table';
+} from '@zero-tech/zui';
 import { SubdomainTableCard } from '../SubdomainTableCard';
 import { SubdomainTableRow } from '../SubdomainTableRow';
 

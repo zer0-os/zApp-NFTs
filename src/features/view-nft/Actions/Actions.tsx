@@ -8,7 +8,7 @@ import { SetBuyNowButton } from '../../set-buy-now';
 import { PlaceBidButton } from '../../place-bid';
 import { ViewBidsButton } from '../../view-bids';
 import { CancelBidButton } from '../../cancel-bid';
-import { TextStack } from '@zero-tech/zui/components';
+import { TextStack } from '@zero-tech/zui';
 
 import styles from './Actions.module.scss';
 

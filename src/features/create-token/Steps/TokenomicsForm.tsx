@@ -3,7 +3,7 @@ import { FC, useContext } from 'react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { Wizard } from '@zero-tech/zui/components';
+import { Wizard } from '@zero-tech/zui';
 import { WrappedInput } from '../../ui/WrappedInput/WrappedInput';
 import { CreateTokenFormContext } from '..';
 

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Input } from '@zero-tech/zui/components/Input';
+import { Input } from '@zero-tech/zui';
 import { InputWrapper } from '../InputWrapper/InputWrapper';
 
 export type WrappedInputProps = {

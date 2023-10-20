@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { DomainSettingsHeader } from '.';
 import { useDomainSettingsForm } from './hooks';
 
-import { Wizard } from '@zero-tech/zui/components';
+import { Wizard } from '@zero-tech/zui';
 
 export type DomainSettingsFormProps = {
 	zna: string;

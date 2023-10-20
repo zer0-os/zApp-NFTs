@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { getDomainId } from '../../../lib/util/domains/domains';
 import { useDomainMetadata } from '../../../lib/hooks/useDomainMetadata';
 
-import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
-import { ArrowLink } from '@zero-tech/zui/components/Link';
+import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui';
+import { ArrowLink } from '@zero-tech/zui';
 
 import { SubdomainViewSelector } from '../selectors';
 

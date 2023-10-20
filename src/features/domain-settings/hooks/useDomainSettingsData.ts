@@ -5,7 +5,7 @@ import {
 	useIsDomainMetadataLocked,
 } from '../../../lib/hooks';
 import { getDomainId } from '../../../lib/util';
-import { truncateAddress } from '@zero-tech/zui/utils';
+import { truncateAddress } from '@zero-tech/zui';
 
 export const useDomainSettingsData = (zna: string) => {
 	const domainId = getDomainId(zna);

@@ -1,6 +1,6 @@
 import { FC, ReactNode, useCallback, useRef } from 'react';
 
-import { Alert, AlertProps } from '@zero-tech/zui/components';
+import { Alert, AlertProps } from '@zero-tech/zui';
 
 import styles from './TextArea.module.scss';
 

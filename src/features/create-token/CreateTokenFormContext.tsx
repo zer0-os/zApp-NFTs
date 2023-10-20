@@ -5,7 +5,7 @@ import { TokenMintOptions } from '@zero-tech/ztoken-sdk/src/types';
 
 import { useWeb3 } from '../../lib/hooks/useWeb3';
 
-import { Step } from '@zero-tech/zui/components';
+import { Step } from '@zero-tech/zui';
 import { DetailsFormSubmit, TokenomicsFormSubmit, steps } from './';
 
 export const CreateTokenFormContext = createContext({

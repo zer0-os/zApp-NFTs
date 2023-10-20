@@ -5,7 +5,7 @@ import { BasicModalProps } from '../../../lib/types/ui';
 
 import { CancelBidForm } from '..';
 import { ConnectWallet } from '../../ui/ConnectWallet';
-import { Modal } from '@zero-tech/zui/components';
+import { Modal } from '@zero-tech/zui';
 
 import styles from './CancelBidModal.module.scss';
 

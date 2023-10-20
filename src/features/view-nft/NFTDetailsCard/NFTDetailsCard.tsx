@@ -6,7 +6,7 @@ import { useDomainData, useDomainMetadata } from '../../../lib/hooks';
 
 import { Options } from './ui/Options';
 import { Member } from '../../ui/Member';
-import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui/components';
+import { SkeletonText, SkeletonTextProps } from '@zero-tech/zui';
 
 import styles from './NFTDetailsCard.module.scss';
 

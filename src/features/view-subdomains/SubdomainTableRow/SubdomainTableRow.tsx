@@ -4,8 +4,8 @@ import { useSubdomainTableItem } from '../useSubdomainTableItem';
 
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
-import { SkeletonText } from '@zero-tech/zui/components/SkeletonText';
-import { Cell } from '@zero-tech/zui/components/Table';
+import { SkeletonText } from '@zero-tech/zui';
+import { Cell } from '@zero-tech/zui';
 import { IpfsMedia } from '@zero-tech/zapp-utils/components';
 
 import styles from './SubdomainTableRow.module.scss';

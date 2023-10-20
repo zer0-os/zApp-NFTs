@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { TextContent } from '../ui/TextContent';
-import { Wizard } from '@zero-tech/zui/components/Wizard';
+import { Wizard } from '@zero-tech/zui';
 
 export interface ConfirmProps {
 	errorText?: string;

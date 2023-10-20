@@ -1,4 +1,4 @@
-import { Column } from '@zero-tech/zui/components/AsyncTable';
+import { Column } from '@zero-tech/zui';
 
 export const COLUMNS: Column[] = [
 	{ id: 'domain', header: 'Domain', alignment: 'left' },

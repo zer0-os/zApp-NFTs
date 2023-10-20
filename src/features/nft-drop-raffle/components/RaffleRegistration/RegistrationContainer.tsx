@@ -1,5 +1,5 @@
 import { Maybe } from '@zero-tech/zsale-sdk';
-import { Modal } from '@zero-tech/zui/components';
+import { Modal } from '@zero-tech/zui';
 import { useWeb3 } from '../../../../lib/hooks';
 
 import { RaffleRegistration } from './RaffleRegistration';

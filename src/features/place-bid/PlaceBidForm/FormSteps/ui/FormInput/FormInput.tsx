@@ -4,8 +4,8 @@ import { usePlaceBidData } from '../../../../usePlaceBidData';
 
 import { ExternalLinks } from '..';
 import { FormErrorText, FormTextContent } from '../../../../../ui';
-import { Input } from '@zero-tech/zui/components/Input';
-import { Button } from '@zero-tech/zui/components/Button';
+import { Input } from '@zero-tech/zui';
+import { Button } from '@zero-tech/zui';
 
 import styles from '../../FormSteps.module.scss';
 

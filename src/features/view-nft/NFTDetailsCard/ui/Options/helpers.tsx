@@ -12,7 +12,7 @@ import {
 	IconSend3,
 	IconTag1,
 	IconVideoRecorder,
-} from '@zero-tech/zui/components/Icons';
+} from '@zero-tech/zui';
 
 export const enum DropdownOptionType {
 	CREATE_TOKEN = 'create-token',

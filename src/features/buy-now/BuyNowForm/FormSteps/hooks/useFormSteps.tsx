@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { Complete, Details } from '..';
 import { ApproveZAuction } from '../../../../ui';
-import { Wizard } from '@zero-tech/zui/components';
+import { Wizard } from '@zero-tech/zui';
 
 export enum Step {
 	DETAILS,

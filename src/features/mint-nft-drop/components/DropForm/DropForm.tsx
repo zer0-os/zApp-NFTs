@@ -7,7 +7,7 @@ import { useMint } from '../../lib/useMint';
 import { useBalanceEth } from '../../../../lib/hooks';
 
 import { Info, SelectAmount, Finished, Loading } from './Steps';
-import { Wizard } from '@zero-tech/zui/components';
+import { Wizard } from '@zero-tech/zui';
 
 import { Stage, Step } from '../../lib/types';
 

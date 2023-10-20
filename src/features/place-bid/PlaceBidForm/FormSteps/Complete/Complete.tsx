@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { NFTDetails } from '../ui';
 import { FormTextContent } from '../../../../ui';
-import { Wizard } from '@zero-tech/zui/components/Wizard';
+import { Wizard } from '@zero-tech/zui';
 
 import styles from '../FormSteps.module.scss';
 

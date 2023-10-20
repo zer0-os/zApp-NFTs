@@ -1,5 +1,5 @@
 import { FormTextContent } from '../FormTextContent';
-import { Wizard } from '@zero-tech/zui/components/Wizard';
+import { Wizard } from '@zero-tech/zui';
 
 import styles from './ApproveZAuction.module.scss';
 

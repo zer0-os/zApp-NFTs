@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { formatEthers } from '../../../../../../lib/util';
 import { useTransferOwnershipData } from '../../../../useTransferOwnershipData';
-import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
+import { truncateAddress, truncateDomain } from '@zero-tech/zui';
 
 import { ModalDetailsContainer, Media, ModalDetails } from '../../../../../ui';
 

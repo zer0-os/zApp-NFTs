@@ -3,8 +3,8 @@ import { FC, useContext, useState } from 'react';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 
-import { Wizard } from '@zero-tech/zui/components';
-import { MediaInput, MediaType } from '@zero-tech/zui/components/MediaInput';
+import { Wizard } from '@zero-tech/zui';
+import { MediaInput, MediaType } from '@zero-tech/zui';
 import { WrappedInput } from '../../ui/WrappedInput/WrappedInput';
 
 import { CreateTokenFormContext } from '..';

@@ -2,7 +2,7 @@ import { useZnsSdk } from '../../../lib/hooks';
 import { useQuery } from 'react-query';
 import { getDomainId } from '../../../lib/util';
 
-import { useDebounce } from '@zero-tech/zui/lib/hooks/useDebounce';
+import { useDebounce } from '@zero-tech/zui';
 
 /**
  * Note: only searches for an exact match

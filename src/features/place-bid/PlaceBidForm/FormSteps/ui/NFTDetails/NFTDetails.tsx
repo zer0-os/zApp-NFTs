@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { formatEthers } from '../../../../../../lib/util';
 import { usePlaceBidData } from '../../../../usePlaceBidData';
-import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
+import { truncateAddress, truncateDomain } from '@zero-tech/zui';
 
 import { ViewBidsButton } from '../../../../../view-bids';
 import { Media, ModalDetails, ModalDetailsContainer } from '../../../../../ui';

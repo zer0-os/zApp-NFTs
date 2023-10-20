@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Step } from '../../hooks';
 import { useCancelBidData } from '../../../../useCancelBidData';
 import { formatEthers } from '../../../../../../lib/util';
-import { truncateAddress, truncateDomain } from '@zero-tech/zui/utils';
+import { truncateAddress, truncateDomain } from '@zero-tech/zui';
 
 import { Media, ModalDetails, ModalDetailsContainer } from '../../../../../ui';
 

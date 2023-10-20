@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Input, Wizard } from '@zero-tech/zui/components';
+import { Button, Input, Wizard } from '@zero-tech/zui';
 
 import styles from './RaffleRegistration.module.scss';
-import { Spinner } from '@zero-tech/zui/components/LoadingIndicator';
+import { Spinner } from '@zero-tech/zui';
 
 import iconDiscord from '../../../assets/discord.png';
 import iconTwitter from '../../../assets/twitter.png';

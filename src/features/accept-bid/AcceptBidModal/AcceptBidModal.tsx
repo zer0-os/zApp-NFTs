@@ -6,7 +6,7 @@ import { Bid } from '@zero-tech/zauction-sdk';
 
 import { AcceptBidForm } from '..';
 import { ConnectWallet } from '../../ui/ConnectWallet';
-import { Modal } from '@zero-tech/zui/components';
+import { Modal } from '@zero-tech/zui';
 
 import styles from './AcceptBidModal.module.scss';
 

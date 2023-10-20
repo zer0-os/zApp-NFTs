@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { IconChevronDown } from '@zero-tech/zui/components/Icons';
-import { DropdownItem, DropdownMenu, Input } from '@zero-tech/zui/components';
+import { IconChevronDown } from '@zero-tech/zui';
+import { DropdownItem, DropdownMenu, Input } from '@zero-tech/zui';
 import { InputWrapper } from '../InputWrapper/InputWrapper';
 
 import styles from './WrappedDropdownMenu.module.scss';

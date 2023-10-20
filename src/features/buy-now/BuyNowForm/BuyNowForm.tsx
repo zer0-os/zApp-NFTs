@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useBuyNowForm } from './hooks';
 
 import { Step, useFormSteps } from './FormSteps/hooks';
-import { Wizard } from '@zero-tech/zui/components';
+import { Wizard } from '@zero-tech/zui';
 
 import styles from './BuyNowForm.module.scss';
 

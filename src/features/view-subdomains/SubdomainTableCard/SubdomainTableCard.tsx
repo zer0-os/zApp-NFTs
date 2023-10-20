@@ -12,8 +12,8 @@ import { getHashFromIpfsUrl } from '@zero-tech/zapp-utils/utils/ipfs';
 
 import { PlaceBidButton } from '../../place-bid';
 import { BuyNowButton } from '../../buy-now';
-import { GridCard } from '@zero-tech/zui/components/GridCard';
-import { NFT } from '@zero-tech/zui/components/GridCard/templates/NFT';
+import { GridCard } from '@zero-tech/zui';
+import { NFT } from '@zero-tech/zui';
 
 import styles from './SubdomainTableCard.module.scss';
 

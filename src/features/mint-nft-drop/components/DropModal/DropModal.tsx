@@ -4,7 +4,7 @@ import { DropForm } from '../DropForm';
 
 import { useWeb3 } from '../../../../lib/hooks';
 
-import { Modal } from '@zero-tech/zui/components';
+import { Modal } from '@zero-tech/zui';
 import { BigNumber } from 'ethers';
 
 export interface MintDropNFTProps {

@@ -6,7 +6,7 @@ import { sortEventsByTimestamp } from './HistoryList.utils';
 import { usePaymentToken, useDomainEvents } from '../../../lib/hooks';
 
 import { HistoryItem } from '../HistoryItem';
-import { Skeleton } from '@zero-tech/zui/components';
+import { Skeleton } from '@zero-tech/zui';
 
 import styles from './HistoryList.module.scss';
 
